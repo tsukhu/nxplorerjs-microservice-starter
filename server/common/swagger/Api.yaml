@@ -2,7 +2,7 @@ swagger: "2.0"
 info:
   version: 1.0.0
   title: express-microservice
-  description: WLL Orchestration Layer
+  description: Express Microservice Starter
 basePath: /api/v1
 tags:
   - name: Examples

@@ -1,6 +1,6 @@
 # express-microservice
 
-WLL Orchestration Layer
+Express Microservice Starter Template
 
 ## Pre-requisites
 
