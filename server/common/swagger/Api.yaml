@@ -7,8 +7,6 @@ basePath: /api/v1
 tags:
   - name: Examples
     description: Simple example endpoints
-  - name: Cart
-    description: Simple cart endpoints
 consumes:
   - application/json
 produces:
@@ -63,42 +61,4 @@ paths:
         200:
           description: Return the example with the specified id
         404:
-          description: Example not 
-  /cart:
-    get:
-      tags:
-        - Cart
-      description: Fetch all cart
-      responses:
-        200:
-          description: Returns all cart
-    post:
-      tags:
-        - cart
-      description: Create a new cart
-      parameters:
-        - name: body
-          in: body
-          description: number of items to skip
-          required: true
-          schema: 
-            $ref: "#/definitions/ExampleBody"
-      responses:
-        200:
-          description: Returns all cart
-
-  /cart/{id}:
-    get:
-      tags:
-        - Cart
-      parameters:
-        - name: id
-          in: path
-          required: true
-          description: The id of the entity to retrieve
-          type: integer
-      responses:
-        200:
-          description: Return the example with the specified id
-        404:
-          description: Example not 
+          description: Example not available
