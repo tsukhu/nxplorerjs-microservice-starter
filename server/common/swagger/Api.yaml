@@ -62,3 +62,95 @@ paths:
           description: Return the example with the specified id
         404:
           description: Example not available
+  /shop/products:
+      get:
+        tags:
+          - Products
+        description: Fetch all examples
+        responses:
+          200:
+            description: Returns all examples
+  /shop/products/{id}:
+      get:
+        tags:
+          - Products
+        parameters:
+          - name: id
+            in: path
+            required: true
+            description: The id of the entity to retrieve
+            type: integer
+        responses:
+          200:
+            description: Return the example with the specified id
+          404:
+            description: Example not available
+  /shop/productOptions:
+      get:
+        tags:
+          - Products
+        description: Fetch all examples
+        responses:
+          200:
+            description: Returns all examples
+  /shop/productOptions/{id}:
+      get:
+        tags:
+          - Products
+        parameters:
+          - name: id
+            in: path
+            required: true
+            description: The id of the entity to retrieve
+            type: integer
+        responses:
+          200:
+            description: Return the example with the specified id
+          404:
+            description: Example not available
+  /shop/prices:
+      get:
+        tags:
+          - Products
+        description: Fetch all examples
+        responses:
+          200:
+            description: Returns all examples
+  /shop/prices/{id}:
+      get:
+        tags:
+          - Products
+        parameters:
+          - name: id
+            in: path
+            required: true
+            description: The id of the entity to retrieve
+            type: integer
+        responses:
+          200:
+            description: Return the example with the specified id
+          404:
+            description: Example not available
+  /shop/inventory:
+      get:
+        tags:
+          - Products
+        description: Fetch all examples
+        responses:
+          200:
+            description: Returns all examples
+  /shop/inventory/{id}:
+      get:
+        tags:
+          - Products
+        parameters:
+          - name: id
+            in: path
+            required: true
+            description: The id of the entity to retrieve
+            type: integer
+        responses:
+          200:
+            description: Return the example with the specified id
+          404:
+            description: Example not available
