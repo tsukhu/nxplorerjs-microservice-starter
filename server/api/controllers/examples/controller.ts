@@ -22,6 +22,7 @@ export class Controller {
     ExamplesService
       .byPostsByID(req.params.id)
       .map(r => r.body)
+      .timeout(7000)
       .subscribe(
       result => {
         l.info(<Quote>result);

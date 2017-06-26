@@ -5,7 +5,7 @@ import * as path from 'path';
 
 
 export default function (app: Application, routes: (app: Application) => void) {
-  middleware(path.join(__dirname, 'Api.yaml'), app, function(err, middleware) {
+  middleware('./server/common/swagger/Api.yaml', app, function(err, middleware) {
 
     // enable Express' case-sensitive and strict options
     // (so "/entities", "/Entities", and "/Entities/" are all different)

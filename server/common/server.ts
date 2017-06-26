@@ -18,7 +18,14 @@ const app = express();
 
 export default class ExpressServer {
   constructor() {
-    const root: string = path.normalize(__dirname + '/../..');
+    let root: string;
+    // console.log(process.env.NODE_ENV);
+    if (process.env.NODE_ENV === 'development') {
+      root = path.normalize(__dirname + '/../..');
+    }
+    else {
+      root = path.normalize('.');
+    }
     app.set('appPath', root + 'client');
     app.use(bodyParser.json());
     app.use(bodyParser.urlencoded({ extended: true }));

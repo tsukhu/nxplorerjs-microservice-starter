@@ -8,6 +8,7 @@ lib-cov
 *.gz
 *.swp
 npm-debug.*
+*.bak
 
 pids
 logs
