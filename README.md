@@ -38,6 +38,12 @@ npm run test
 npm run test:coverage
 ```
 
+#### Build Docker image
+
+```
+./build-docker.sh
+```
+
 ### Try It
 * Point you're browser to [http://localhost:3000](http://localhost:3000)
 * Invoke the example REST endpoint `curl http://localhost:3000/api/v1/examples`
