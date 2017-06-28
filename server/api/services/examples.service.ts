@@ -1,7 +1,7 @@
 import * as Promise from 'bluebird';
 import { Observable } from 'rxjs';
 import { Example } from '../models/example.model';
-
+const rp: any = require('request-promise');
 
 const rxHttp: any = require('node-rx-http');
 
@@ -24,7 +24,7 @@ export class ExamplesService {
 
   public byPostsByID(id: number): Observable<any> {
     const url: string = 'http://jsonplaceholder.typicode.com/posts/' + id;
-    return rxHttp.get(url);
+    return Observable.fromPromise(rp(url));
   }
 
   public create(name: string): Promise<Example> {

@@ -154,3 +154,18 @@ paths:
             description: Return the example with the specified id
           404:
             description: Example not available
+  /starwars/people/{id}:
+      get:
+        tags:
+          - Starwars
+        parameters:
+          - name: id
+            in: path
+            required: true
+            description: The id of the entity to retrieve
+            type: integer
+        responses:
+          200:
+            description: Return the example with the specified id
+          404:
+            description: Example not available

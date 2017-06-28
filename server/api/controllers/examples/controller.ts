@@ -21,7 +21,6 @@ export class Controller {
     l.info(req.originalUrl);
     ExamplesService
       .byPostsByID(req.params.id)
-      .map(r => r.body)
       .timeout(7000)
       .subscribe(
       result => {

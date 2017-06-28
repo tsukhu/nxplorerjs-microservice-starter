@@ -1,13 +1,15 @@
 export interface BaseProductOption {
-    optionId: number;
+    baseProductOptionId: number;
     description: string;
+    price?: number;
+    inventory?: number;
 }
 
 export interface BaseProduct {
     id: number;
     name: string;
     description: string;
-    baseProductOptions: BaseProductOption[];
+    baseProductOptions: Array<BaseProductOption>;
 }
 
 export interface BaseProductPrice {

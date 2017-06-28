@@ -11,7 +11,7 @@
             "spaces"
         ],
         "jsdoc-format": true,
-        "linebreak-style": [true, "CRLF"],
+        "linebreak-style": [true, "LF"],
         "next-line": [true,
             "check-catch",
             "check-else"
