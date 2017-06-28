@@ -54,5 +54,8 @@ npm run test:coverage
 * Typedocs – Java Docs
 * Docker/Kubernetes Build
 * Jenkins for CI/CD
-* Security – Ratelimit , CSRF, HTTPs
+* Security – CSRF, HTTPs
+
+### License
+MIT
 
