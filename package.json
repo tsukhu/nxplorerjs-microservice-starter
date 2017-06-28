@@ -5,6 +5,7 @@
   "main": "index.js",
   "scripts": {
     "start": "cd build && node main",
+    "start:docker": "node main",
     "compile": "node build.js && backpack build",
     "dev": "node build.js && backpack dev | bunyan -o short",
     "test": "ts-node node_modules/jasmine/bin/jasmine.js JASMINE_CONFIG_PATH=jasmine.json",
@@ -20,8 +21,10 @@
     "express": "^4.14.0",
     "lodash": "^4.17.4",
     "node-rx-http": "^1.0.1",
+    "prom-client": "^9.1.1",
     "request": "^2.81.0",
     "request-promise": "^4.2.1",
+    "response-time": "^2.3.2",
     "rx": "^4.1.0",
     "source-map-support": "^0.4.12",
     "swagger-express-middleware": "^1.0.0-alpha.12",
