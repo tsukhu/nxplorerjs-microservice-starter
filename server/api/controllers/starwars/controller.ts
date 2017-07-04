@@ -4,6 +4,7 @@ import { Observable } from 'rxjs/Observable';
 import { ErrorResponseBuilder } from '../../services/response-builder';
 import { HttpError } from '../../models/error.model';
 import { AppMetrics } from '../../services/metrics';
+import { HttpStatus } from 'http-status-codes';
 import * as bunyan from 'bunyan';
 
 const l: bunyan = bunyan.createLogger({
@@ -18,9 +19,9 @@ export class Controller {
       .timeout(process.env.TIME_OUT)
       .subscribe(r => {
         if (r === undefined) {
-          res.status(404).end();
+          res.status(HttpStatus.NOT_FOUND).end();
         } else {
-          res.status(200).json(r);
+          res.status(HttpStatus.OK).json(r);
         }
         AppMetrics.getInstance().logAPIMetrics(req, res, req.statusCode);
       },
@@ -28,13 +29,13 @@ export class Controller {
         const error: HttpError = <HttpError>err;
         const resp = new ErrorResponseBuilder()
           .setTitle(error.name)
-          .setStatus(404)
+          .setStatus(HttpStatus.NOT_FOUND)
           .setDetail(error.stack)
           .setMessage(error.message)
           .setSource(req.url)
           .build();
-        res.status(404).json(resp);
-        AppMetrics.getInstance().logAPIMetrics(req, res, 404);
+        res.status(HttpStatus.NOT_FOUND).json(resp);
+        AppMetrics.getInstance().logAPIMetrics(req, res, HttpStatus.NOT_FOUND);
       }
       );
   }

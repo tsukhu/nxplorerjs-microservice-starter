@@ -132,11 +132,11 @@ export class ProductService {
     }
 
     public baseProductOptionsbyId(id: number): Observable<BaseProductOption> {
-        const results = _.filter(baseProductOptions, options => {
+        const results: BaseProductOption[] = _.filter(baseProductOptions, options => {
             // tslint:disable-next-line:triple-equals
             return options.baseProductOptionId == id;
         });
-        return Observable.from(_.take(results, 1));
+        return Observable.of(results[0]);
     }
 
     public allBaseProductPrice(): Observable<BaseProductPrice[]> {
@@ -156,11 +156,11 @@ export class ProductService {
     }
 
     public baseProductInventorybyId(id: number): Observable<BaseProductInventory> {
-        const results = _.filter(baseProductInventory, inv => {
+        const results: BaseProductInventory[] = _.filter(baseProductInventory, inv => {
             // tslint:disable-next-line:triple-equals
             return inv.baseProductOptionId == id;
         });
-        return Observable.from(_.take(results, 1));
+        return Observable.of(results[0]);
     }
 }
 

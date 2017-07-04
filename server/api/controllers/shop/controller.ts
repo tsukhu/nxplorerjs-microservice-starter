@@ -4,6 +4,7 @@ import { Observable } from 'rxjs/Observable';
 import { ErrorResponseBuilder } from '../../services/response-builder';
 import { HttpError } from '../../models/error.model';
 import { AppMetrics } from '../../services/metrics';
+import { HttpStatus } from 'http-status-codes';
 import * as bunyan from 'bunyan';
 
 const l: bunyan = bunyan.createLogger({
@@ -20,20 +21,20 @@ export class Controller {
       .allBaseProducts()
       .subscribe(
       result => {
-        res.status(200).json(result);
-        AppMetrics.getInstance().logAPIMetrics(req, res, 200);
+        res.status(HttpStatus.OK).json(result);
+        AppMetrics.getInstance().logAPIMetrics(req, res, HttpStatus.OK);
       },
       err => {
         const error: HttpError = <HttpError>err;
         const resp = new ErrorResponseBuilder()
           .setTitle(error.name)
-          .setStatus(404)
+          .setStatus(HttpStatus.NOT_FOUND)
           .setDetail(error.stack)
           .setMessage(error.message)
           .setSource(req.url)
           .build();
-        res.status(404).json(resp);
-        AppMetrics.getInstance().logAPIMetrics(req, res, 404);
+        res.status(HttpStatus.NOT_FOUND).json(resp);
+        AppMetrics.getInstance().logAPIMetrics(req, res, HttpStatus.NOT_FOUND);
       }
       );
   }
@@ -43,20 +44,20 @@ export class Controller {
       .allBaseProductOptions()
       .subscribe(
       result => {
-        res.status(200).json(result);
-        AppMetrics.getInstance().logAPIMetrics(req, res, 200);
+        res.status(HttpStatus.OK).json(result);
+        AppMetrics.getInstance().logAPIMetrics(req, res, HttpStatus.OK);
       },
       err => {
         const error: HttpError = <HttpError>err;
         const resp = new ErrorResponseBuilder()
           .setTitle(error.name)
-          .setStatus(404)
+          .setStatus(HttpStatus.NOT_FOUND)
           .setDetail(error.stack)
           .setMessage(error.message)
           .setSource(req.url)
           .build();
-        res.status(404).json(resp);
-        AppMetrics.getInstance().logAPIMetrics(req, res, 404);
+        res.status(HttpStatus.NOT_FOUND).json(resp);
+        AppMetrics.getInstance().logAPIMetrics(req, res, HttpStatus.NOT_FOUND);
       }
       );
   }
@@ -66,20 +67,20 @@ export class Controller {
       .allBaseProductPrice()
       .subscribe(
       result => {
-        res.status(200).json(result);
-        AppMetrics.getInstance().logAPIMetrics(req, res, 200);
+        res.status(HttpStatus.OK).json(result);
+        AppMetrics.getInstance().logAPIMetrics(req, res, HttpStatus.OK);
       },
       err => {
         const error: HttpError = <HttpError>err;
         const resp = new ErrorResponseBuilder()
           .setTitle(error.name)
-          .setStatus(404)
+          .setStatus(HttpStatus.NOT_FOUND)
           .setDetail(error.stack)
           .setMessage(error.message)
           .setSource(req.url)
           .build();
-        res.status(404).json(resp);
-        AppMetrics.getInstance().logAPIMetrics(req, res, 404);
+        res.status(HttpStatus.NOT_FOUND).json(resp);
+        AppMetrics.getInstance().logAPIMetrics(req, res, HttpStatus.NOT_FOUND);
       }
       );
   }
@@ -89,20 +90,20 @@ export class Controller {
       .allBaseProductInventory()
       .subscribe(
       result => {
-        res.status(200).json(result);
-        AppMetrics.getInstance().logAPIMetrics(req, res, 200);
+        res.status(HttpStatus.OK).json(result);
+        AppMetrics.getInstance().logAPIMetrics(req, res, HttpStatus.OK);
       },
       err => {
         const error: HttpError = <HttpError>err;
         const resp = new ErrorResponseBuilder()
           .setTitle(error.name)
-          .setStatus(404)
+          .setStatus(HttpStatus.NOT_FOUND)
           .setDetail(error.stack)
           .setMessage(error.message)
           .setSource(req.url)
           .build();
-        res.status(404).json(resp);
-        AppMetrics.getInstance().logAPIMetrics(req, res, 404);
+        res.status(HttpStatus.NOT_FOUND).json(resp);
+        AppMetrics.getInstance().logAPIMetrics(req, res, HttpStatus.NOT_FOUND);
       }
       );
   }
@@ -113,10 +114,10 @@ export class Controller {
       .subscribe(r => {
         if (r) {
           res.json(r);
-          AppMetrics.getInstance().logAPIMetrics(req, res, 200);
+          AppMetrics.getInstance().logAPIMetrics(req, res, HttpStatus.OK);
         } else {
-          res.status(404).end();
-          AppMetrics.getInstance().logAPIMetrics(req, res, 404);
+          res.status(HttpStatus.NOT_FOUND).end();
+          AppMetrics.getInstance().logAPIMetrics(req, res, HttpStatus.NOT_FOUND);
         }
       });
   }
@@ -127,10 +128,10 @@ export class Controller {
       .subscribe(r => {
         if (r) {
           res.json(r);
-          AppMetrics.getInstance().logAPIMetrics(req, res, 200);
+          AppMetrics.getInstance().logAPIMetrics(req, res, HttpStatus.OK);
         } else {
-          res.status(404).end();
-          AppMetrics.getInstance().logAPIMetrics(req, res, 404);
+          res.status(HttpStatus.NOT_FOUND).end();
+          AppMetrics.getInstance().logAPIMetrics(req, res, HttpStatus.NOT_FOUND);
         }
       });
   }
@@ -141,10 +142,10 @@ export class Controller {
       .subscribe(r => {
         if (r) {
           res.json(r);
-          AppMetrics.getInstance().logAPIMetrics(req, res, 200);
+          AppMetrics.getInstance().logAPIMetrics(req, res, HttpStatus.OK);
         } else {
-          res.status(404).end();
-          AppMetrics.getInstance().logAPIMetrics(req, res, 404);
+          res.status(HttpStatus.NOT_FOUND).end();
+          AppMetrics.getInstance().logAPIMetrics(req, res, HttpStatus.NOT_FOUND);
         }
       });
   }
@@ -155,10 +156,10 @@ export class Controller {
       .subscribe(r => {
         if (r) {
           res.json(r);
-          AppMetrics.getInstance().logAPIMetrics(req, res, 200);
+          AppMetrics.getInstance().logAPIMetrics(req, res, HttpStatus.OK);
         } else {
-          res.status(404).end();
-          AppMetrics.getInstance().logAPIMetrics(req, res, 404);
+          res.status(HttpStatus.NOT_FOUND).end();
+          AppMetrics.getInstance().logAPIMetrics(req, res, HttpStatus.NOT_FOUND);
         }
       });
   }
