@@ -61,6 +61,9 @@ export class Controller {
       );
   }
 
+  /**
+   * Check by ID
+   */
   public byId(req: Request, res: Response): void {
     ExamplesService
       .byId(req.params.id)
