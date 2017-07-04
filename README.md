@@ -1,6 +1,6 @@
 # express-microservice
 
-Node JS  Express Microservice Starter Template
+Node JS Express Microservice Starter Template
 
 ## Features
 
@@ -67,6 +67,7 @@ npm run test:coverage
 ### Try It
 * Point you're browser to [http://localhost:3000](http://localhost:3000)
 * Invoke the example REST endpoint `curl http://localhost:3000/api/v1/examples`
+* Invoke the prometheus metrics using the endpoint `curl http://localhost:3000/metrics`
    
 
 ### License
