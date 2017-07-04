@@ -150,6 +150,9 @@ export class Controller {
       });
   }
 
+/**
+ * Check by ID
+ */
   public baseProductInventorybyId(req: Request, res: Response): void {
     ProductService
       .baseProductInventorybyId(req.params.id)
