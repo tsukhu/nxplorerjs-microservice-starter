@@ -86,6 +86,10 @@ export class Controller {
       });
   }
 
+  /**
+   * Create request sample
+   * Add a new element to the in memory Sample object
+   */
   public create(req: Request, res: Response): void {
     ExamplesService
       .create(req.body.name)
