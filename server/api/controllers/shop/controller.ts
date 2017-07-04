@@ -4,7 +4,7 @@ import { Observable } from 'rxjs/Observable';
 import { ErrorResponseBuilder } from '../../services/response-builder';
 import { HttpError } from '../../models/error.model';
 import { AppMetrics } from '../../services/metrics';
-import { HttpStatus } from 'http-status-codes';
+import { HttpStatus } from '../../services/http-status-codes';
 import * as bunyan from 'bunyan';
 
 const l: bunyan = bunyan.createLogger({
