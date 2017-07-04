@@ -10,6 +10,10 @@ const l: bunyan = bunyan.createLogger({
   level: process.env.LOG_LEVEL,
   name: process.env.APP_ID
 });
+
+/**
+ * Shop API Controller
+ */
 export class Controller {
   public allBaseProducts(req: Request, res: Response): void {
     ProductService
@@ -63,7 +67,7 @@ export class Controller {
       .subscribe(
       result => {
         res.status(200).json(result);
-        AppMetrics.getInstance().logAPIMetrics(req, res , 200);
+        AppMetrics.getInstance().logAPIMetrics(req, res, 200);
       },
       err => {
         const error: HttpError = <HttpError>err;
@@ -75,7 +79,7 @@ export class Controller {
           .setSource(req.url)
           .build();
         res.status(404).json(resp);
-        AppMetrics.getInstance().logAPIMetrics(req, res , 404);
+        AppMetrics.getInstance().logAPIMetrics(req, res, 404);
       }
       );
   }
@@ -98,7 +102,7 @@ export class Controller {
           .setSource(req.url)
           .build();
         res.status(404).json(resp);
-        AppMetrics.getInstance().logAPIMetrics(req, res , 404);
+        AppMetrics.getInstance().logAPIMetrics(req, res, 404);
       }
       );
   }
@@ -109,8 +113,10 @@ export class Controller {
       .subscribe(r => {
         if (r) {
           res.json(r);
+          AppMetrics.getInstance().logAPIMetrics(req, res, 200);
         } else {
           res.status(404).end();
+          AppMetrics.getInstance().logAPIMetrics(req, res, 404);
         }
       });
   }
@@ -121,8 +127,10 @@ export class Controller {
       .subscribe(r => {
         if (r) {
           res.json(r);
+          AppMetrics.getInstance().logAPIMetrics(req, res, 200);
         } else {
           res.status(404).end();
+          AppMetrics.getInstance().logAPIMetrics(req, res, 404);
         }
       });
   }
@@ -133,8 +141,10 @@ export class Controller {
       .subscribe(r => {
         if (r) {
           res.json(r);
+          AppMetrics.getInstance().logAPIMetrics(req, res, 200);
         } else {
           res.status(404).end();
+          AppMetrics.getInstance().logAPIMetrics(req, res, 404);
         }
       });
   }
@@ -145,8 +155,10 @@ export class Controller {
       .subscribe(r => {
         if (r) {
           res.json(r);
+          AppMetrics.getInstance().logAPIMetrics(req, res, 200);
         } else {
           res.status(404).end();
+          AppMetrics.getInstance().logAPIMetrics(req, res, 404);
         }
       });
   }

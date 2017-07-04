@@ -19,6 +19,7 @@
     "cookie-parser": "^1.4.3",
     "dotenv": "^2.0.0",
     "express": "^4.14.0",
+    "http-status-codes": "^1.1.6",
     "lodash": "^4.17.4",
     "node-rx-http": "^1.0.1",
     "prom-client": "^9.1.1",
@@ -43,6 +44,8 @@
     "supertest": "^3.0.0",
     "ts-node": "^3.1.0",
     "tslint-loader": "^3.5.3",
+    "typedoc": "^0.7.1",
+    "typedoc-webpack-plugin": "^1.1.4",
     "typescript": "2.3.4"
   }
 }

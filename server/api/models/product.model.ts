@@ -9,11 +9,11 @@ export interface BaseProduct {
     id: number;
     name: string;
     description: string;
-    baseProductOptions: Array<BaseProductOption>;
+    baseProductOptions: BaseProductOption[];
 }
 
 export interface BaseProductPrice {
-    id: number;
+    id?: number;
     baseProductOptionId: number;
     price: number;
 }
