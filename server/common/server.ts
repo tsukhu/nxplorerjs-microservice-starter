@@ -21,6 +21,10 @@ const app = express();
 // Init
 const Prometheus = require('prom-client');
 
+const collectDefaultMetrics = Prometheus.collectDefaultMetrics;
+
+// Probe every 5th second.
+collectDefaultMetrics(5000);
 
 export default class ExpressServer {
   constructor() {

@@ -1,6 +1,9 @@
 import ProductService from '../../services/product.service';
 import { Request, Response } from 'express';
 import { Observable } from 'rxjs/Observable';
+import { ErrorResponseBuilder } from '../../services/response-builder';
+import { HttpError } from '../../models/error.model';
+import { AppMetrics } from '../../services/metrics';
 import * as bunyan from 'bunyan';
 
 const l: bunyan = bunyan.createLogger({
@@ -12,8 +15,22 @@ export class Controller {
     ProductService
       .allBaseProducts()
       .subscribe(
-      result => res.status(200).json(result),
-      error => res.status(500).json(error)
+      result => {
+        res.status(200).json(result);
+        AppMetrics.getInstance().logAPIMetrics(req, res, 200);
+      },
+      err => {
+        const error: HttpError = <HttpError>err;
+        const resp = new ErrorResponseBuilder()
+          .setTitle(error.name)
+          .setStatus(404)
+          .setDetail(error.stack)
+          .setMessage(error.message)
+          .setSource(req.url)
+          .build();
+        res.status(404).json(resp);
+        AppMetrics.getInstance().logAPIMetrics(req, res, 404);
+      }
       );
   }
 
@@ -21,8 +38,22 @@ export class Controller {
     ProductService
       .allBaseProductOptions()
       .subscribe(
-      result => res.status(200).json(result),
-      error => res.status(500).json(error)
+      result => {
+        res.status(200).json(result);
+        AppMetrics.getInstance().logAPIMetrics(req, res, 200);
+      },
+      err => {
+        const error: HttpError = <HttpError>err;
+        const resp = new ErrorResponseBuilder()
+          .setTitle(error.name)
+          .setStatus(404)
+          .setDetail(error.stack)
+          .setMessage(error.message)
+          .setSource(req.url)
+          .build();
+        res.status(404).json(resp);
+        AppMetrics.getInstance().logAPIMetrics(req, res, 404);
+      }
       );
   }
 
@@ -30,8 +61,22 @@ export class Controller {
     ProductService
       .allBaseProductPrice()
       .subscribe(
-      result => res.status(200).json(result),
-      error => res.status(500).json(error)
+      result => {
+        res.status(200).json(result);
+        AppMetrics.getInstance().logAPIMetrics(req, res , 200);
+      },
+      err => {
+        const error: HttpError = <HttpError>err;
+        const resp = new ErrorResponseBuilder()
+          .setTitle(error.name)
+          .setStatus(404)
+          .setDetail(error.stack)
+          .setMessage(error.message)
+          .setSource(req.url)
+          .build();
+        res.status(404).json(resp);
+        AppMetrics.getInstance().logAPIMetrics(req, res , 404);
+      }
       );
   }
 
@@ -39,8 +84,22 @@ export class Controller {
     ProductService
       .allBaseProductInventory()
       .subscribe(
-      result => res.status(200).json(result),
-      error => res.status(500).json(error)
+      result => {
+        res.status(200).json(result);
+        AppMetrics.getInstance().logAPIMetrics(req, res, 200);
+      },
+      err => {
+        const error: HttpError = <HttpError>err;
+        const resp = new ErrorResponseBuilder()
+          .setTitle(error.name)
+          .setStatus(404)
+          .setDetail(error.stack)
+          .setMessage(error.message)
+          .setSource(req.url)
+          .build();
+        res.status(404).json(resp);
+        AppMetrics.getInstance().logAPIMetrics(req, res , 404);
+      }
       );
   }
 
