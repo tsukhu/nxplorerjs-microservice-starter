@@ -15,11 +15,12 @@ Node JS Express Microservice Starter Template
 * Prometheus integration
 * API Response Logging
 * Reactive Extensions support - RxJS
-* CORS, Throttling
+* CORS, JSONObject Limit
 * Documentation - TypeDocs
 * API Exception Handling Utilities
 * Standard HTTP Codes for cleaner code
 * Sample APIs, Patterns for reference
+* VSCode Debug Launch Configuration
 
 ## Pre-requisites
 
@@ -44,9 +45,17 @@ npm run dev
 #### Run in *production* mode:
 
 ```
-npm compile
+npm run compile
 npm start
 ```
+
+#### Run in *VS Code debug* mode:
+
+```
+npm run compile
+Press F5
+```
+
 #### Runs tests:
 
 ```
@@ -69,6 +78,13 @@ npm run test:coverage
 * Invoke the example REST endpoint `curl http://localhost:3000/api/v1/examples`
 * Invoke the prometheus metrics using the endpoint `curl http://localhost:3000/metrics`
    
+### FAQ
+
+* tslint appearing in VSCode IDE
+```
+// Configure glob patterns of file paths to exclude from linting
+"tslint.exclude": "**/node_modules/**/*.ts"
+```
 
 ### License
 MIT
