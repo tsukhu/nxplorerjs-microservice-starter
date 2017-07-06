@@ -167,6 +167,36 @@ export class Controller {
       });
   }
 
+  /**
+   * Get Price of product Option using flatMap
+   * @param req Request Param
+   * @param res Response Param
+   */
+  public flatMapProductOptionPricebyId(req: Request, res: Response): void {
+     ProductService
+      .getProductOptionPricebyId(req.params.id)
+      .subscribe(r => {
+        if (r) {
+          res.json(r);
+          AppMetrics.getInstance().logAPIMetrics(req, res, HttpStatus.OK);
+        } else {
+          res.status(HttpStatus.NOT_FOUND).end();
+          AppMetrics.getInstance().logAPIMetrics(req, res, HttpStatus.NOT_FOUND);
+        }
+      },
+      err => {
+        const error: HttpError = <HttpError>err;
+        const resp = new ErrorResponseBuilder()
+          .setTitle(error.name)
+          .setStatus(HttpStatus.NOT_FOUND)
+          .setDetail(error.stack)
+          .setMessage(error.message)
+          .setSource(req.url)
+          .build();
+        res.status(HttpStatus.NOT_FOUND).json(resp);
+        AppMetrics.getInstance().logAPIMetrics(req, res, HttpStatus.NOT_FOUND);
+      });
+  }
 
 }
 export default new Controller();

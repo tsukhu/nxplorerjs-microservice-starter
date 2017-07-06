@@ -8,4 +8,5 @@ export default express.Router()
     .get('/prices', controller.allBaseProductPrice)
     .get('/prices/:id', controller.baseProductPricebyId)
     .get('/inventory', controller.allBaseProductInventory)
-    .get('/inventory/:id', controller.baseProductInventorybyId);
+    .get('/inventory/:id', controller.baseProductInventorybyId)
+    .get('/priceByOptionId/:id', controller.flatMapProductOptionPricebyId);

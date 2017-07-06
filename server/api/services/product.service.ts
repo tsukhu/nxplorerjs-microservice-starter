@@ -45,6 +45,11 @@ const baseProductPrice: BaseProductPrice[] = [
         id: prId++,
         baseProductOptionId: bpoId++,
         price: basePrice++
+    },
+    {
+        id: prId++,
+        baseProductOptionId: bpoId++,
+        price: basePrice++
     }
 ];
 
@@ -161,6 +166,42 @@ export class ProductService {
             return inv.baseProductOptionId == id;
         });
         return Observable.of(results[0]);
+    }
+
+    /**
+     * Get Product Option Price
+     * FlatMap example : Get the base product option first
+     * and then get the price for the same
+     * @param id Product Option ID
+     */
+    public getProductOptionPricebyId(id: number): Observable<BaseProductPrice[]> {
+        const loadedCharacter: AsyncSubject<BaseProductPrice[]> = new AsyncSubject<BaseProductPrice[]>();
+        const prices: BaseProductPrice[] = [];
+        this.baseProductbyId(id).flatMap(
+            (prod) => {
+                if (prod !== undefined && prod.baseProductOptions !== undefined) {
+                    for (const product of prod.baseProductOptions) {
+                        this.baseProductOptionsbyId(product.baseProductOptionId)
+                            .flatMap(
+                            (p) => {
+                                return this.baseProductPricebyId(p.baseProductOptionId);
+                            }
+                            ).subscribe(
+                            result => {
+                                prices.push(result);
+                            }
+                            );
+                    }
+                }
+                return Observable.from(prices).toArray();
+            }
+        ).subscribe(
+            (result) => {
+                loadedCharacter.next(result);
+                loadedCharacter.complete();
+            }
+            );
+        return loadedCharacter;
     }
 }
 
