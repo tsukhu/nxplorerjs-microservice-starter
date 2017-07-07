@@ -6,14 +6,14 @@ import * as http from 'http';
 import * as os from 'os';
 import * as cookieParser from 'cookie-parser';
 import swaggerify from './swagger';
-import * as bunyan from 'bunyan';
+import { LogManager } from './log-manager';
+
+
+const LOG = LogManager.getInstance().getLogger();
+
 const responseTime = require('response-time');
 
-const l: bunyan = bunyan.createLogger({
-  name: process.env.APP_ID,
-  // tslint:disable-next-line:object-literal-sort-keys
-  level: process.env.LOG_LEVEL
-});
+
 // tslint:disable-next-line:typedef
 const app = express();
 
@@ -56,7 +56,7 @@ export default class ExpressServer {
 
   public listen(port: number = process.env.PORT): Application {
     // tslint:disable
-    const welcome = port => () => l.info(`up and running in ${process.env.NODE_ENV || 'development'} @: ${os.hostname()} on port: ${port}`);
+    const welcome = port => () => LOG.info(`up and running in ${process.env.NODE_ENV || 'development'} @: ${os.hostname()} on port: ${port}`);
     http.createServer(app).listen(port, welcome(port));
     return app;
   }

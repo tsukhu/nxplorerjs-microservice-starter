@@ -9,6 +9,11 @@ import {
     BaseProductOption
 } from '../models/product.model';
 import { Planet, People } from '../models/starwars.model';
+import { LogManager } from '../../common/log-manager';
+
+
+const LOG = LogManager.getInstance().getLogger();
+
 const rp: any = require('request-promise');
 
 const rxHttp: any = require('node-rx-http');

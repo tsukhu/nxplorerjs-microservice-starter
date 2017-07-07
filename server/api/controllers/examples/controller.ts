@@ -3,14 +3,12 @@ import { Request, Response } from 'express';
 import { Quote } from '../../models/quote.model';
 import { ErrorResponseBuilder } from '../../services/response-builder';
 import { HttpError } from '../../models/error.model';
-import { AppMetrics } from '../../services/metrics';
+import { AppMetrics } from '../../../common/metrics';
 import { HttpStatus } from '../../services/http-status-codes';
-import * as bunyan from 'bunyan';
+import { LogManager } from '../../../common/log-manager';
 
-const l: bunyan = bunyan.createLogger({
-  level: process.env.LOG_LEVEL,
-  name: process.env.APP_ID
-});
+
+const LOG = LogManager.getInstance().getLogger();
 
 export class Controller {
   public all(req: Request, res: Response): void {
@@ -19,6 +17,7 @@ export class Controller {
       .then(
       result => {
         res.status(HttpStatus.OK).json(result);
+        LogManager.getInstance().logAPITrace(req, res, HttpStatus.OK);
         AppMetrics.getInstance().logAPIMetrics(req, res, HttpStatus.OK);
       },
       error => {
@@ -30,20 +29,22 @@ export class Controller {
           .setSource(req.url)
           .build();
         res.status(HttpStatus.INTERNAL_SERVER_ERROR).json(error);
+        LogManager.getInstance().logAPITrace(req, res, HttpStatus.NOT_FOUND);
         AppMetrics.getInstance().logAPIMetrics(req, res, HttpStatus.NOT_FOUND);
       }
       );
   }
 
   public byPostsByID(req: Request, res: Response): void {
-    l.info(req.originalUrl);
+    LOG.info(req.originalUrl);
     ExamplesService
       .byPostsByID(req.params.id)
-      .timeout(7000)
+      .timeout(process.env.TIME_OUT)
       .subscribe(
       result => {
-        l.info(<Quote>result);
+        LOG.info(<Quote>result);
         res.status(HttpStatus.OK).send(result);
+        LogManager.getInstance().logAPITrace(req, res, HttpStatus.OK);
         AppMetrics.getInstance().logAPIMetrics(req, res, HttpStatus.OK);
       },
       err => {
@@ -56,6 +57,7 @@ export class Controller {
           .setSource(req.url)
           .build();
         res.status(HttpStatus.NOT_FOUND).json(resp);
+        LogManager.getInstance().logAPITrace(req, res, HttpStatus.NOT_FOUND);
         AppMetrics.getInstance().logAPIMetrics(req, res , HttpStatus.NOT_FOUND);
       }
       );
@@ -70,9 +72,11 @@ export class Controller {
       .then(r => {
         if (r) {
           res.json(r);
+          LogManager.getInstance().logAPITrace(req, res, HttpStatus.OK);
           AppMetrics.getInstance().logAPIMetrics(req, res, HttpStatus.OK);
         } else {
           res.status(HttpStatus.NOT_FOUND).end();
+          LogManager.getInstance().logAPITrace(req, res, HttpStatus.NOT_FOUND);
           AppMetrics.getInstance().logAPIMetrics(req, res, HttpStatus.NOT_FOUND);
         }
       },
@@ -85,6 +89,7 @@ export class Controller {
           .setSource(req.url)
           .build();
         res.status(HttpStatus.NOT_FOUND).json(error);
+        LogManager.getInstance().logAPITrace(req, res, HttpStatus.NOT_FOUND);
         AppMetrics.getInstance().logAPIMetrics(req, res , HttpStatus.NOT_FOUND);
       });
   }
@@ -98,6 +103,7 @@ export class Controller {
       .create(req.body.name)
       .then(r => {
         res.status(HttpStatus.CREATED).location(`/api/v1/examples/${r.id}`).end();
+        LogManager.getInstance().logAPITrace(req, res, HttpStatus.CREATED);
         AppMetrics.getInstance().logAPIMetrics(req, res, HttpStatus.CREATED);
       }
       );

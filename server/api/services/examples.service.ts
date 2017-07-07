@@ -1,6 +1,11 @@
 import * as Promise from 'bluebird';
 import { Observable } from 'rxjs';
 import { Example } from '../models/example.model';
+import { LogManager } from '../../common/log-manager';
+
+
+const LOG = LogManager.getInstance().getLogger();
+
 const rp: any = require('request-promise');
 
 const rxHttp: any = require('node-rx-http');
@@ -23,8 +28,16 @@ export class ExamplesService {
   }
 
   public byPostsByID(id: number): Observable<any> {
-    const url: string = 'http://jsonplaceholder.typicode.com/posts/' + id;
-    return Observable.fromPromise(rp(url));
+    const url_options = {
+            method: 'GET',
+            uri: 'http://jsonplaceholder.typicode.com/posts/' + id,
+            resolveWithFullResponse: true,
+            json: true,
+            time: true,
+            timeout: process.env.TIME_OUT
+        };
+    LOG.info(url_options.uri);
+    return Observable.fromPromise(rp(url_options));
   }
 
   public create(name: string): Promise<Example> {
