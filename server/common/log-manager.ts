@@ -11,7 +11,9 @@ const bunyanOpts = {
         },
         {
             path: './logs/appliction.log',  // log ERROR and above to a file
-            type: 'file'
+            type: 'rotating-file',
+            period: '1d',   // daily rotation
+            count: 3        // keep 3 back copies
         }
     ]
 };

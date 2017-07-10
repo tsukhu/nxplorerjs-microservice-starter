@@ -5,8 +5,30 @@ import * as bodyParser from 'body-parser';
 import * as http from 'http';
 import * as os from 'os';
 import * as cookieParser from 'cookie-parser';
+import * as helmet from 'helmet';
 import swaggerify from './swagger';
 import { LogManager } from './log-manager';
+
+import * as bunyan from 'bunyan';
+
+import * as logger from 'express-bunyan-logger';
+
+const bunyanOpts = {
+    name: 'myapp',
+    streams: [
+        {
+            level: process.env.LOG_LEVEL,
+            stream: process.stdout,       // log INFO and above to stdout
+            type: 'stream'
+        },
+        {
+            path: './logs/server.log',  // log ERROR and above to a file
+            type: 'rotating-file',
+            period: '1d',   // daily rotation
+            count: 3        // keep 3 back copies
+        }
+    ]
+};
 
 
 const LOG = LogManager.getInstance().getLogger();
@@ -38,6 +60,8 @@ export default class ExpressServer {
     }
     app.set('appPath', root + 'client');
     app.use(bodyParser.json());
+    app.use(helmet());
+    app.use(logger(bunyanOpts));
     app.use(bodyParser.urlencoded({ extended: true }));
     app.use(cookieParser(process.env.SESSION_SECRET));
     app.use(express.static(`${root}/public`));

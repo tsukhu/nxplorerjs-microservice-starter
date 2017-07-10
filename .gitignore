@@ -11,7 +11,7 @@ npm-debug.*
 *.bak
 
 pids
-logs
+*.log
 results
 tmp
 coverage

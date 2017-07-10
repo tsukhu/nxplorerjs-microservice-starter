@@ -2,6 +2,7 @@ const s = require('shelljs');
 
 s.rm('-rf', 'build');
 s.mkdir('build');
+s.mkdir('-p','logs');
 s.cp('.env', 'build/.env');
 s.cp('-R', 'public', 'build/public');
 s.mkdir('-p', 'build/server/common/swagger');

@@ -13,9 +13,9 @@ Node JS Express Microservice Starter Template
 * Code Quality - tslint
 * Container support - Docker
 * Prometheus integration
-* API Response Logging
+* API Response Logging , Express Server Logging - Bunyan
 * Reactive Extensions support - RxJS
-* CORS, JSONObject Limit
+* CORS, JSONObject Limit , Helmet - Express Security
 * Documentation - TypeDocs
 * API Exception Handling Utilities
 * Standard HTTP Codes for cleaner code
@@ -74,18 +74,20 @@ npm run test:coverage
 ```
 
 ### Try It
+
 * Point you're browser to [http://localhost:3000](http://localhost:3000)
 * Invoke the example REST endpoints directly or via swagger `http://localhost:3000/api`
 * Invoke the prometheus metrics using the endpoint `curl http://localhost:3000/metrics`
    
 ### FAQ
 
-* tslint appearing in VSCode IDE
+* tslint error appearing in VSCode IDE for node_modules
 ```
 // Configure glob patterns of file paths to exclude from linting
 "tslint.exclude": "**/node_modules/**/*.ts"
 ```
 
 ### License
+
 MIT
 
