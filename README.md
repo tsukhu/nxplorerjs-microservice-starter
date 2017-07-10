@@ -13,7 +13,7 @@ Node JS Express Microservice Starter Template
 * Code Quality - tslint
 * Container support - Docker
 * Prometheus integration
-* API Response Logging , Express Server Logging - Bunyan
+* API Response Logging , Express Server Logging , UUID propogation - Bunyan
 * Reactive Extensions support - RxJS
 * CORS, JSONObject Limit , Helmet - Express Security
 * Documentation - TypeDocs
