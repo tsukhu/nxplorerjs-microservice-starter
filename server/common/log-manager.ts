@@ -10,7 +10,7 @@ const bunyanOpts = {
             type: 'stream'
         },
         {
-            path: './logs/appliction.log',  // log ERROR and above to a file
+            path: './logs/application.log',  // log ERROR and above to a file
             type: 'rotating-file',
             period: '1d',   // daily rotation
             count: 3        // keep 3 back copies
@@ -22,6 +22,7 @@ const bunyanOpts = {
 export class LogManager {
     private static instance: LogManager;
     private logger: bunyan;
+    private uuid: string;
 
     private constructor() {
         // do something construct...
@@ -46,10 +47,19 @@ export class LogManager {
     public logAPITrace(req: Request, res: Response, statusCode: number, message?: any) {
         const fullUrl = req.protocol + '://' + req.get('host') + req.originalUrl;
         const responseTime = res.getHeader('x-response-time');
+        const uuid = this.getUUID();
         if (message !== undefined) {
-            this.logger.info({ fullUrl, statusCode, responseTime, message });
+            this.logger.info({ uuid, fullUrl, statusCode, responseTime, message });
         } else {
-            this.logger.info({ fullUrl, statusCode , responseTime });
+            this.logger.info({ uuid, fullUrl, statusCode , responseTime });
         }
+    }
+
+    public setUUID(uuid: string) {
+        this.uuid = uuid;
+    }
+
+    public getUUID() {
+        return this.uuid;
     }
 }

@@ -66,6 +66,12 @@ export default class ExpressServer {
     app.use(cookieParser(process.env.SESSION_SECRET));
     app.use(express.static(`${root}/public`));
     app.use(responseTime({suffix : false}));
+    app.use((req: any, res, next) => {
+      // Set using X-Request-Id or generated automatically
+      console.log(req.log.fields.req_id);
+      LogManager.getInstance().setUUID(req.log.fields.req_id);
+      next();
+    });
     // Metrics endpoint
     app.get('/metrics', (req, res) => {
       res.set('Content-Type', Prometheus.register.contentType);
