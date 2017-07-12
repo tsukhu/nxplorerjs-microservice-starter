@@ -22,7 +22,7 @@ const bunyanOpts = {
             type: 'stream'
         },
         {
-            path: './logs/server.log',  // log ERROR and above to a file
+            path: process.env.LOG_DIRECTORY + 'server.log',  // log ERROR and above to a file
             type: 'rotating-file',
             period: '1d',   // daily rotation
             count: 3        // keep 3 back copies
