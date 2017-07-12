@@ -34,6 +34,17 @@ node version >= 6.x
 ```
 npm install
 ```
+## Setup *external environment*
+
+* Edit the .env file
+* Update the LOG_DIRECTORY with absolute path of the log directory
+* In the case of container deployment this could be a mounted drive as well
+
+```
+...
+LOG_DIRECTORY=E:/workspace/express-microservice-starter/logs/
+
+```
 
 ## Run It
 #### Run in *development* mode:
