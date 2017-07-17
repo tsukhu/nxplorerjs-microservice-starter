@@ -1,6 +1,7 @@
 # express-microservice
 
-Node JS Express Microservice Starter Template
+Node JS Express Reactive Microservice Starter Template
+This project provides complete Node JS based microservices template with all that will be needed features for production deployment , monitoring , debugging , logging , security. Reactive extensions based samples are added as well to demonstrate how this can be used for building a microservice API edge-service or use it as a base for building any kind of microservice.
 
 ## Features
 
@@ -20,7 +21,13 @@ Node JS Express Microservice Starter Template
 * API Exception Handling Utilities
 * Standard HTTP Codes for cleaner code
 * Sample APIs, Patterns for reference
-* VSCode Debug Launch Configuration
+* APIs
+   - examples - Basic examples with a search by ID example from the jsonplaceholder API (/examples/:id)
+   - shop     - Example of how to use Reactive Extensions for API orchestration (FlatMap) (/shop/priceByOptionId/:id)
+   - starwars - Example of how to use Reactive Extensions for API orchestration (ForkJoin) (/starwars/people/:id)
+   - Use swagger UI for the complete list of sample APIs
+   - metrics  - Prometheus based metrics added for all APIs
+* VSCode Debug Launch Configuration (Preconfigured Debug Launcher added)
 
 ## Pre-requisites
 
@@ -97,6 +104,9 @@ npm run test:coverage
 // Configure glob patterns of file paths to exclude from linting
 "tslint.exclude": "**/node_modules/**/*.ts"
 ```
+### Credits
+
+* The initial base project was generated using [generator-express-no-stress-typescript project](https://github.com/cdimascio/generator-express-no-stress-typescript) 
 
 ### License
 
