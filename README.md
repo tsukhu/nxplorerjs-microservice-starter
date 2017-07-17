@@ -26,7 +26,7 @@ This project provides complete Node JS based microservices template with all tha
    - shop     - Example of how to use Reactive Extensions for API orchestration (FlatMap) (/shop/priceByOptionId/:id)
    - starwars - Example of how to use Reactive Extensions for API orchestration (ForkJoin) (/starwars/people/:id)
    - Use swagger UI for the complete list of sample APIs
-   - metrics  - Prometheus based metrics added for all APIs
+   - metrics  - Prometheus based metrics added for all APIs (/metrics)
 * VSCode Debug Launch Configuration (Preconfigured Debug Launcher added)
 
 ## Pre-requisites
