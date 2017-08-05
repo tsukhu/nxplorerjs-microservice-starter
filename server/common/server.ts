@@ -14,20 +14,25 @@ import * as bunyan from 'bunyan';
 import * as logger from 'express-bunyan-logger';
 
 const bunyanOpts = {
-    name: 'myapp',
-    streams: [
-        {
-            level: process.env.LOG_LEVEL,
-            stream: process.stdout,       // log INFO and above to stdout
-            type: 'stream'
-        },
-        {
-            path: process.env.LOG_DIRECTORY + 'server.log',  // log ERROR and above to a file
-            type: 'rotating-file',
-            period: '1d',   // daily rotation
-            count: 3        // keep 3 back copies
-        }
-    ]
+  name: 'myapp',
+  streams: [
+    {
+      level: process.env.LOG_LEVEL,
+      stream: process.stdout,       // log INFO and above to stdout
+      type: 'stream'
+    },
+    {
+      path: process.env.LOG_DIRECTORY + 'server.log',  // log ERROR and above to a file
+      type: 'rotating-file',
+      period: '1d',   // daily rotation
+      count: 3        // keep 3 back copies
+    }
+  ]
+  /* Uncomment this for custom UUID
+  ,
+  genReqId: (req) => {
+    return req.headers['x-request-id'];
+  }*/
 };
 
 
@@ -65,7 +70,7 @@ export default class ExpressServer {
     app.use(bodyParser.urlencoded({ extended: true }));
     app.use(cookieParser(process.env.SESSION_SECRET));
     app.use(express.static(`${root}/public`));
-    app.use(responseTime({suffix : false}));
+    app.use(responseTime({ suffix: false }));
     app.use((req: any, res, next) => {
       // Set using X-Request-Id or generated automatically
       console.log(req.log.fields.req_id);

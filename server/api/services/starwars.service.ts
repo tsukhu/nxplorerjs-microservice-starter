@@ -32,8 +32,8 @@ export class StarwarsService {
             time: true,
             timeout: process.env.TIME_OUT
         };
-        const character: Observable<People> = Observable.fromPromise(rp(url1_options));
-        const characterHomeworld: Observable<Planet> = Observable.fromPromise(rp(url2_options));
+        const character: Observable<any> = Observable.fromPromise(rp(url1_options));
+        const characterHomeworld: Observable<any> = Observable.fromPromise(rp(url2_options));
 
         Observable.forkJoin([character, characterHomeworld]).subscribe(
             results => {
