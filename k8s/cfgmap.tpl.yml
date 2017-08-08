@@ -6,7 +6,7 @@ metadata:
   namespace: "${APP_NS:-default}"
 data:
   config-env: dev
-  app-id: wllgateway
+  app-id: express-service
   app-port: '3000'
   log-level: debug
   request-limit: 100kb
