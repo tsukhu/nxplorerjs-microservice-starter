@@ -1,0 +1,15 @@
+---
+apiVersion: v1
+kind: ConfigMap
+metadata:
+  name: "${APP_NAME}"
+  namespace: "${APP_NS:-default}"
+data:
+  config-env: dev
+  app-id: wllgateway
+  app-port: '3000'
+  log-level: debug
+  request-limit: 100kb
+  session-secret: mySecret
+  swagger-api-docs-root: /api/api-docs
+  log-directory: /usr/src/app/

@@ -91,6 +91,17 @@ npm run test:coverage
 ./build-docker.sh
 ```
 
+#### k8s deployment
+* Currently the setEnv.sh has been configured for minikube
+
+```
+cd k8s
+. ./setEnv.sh
+./k8s-deploy.sh
+minikube service --url=true express-microservice
+```
+
+
 ### Try It
 
 * Point you're browser to [http://localhost:3000](http://localhost:3000)

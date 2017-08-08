@@ -1,0 +1,66 @@
+---
+apiVersion: extensions/v1beta1
+kind: Deployment
+metadata:
+  name: "${APP_NAME}"
+  namespace: "${APP_NS}"
+  labels:
+    app: "${APP_NAME}"
+    version: "${VERSION:-1.0.0}"    
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: "${APP_NAME}"
+      version: "${VERSION:-1.0.0}"
+  template:
+    metadata:
+      labels:
+        app: "${APP_NAME}"
+        version: "${VERSION:-1.0.0}"
+    spec:
+      serviceAccount: "${SERVICE_ACCOUNT:-default}"
+      containers:
+      - env:
+        - name: APP_ID
+          valueFrom:
+            configMapKeyRef:
+              key: app-id
+              name: "${APP_NAME}"
+        - name: LOG_LEVEL
+          valueFrom:
+            configMapKeyRef:
+              key: log-level
+              name: "${APP_NAME}"
+        - name: REQUEST_LIMIT
+          valueFrom:
+            configMapKeyRef:
+              key: request-limit
+              name: "${APP_NAME}"
+        - name: SESSION_SECRET
+          valueFrom:
+            configMapKeyRef:
+              key: session-secret
+              name: "${APP_NAME}"
+        - name: SWAGGER_API_DOCS_ROOT
+          valueFrom:
+            configMapKeyRef:
+              key: swagger-api-docs-root
+              name: "${APP_NAME}"
+        - name: PORT
+          valueFrom:
+            configMapKeyRef:
+              key: app-port
+              name: "${APP_NAME}"
+        - name: LOG_DIRECTORY
+          valueFrom:
+            configMapKeyRef:
+              key: log-directory
+              name: "${APP_NAME}"                     
+        image: "${IMAGE_NAME}"
+        imagePullPolicy: Never
+        name: "${APP_NAME}"
+        ports:
+        - containerPort: 3000
+          protocol: TCP
+      restartPolicy: Always
