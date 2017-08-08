@@ -16,6 +16,8 @@ results
 tmp
 coverage
 
+#Kubernetes Temp files
+k8s/.*
 
 # API keys and secrets
 # .env
