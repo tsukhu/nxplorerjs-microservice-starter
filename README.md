@@ -12,7 +12,7 @@ This project provides complete Node JS based microservices template with all tha
 * Tests - Jasmine , SuperTest
 * Code Coverage - Istanbul
 * Code Quality - tslint
-* Container support - Docker
+* Container support - Docker , Kubernetes Clusters
 * Prometheus integration
 * API Response Logging , Express Server Logging , UUID propogation - Bunyan
 * Reactive Extensions support - RxJS
