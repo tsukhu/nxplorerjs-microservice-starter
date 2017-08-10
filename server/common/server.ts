@@ -89,7 +89,7 @@ export default class ExpressServer {
     return this;
   }
 
-  public listen(port: number = process.env.PORT): Application {
+  public listen(port: string = process.env.PORT): Application {
     // tslint:disable
     const welcome = port => () => LOG.info(`up and running in ${process.env.NODE_ENV || 'development'} @: ${os.hostname()} on port: ${port}`);
     http.createServer(app).listen(port, welcome(port));

@@ -15,7 +15,7 @@ export class Controller {
   public getPeopleById(req: Request, res: Response): void {
     StarwarsService
       .getPeopleById(req.params.id)
-      .timeout(process.env.TIME_OUT)
+      .timeout(+process.env.TIME_OUT)
       .subscribe(r => {
         if (r === undefined) {
           res.status(HttpStatus.NOT_FOUND).end();

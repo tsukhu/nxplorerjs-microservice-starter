@@ -39,7 +39,7 @@ export class Controller {
     LOG.info(req.originalUrl);
     ExamplesService
       .byPostsByID(req.params.id)
-      .timeout(process.env.TIME_OUT)
+      .timeout(+process.env.TIME_OUT)
       .subscribe(
       result => {
         LOG.info(<Quote>result);
