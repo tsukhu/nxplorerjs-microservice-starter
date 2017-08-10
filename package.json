@@ -8,6 +8,7 @@
     "start:docker": "node main",
     "compile": "node build.js && backpack build",
     "dev": "node build.js && backpack dev | bunyan -o short",
+    "dash": "nodejs-dashboard -- node -r nodejs-dashboard build/main",
     "test": "ts-node node_modules/jasmine/bin/jasmine.js JASMINE_CONFIG_PATH=jasmine.json",
     "test:coverage": "ts-node node_modules/istanbul/lib/cli.js cover -e .ts  -x \"*.d.ts\" -x \"*.spec.ts\" node_modules/jasmine/bin/jasmine.js -- JASMINE_CONFIG_PATH=jasmine.json"
   },

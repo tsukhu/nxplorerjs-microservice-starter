@@ -28,6 +28,7 @@ This project provides complete Node JS based microservices template with all tha
    - Use swagger UI for the complete list of sample APIs
    - metrics  - Prometheus based metrics added for all APIs (/metrics)
 * VSCode Debug Launch Configuration (Preconfigured Debug Launcher added)
+* Node Dashboard view added for telemetry during development process
 
 ## Pre-requisites
 
@@ -36,6 +37,12 @@ Install npm and nodeJS
 npm version >= 3.x
 node version >= 6.x
 
+* To use the node dashboard view , install node dashboard at the global level 
+
+```
+npm install -g nodejs-dashboard
+
+```
 ## Install It
 
 ```
@@ -100,7 +107,14 @@ cd k8s
 ./k8s-deploy.sh
 minikube service --url=true express-microservice
 ```
+#### Using node dashboard view (Development Only)
+* To use the node dashboard view
 
+```
+npm run compile
+npm run dash
+```
+* This will start up the application with the node dashboard attached providing details of the memory , cpu and logs
 
 ### Try It
 
