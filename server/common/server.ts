@@ -1,5 +1,6 @@
 import * as express from 'express';
 import { Application } from 'express';
+import * as partialResponse from 'express-partial-response';
 import * as path from 'path';
 import * as bodyParser from 'body-parser';
 import * as http from 'http';
@@ -71,6 +72,7 @@ export default class ExpressServer {
     app.use(cookieParser(process.env.SESSION_SECRET));
     app.use(express.static(`${root}/public`));
     app.use(responseTime({ suffix: false }));
+    app.use(partialResponse());
     app.use((req: any, res, next) => {
       // Set using X-Request-Id or generated automatically
       console.log(req.log.fields.req_id);

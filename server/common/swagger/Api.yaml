@@ -179,6 +179,11 @@ paths:
             required: true
             description: The id of the entity to retrieve
             type: integer
+          - name: fields
+            in: query
+            required: false
+            description: Custom List of fields to be rendered
+            type: string
         responses:
           200:
             description: Return the example with the specified id
