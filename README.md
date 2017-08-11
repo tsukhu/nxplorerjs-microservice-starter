@@ -31,7 +31,7 @@ This project provides complete Node JS based microservices template with all tha
 ```
     curl http://localhost:3000/api/v1/starwars/people/1
 ```
-Response
+- Response
 ```
     {
         name: "Luke Skywalker",
@@ -102,6 +102,7 @@ Response
 ```
     curl http://localhost:3000/api/v1/starwars/people/1?fields=name,gender,homeworld(gravity,population)
 ```
+- Response
 ```
     {
         name: "Luke Skywalker",
