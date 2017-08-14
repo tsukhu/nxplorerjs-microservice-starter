@@ -4,7 +4,7 @@
   "description": "Express Microservice Starter Project",
   "main": "index.js",
   "scripts": {
-    "start": "cd build && node main",
+    "start": "node build/main",
     "start:docker": "node main",
     "compile": "node build.js && backpack build",
     "dev": "node build.js && backpack dev | bunyan -o short",
