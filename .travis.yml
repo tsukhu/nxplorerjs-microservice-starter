@@ -12,4 +12,6 @@ jobs:
         - npm run test:coverage
     - stage: package
       script:
+        - npm install
+        - npm run compile
         - docker build -t tsukhu/express-microservice .
