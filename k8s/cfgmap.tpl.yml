@@ -12,4 +12,4 @@ data:
   request-limit: 100kb
   session-secret: mySecret
   swagger-api-docs-root: /api/api-docs
-  log-directory: /usr/src/app/
+  log-directory: ./logs

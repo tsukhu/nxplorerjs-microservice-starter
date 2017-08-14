@@ -1,17 +1,18 @@
 FROM node:boron-alpine
 
 # Create app directory
-RUN mkdir -p /usr/src/app
-WORKDIR /usr/src/app
+RUN mkdir -p /var/www
+RUN mkdir -p /var/www/logs
+WORKDIR /var/www
 
 # Install app dependencies
-COPY package.json /usr/src/app/
+COPY package.json /var/www/
 RUN npm --production install
 
 # Bundle app source
-COPY build /usr/src/app/
-RUN chmod 755 /usr/src/app/
-# RUN ls -lRa /usr/src/app/* 
+COPY build /var/www/
+RUN chmod -R 755 /var/www/
+# RUN ls -lRa /var/www/* 
 
 EXPOSE 3000
 CMD [ "node", "main" ]
