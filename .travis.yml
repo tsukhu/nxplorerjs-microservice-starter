@@ -9,9 +9,10 @@ jobs:
     - stage: test
       script:
         - npm install
+        - npm run compile
         - npm run test:coverage
     - stage: package
       script:
         - npm install
-        - npm run compile
+#       - npm run compile
         - docker build -t tsukhu/express-microservice .
