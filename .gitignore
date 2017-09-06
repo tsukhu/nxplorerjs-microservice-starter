@@ -16,6 +16,9 @@ results
 tmp
 coverage
 
+# Sonar scanner Temp files
+.scannerwork
+
 #Kubernetes Temp files
 k8s/.*
 

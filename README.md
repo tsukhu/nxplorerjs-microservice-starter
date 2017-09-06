@@ -23,6 +23,7 @@ This project provides complete Node JS based microservices template with all tha
 * API Exception Handling Utilities
 * Standard HTTP Codes for cleaner code
 * Sample APIs, Patterns for reference
+* Sonar Qube integration
 * APIs
    - examples - Basic examples with a search by ID example from the jsonplaceholder API (/examples/:id)
    - shop     - Example of how to use Reactive Extensions for API orchestration (FlatMap) (/shop/priceByOptionId/:id)
@@ -210,6 +211,20 @@ npm run dash
 * Invoke the example REST endpoints directly or via swagger `http://localhost:3000/api`
 * Invoke the prometheus metrics using the endpoint `curl http://localhost:3000/metrics`
    
+### integrate with SonarCube (for continous code quality)
+Assuming you have SonarCube 5.5.6 (LTS) installed
+* Setup SonarCube with the [Sonar Typescript plugin](https://github.com/Pablissimo/SonarTsPlugin#installation)
+* Install sonar-scanner globally (`npm install --global sonar-scanner`)
+* Update [`sonar-project.properties`](sonar-project.properties) file for the property `sonar.host.url` to point to your SonarCube server. By default this assumes that the SonarCube server is running locally using the default port
+* Run the unit tests
+```bash
+npm run test
+```
+* Push results to SonarCube
+```bash
+npm run sonar-scanner
+``` 
+
 ### FAQ
 
 * tslint error appearing in VSCode IDE for node_modules
