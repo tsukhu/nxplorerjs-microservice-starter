@@ -1,0 +1,8 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<unitTest version="1">
+    <file path="E:\workspace\express-microservice-starter\server\routes.spec.ts">
+        <testCase name="Express-Microservice: routes spec should get 200 response from home page" duration="467"/>
+        <testCase name="Express-Microservice: routes spec should get 200 response example" duration="969"/>
+        <testCase name="Express-Microservice: routes spec should get 404 from unknown route" duration="16"/>
+    </file>
+</unitTest>

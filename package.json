@@ -9,9 +9,42 @@
     "compile": "node build.js && backpack build",
     "dev": "node build.js && backpack dev | bunyan -o short",
     "dash": "nodejs-dashboard -- node -r nodejs-dashboard build/main",
-    "test": "node build.js && ts-node node_modules/jasmine/bin/jasmine.js JASMINE_CONFIG_PATH=jasmine.json",
-    "test:coverage": "node build.js && ts-node node_modules/istanbul/lib/cli.js cover -e .ts  -x \"*.d.ts\" -x \"*.spec.ts\" node_modules/jasmine/bin/jasmine.js -- JASMINE_CONFIG_PATH=jasmine.json",
+    "test": "node build.js && jest --forceExit",
     "sonar-scanner": "sonar-scanner"
+  },
+  "jest": {
+    "moduleFileExtensions": [
+      "js",
+      "jsx",
+      "json",
+      "ts",
+      "tsx"
+    ],
+    "testResultsProcessor": "jest-sonar-reporter",
+    "transform": {
+      "^.+\\.(ts|tsx)$": "./node_modules/ts-jest/preprocessor.js"
+    },
+    "testMatch": [
+      "**/server/**/*.spec.(ts)"
+    ],
+    "testEnvironment": "node",
+    "mapCoverage": true,
+    "collectCoverage": true,
+    "coverageReporters": [
+      "lcov"
+    ],
+    "coverageDirectory": "coverage",
+    "collectCoverageFrom": [
+      "**/server/**/*.{ts}",
+      "!**/node_modules/**",
+      "!**/build/**"
+    ]
+  },
+  "jestSonar": {
+    "reportPath": "reports",
+    "reportFile": "test-reporter.xml",
+    "indent": 4,
+    "sonar56x": true
   },
   "dependencies": {
     "bluebird": "^3.5.0",
@@ -39,15 +72,18 @@
   "devDependencies": {
     "@types/bunyan": "0.0.36",
     "@types/express": "^4.0.35",
-    "@types/jasmine": "^2.5.52",
+    "@types/jest": "^20.0.8",
     "@types/request": "^2.0.0",
+    "@types/supertest": "^2.0.3",
     "awesome-typescript-loader": "^3.1.3",
     "backpack-core": "^0.4.2",
     "istanbul": "^1.1.0-alpha.1",
-    "jasmine": "^2.6.0",
+    "jest": "^21.0.1",
+    "jest-sonar-reporter": "^1.3.0",
     "nodejs-dashboard": "^0.4.1",
     "shelljs": "^0.7.6",
     "supertest": "^3.0.0",
+    "ts-jest": "^21.0.0",
     "ts-node": "^3.1.0",
     "tslint-loader": "^3.5.3",
     "typedoc": "^0.7.1",

@@ -10,7 +10,7 @@ jobs:
       script:
         - npm install
         - npm run compile
-        - npm run test:coverage
+        - npm run test
     - stage: package
       script:
         - npm install

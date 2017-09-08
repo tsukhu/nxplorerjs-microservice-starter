@@ -1,4 +1,5 @@
 import * as request from 'supertest';
+import {} from 'jest';
 import './common/env';
 import Server from './common/server';
 import routes from './routes';
@@ -7,7 +8,7 @@ const app = new Server()
   .router(routes)
   .listen(process.env.PORT);
 
-describe('Jasmine: routes spec', () => {
+describe('Express-Microservice: routes spec', () => {
 
   it('should get 200 response from home page', done => {
     request(app)
