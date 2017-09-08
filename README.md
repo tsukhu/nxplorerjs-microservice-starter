@@ -13,7 +13,7 @@ This project provides complete Node JS based microservices template with all tha
 * Backpack (webpack) based - build , development , packaging
 * Swagger Enabled - Express swagger middleware
 * Externalized Configuration - DotEnv
-* Tests - Jasmine , SuperTest
+* Tests - Jest , SuperTest
 * Code Coverage - Istanbul
 * Code Quality - tslint
 * Container support - Docker , Kubernetes Clusters
