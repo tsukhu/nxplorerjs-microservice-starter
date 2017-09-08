@@ -172,15 +172,10 @@ npm run compile
 Press F5
 ```
 
-#### Runs tests:
-
-```
-npm run test
-```
 #### Runs tests with code coverage:
 
 ```
-npm run test:coverage
+npm run test
 ```
 
 #### Build Docker image
