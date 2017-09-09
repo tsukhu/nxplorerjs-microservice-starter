@@ -208,19 +208,31 @@ npm run dash
 * Invoke the example REST endpoints directly or via swagger `http://localhost:3000/api`
 * Invoke the prometheus metrics using the endpoint `curl http://localhost:3000/metrics`
    
-### integrate with SonarCube (for continous code quality)
-Assuming you have SonarCube 5.5.6 (LTS) installed
-* Setup SonarCube with the [Sonar Typescript plugin](https://github.com/Pablissimo/SonarTsPlugin#installation)
+### integrate with SonarQube (for continous code quality)
+Assuming you have SonarQube 5.5.6 (LTS) installed
+* Setup SonarQube with the [Sonar Typescript plugin](https://github.com/Pablissimo/SonarTsPlugin#installation) and the Generic Test Coverage plugin https://docs.sonarqube.org/display/PLUG/Generic+Test+Coverage
 * Install sonar-scanner globally (`npm install --global sonar-scanner`)
 * Update [`sonar-project.properties`](sonar-project.properties) file for the property `sonar.host.url` to point to your SonarCube server. By default this assumes that the SonarCube server is running locally using the default port
 * Run the unit tests
 ```bash
 npm run test
 ```
+* The test results collected in the results folder in the sonar compatible format
 * Push results to SonarCube
 ```bash
 npm run sonar-scanner
 ``` 
+* If working with SonarQube 6.x it supports [Generic Test Data](https://docs.sonarqube.org/display/SONAR/Generic+Test+Data)
+Modify the [package.json](package.json) to set the appropriate version of the sonarQube
+```json
+jestSonar": {
+    "reportPath": "reports",
+    "reportFile": "test-reporter.xml",
+    "indent": 4,
+    "sonar56x": true
+}
+```
+Note: for Sonar 6.x turn sonar56x to “false” and that will generate the test report that is using the sonar 6 schema.
 
 ### FAQ
 
