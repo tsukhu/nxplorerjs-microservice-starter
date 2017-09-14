@@ -16,12 +16,6 @@ module.exports = {
     config.module.rules.push(
       {
         test: /\.ts$/,
-        enforce: 'pre',
-        exclude: /(node_modules)/,
-        loader: 'tslint-loader'
-      },
-      {
-        test: /\.ts$/,
         exclude: /(node_modules)/,
         loader: 'awesome-typescript-loader'
       }

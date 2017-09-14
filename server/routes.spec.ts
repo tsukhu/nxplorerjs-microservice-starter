@@ -1,5 +1,4 @@
 import * as request from 'supertest';
-import {} from 'jest';
 import './common/env';
 import Server from './common/server';
 import routes from './routes';

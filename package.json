@@ -9,7 +9,9 @@
     "compile": "node build.js && backpack build",
     "dev": "node build.js && backpack dev | bunyan -o short",
     "dash": "nodejs-dashboard -- node -r nodejs-dashboard build/main",
-    "test": "node build.js && jest --forceExit",
+    "test": "node build.js && npm run lint && jest --forceExit",
+    "lint": "npm run tslint -- -o reports/lint_issues.json -t json --force \"server/**/*.ts\" ",
+    "tslint": "node_modules/.bin/tslint",
     "sonar-scanner": "sonar-scanner"
   },
   "jest": {
@@ -65,9 +67,7 @@
     "response-time": "^2.3.2",
     "rxjs": "^5.4.2",
     "source-map-support": "^0.4.12",
-    "swagger-express-middleware": "^1.0.0-alpha.12",
-    "tslint": "^5.3.2",
-    "tslint-config-standard": "^6.0.1"
+    "swagger-express-middleware": "^1.0.0-alpha.12"
   },
   "devDependencies": {
     "@types/bunyan": "0.0.36",
@@ -85,8 +85,9 @@
     "supertest": "^3.0.0",
     "ts-jest": "^21.0.0",
     "ts-node": "^3.1.0",
-    "tslint-loader": "^3.5.3",
     "typedoc": "^0.7.1",
+    "tslint": "^5.3.2",
+    "tslint-config-standard": "^6.0.1",
     "typedoc-webpack-plugin": "^1.1.4",
     "typescript": "^2.4.2"
   }

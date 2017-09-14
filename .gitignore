@@ -18,6 +18,8 @@ coverage
 
 # Sonar scanner Temp files
 .scannerwork
+reports
+reports/*
 
 #Kubernetes Temp files
 k8s/.*
