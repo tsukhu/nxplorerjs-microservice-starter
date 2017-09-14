@@ -7,6 +7,7 @@ import * as http from 'http';
 import * as os from 'os';
 import * as cookieParser from 'cookie-parser';
 import * as helmet from 'helmet';
+import * as csrf from 'csurf';
 import swaggerify from './swagger';
 import { LogManager } from './log-manager';
 
@@ -70,6 +71,7 @@ export default class ExpressServer {
     app.use(logger(bunyanOpts));
     app.use(bodyParser.urlencoded({ extended: true }));
     app.use(cookieParser(process.env.SESSION_SECRET));
+    app.use(csrf({ cookie: true }));
     app.use(express.static(`${root}/public`));
     app.use(responseTime({ suffix: false }));
     app.use(partialResponse());
