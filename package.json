@@ -62,7 +62,6 @@
     "lodash": "^4.17.4",
     "node-rx-http": "^1.0.1",
     "prom-client": "^9.1.1",
-    "qs": "^6.5.1",
     "request": "^2.81.0",
     "request-promise": "^4.2.1",
     "response-time": "^2.3.2",
