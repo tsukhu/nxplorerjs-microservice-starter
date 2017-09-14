@@ -20,7 +20,7 @@ This project provides complete Node JS based microservices template with all tha
 * Prometheus integration
 * API Response Logging , Express Server Logging , UUID propogation - Bunyan
 * Reactive Extensions support - RxJS
-* CORS, JSONObject Limit , Helmet - Express Security
+* CORS, JSONObject Limit , Helmet , CRSF - Express Security
 * Documentation - TypeDocs
 * API Exception Handling Utilities
 * Standard HTTP Codes for cleaner code
