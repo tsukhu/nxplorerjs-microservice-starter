@@ -71,7 +71,7 @@ export default class ExpressServer {
     app.use(logger(bunyanOpts));
     app.use(bodyParser.urlencoded({ extended: true }));
     app.use(cookieParser(process.env.SESSION_SECRET));
-    app.use(csrf({ cookie: true }));
+  //  app.use(csrf({ cookie: true }));
     app.use(express.static(`${root}/public`));
     app.use(responseTime({ suffix: false }));
     app.use(partialResponse());
