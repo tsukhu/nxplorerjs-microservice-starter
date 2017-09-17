@@ -1,10 +1,14 @@
 // tslint:disable
 import * as middleware from 'swagger-express-middleware';
 import { Application } from 'express';
+import * as swaggerUi from 'swagger-ui-express';
+import * as YAML  from 'yamljs';
 import * as path from 'path';
 
 
 export default function (app: Application, routes: (app: Application) => void) {
+
+
   middleware('./server/common/swagger/Api.yaml', app, function(err, middleware) {
 
     // enable Express' case-sensitive and strict options
@@ -44,4 +48,8 @@ export default function (app: Application, routes: (app: Application) => void) {
 
     routes(app);
   });
+
+  const swaggerDocument = YAML.load('./server/common/swagger/Api.yaml');
+  app.use('/swagger', swaggerUi.serve, swaggerUi.setup(swaggerDocument));
+
 }
