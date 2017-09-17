@@ -3089,8 +3089,7 @@
     },
     "fs.realpath": {
       "version": "https://registry.npmjs.org/fs.realpath/-/fs.realpath-1.0.0.tgz",
-      "integrity": "sha1-FQStJSMVjKpA20onh8sBQRmU6k8=",
-      "dev": true
+      "integrity": "sha1-FQStJSMVjKpA20onh8sBQRmU6k8="
     },
     "get-caller-file": {
       "version": "https://registry.npmjs.org/get-caller-file/-/get-caller-file-1.0.2.tgz",
@@ -8042,6 +8041,11 @@
       "version": "https://registry.npmjs.org/swagger-schema-official/-/swagger-schema-official-2.0.0-bab6bed.tgz",
       "integrity": "sha1-cAcEaNbSl3ylI3suUZyn0Gouo/0="
     },
+    "swagger-ui-express": {
+      "version": "2.0.7",
+      "resolved": "https://registry.npmjs.org/swagger-ui-express/-/swagger-ui-express-2.0.7.tgz",
+      "integrity": "sha1-ASojiUmDYk1ffV66/8Ik5m4gdqs="
+    },
     "symbol-observable": {
       "version": "https://registry.npmjs.org/symbol-observable/-/symbol-observable-1.0.4.tgz",
       "integrity": "sha1-Kb9hXUqnEhvdiYsi1LP5vE4qoD0="
@@ -9248,6 +9252,30 @@
       "version": "https://registry.npmjs.org/yallist/-/yallist-2.1.2.tgz",
       "integrity": "sha1-HBH5IY8HYImkfdUS+TxmmaaoHVI=",
       "dev": true
+    },
+    "yamljs": {
+      "version": "0.3.0",
+      "resolved": "https://registry.npmjs.org/yamljs/-/yamljs-0.3.0.tgz",
+      "integrity": "sha512-C/FsVVhht4iPQYXOInoxUM/1ELSf9EsgKH34FofQOp6hwCPrW4vG4w5++TED3xRUo8gD7l0P1J1dLlDYzODsTQ==",
+      "requires": {
+        "argparse": "https://registry.npmjs.org/argparse/-/argparse-1.0.9.tgz",
+        "glob": "7.1.2"
+      },
+      "dependencies": {
+        "glob": {
+          "version": "7.1.2",
+          "resolved": "https://registry.npmjs.org/glob/-/glob-7.1.2.tgz",
+          "integrity": "sha512-MJTUg1kjuLeQCJ+ccE4Vpa6kKVXkPYJ2mOCQyUuKLcLQsdrMCpBPUi8qVE6+YuaJkozeA9NusTAw3hLr8Xe5EQ==",
+          "requires": {
+            "fs.realpath": "https://registry.npmjs.org/fs.realpath/-/fs.realpath-1.0.0.tgz",
+            "inflight": "https://registry.npmjs.org/inflight/-/inflight-1.0.6.tgz",
+            "inherits": "https://registry.npmjs.org/inherits/-/inherits-2.0.3.tgz",
+            "minimatch": "https://registry.npmjs.org/minimatch/-/minimatch-3.0.4.tgz",
+            "once": "https://registry.npmjs.org/once/-/once-1.4.0.tgz",
+            "path-is-absolute": "https://registry.npmjs.org/path-is-absolute/-/path-is-absolute-1.0.1.tgz"
+          }
+        }
+      }
     },
     "yargs": {
       "version": "https://registry.npmjs.org/yargs/-/yargs-8.0.2.tgz",
