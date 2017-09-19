@@ -26,6 +26,7 @@ This project provides complete Node JS based microservices template with all tha
 * Standard HTTP Codes for cleaner code
 * Sample APIs, Patterns for reference
 * Sonar Qube integration
+* Added a pino logger specific [branch] (https://github.com/tsukhu/express-microservice-starter/tree/pino)
 * APIs
    - examples - Basic examples with a search by ID example from the jsonplaceholder API (/examples/:id)
    - shop     - Example of how to use Reactive Extensions for API orchestration (FlatMap) (/shop/priceByOptionId/:id)
@@ -241,6 +242,10 @@ Note: for Sonar 6.x turn sonar56x to “false” and that will generate the test
 // Configure glob patterns of file paths to exclude from linting
 "tslint.exclude": "**/node_modules/**/*.ts"
 ```
+
+* How do I change to the pino logging framework instead of bunyan
+Switch over to the [pino](https://github.com/tsukhu/express-microservice-starter/tree/pino) branch for that implementation
+
 ### Credits
 
 * The initial base project was generated using [generator-express-no-stress-typescript project](https://github.com/cdimascio/generator-express-no-stress-typescript) 
