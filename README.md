@@ -244,6 +244,7 @@ Note: for Sonar 6.x turn sonar56x to “false” and that will generate the test
 ```
 
 * How do I change to the pino logging framework instead of bunyan
+
 Switch over to the [pino](https://github.com/tsukhu/express-microservice-starter/tree/pino) branch for that implementation
 
 ### Credits
