@@ -202,7 +202,7 @@ npm run dash
 * This will start up the application with the node dashboard attached providing details of the memory , cpu and logs
 
 #### CSRF Security
-* CSRF Security has been enabled in the production build
+* CSRF Security has been enabled in the **production** mode
 * All POST APIs will require to read the cookie 'XSRF-TOKEN' set in the browser and then pass it in the response head with either of the following keys
 ** req.headers['csrf-token'] - the CSRF-Token HTTP request header.
 ** req.headers['xsrf-token'] - the XSRF-Token HTTP request header.
