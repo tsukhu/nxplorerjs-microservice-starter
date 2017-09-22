@@ -102,7 +102,7 @@ export class Controller {
     ExamplesService
       .create(req.body.name)
       .then(r => {
-        res.status(HttpStatus.CREATED).location(`/api/v1/examples/${r.id}`).end();
+        res.status(HttpStatus.CREATED).location(`/api/v1/examples/${r.id}`).json(r).end();
         LogManager.getInstance().logAPITrace(req, res, HttpStatus.CREATED);
         AppMetrics.getInstance().logAPIMetrics(req, res, HttpStatus.CREATED);
       }
