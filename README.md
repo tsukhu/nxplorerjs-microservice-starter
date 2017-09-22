@@ -25,7 +25,7 @@ This project provides complete Node JS based microservices template with all tha
 * Standard HTTP Codes for cleaner code
 * Sample APIs, Patterns for reference
 * Sonar Qube integration
-* Added a pino logger specific [branch] (https://github.com/tsukhu/express-microservice-starter/tree/pino)
+* Added a pino logger specific [branch](https://github.com/tsukhu/express-microservice-starter/tree/pino)
 * APIs
    - examples - Basic examples with a search by ID example from the jsonplaceholder API (/examples/:id)
    - shop     - Example of how to use Reactive Extensions for API orchestration (FlatMap) (/shop/priceByOptionId/:id)
