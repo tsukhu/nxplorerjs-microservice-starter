@@ -286,7 +286,7 @@ Switch over to the [pino](https://github.com/tsukhu/express-microservice-starter
 
 ### Credits
 
-* The initial base project was generated using [generator-express-no-stress-typescript project](https://github.com/cdimascio/generator-express-no-stress-typescript) 
+* The initial base project structure was generated using [generator-express-no-stress-typescript project](https://github.com/cdimascio/generator-express-no-stress-typescript) 
 
 ### License
 
