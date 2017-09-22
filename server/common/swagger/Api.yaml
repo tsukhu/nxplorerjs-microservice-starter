@@ -36,6 +36,10 @@ paths:
       tags:
         - Examples
       description: Create a new example
+      consumes:
+      - application/json
+      produces:
+      - application/json
       parameters:
         - name: body
           in: body
@@ -44,8 +48,10 @@ paths:
           schema: 
             $ref: "#/definitions/ExampleBody"
       responses:
-        200:
-          description: Returns all examples
+        201:
+          description: Example posted
+        403:
+          description: Forbidden Request
 
   /examples/{id}:
     get:
