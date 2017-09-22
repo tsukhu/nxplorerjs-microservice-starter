@@ -15,6 +15,7 @@ This project provides complete Node JS based microservices template with all tha
 * Code Coverage - Istanbul
 * Code Quality - tslint
 * Container support - Docker , Kubernetes Clusters
+* Helm Chart based deployment support
 * Prometheus integration
 * API Response Logging , Express Server Logging , UUID propogation - Bunyan
 * Reactive Extensions support - RxJS
@@ -183,15 +184,45 @@ npm run test
 ./build-docker.sh
 ```
 
-#### k8s deployment
-* Currently the setEnv.sh has been configured for minikube
+#### k8s deployment 
+* Helm chart based deployment
 
 ```
-cd k8s
-. ./setEnv.sh
-./k8s-deploy.sh
-minikube service --url=true express-microservice
+./deploy-k8s.sh
 ```
+
+* A sample output
+
+```
+release "express-service" deleted
+NAME:   express-service
+LAST DEPLOYED: Fri Sep 22 22:10:58 2017
+NAMESPACE: default
+STATUS: DEPLOYED
+
+RESOURCES:
+==> v1/ConfigMap
+NAME                          DATA  AGE
+express-microservice-starter  5     1s
+
+==> v1/Service
+NAME                          CLUSTER-IP  EXTERNAL-IP  PORT(S)       AGE
+express-microservice-starter  10.0.0.196  <nodes>      80:30316/TCP  1s
+
+==> v1beta1/Deployment
+NAME                          DESIRED  CURRENT  UP-TO-DATE  AVAILABLE  AGE
+express-microservice-starter  1        1        1           0          1s
+
+
+NOTES:
+1. Get the application URL by running these commands:
+  export NODE_PORT=$(kubectl get --namespace default -o jsonpath="{.spec.ports[0].nodePort}" services express-service-express-microservice-starter)
+  export NODE_IP=$(kubectl get nodes --namespace default -o jsonpath="{.items[0].status.addresses[0].address}")
+  echo http://$NODE_IP:$NODE_PORT
+
+Express Microservice is deployed at  http://192.168.99.100:30316/
+```
+
 #### Using node dashboard view (Development Only)
 * To use the node dashboard view
 
