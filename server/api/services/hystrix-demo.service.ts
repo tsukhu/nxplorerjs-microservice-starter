@@ -26,8 +26,6 @@ const posts: Post[] = [
 
 
 export class HystrixDemoService {
-    private intervalID: any;
-    private timeOutID: any;
 
     private fallbackCall(foo) {
         return new Promise((resolve, reject) => {
@@ -37,7 +35,7 @@ export class HystrixDemoService {
 
     private unreliableServiceCall() {
         return new Promise((resolve, reject) => {
-            this.timeOutID = setTimeout(() => {
+            setTimeout(() => {
                 iterations++;
                 if (iterations === 10) {
                     successRate = 0.6;
@@ -78,7 +76,7 @@ export class HystrixDemoService {
     }
 
     public getPosts(timeOut: number): Observable<any> {
-        this.clear();
+
         let brakeTimeOut = 2000;
         if (timeOut !== undefined) {
             brakeTimeOut = timeOut;
@@ -86,6 +84,7 @@ export class HystrixDemoService {
         console.log('Break Time out = ' + brakeTimeOut);
         const loadedPosts: AsyncSubject<any> = new AsyncSubject<any>();
         const brake = new Brakes(this.getPostsAPI, {
+            name: 'Get Posts',
             statInterval: 2500,
             threshold: 0.5,
             circuitDuration: 15000,
@@ -105,24 +104,10 @@ export class HystrixDemoService {
         return loadedPosts;
     }
 
-    private clear(): void {
-
-        if (this.timeOutID !== undefined &&
-            this.timeOutID !== 0) {
-            clearTimeout(this.timeOutID);
-            this.timeOutID = 0;
-        }
-
-        if (this.intervalID !== undefined &&
-            this.intervalID !== 0) {
-            clearInterval(this.intervalID);
-            this.intervalID = 0;
-        }
-    }
-
     public start(): Observable<Boolean> {
-        this.clear();
+
         const brake = new Brakes(this.unreliableServiceCall, {
+            name: 'Demo API',
             statInterval: 2500,
             threshold: 0.5,
             circuitDuration: 15000,
@@ -146,7 +131,7 @@ export class HystrixDemoService {
 
         brake.fallback(this.fallbackCall);
 
-        this.intervalID = setInterval(() => {
+        setInterval(() => {
             brake.exec('Hysteria Demo')
                 .then(() => {
                     console.log('Successful');

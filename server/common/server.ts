@@ -16,7 +16,7 @@ import * as bunyan from 'bunyan';
 
 import * as logger from 'express-bunyan-logger';
 
-const globalStats = Brakes.getGlobalStats();
+
 
 const bunyanOpts = {
   name: 'myapp',
@@ -107,17 +107,20 @@ export default class ExpressServer {
     const welcome = port => () => LOG.info(`up and running in ${process.env.NODE_ENV || 'development'} @: ${os.hostname()} on port: ${port}`);
     http.createServer(app).listen(port, welcome(port));
 
-    http.createServer((req, res) => {
-      res.setHeader('Content-Type', 'text/event-stream;charset=UTF-8');
-      res.setHeader('Cache-Control', 'no-cache, no-store, max-age=0, must-revalidate');
-      res.setHeader('Pragma', 'no-cache');
-      globalStats.getHystrixStream().pipe(res);
-    }).listen(3001, () => {
-      console.log('---------------------');
-      console.log('Hystrix Stream now live at localhost:3001/hystrix.stream');
-      console.log('---------------------');
-    });
-    
+    if (process.env.STREAM_HYSTRIX === 'true') {
+      const globalStats = Brakes.getGlobalStats();
+      http.createServer((req, res) => {
+        res.setHeader('Content-Type', 'text/event-stream;charset=UTF-8');
+        res.setHeader('Cache-Control', 'no-cache, no-store, max-age=0, must-revalidate');
+        res.setHeader('Pragma', 'no-cache');
+        globalStats.getHystrixStream().pipe(res);
+      }).listen(3001, () => {
+        console.log('---------------------');
+        console.log('Hystrix Stream now live at localhost:3001/hystrix.stream');
+        console.log('---------------------');
+      });
+    }
+
     return app;
   }
   // tslint:disable-next-line:eofline
