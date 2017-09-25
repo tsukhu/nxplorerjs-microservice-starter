@@ -195,3 +195,23 @@ paths:
             description: Return the example with the specified id
           404:
             description: Example not available
+  /hystrix-demo/start:
+      get:
+        tags:
+          - Hystrix Demo
+        responses:
+          200:
+            description: Random API Failure
+  /hystrix-demo/posts:
+      get:
+        tags:
+          - Hystrix Demo for Posts API
+        parameters:
+          - name: timeOut
+            in: query
+            required: false
+            description: Time Out Value
+            type: integer
+        responses:
+          200:
+            description: Posts API Timeout Failure with Fallback

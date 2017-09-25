@@ -51,6 +51,7 @@
   "dependencies": {
     "bluebird": "^3.5.0",
     "body-parser": "^1.15.2",
+    "brakes": "^2.5.3",
     "bunyan": "^1.8.10",
     "bunyan-format": "^0.2.1",
     "cookie-parser": "^1.4.3",
