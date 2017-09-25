@@ -243,7 +243,7 @@ npm run dash
    * req.headers['x-xsrf-token'] - the X-XSRF-Token HTTP request header.
 
 #### Hystrix Circuit Breaker Support
-* Circuit breaker support has been added to the project and uses the hystrix compliant module [brakes] (https://github.com/awolden/brakes)
+* Circuit breaker support has been added to the project and uses the hystrix compliant module [brakes](https://github.com/awolden/brakes)
 * Streaming support has been disabled by default for Hystrix. 
 * Enable it by setting the STREAM_HYSTRIX property to "STREAM_HYSTRIX=true" in the [.env](.env) file
 * For convienence a docker version of the Hystrix server has been provided and setup in the [docker-compose.yml](docker-compose.yml) file
