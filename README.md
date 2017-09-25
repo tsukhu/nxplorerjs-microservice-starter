@@ -2,8 +2,8 @@
 [![Build Status](https://travis-ci.org/tsukhu/express-microservice-starter.svg?branch=master)](https://travis-ci.org/tsukhu/express-microservice-starter) [![tested with jest](https://img.shields.io/badge/tested_with-jest-99424f.svg)](https://github.com/facebook/jest)
 ---
 
-Node JS Express Reactive Microservice Starter Template
-This project provides complete Node JS based microservices template with all that will be needed features for production deployment , monitoring , debugging , logging , security. Reactive extensions based samples are added as well to demonstrate how this can be used for building a microservice API edge-service or use it as a base for building any kind of microservice.
+Cloud Native Node JS Express Reactive Microservice Starter Template
+This project provides complete Node JS based microservices template with all that will be needed features for production deployment , monitoring , debugging , logging , security. Reactive extensions based samples are added as well to demonstrate how this can be used for building a microservice API edge-service , a backend for frontend or use it as a base for building any kind of microservice.
 
 ## Features
 
