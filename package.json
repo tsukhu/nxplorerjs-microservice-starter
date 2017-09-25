@@ -1,6 +1,6 @@
 {
   "name": "express-microservice",
-  "version": "1.2.0",
+  "version": "1.2.1",
   "description": "Express Microservice Starter Project",
   "main": "index.js",
   "scripts": {
@@ -11,7 +11,7 @@
     "dash": "nodejs-dashboard -- node -r nodejs-dashboard build/main",
     "test": "node build.js && npm run lint && jest --forceExit",
     "lint": "npm run tslint -- -o reports/lint_issues.json -t json --force \"server/**/*.ts\" ",
-    "tslint": "node_modules/.bin/tslint",
+    "tslint": "tslint",
     "sonar-scanner": "sonar-scanner"
   },
   "jest": {
@@ -94,5 +94,23 @@
     "typedoc": "^0.8.0",
     "typedoc-webpack-plugin": "^1.1.4",
     "typescript": "^2.4.2"
-  }
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/tsukhu/express-microservice-starter.git"
+  },
+  "keywords": [
+    "cloud",
+    "native",
+    "microservice",
+    "express",
+    "reactive",
+    "12-factor"
+  ],
+  "author": "Tarun Kumar Sukhu <tksukhu@gmail.com>",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/tsukhu/express-microservice-starter/issues"
+  },
+  "homepage": "https://github.com/tsukhu/express-microservice-starter#readme"
 }
