@@ -1,6 +1,6 @@
 {
   "name": "express-microservice",
-  "version": "1.0.0",
+  "version": "1.1.0",
   "lockfileVersion": 1,
   "requires": true,
   "dependencies": {
@@ -1434,6 +1434,14 @@
         "snapdragon-node": "https://registry.npmjs.org/snapdragon-node/-/snapdragon-node-2.1.1.tgz",
         "split-string": "https://registry.npmjs.org/split-string/-/split-string-2.1.1.tgz",
         "to-regex": "https://registry.npmjs.org/to-regex/-/to-regex-3.0.1.tgz"
+      }
+    },
+    "brakes": {
+      "version": "2.5.3",
+      "resolved": "https://registry.npmjs.org/brakes/-/brakes-2.5.3.tgz",
+      "integrity": "sha1-IyvXWwwE/4/I4U8P2I4X9SN0YOg=",
+      "requires": {
+        "bluebird": "https://registry.npmjs.org/bluebird/-/bluebird-3.5.0.tgz"
       }
     },
     "bresenham": {

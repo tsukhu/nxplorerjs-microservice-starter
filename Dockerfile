@@ -14,5 +14,5 @@ COPY build /var/www/
 RUN chmod -R 755 /var/www/
 # RUN ls -lRa /var/www/* 
 
-EXPOSE 3000
+EXPOSE 3000 3001
 CMD [ "node", "main" ]

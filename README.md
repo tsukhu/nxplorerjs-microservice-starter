@@ -25,6 +25,7 @@ This project provides complete Node JS based microservices template with all tha
 * Standard HTTP Codes for cleaner code
 * Sample APIs, Patterns for reference
 * Sonar Qube integration
+* Hystrix Circuit Break Support (Using Brakes)
 * Added a pino logger specific [branch](https://github.com/tsukhu/express-microservice-starter/tree/pino)
 * APIs
    - examples - Basic examples with a search by ID example from the jsonplaceholder API (/examples/:id)
@@ -239,6 +240,23 @@ npm run dash
    * req.headers['xsrf-token'] - the XSRF-Token HTTP request header.
    * req.headers['x-csrf-token'] - the X-CSRF-Token HTTP request header.
    * req.headers['x-xsrf-token'] - the X-XSRF-Token HTTP request header.
+
+#### Hystrix Circuit Breaker Support
+* Circuit breaker support has been added to the project and uses the hystrix compliant module [brakes] (https://github.com/awolden/brakes)
+* Streaming support has been disabled by default for Hystrix. 
+* Enable it by setting the STREAM_HYSTRIX property to "STREAM_HYSTRIX=true" in the (.env)[.env] file
+* For convienence a docker version of the Hystrix server has been provided and setup in the [docker-compose.yml](docker-compose.yml) file
+##### Steps to execute on Docker
+```
+npm run compile
+docker-compose build
+docker-compose up
+```
+* On Docker set up the port forwarding for 3000 and 8080
+![port forwarding](screenshots/port-forwarding.PNG)
+* Access the Hystrix dashboard at localhost:8080/hystrix and set the stream location to `localhost:3001/hystrix.stream`
+* Execute the samples under /api/v1/hystrix and view the hystrix stream results on the dashboard
+![hystrix stream](screenshots/Hystrix.PNG)
 
 ### Try It
 
