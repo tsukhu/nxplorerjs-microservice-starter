@@ -246,16 +246,20 @@ npm run dash
 * Streaming support has been disabled by default for Hystrix. 
 * Enable it by setting the STREAM_HYSTRIX property to "STREAM_HYSTRIX=true" in the (.env)[.env] file
 * For convienence a docker version of the Hystrix server has been provided and setup in the [docker-compose.yml](docker-compose.yml) file
+
 ##### Steps to execute on Docker
+
 ```
 npm run compile
 docker-compose build
 docker-compose up
 ```
 * On Docker set up the port forwarding for 3000 and 8080
+
 ![port forwarding](screenshots/port-forwarding.PNG)
 * Access the Hystrix dashboard at localhost:8080/hystrix and set the stream location to `localhost:3001/hystrix.stream`
 * Execute the samples under /api/v1/hystrix and view the hystrix stream results on the dashboard
+
 ![hystrix stream](screenshots/Hystrix.PNG)
 
 ### Try It
