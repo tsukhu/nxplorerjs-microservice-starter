@@ -1,5 +1,5 @@
 # express-microservice-starter
-[![Build Status](https://travis-ci.org/tsukhu/express-microservice-starter.svg?branch=master)](https://travis-ci.org/tsukhu/express-microservice-starter) [![tested with jest](https://img.shields.io/badge/tested_with-jest-99424f.svg)](https://github.com/facebook/jest)
+[![Build Status](https://travis-ci.org/tsukhu/express-microservice-starter.svg?branch=master)](https://travis-ci.org/tsukhu/express-microservice-starter) [![tested with jest](https://img.shields.io/badge/tested_with-jest-99424f.svg)](https://github.com/facebook/jest) [![GitHub version](https://badge.fury.io/gh/tsukhu%2Fexpress-microservice-starter.svg)](https://badge.fury.io/gh/tsukhu%2Fexpress-microservice-starter) [![Dependency Status](https://david-dm.org/tsukhu/express-microservice-starter.svg)](https://david-dm.org/tsukhu/express-microservice-starter)
 ---
 
 Cloud Native Node JS Express Reactive Microservice Starter Template
@@ -266,7 +266,7 @@ docker-compose up
 ### Try It
 
 * Point you're browser to [http://localhost:3000](http://localhost:3000)
-* Invoke the example REST endpoints directly or via swagger `http://localhost:3000/api`
+* Invoke the example REST endpoints directly or via swagger `http://localhost:3000/swagger`
 * Invoke the prometheus metrics using the endpoint `curl http://localhost:3000/metrics`
    
 ### integrate with SonarQube (for continous code quality)
