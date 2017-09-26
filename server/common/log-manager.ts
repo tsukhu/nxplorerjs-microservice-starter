@@ -1,13 +1,12 @@
 import { Request, Response } from 'express';
 import * as bunyan from 'bunyan';
 
-const bunyanOpts = {
+const bunyanOpts: bunyan.LoggerOptions = {
     name: 'myapp',
     streams: [
         {
-            level: process.env.LOG_LEVEL,
-            stream: process.stdout,       // log INFO and above to stdout
-            type: 'stream'
+            level: 'info',
+            stream: process.stdout       // log INFO and above to stdout
         },
         {
             path: process.env.LOG_DIRECTORY + 'application.log',  // log ERROR and above to a file

@@ -18,11 +18,11 @@ import * as logger from 'express-bunyan-logger';
 
 
 
-const bunyanOpts = {
+const bunyanOpts: bunyan.LoggerOptions = {
   name: 'myapp',
   streams: [
     {
-      level: process.env.LOG_LEVEL,
+      level: 'info',
       stream: process.stdout,       // log INFO and above to stdout
       type: 'stream'
     },
@@ -56,7 +56,7 @@ const Prometheus = require('prom-client');
 const collectDefaultMetrics = Prometheus.collectDefaultMetrics;
 
 // Probe every 5th second.
-collectDefaultMetrics(5000);
+collectDefaultMetrics({ timeout: 5000 });
 
 export default class ExpressServer {
   constructor() {
