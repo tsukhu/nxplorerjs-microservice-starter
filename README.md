@@ -266,7 +266,7 @@ docker-compose up
 ### Try It
 
 * Point you're browser to [http://localhost:3000](http://localhost:3000)
-* Invoke the example REST endpoints directly or via swagger `http://localhost:3000/api`
+* Invoke the example REST endpoints directly or via swagger `http://localhost:3000/swagger`
 * Invoke the prometheus metrics using the endpoint `curl http://localhost:3000/metrics`
    
 ### integrate with SonarQube (for continous code quality)
