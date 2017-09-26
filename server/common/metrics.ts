@@ -28,6 +28,6 @@ export class AppMetrics {
         const responseTime = res.getHeader('x-response-time');
         httpRequestDurationMicroseconds
           .labels(fullUrl, statusCode)
-          .observe(responseTime);
+          .observe(Number(responseTime));
     }
 }
