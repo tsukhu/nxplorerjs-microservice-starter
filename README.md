@@ -297,7 +297,7 @@ jestSonar": {
 Note: for Sonar 6.x turn sonar56x to “false” and that will generate the test report that is using the sonar 6 schema.
 
 ### Future RoadMap
-* Coming Soon - Support for GraphQL [Milestone 1.3](tps://github.com/tsukhu/express-microservice-starter/milestone/4)WIP on the [graphql branch](https://github.com/tsukhu/express-microservice-starter/tree/graphql)
+* Coming Soon - Support for GraphQL [Milestone 1.3](tps://github.com/tsukhu/express-microservice-starter/milestone/4) WIP on the [graphql branch](https://github.com/tsukhu/express-microservice-starter/tree/graphql)
 
 ### FAQ
 
