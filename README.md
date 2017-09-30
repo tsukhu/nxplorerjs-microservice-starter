@@ -35,7 +35,7 @@ This project provides complete Node JS based microservices template with all tha
    - Use swagger UI for the complete list of sample APIs
    - metrics  - Prometheus based metrics added for all APIs (/metrics)
    - API Partial JSON response support
-* Coming Soon - Support for GraphQL (Milestone 1.3)
+
 ```
     curl http://localhost:3000/api/v1/starwars/people/1
 ```
@@ -296,6 +296,9 @@ jestSonar": {
 ```
 Note: for Sonar 6.x turn sonar56x to “false” and that will generate the test report that is using the sonar 6 schema.
 
+### Future RoadMap
+* Coming Soon - Support for GraphQL (Milestone 1.3)[https://github.com/tsukhu/express-microservice-starter/milestone/4]
+
 ### FAQ
 
 * tslint error appearing in VSCode IDE for node_modules
@@ -306,7 +309,7 @@ Note: for Sonar 6.x turn sonar56x to “false” and that will generate the test
 
 * How do I change to the pino logging framework instead of bunyan
 
-Switch over to the [pino](https://github.com/tsukhu/express-microservice-starter/tree/pino) branch for that implementation
+Switch over to the [pino](https://github.com/tsukhu/express-microservice-starter/tree/pino) branch for that implementation (WIP - graphql branch)
 
 ### Credits
 
