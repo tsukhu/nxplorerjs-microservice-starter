@@ -27,14 +27,15 @@ This project provides complete Node JS based microservices template with all tha
 * Sonar Qube integration
 * Hystrix Circuit Break Support (Using Brakes)
 * Added a pino logger specific [branch](https://github.com/tsukhu/express-microservice-starter/tree/pino)
-* APIs
+* REST APIs
    - examples - Basic examples with a search by ID example from the jsonplaceholder API (/examples/:id)
    - shop     - Example of how to use Reactive Extensions for API orchestration (FlatMap) (/shop/priceByOptionId/:id)
    - starwars - Example of how to use Reactive Extensions for API orchestration (ForkJoin) (/starwars/people/:id)
    - hystrix  - Example of how to use the circuit break pattern for APIs (/hystrix)
    - Use swagger UI for the complete list of sample APIs
    - metrics  - Prometheus based metrics added for all APIs (/metrics)
-   - API Partial JSON response support 
+   - API Partial JSON response support
+* Coming Soon - Support for GraphQL (Milestone 1.3)
 ```
     curl http://localhost:3000/api/v1/starwars/people/1
 ```
