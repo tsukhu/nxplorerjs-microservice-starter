@@ -1,6 +1,6 @@
 {
   "name": "express-microservice",
-  "version": "1.2.1",
+  "version": "1.2.2",
   "description": "Express Microservice Starter Project",
   "main": "index.js",
   "scripts": {
