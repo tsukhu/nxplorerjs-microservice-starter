@@ -123,7 +123,7 @@ This project provides complete Node JS based microservices template with all tha
 ```
 * GraphQL
    - GraphQL support has been added and a reference implementation (including the starwars apis from swapi.co)
-   - Access the graphiql tool from "http://localhost:3000/graphiql"
+   - Access the graphiql tool from http://localhost:3000/graphiql
 * VSCode Debug Launch Configuration (Preconfigured Debug Launcher added)
 * Node Dashboard view added for telemetry during development process
 
