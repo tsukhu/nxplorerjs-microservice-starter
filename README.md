@@ -34,7 +34,8 @@ This project provides complete Node JS based microservices template with all tha
    - hystrix  - Example of how to use the circuit break pattern for APIs (/hystrix)
    - Use swagger UI for the complete list of sample APIs
    - metrics  - Prometheus based metrics added for all APIs (/metrics)
-   - API Partial JSON response support 
+   - API Partial JSON response support
+
 ```
     curl http://localhost:3000/api/v1/starwars/people/1
 ```
@@ -120,6 +121,9 @@ This project provides complete Node JS based microservices template with all tha
         }
     }
 ```
+* GraphQL
+   - GraphQL support has been added and a reference implementation (including the starwars apis from swapi.co)
+   - Access the graphiql tool from "http://localhost:3000/graphiql"
 * VSCode Debug Launch Configuration (Preconfigured Debug Launcher added)
 * Node Dashboard view added for telemetry during development process
 
