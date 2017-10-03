@@ -5,7 +5,7 @@ import '../common/env';
 
 
 describe('Example Service Tests', () => {
-
+/*
     let originalTimeout;
     beforeEach(() => {
         originalTimeout = jasmine.DEFAULT_TIMEOUT_INTERVAL;
@@ -15,7 +15,7 @@ describe('Example Service Tests', () => {
     afterEach(function() {
         jasmine.DEFAULT_TIMEOUT_INTERVAL = originalTimeout;
     });
-
+*/
     it('should be returning a quote ', async () => {
         const query = `
         query Q {
