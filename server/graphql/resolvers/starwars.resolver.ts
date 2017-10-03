@@ -24,7 +24,8 @@ export class StarwarsResolver {
     public getPeopleById(id: number) {
 
         const URI = 'http://swapi.co/api/people/' + id;
-        //   return rp(url1_options);
+    //  Call other orchestrated APIs
+    //    const URI = 'http://localhost:3000/api/v1/starwars/people/1';
         return fetch(URI).then(res => res.json());
     }
 

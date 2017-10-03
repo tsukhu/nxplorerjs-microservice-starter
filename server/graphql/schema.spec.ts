@@ -1,12 +1,21 @@
 import * as request from 'supertest';
 import { graphql } from 'graphql';
 import schema from './schema';
+import '../common/env';
 
 
 describe('Example Service Tests', () => {
 
+    let originalTimeout;
     beforeEach(() => {
+        originalTimeout = jasmine.DEFAULT_TIMEOUT_INTERVAL;
+        jasmine.DEFAULT_TIMEOUT_INTERVAL = Number(process.env.TIMEOUT);
     });
+
+    afterEach(function() {
+        jasmine.DEFAULT_TIMEOUT_INTERVAL = originalTimeout;
+    });
+
     it('should be returning a quote ', async () => {
         const query = `
         query Q {

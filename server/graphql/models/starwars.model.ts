@@ -37,7 +37,7 @@ export const PeopleType = new GraphQLObjectType({
             type: GraphQLString
         },
         homeworld: {
-            type: PlanetType
+            type: GraphQLString // PlanetType
         },
         films: {
             type: new GraphQLList(GraphQLString)
