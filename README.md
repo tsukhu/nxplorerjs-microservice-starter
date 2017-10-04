@@ -2,6 +2,7 @@
 [![Build Status](https://travis-ci.org/tsukhu/express-microservice-starter.svg?branch=master)](https://travis-ci.org/tsukhu/express-microservice-starter) [![tested with jest](https://img.shields.io/badge/tested_with-jest-99424f.svg)](https://github.com/facebook/jest) [![GitHub version](https://badge.fury.io/gh/tsukhu%2Fexpress-microservice-starter.svg)](https://badge.fury.io/gh/tsukhu%2Fexpress-microservice-starter) [![Dependency Status](https://david-dm.org/tsukhu/express-microservice-starter.svg)](https://david-dm.org/tsukhu/express-microservice-starter)
 ---
 
+
 Cloud Native Node JS Express Reactive Microservice Starter Template
 This project provides complete Node JS based microservices template with all that will be needed features for production deployment , monitoring , debugging , logging , security. Reactive extensions based samples are added as well to demonstrate how this can be used for building a microservice API edge-service , a backend for frontend or use it as a base for building any kind of microservice.
 
@@ -125,15 +126,15 @@ This project provides complete Node JS based microservices template with all tha
    - GraphQL support has been added and a reference implementation (including the starwars apis from swapi.co)
    - Access the graphiql tool from http://localhost:3000/graphiql
    - Multiple samples added
-    RxJS API call - peopleWithPlanets(id : <number>)
-    Starwars APIs - people(id: <number>) , planet(id: <number>)
+      - RxJS API call - peopleWithPlanets(id : <number>)
+      - Starwars APIs - people(id: <number>) , planet(id: <number>)
    - List of Queries
-        quoteOfTheDay: String
-        random: Float
-        rollThreeDice: [Int]
-        peopleWithPlanet(id: Int): PeopleWithPlanetType
-        people(id: Int): Person
-        planet(id: Int): Planet
+      - quoteOfTheDay: String
+      - random: Float
+      - rollThreeDice: [Int]
+      - peopleWithPlanet(id: Int): PeopleWithPlanetType
+      - people(id: Int): Person
+      - planet(id: Int): Planet
 * VSCode Debug Launch Configuration (Preconfigured Debug Launcher added)
 * Node Dashboard view added for telemetry during development process
 
