@@ -1,6 +1,5 @@
-import { makeExecutableSchema } from 'graphql-tools';
 import * as fetch from 'node-fetch';
-import { PeopleType, PlanetType } from './models/starwars.model';
+import { PeopleType, PlanetType , PeopleWithPlanetType } from './models/starwars.model';
 import StarwarsResolver from './resolvers/starwars.resolver';
 
 import {
@@ -32,6 +31,15 @@ const RootQueryType = new GraphQLObjectType({
             type: new GraphQLList(GraphQLInt),
             resolve: () => {
                 return [1, 2, 3].map(_ => 1 + Math.floor(Math.random() * 6));
+            }
+        },
+        peopleWithPlanet: {
+            type: PeopleWithPlanetType,
+            args: {
+                id: { type: GraphQLInt },
+            },
+            resolve: (root, args) => {
+                return StarwarsResolver.getPeopleByIdRxJs(args.id);
             }
         },
         people: {

@@ -7,6 +7,60 @@ import {
     GraphQLList
 } from 'graphql';
 
+export const PeopleWithPlanetType = new GraphQLObjectType({
+    name: 'PeopleWithPlanetType',
+    description: 'Starwars people with planets API',
+    fields: () => ({
+        name: {
+            type: GraphQLString
+        },
+        height: {
+            type: GraphQLString
+        },
+        mass: {
+            type: GraphQLString
+        },
+        hair_color: {
+            type: GraphQLString
+        },
+        skin_color: {
+            type: GraphQLString
+        },
+        eye_color: {
+            type: GraphQLString
+        },
+        birth_year: {
+            type: GraphQLString
+        },
+        gender: {
+            type: GraphQLString
+        },
+        homeworld: {
+            type: PlanetType
+        },
+        films: {
+            type: new GraphQLList(GraphQLString)
+        },
+        species: {
+            type: new GraphQLList(GraphQLString)
+        },
+        vehicles: {
+            type: new GraphQLList(GraphQLString)
+        },
+        starships: {
+            type: new GraphQLList(GraphQLString)
+        },
+        created: {
+            type: GraphQLString
+        },
+        edited: {
+            type: GraphQLString
+        },
+        url: {
+            type: GraphQLString
+        }
+    }),
+});
 
 export const PeopleType = new GraphQLObjectType({
     name: 'Person',
@@ -37,7 +91,7 @@ export const PeopleType = new GraphQLObjectType({
             type: GraphQLString
         },
         homeworld: {
-            type: GraphQLString // PlanetType
+            type: GraphQLString
         },
         films: {
             type: new GraphQLList(GraphQLString)

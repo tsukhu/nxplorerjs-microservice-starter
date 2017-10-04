@@ -124,6 +124,16 @@ This project provides complete Node JS based microservices template with all tha
 * GraphQL
    - GraphQL support has been added and a reference implementation (including the starwars apis from swapi.co)
    - Access the graphiql tool from http://localhost:3000/graphiql
+   - Multiple samples added
+    RxJS API call - peopleWithPlanets(id : <number>)
+    Starwars APIs - people(id: <number>) , planet(id: <number>)
+   - List of Queries
+        quoteOfTheDay: String
+        random: Float
+        rollThreeDice: [Int]
+        peopleWithPlanet(id: Int): PeopleWithPlanetType
+        people(id: Int): Person
+        planet(id: Int): Planet
 * VSCode Debug Launch Configuration (Preconfigured Debug Launcher added)
 * Node Dashboard view added for telemetry during development process
 

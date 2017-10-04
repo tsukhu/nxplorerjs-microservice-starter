@@ -1,4 +1,3 @@
-import { makeExecutableSchema } from 'graphql-tools';
 import * as fetch from 'node-fetch';
 import StarwarsService from '../../api/services/starwars.service';
 import { PeopleType, PlanetType } from '../models/starwars.model';
@@ -24,8 +23,19 @@ export class StarwarsResolver {
     public getPeopleById(id: number) {
 
         const URI = 'http://swapi.co/api/people/' + id;
-    //  Call other orchestrated APIs
-    //    const URI = 'http://localhost:3000/api/v1/starwars/people/1';
+        return fetch(URI).then(res => res.json());
+    }
+
+    /**
+     * Get People by ID RXJS
+     * @param id people ID
+     */
+    public getPeopleByIdRxJs(id: number) {
+
+        // const URI = 'http://swapi.co/api/people/' + id;
+        //  Call other orchestrated APIs
+        const URI = 'http://localhost:3000/api/v1/starwars/people/1';
+
         return fetch(URI).then(res => res.json());
     }
 
