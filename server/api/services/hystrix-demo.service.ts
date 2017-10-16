@@ -85,7 +85,7 @@ export class HystrixDemoService {
         const loadedPosts: AsyncSubject<any> = new AsyncSubject<any>();
         const brake = new Brakes(this.getPostsAPI, {
             name: 'Get Posts',
-            statInterval: 2500,
+            statInterval: 10000,
             threshold: 0.5,
             circuitDuration: 15000,
             timeout: brakeTimeOut

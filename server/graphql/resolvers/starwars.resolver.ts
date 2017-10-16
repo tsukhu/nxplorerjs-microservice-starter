@@ -31,12 +31,20 @@ export class StarwarsResolver {
      * @param id people ID
      */
     public getPeopleByIdRxJs(id: number) {
+        
+        return new Promise(function (resolve, reject) {
+            StarwarsService
+                .getPeopleById(id)
+                .subscribe(r => {
+                    resolve(r);
+                },
+                error => {
+                    reject(error);
+                }
+                );
+        }
+        );
 
-        // const URI = 'http://swapi.co/api/people/' + id;
-        //  Call other orchestrated APIs
-        const URI = 'http://localhost:3000/api/v1/starwars/people/1';
-
-        return fetch(URI).then(res => res.json());
     }
 
     /**
