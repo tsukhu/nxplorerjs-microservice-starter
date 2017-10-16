@@ -31,7 +31,7 @@ export class StarwarsResolver {
      * @param id people ID
      */
     public getPeopleByIdRxJs(id: number) {
-        
+
         return new Promise(function (resolve, reject) {
             StarwarsService
                 .getPeopleById(id)
