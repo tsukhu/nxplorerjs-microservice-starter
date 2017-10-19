@@ -12,7 +12,7 @@ import { Planet, People } from '../models/starwars.model';
 import { LogManager } from '../../common/log-manager';
 
 
-const LOG = LogManager.getInstance().getLogger();
+const LOG = LogManager.getInstance();
 
 const rp: any = require('request-promise');
 

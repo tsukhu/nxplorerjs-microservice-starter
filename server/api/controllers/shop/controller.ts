@@ -8,7 +8,7 @@ import { HttpStatus } from '../../services/http-status-codes';
 import { LogManager } from '../../../common/log-manager';
 
 
-const LOG = LogManager.getInstance().getLogger();
+const LOG = LogManager.getInstance();
 
 /**
  * Shop API Controller

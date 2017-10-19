@@ -35,6 +35,7 @@ export class StarwarsResolver {
         return new Promise(function (resolve, reject) {
             StarwarsService
                 .getPeopleById(id)
+                .timeout(+process.env.TIME_OUT)
                 .subscribe(r => {
                     resolve(r);
                 },

@@ -25,23 +25,24 @@ const bunyanOpts: bunyan.LoggerOptions = {
       level: 'info',
       stream: process.stdout,       // log INFO and above to stdout
       type: 'stream'
-    },
+    }/*
+    Enable this if you need to write to a log file,
     {
       path: process.env.LOG_DIRECTORY + 'server.log',  // log ERROR and above to a file
       type: 'rotating-file',
       period: '1d',   // daily rotation
       count: 3        // keep 3 back copies
-    }
+    }*/
   ]
-  /* Uncomment this for custom UUID
-  ,
+  /* Uncomment this for custom UUID ,
   genReqId: (req) => {
-    return req.headers['x-request-id'];
-  }*/
+   return req.cookies['UUID'];
+  }
+  */
 };
 
 
-const LOG = LogManager.getInstance().getLogger();
+const LOG = LogManager.getInstance();
 
 const responseTime = require('response-time');
 
@@ -71,9 +72,10 @@ export default class ExpressServer {
     app.set('appPath', root + 'client');
     app.use(bodyParser.json());
     app.use(helmet());
+    app.use(cookieParser(process.env.SESSION_SECRET));
     app.use(logger(bunyanOpts));
     app.use(bodyParser.urlencoded({ extended: true }));
-    app.use(cookieParser(process.env.SESSION_SECRET));
+
     if (process.env.NODE_ENV === 'production') {
       app.use(csrf({ cookie: true }));
     }

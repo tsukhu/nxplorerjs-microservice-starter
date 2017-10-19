@@ -8,7 +8,7 @@ import { HttpStatus } from '../../services/http-status-codes';
 import { LogManager } from '../../../common/log-manager';
 
 
-const LOG = LogManager.getInstance().getLogger();
+const LOG = LogManager.getInstance();
 
 export class Controller {
   public all(req: Request, res: Response): void {

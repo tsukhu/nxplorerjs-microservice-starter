@@ -6,7 +6,7 @@ import { Planet, People } from '../models/starwars.model';
 import { LogManager } from '../../common/log-manager';
 
 
-const LOG = LogManager.getInstance().getLogger();
+const LOG = LogManager.getInstance();
 
 const rp: any = require('request-promise');
 
@@ -47,7 +47,9 @@ export class StarwarsService {
                 loadedCharacter.next(result_0);
                 loadedCharacter.complete();
             },
-            err => {
+            error => {
+                LOG.info(url1_options.uri, error);
+                LOG.info(url2_options.uri, error);
                 loadedCharacter.next(undefined);
                 loadedCharacter.complete();
             });

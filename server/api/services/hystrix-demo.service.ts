@@ -10,7 +10,7 @@ const timer = 100;
 let successRate = 1;
 let iterations = 0;
 
-const LOG = LogManager.getInstance().getLogger();
+const LOG = LogManager.getInstance();
 
 const rp: any = require('request-promise');
 

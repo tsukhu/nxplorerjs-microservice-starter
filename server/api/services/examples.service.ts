@@ -4,7 +4,7 @@ import { Example } from '../models/example.model';
 import { LogManager } from '../../common/log-manager';
 
 
-const LOG = LogManager.getInstance().getLogger();
+const LOG = LogManager.getInstance();
 
 const rp: any = require('request-promise');
 
@@ -36,7 +36,8 @@ export class ExamplesService {
             time: true,
             timeout: process.env.TIME_OUT
         };
-    LOG.info(url_options.uri);
+    const api = { uri: url_options.uri , method: url_options.method };
+    LOG.info(api);
     return Observable.fromPromise(rp(url_options));
   }
 
