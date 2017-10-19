@@ -1,5 +1,5 @@
 # express-microservice-starter
-[![Build Status](https://travis-ci.org/ERS-HCL/express-microservice-starter.svg?branch=master)](https://travis-ci.org/ERS-HCL/express-microservice-starter) [![tested with jest](https://img.shields.io/badge/tested_with-jest-99424f.svg)](https://github.com/facebook/jest) [![GitHub version](https://badge.fury.io/gh/tsukhu%2Fexpress-microservice-starter.svg)](https://badge.fury.io/gh/tsukhu%2Fexpress-microservice-starter) [![Dependency Status](https://david-dm.org/tsukhu/express-microservice-starter.svg)](https://david-dm.org/tsukhu/express-microservice-starter)
+[![Build Status](https://travis-ci.org/ERS-HCL/express-microservice-starter.svg?branch=master)](https://travis-ci.org/ERS-HCL/express-microservice-starter) [![tested with jest](https://img.shields.io/badge/tested_with-jest-99424f.svg)](https://github.com/facebook/jest) [![GitHub version](https://badge.fury.io/gh/ERS-HCL%2Fexpress-microservice-starter.svg)](https://badge.fury.io/gh/ERS-HCL%2Fexpress-microservice-starter) [![Dependency Status](https://david-dm.org/ERS-HCL/express-microservice-starter.svg.svg)](https://david-dm.org/ERS-HCL/express-microservice-starter)
 ---
 
 
