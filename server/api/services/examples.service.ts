@@ -28,13 +28,20 @@ export class ExamplesService {
   }
 
   public byPostsByID(id: number): Observable<any> {
+
+    // Request perfroamcne interceptor
+    const _include_headers = function(body, response, resolveWithFullResponse) {
+      return {'timings': response.timings , 'data': body};
+    };
+
     const url_options = {
             method: 'GET',
             uri: 'http://jsonplaceholder.typicode.com/posts/' + id,
             resolveWithFullResponse: true,
             json: true,
             time: true,
-            timeout: process.env.TIME_OUT
+            timeout: process.env.TIME_OUT,
+            transform: _include_headers
         };
     const api = { uri: url_options.uri , method: url_options.method };
     LOG.info(api);

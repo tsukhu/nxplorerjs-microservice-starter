@@ -42,8 +42,9 @@ export class Controller {
       .timeout(+process.env.TIME_OUT)
       .subscribe(
       result => {
-        LOG.info(<Quote>result);
-        res.status(HttpStatus.OK).send(result);
+        LOG.info(<Quote>result.data);
+        LOG.info(result.timings);
+        res.status(HttpStatus.OK).send(result.data);
         LogManager.getInstance().logAPITrace(req, res, HttpStatus.OK);
         AppMetrics.getInstance().logAPIMetrics(req, res, HttpStatus.OK);
       },
