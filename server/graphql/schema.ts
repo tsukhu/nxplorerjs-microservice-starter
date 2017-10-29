@@ -1,5 +1,5 @@
 import * as fetch from 'node-fetch';
-import { PeopleType, PlanetType , PeopleWithPlanetType } from './models/starwars.model';
+import { PeopleType, PlanetType, PeopleWithPlanetType } from './models/starwars.model';
 import { ExampleType, ExampleArrayType } from './models/example.model';
 import ExampleResolver from './resolvers/example.resolver';
 import StarwarsResolver from './resolvers/starwars.resolver';
@@ -13,6 +13,23 @@ import {
     GraphQLList
 } from 'graphql';
 
+const RootMutationType = new GraphQLObjectType({
+    name: 'Mutation',
+    description: 'The root of all... mutations',
+    fields: () => ({
+        addExample: {
+            type: ExampleType,
+            args: {
+                name: { type: GraphQLString }
+              },
+              resolve: (root, args) => {
+                return ExampleResolver.create(args.name);
+              }
+        }
+    }
+
+    )
+});
 const RootQueryType = new GraphQLObjectType({
     name: 'Query',
     description: 'The root of all... queries',
@@ -65,7 +82,7 @@ const RootQueryType = new GraphQLObjectType({
         example: {
             type: ExampleType,
             args: {
-                id: { type: GraphQLInt}
+                id: { type: GraphQLInt }
             },
             resolve: (root, args) => {
                 return ExampleResolver.byId(args.id);
@@ -82,5 +99,6 @@ const RootQueryType = new GraphQLObjectType({
 
 
 export default new GraphQLSchema({
-    query: RootQueryType
+    query: RootQueryType,
+    mutation: RootMutationType
 });

@@ -37,6 +37,10 @@ export class ExampleResolver {
         return ExampleService.byId(id);
     }
 
+    public create(name: string) {
+        return ExampleService.create(name);
+    }
+
 }
 
 
