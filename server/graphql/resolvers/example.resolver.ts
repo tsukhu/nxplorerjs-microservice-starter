@@ -1,9 +1,20 @@
 import ExampleService from '../../api/services/examples.service';
+import { PubSub } from 'graphql-subscriptions';
 
+
+export const pubsub = new PubSub();
+
+const EXAMPLE_ADDED = 'EXAMPLE_ADDED';
 /**
  * Examples GraphQL resolver
  */
 export default {
+
+    SubscriptionType: {
+        exampleAdded: {
+            subscribe: () => pubsub.asyncIterator(EXAMPLE_ADDED),
+        }
+    },
 
     RootQueryType: {
 
@@ -24,8 +35,10 @@ export default {
         }
     },
     RootMutationType: {
-        addExample(parent, args, context, info) {
-            return ExampleService.create(args.name);
+        addExample: async (parent, args, context, info) => {
+            const exampleAdded = await ExampleService.create(args.name);
+            pubsub.publish(EXAMPLE_ADDED, { exampleAdded: exampleAdded });
+            return exampleAdded;
         }
     }
 };

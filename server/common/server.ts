@@ -16,6 +16,12 @@ import * as bunyan from 'bunyan';
 
 import * as logger from 'express-bunyan-logger';
 
+import { execute } from 'graphql';
+import { subscribe } from 'graphql/subscription';
+import { SubscriptionServer } from 'subscriptions-transport-ws';
+import { graphqlExpress, graphiqlExpress } from 'apollo-server-express';
+import myGraphQLSchema from '../graphql/schema';
+
 
 
 const bunyanOpts: bunyan.LoggerOptions = {
@@ -97,6 +103,13 @@ export default class ExpressServer {
       res.set('Content-Type', Prometheus.register.contentType);
       res.end(Prometheus.register.metrics());
     });
+
+    // Graphql
+    app.use('/graphql', graphqlExpress({ schema: myGraphQLSchema }));
+    app.get('/graphiql', graphiqlExpress({
+      endpointURL: '/graphql',
+      subscriptionsEndpoint: `ws://localhost:${process.env.PORT}/subscriptions`
+    })); // if you want GraphiQL enabled
   }
 
   public router(routes: (app: Application) => void): ExpressServer {
@@ -107,7 +120,19 @@ export default class ExpressServer {
   public listen(port: string = process.env.PORT): Application {
     // tslint:disable
     const welcome = port => () => LOG.info(`up and running in ${process.env.NODE_ENV || 'development'} @: ${os.hostname()} on port: ${port}`);
-    http.createServer(app).listen(port, welcome(port));
+    const ws = http.createServer(app)
+    ws.listen(port, () => {
+      welcome(port);
+      new SubscriptionServer({
+        execute,
+        subscribe,
+        schema: myGraphQLSchema
+      }, {
+          server: ws,
+          path: '/subscriptions',
+        });
+    }
+    );
 
     if (process.env.STREAM_HYSTRIX === 'true') {
       const globalStats = Brakes.getGlobalStats();

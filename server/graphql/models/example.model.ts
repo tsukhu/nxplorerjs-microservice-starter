@@ -13,4 +13,6 @@ type ExampleArrayType {
 }
 `;
 
+
+
 export default () => [ExampleType, ExampleArrayType];

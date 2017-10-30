@@ -10,6 +10,12 @@ import StarwarsResolver from './resolvers/starwars.resolver';
 import { makeExecutableSchema } from 'graphql-tools';
 
 
+const SubscriptionType = `
+type SubscriptionType {
+    exampleAdded: ExampleType!
+}
+`;
+
 const RootMutationType = `
 type RootMutationType { 
     addExample(name: String!): ExampleType
@@ -32,6 +38,7 @@ const SchemaDefinition = `
 schema {
     query: RootQueryType 
     mutation: RootMutationType
+    subscription: SubscriptionType
 }
   `;
 
@@ -43,6 +50,7 @@ export default makeExecutableSchema({
         SchemaDefinition,
         RootQueryType,
         RootMutationType,
+        SubscriptionType,
         // we have to destructure array imported from the post.js file
         // as typeDefs only accepts an array of strings or functions
         PeopleType,
