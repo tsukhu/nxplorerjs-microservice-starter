@@ -26,11 +26,14 @@ module.exports = {
         ...config.plugins,
         new TypedocWebpackPlugin({
           out: './docs',
-          module: 'commonjs',
           target: 'es6',
+          mode: 'file',
           exclude: '**/node_modules/**/*.*',
           experimentalDecorators: true,
-          excludeExternals: true
+          excludeExternals: true,
+          includeDeclarations: false,
+          ignoreCompilerErrors: true,
+          excludePrivate: true
         },['./server'])
       ];
     }

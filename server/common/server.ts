@@ -79,7 +79,7 @@ export default class ExpressServer {
     app.use(bodyParser.json());
     app.use(helmet());
     app.use(cookieParser(process.env.SESSION_SECRET));
-    app.use(logger(bunyanOpts));
+ //   app.use(logger(bunyanOpts));
     app.use(bodyParser.urlencoded({ extended: true }));
 
     if (process.env.NODE_ENV === 'production') {
@@ -95,7 +95,7 @@ export default class ExpressServer {
       if (process.env.NODE_ENV === 'production') {
         res.cookie('XSRF-TOKEN', req.csrfToken());
       }
-      LogManager.getInstance().setUUID(req.log.fields.req_id);
+      LogManager.getInstance().setUUID(req.cookies['UUID']);
       next();
     });
     // Metrics endpoint
@@ -119,20 +119,21 @@ export default class ExpressServer {
 
   public listen(port: string = process.env.PORT): Application {
     // tslint:disable
-    const welcome = port => () => LOG.info(`up and running in ${process.env.NODE_ENV || 'development'} @: ${os.hostname()} on port: ${port}`);
+    const welcome = (port) => console.log(`up and running in ${process.env.NODE_ENV || 'development'} @: ${os.hostname()} on port: ${port}`);
     const ws = http.createServer(app)
     ws.listen(port, () => {
-      welcome(port);
-      new SubscriptionServer({
-        execute,
-        subscribe,
-        schema: myGraphQLSchema
-      }, {
-          server: ws,
-          path: '/subscriptions',
-        });
+     welcome(port);
     }
     );
+
+    const subscriptionServer = new SubscriptionServer({
+      execute,
+      subscribe,
+      schema: myGraphQLSchema
+    }, {
+        server: ws,
+        path: '/subscriptions',
+      });
 
     if (process.env.STREAM_HYSTRIX === 'true') {
       const globalStats = Brakes.getGlobalStats();
