@@ -311,6 +311,22 @@ jestSonar": {
 }
 ```
 Note: for Sonar 6.x turn sonar56x to “false” and that will generate the test report that is using the sonar 6 schema.
+### Load Testing
+
+* [loadtest](https://www.npmjs.com/package/loadtest) is an excellent tool for loadtesting
+* Steps to use it
+* Install it as a global npm module
+```bash
+npm install -g loadtest
+``` 
+* Start the express-microservice
+```bash
+npm run start
+```
+* Run the load test against the production build. Given below is one example
+```bash
+loadtest http://localhost:3000/api/v1/examples/1 -t 20 -c 20
+```
 
 ### Future RoadMap
 * Coming Soon - Support for GraphQL [Milestone 1.3](https://github.com/tsukhu/express-microservice-starter/milestone/4) - WIP
