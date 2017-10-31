@@ -64,7 +64,11 @@ export default class ExpressServer {
       if (process.env.NODE_ENV === 'production') {
         res.cookie('XSRF-TOKEN', req.csrfToken());
       }
-      LogManager.getInstance().setUUID(req.cookies['UUID']);
+
+      // If UUID set in the cookie then add to the log for tracking
+      if (req.cookies['UUID'] !== undefined) {
+        LogManager.getInstance().setUUID(req.cookies['UUID']);
+      }
       next();
     });
     // Metrics endpoint
