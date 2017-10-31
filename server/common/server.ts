@@ -11,42 +11,11 @@ import * as csrf from 'csurf';
 import swaggerify from './swagger';
 import { LogManager } from './log-manager';
 import * as Brakes from 'brakes';
-
-import * as bunyan from 'bunyan';
-
-import * as logger from 'express-bunyan-logger';
-
 import { execute } from 'graphql';
 import { subscribe } from 'graphql/subscription';
 import { SubscriptionServer } from 'subscriptions-transport-ws';
 import { graphqlExpress, graphiqlExpress } from 'apollo-server-express';
 import myGraphQLSchema from '../graphql/schema';
-
-
-
-const bunyanOpts: bunyan.LoggerOptions = {
-  name: 'myapp',
-  streams: [
-    {
-      level: 'info',
-      stream: process.stdout,       // log INFO and above to stdout
-      type: 'stream'
-    }/*
-    Enable this if you need to write to a log file,
-    {
-      path: process.env.LOG_DIRECTORY + 'server.log',  // log ERROR and above to a file
-      type: 'rotating-file',
-      period: '1d',   // daily rotation
-      count: 3        // keep 3 back copies
-    }*/
-  ]
-  /* Uncomment this for custom UUID ,
-  genReqId: (req) => {
-   return req.cookies['UUID'];
-  }
-  */
-};
-
 
 const LOG = LogManager.getInstance();
 
