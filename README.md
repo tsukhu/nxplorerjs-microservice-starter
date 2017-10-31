@@ -29,7 +29,7 @@ This project provides complete Node JS based microservices template with all tha
 * Sample APIs, Patterns for reference
 * Sonar Qube integration
 * Hystrix Circuit Break Support (Using Brakes)
-* Added a pino logger specific [branch](https://github.com/tsukhu/express-microservice-starter/tree/pino)
+* Now using the super fast pino logger for all logging needs
 * REST APIs
    - examples - Basic examples with a search by ID example from the jsonplaceholder API (/examples/:id)
    - shop     - Example of how to use Reactive Extensions for API orchestration (FlatMap) (/shop/priceByOptionId/:id)
