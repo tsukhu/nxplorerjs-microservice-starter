@@ -152,7 +152,9 @@ This project provides complete Node JS based microservices template with all tha
       - exampleAdded (Will check whenever a new element is added via a mutation)
 
     Sample Subscription Execution
+    
     ![Sample Subscription step 1](screenshots/subscription_1.PNG)
+    
     ![Sample Subscription step 2](screenshots/subscription_2.PNG)
 
 * VSCode Debug Launch Configuration (Preconfigured Debug Launcher added)
