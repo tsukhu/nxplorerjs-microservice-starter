@@ -125,7 +125,8 @@ This project provides complete Node JS based microservices template with all tha
     }
 ```
 * GraphQL
-   - GraphQL support has been added and a reference implementation (including the starwars apis from swapi.co)
+   - GraphQL support has been added based on the apollo framework and a reference implementation (including the starwars apis from swapi.co)
+    ![GraphQL](screenshots/graphql.png)
    - Access the graphiql tool from http://localhost:3000/graphiql
    - Multiple samples added
       - RxJS API call - peopleWithPlanets(id : <number>)
@@ -134,12 +135,41 @@ This project provides complete Node JS based microservices template with all tha
       - quoteOfTheDay: String
       - random: Float
       - rollThreeDice: [Int]
-      - peopleWithPlanet(id: Int): PeopleWithPlanetType
+      - peopleWithPlanet(id: Int): PeopleWithPlanetType (Uses RxJS to combine results from 2 APIs)
       - people(id: Int): Person
       - planet(id: Int): Planet
+
+    Sample Query Execution
+    ![Sample Query](screenshots/query_1.PNG)
+
+    - Mutations
+      - addExample(name: String!): ExampleType
+
+    Sample Mutation Execution
+    ![Sample Mutation](screenshots/mutation_1.PNG)
+
+    - Subscriptions
+      - exampleAdded (Will check whenever a new element is added via a mutation)
+
+    Sample Subscription Execution
+    ![Sample Subscription step 1](screenshots/subscription_1.PNG)
+    ![Sample Subscription step 2](screenshots/subscription_2.PNG)
+
 * VSCode Debug Launch Configuration (Preconfigured Debug Launcher added)
 * Node Dashboard view added for telemetry during development process
-
+* Added NodeJS cluster mode (load balanced workers)
+ - When you start the server it adds workers based on the number of CPUs
+```
+Master cluster setting up 4 workers...
+Worker 2828 is online
+Worker 2816 is online
+Worker 13956 is online
+Worker 3756 is online
+up and running in development @: LP-507B9DA1D355 on port: 3000
+up and running in development @: LP-507B9DA1D355 on port: 3000
+up and running in development @: LP-507B9DA1D355 on port: 3000
+up and running in development @: LP-507B9DA1D355 on port: 3000
+```
 ## Pre-requisites
 
 Install npm and nodeJS
@@ -311,6 +341,7 @@ jestSonar": {
 }
 ```
 Note: for Sonar 6.x turn sonar56x to “false” and that will generate the test report that is using the sonar 6 schema.
+
 ### Load Testing
 
 * [loadtest](https://www.npmjs.com/package/loadtest) is an excellent tool for loadtesting
