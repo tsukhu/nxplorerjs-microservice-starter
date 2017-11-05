@@ -125,7 +125,7 @@ This project provides complete Node JS based microservices template with all tha
     }
 ```
 * GraphQL
-   - GraphQL support has been added based on the apollo framework and a reference implementation (including the starwars apis from swapi.co)
+   - GraphQL support has been added based on the [apollo framework](https://github.com/apollographql) and a reference implementation (including the starwars apis from swapi.co)
     ![GraphQL](screenshots/graphql.png)
    - Access the graphiql tool from http://localhost:3000/graphiql
    - Multiple samples added
