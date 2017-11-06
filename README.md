@@ -362,7 +362,7 @@ loadtest http://localhost:3000/api/v1/examples/1 -t 20 -c 20
 ```
 
 ### Future RoadMap
-* Coming Soon - Support for GraphQL [Milestone 1.3](https://github.com/tsukhu/express-microservice-starter/milestone/4) - WIP
+* Coming Soon - Support for InversifyJS based IOC - WIP
 
 ### FAQ
 
