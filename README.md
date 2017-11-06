@@ -371,10 +371,9 @@ loadtest http://localhost:3000/api/v1/examples/1 -t 20 -c 20
 // Configure glob patterns of file paths to exclude from linting
 "tslint.exclude": "**/node_modules/**/*.ts"
 ```
+### Disclaimer
 
-* How do I change to the pino logging framework instead of bunyan
-
-Switch over to the [pino](https://github.com/tsukhu/express-microservice-starter/tree/pino) branch for that implementation
+* This is not an official HCL ERS product.
 
 ### Credits
 
