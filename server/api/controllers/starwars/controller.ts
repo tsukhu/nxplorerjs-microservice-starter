@@ -5,10 +5,13 @@ import { ErrorResponseBuilder } from '../../services/response-builder';
 import { HttpError } from '../../models/error.model';
 import { AppMetrics } from '../../../common/metrics';
 import { HttpStatus } from '../../services/http-status-codes';
-import { LogManager } from '../../../common/log-manager';
+import container from '../../../common/config/ioc_config';
+import SERVICE_IDENTIFIER from '../../../common/constants/identifiers';
+import { inject, injectable } from 'inversify';
 
+import ILogger from '../../../common/interfaces/ilogger';
 
-const LOG = LogManager.getInstance();
+const LOG = container.get<ILogger>(SERVICE_IDENTIFIER.LOGGER);
 
 export class Controller {
 
@@ -19,10 +22,10 @@ export class Controller {
       .subscribe(r => {
         if (r === undefined) {
           res.status(HttpStatus.NOT_FOUND).end();
-          LogManager.getInstance().logAPITrace(req, res, HttpStatus.NOT_FOUND);
+          LOG.logAPITrace(req, res, HttpStatus.NOT_FOUND);
         } else {
           res.status(HttpStatus.OK).json(r);
-          LogManager.getInstance().logAPITrace(req, res, HttpStatus.OK);
+          LOG.logAPITrace(req, res, HttpStatus.OK);
         }
         AppMetrics.getInstance().logAPIMetrics(req, res, req.statusCode);
       },
@@ -36,7 +39,7 @@ export class Controller {
           .setSource(req.url)
           .build();
         res.status(HttpStatus.NOT_FOUND).json(resp);
-        LogManager.getInstance().logAPITrace(req, res, HttpStatus.NOT_FOUND, error);
+        LOG.logAPITrace(req, res, HttpStatus.NOT_FOUND, error);
         AppMetrics.getInstance().logAPIMetrics(req, res, HttpStatus.NOT_FOUND);
       }
       );

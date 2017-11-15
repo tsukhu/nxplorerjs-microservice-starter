@@ -6,18 +6,23 @@ import { HttpError } from '../../models/error.model';
 import { AppMetrics } from '../../../common/metrics';
 import { HttpStatus } from '../../services/http-status-codes';
 import { LogManager } from '../../../common/log-manager';
+import container from '../../../common/config/ioc_config';
+import SERVICE_IDENTIFIER from '../../../common/constants/identifiers';
+import { inject, injectable } from 'inversify';
 
+import ILogger from '../../../common/interfaces/ilogger';
 
-const LOG = LogManager.getInstance();
-
+const LOG = container.get<ILogger>(SERVICE_IDENTIFIER.LOGGER);
+@injectable()
 export class Controller {
+
   public all(req: Request, res: Response): void {
     ExamplesService
       .all()
       .then(
       result => {
         res.status(HttpStatus.OK).json(result);
-        LogManager.getInstance().logAPITrace(req, res, HttpStatus.OK);
+        LOG.logAPITrace(req, res, HttpStatus.OK);
         AppMetrics.getInstance().logAPIMetrics(req, res, HttpStatus.OK);
       },
       error => {
@@ -29,7 +34,7 @@ export class Controller {
           .setSource(req.url)
           .build();
         res.status(HttpStatus.INTERNAL_SERVER_ERROR).json(error);
-        LogManager.getInstance().logAPITrace(req, res, HttpStatus.NOT_FOUND);
+        LOG.logAPITrace(req, res, HttpStatus.NOT_FOUND);
         AppMetrics.getInstance().logAPIMetrics(req, res, HttpStatus.NOT_FOUND);
       }
       );
@@ -45,7 +50,7 @@ export class Controller {
         LOG.info(<Quote>result.data);
         LOG.info(result.timings);
         res.status(HttpStatus.OK).send(result.data);
-        LogManager.getInstance().logAPITrace(req, res, HttpStatus.OK);
+        LOG.logAPITrace(req, res, HttpStatus.OK);
         AppMetrics.getInstance().logAPIMetrics(req, res, HttpStatus.OK);
       },
       err => {
@@ -58,8 +63,8 @@ export class Controller {
           .setSource(req.url)
           .build();
         res.status(HttpStatus.NOT_FOUND).json(resp);
-        LogManager.getInstance().logAPITrace(req, res, HttpStatus.NOT_FOUND);
-        AppMetrics.getInstance().logAPIMetrics(req, res , HttpStatus.NOT_FOUND);
+        LOG.logAPITrace(req, res, HttpStatus.NOT_FOUND);
+        AppMetrics.getInstance().logAPIMetrics(req, res, HttpStatus.NOT_FOUND);
       }
       );
   }
@@ -73,11 +78,11 @@ export class Controller {
       .then(r => {
         if (r) {
           res.json(r);
-          LogManager.getInstance().logAPITrace(req, res, HttpStatus.OK);
+          LOG.logAPITrace(req, res, HttpStatus.OK);
           AppMetrics.getInstance().logAPIMetrics(req, res, HttpStatus.OK);
         } else {
           res.status(HttpStatus.NOT_FOUND).end();
-          LogManager.getInstance().logAPITrace(req, res, HttpStatus.NOT_FOUND);
+          LOG.logAPITrace(req, res, HttpStatus.NOT_FOUND);
           AppMetrics.getInstance().logAPIMetrics(req, res, HttpStatus.NOT_FOUND);
         }
       },
@@ -90,8 +95,8 @@ export class Controller {
           .setSource(req.url)
           .build();
         res.status(HttpStatus.NOT_FOUND).json(error);
-        LogManager.getInstance().logAPITrace(req, res, HttpStatus.NOT_FOUND);
-        AppMetrics.getInstance().logAPIMetrics(req, res , HttpStatus.NOT_FOUND);
+        LOG.logAPITrace(req, res, HttpStatus.NOT_FOUND);
+        AppMetrics.getInstance().logAPIMetrics(req, res, HttpStatus.NOT_FOUND);
       });
   }
 
@@ -103,8 +108,8 @@ export class Controller {
     ExamplesService
       .create(req.body.name)
       .then(r => {
-        res.status(HttpStatus.CREATED).location(`/api/v1/examples/${r.id}`).json(r).end();
-        LogManager.getInstance().logAPITrace(req, res, HttpStatus.CREATED);
+        res.status(HttpStatus.CREATED).location(`/api/v1/examples/${r.id}`).json(r);
+        LOG.logAPITrace(req, res, HttpStatus.CREATED);
         AppMetrics.getInstance().logAPIMetrics(req, res, HttpStatus.CREATED);
       }
       );

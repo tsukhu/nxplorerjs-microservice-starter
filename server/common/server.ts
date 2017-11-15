@@ -9,15 +9,20 @@ import * as cookieParser from 'cookie-parser';
 import * as helmet from 'helmet';
 import * as csrf from 'csurf';
 import swaggerify from './swagger';
-import { LogManager } from './log-manager';
 import * as Brakes from 'brakes';
 import { execute } from 'graphql';
 import { subscribe } from 'graphql/subscription';
 import { SubscriptionServer } from 'subscriptions-transport-ws';
 import { graphqlExpress, graphiqlExpress } from 'apollo-server-express';
 import myGraphQLSchema from '../graphql/schema';
+import container from '../common/config/ioc_config';
+import SERVICE_IDENTIFIER from '../common/constants/identifiers';
+import { inject, injectable } from 'inversify';
 
-const LOG = LogManager.getInstance();
+import ILogger from '../common/interfaces/ilogger';
+
+const LOG = container.get<ILogger>(SERVICE_IDENTIFIER.LOGGER);
+
 
 const responseTime = require('response-time');
 
@@ -67,7 +72,7 @@ export default class ExpressServer {
 
       // If UUID set in the cookie then add to the log for tracking
       if (req.cookies['UUID'] !== undefined) {
-        LogManager.getInstance().setUUID(req.cookies['UUID']);
+        LOG.setUUID(req.cookies['UUID']);
       }
       next();
     });
