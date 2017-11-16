@@ -11,15 +11,16 @@ import { inject, injectable } from 'inversify';
 
 import ILogger from '../../../common/interfaces/ilogger';
 import IProduct from '../../interfaces/iproduct';
-import IShopController from '../../interfaces/ishop-controller';
+import { interfaces, controller, httpGet, httpPost, httpDelete, request, queryParam, response, requestParam } from 'inversify-express-utils';
 
 // onst LOG = container.get<ILogger>(SERVICE_IDENTIFIER.LOGGER);
 
 /**
  * Shop API Controller
  */
+@controller('/shop')
 @injectable()
-class Controller implements IShopController {
+class ShopController {
 
   public productService: IProduct;
   public loggerService: ILogger;
@@ -31,7 +32,8 @@ class Controller implements IShopController {
     this.productService = productService;
     this.loggerService = loggerService;
   }
-  public allBaseProducts(req: Request, res: Response): void {
+  @httpGet('/products')
+  public allBaseProducts(@request() req: Request, @response() res: Response): void {
 
     this.productService
       .allBaseProducts()
@@ -57,7 +59,8 @@ class Controller implements IShopController {
       );
   }
 
-  public allBaseProductOptions(req: Request, res: Response): void {
+  @httpGet('/productOptions')
+  public allBaseProductOptions(@request() req: Request, @response() res: Response): void {
     this.productService
       .allBaseProductOptions()
       .subscribe(
@@ -82,7 +85,8 @@ class Controller implements IShopController {
       );
   }
 
-  public allBaseProductPrice(req: Request, res: Response): void {
+  @httpGet('/prices')
+  public allBaseProductPrice(@request() req: Request, @response() res: Response): void {
     this.productService
       .allBaseProductPrice()
       .subscribe(
@@ -107,7 +111,8 @@ class Controller implements IShopController {
       );
   }
 
-  public allBaseProductInventory(req: Request, res: Response): void {
+  @httpGet('/inventory')
+  public allBaseProductInventory(@request() req: Request, @response() res: Response): void {
     this.productService
       .allBaseProductInventory()
       .subscribe(
@@ -132,9 +137,10 @@ class Controller implements IShopController {
       );
   }
 
-  public productbyId(req: Request, res: Response): void {
+  @httpGet('/products/:id')
+  public productbyId(@requestParam('id') id: number, @request() req: Request, @response() res: Response): void {
     this.productService
-      .baseProductbyId(req.params.id)
+      .baseProductbyId(id)
       .subscribe(r => {
         if (r) {
           res.json(r);
@@ -148,9 +154,10 @@ class Controller implements IShopController {
       });
   }
 
-  public baseProductOptionsbyId(req: Request, res: Response): void {
+  @httpGet('/productOptions/:id')
+  public baseProductOptionsbyId(@requestParam('id') id: number, @request() req: Request, @response() res: Response): void {
     this.productService
-      .baseProductOptionsbyId(req.params.id)
+      .baseProductOptionsbyId(id)
       .subscribe(r => {
         if (r) {
           res.json(r);
@@ -164,9 +171,10 @@ class Controller implements IShopController {
       });
   }
 
-  public baseProductPricebyId(req: Request, res: Response): void {
+  @httpGet('/prices/:id')
+  public baseProductPricebyId(@requestParam('id') id: number, @request() req: Request, @response() res: Response): void {
     this.productService
-      .baseProductPricebyId(req.params.id)
+      .baseProductPricebyId(id)
       .subscribe(r => {
         if (r) {
           res.json(r);
@@ -183,9 +191,10 @@ class Controller implements IShopController {
   /**
    * Check by ID
    */
-  public baseProductInventorybyId(req: Request, res: Response): void {
+  @httpGet('/inventory/:id')
+  public baseProductInventorybyId(@requestParam('id') id: number, @request() req: Request, @response() res: Response): void {
     this.productService
-      .baseProductInventorybyId(req.params.id)
+      .baseProductInventorybyId(id)
       .subscribe(r => {
         if (r) {
           res.json(r);
@@ -204,9 +213,10 @@ class Controller implements IShopController {
    * @param req Request Param
    * @param res Response Param
    */
-  public flatMapProductOptionPricebyId(req: Request, res: Response): void {
+  @httpGet('/priceByOptionId/:id')
+  public flatMapProductOptionPricebyId(@requestParam('id') id: number, @request() req: Request, @response() res: Response): void {
     this.productService
-      .getProductOptionPricebyId(req.params.id)
+      .getProductOptionPricebyId(id)
       .subscribe(r => {
         if (r) {
           res.json(r);
@@ -233,4 +243,4 @@ class Controller implements IShopController {
   }
 
 }
-export default Controller;
+export default ShopController;

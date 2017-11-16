@@ -11,11 +11,11 @@ import { inject, injectable } from 'inversify';
 
 import ILogger from '../../../common/interfaces/ilogger';
 import IHystrixDemo from '../../interfaces/ihystrix-demo';
-import IHystrixDemoController from '../../interfaces/hystrix-demo-controller';
+import { interfaces, controller, httpGet, httpPost, httpDelete, request, queryParam, response, requestParam } from 'inversify-express-utils';
 
-
+@controller('/hystrix-demo')
 @injectable()
-class Controller implements IHystrixDemoController {
+class HystrixController  {
 
   public hystrixDemoService: IHystrixDemo;
   public loggerService: ILogger;
@@ -28,7 +28,8 @@ class Controller implements IHystrixDemoController {
     this.loggerService = loggerService;
   }
 
-  public start(req: Request, res: Response): void {
+  @httpGet('/start')
+  public start(@request() req: Request, @response() res: Response): void {
     this.hystrixDemoService.start()
       .subscribe(
       r => {
@@ -37,7 +38,8 @@ class Controller implements IHystrixDemoController {
       );
   }
 
-  public posts(req: Request, res: Response): void {
+  @httpGet('/posts')
+  public posts(@request() req: Request, @response() res: Response): void {
     this.loggerService.info(req.originalUrl);
     this.hystrixDemoService
       .getPosts(req.query.timeOut)
@@ -64,4 +66,4 @@ class Controller implements IHystrixDemoController {
       );
   }
 }
-export default Controller;
+export default HystrixController;

@@ -11,10 +11,13 @@ import { inject, injectable } from 'inversify';
 
 import ILogger from '../../../common/interfaces/ilogger';
 import IStarwars from '../../interfaces/istarwars';
-import IStarwarsController from '../../interfaces/istarwars-controller';
 
+import { interfaces, controller, httpGet, httpPost, httpDelete, request, queryParam, response, requestParam } from 'inversify-express-utils';
+
+
+@controller('/starwars')
 @injectable()
-class Controller implements IStarwarsController {
+class StarwarsController {
 
   public starwarsService: IStarwars;
   public loggerService: ILogger;
@@ -28,9 +31,10 @@ class Controller implements IStarwarsController {
   }
 
 
-  public getPeopleById(req: Request, res: Response): void {
+  @httpGet('/people/:id')
+  public getPeopleById(@requestParam('id') id: number, @request() req: Request, @response() res: Response): void {
     this.starwarsService
-      .getPeopleById(req.params.id)
+      .getPeopleById(id)
       .timeout(+process.env.TIME_OUT)
       .subscribe(r => {
         if (r === undefined) {
@@ -59,4 +63,4 @@ class Controller implements IStarwarsController {
   }
 
 }
-export default Controller;
+export default StarwarsController;

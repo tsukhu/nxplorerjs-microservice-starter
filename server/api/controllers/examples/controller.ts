@@ -6,6 +6,8 @@ import { HttpError } from '../../models/error.model';
 import { AppMetrics } from '../../../common/metrics';
 import { HttpStatus } from '../../services/http-status-codes';
 import { LogManager } from '../../../common/log-manager';
+import { interfaces, controller, httpGet, httpPost, httpDelete, request, queryParam, response, requestParam } from 'inversify-express-utils';
+
 import container from '../../../common/config/ioc_config';
 import SERVICE_IDENTIFIER from '../../../common/constants/identifiers';
 import { inject, injectable } from 'inversify';
@@ -13,9 +15,9 @@ import { inject, injectable } from 'inversify';
 import ILogger from '../../../common/interfaces/ilogger';
 import IExample from '../../interfaces/iexample';
 
-
+@controller('/examples')
 @injectable()
-class Controller {
+class ExampleController {
 
   public exampleService: IExample;
   public loggerService: ILogger;
@@ -29,7 +31,8 @@ class Controller {
     this.loggerService.info('In the constructor');
   }
 
-  public all(req: Request, res: Response): void {
+  @httpGet('/')
+  public all(@request() req: Request, @response() res: Response): void {
     this.loggerService.info('Hello');
     this.exampleService
       .all()
@@ -54,10 +57,12 @@ class Controller {
       );
   }
 
-  public byPostsByID(req: Request, res: Response): void {
+  @httpGet('/:id')
+  public byPostsByID(@requestParam('id') id: number,
+  @request() req: Request, @response() res: Response): void {
     this.loggerService.info(req.originalUrl);
     this.exampleService
-      .byPostsByID(req.params.id)
+      .byPostsByID(id)
       .timeout(+process.env.TIME_OUT)
       .subscribe(
       result => {
@@ -118,7 +123,8 @@ class Controller {
    * Create request sample
    * Add a new element to the in memory Sample object
    */
-  public create(req: Request, res: Response): void {
+  @httpPost('/')
+  public create(@request() req: Request, @response() res: Response): void {
     this.exampleService
       .create(req.body.name)
       .then(r => {
@@ -130,4 +136,4 @@ class Controller {
   }
 
 }
-export default Controller;
+export default ExampleController;

@@ -1,8 +1,9 @@
 import './common/env';
 import Server from './common/server';
-import routes from './routes';
+import { Container } from 'inversify';
 
 import * as cluster from 'cluster';
+
 
 if (process.env.CLUSTER_MODE === 'true' && cluster.isMaster) {
   const numWorkers = require('os').cpus().length;
@@ -23,7 +24,8 @@ if (process.env.CLUSTER_MODE === 'true' && cluster.isMaster) {
     cluster.fork();
   });
 } else {
-  const app = new Server()
-    .router(routes)
-    .listen(process.env.PORT);
+  // create server
+  const app = new Server();
+
+  app.getServer().build().listen(process.env.PORT);
 }
