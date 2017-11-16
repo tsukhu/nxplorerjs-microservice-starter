@@ -3,14 +3,18 @@ import { Observable } from 'rxjs/Observable';
 import { AsyncSubject } from 'rxjs/AsyncSubject';
 import * as _ from 'lodash';
 import { Post } from '../models/example.model';
+import { inject, injectable } from 'inversify';
 import { LogManager } from '../../common/log-manager';
 import * as Brakes from 'brakes';
+import container from '../../common/config/ioc_config';
+import SERVICE_IDENTIFIER from '../../common/constants/identifiers';
+
+import ILogger from '../../common/interfaces/ilogger';
+import IHystrixDemo from '../interfaces/ihystrix-demo';
 
 const timer = 100;
 let successRate = 1;
 let iterations = 0;
-
-const LOG = LogManager.getInstance();
 
 const rp: any = require('request-promise');
 
@@ -24,8 +28,16 @@ const posts: Post[] = [
     { userId: id++, id: id, title: 'sample post #' + id, body: 'sample body #' + id }
 ];
 
+@injectable()
+class HystrixDemoService implements IHystrixDemo {
 
-export class HystrixDemoService {
+
+    public loggerService: ILogger;
+    public constructor(
+        @inject(SERVICE_IDENTIFIER.LOGGER) loggerService: ILogger
+    ) {
+        this.loggerService = loggerService;
+    }
 
     private fallbackCall(foo) {
         return new Promise((resolve, reject) => {
@@ -67,7 +79,7 @@ export class HystrixDemoService {
             time: true,
             timeout: postTimeOut
         };
-        LOG.info(url_options.uri);
+        this.loggerService.info(url_options.uri);
         return rp(url_options);
     }
 
@@ -144,4 +156,4 @@ export class HystrixDemoService {
         return Observable.of(new Boolean(true));
     }
 }
-export default new HystrixDemoService();
+export default HystrixDemoService;

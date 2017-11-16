@@ -1,6 +1,10 @@
 import * as fetch from 'node-fetch';
+import container from '../../common/config/ioc_config';
+import SERVICE_IDENTIFIER from '../../common/constants/identifiers';
 
-import StarwarsService from '../../api/services/starwars.service';
+import IStarwars from '../../api/interfaces/istarwars';
+
+const StarwarsService = container.get<IStarwars>(SERVICE_IDENTIFIER.STARWARS);
 
 
 export default {

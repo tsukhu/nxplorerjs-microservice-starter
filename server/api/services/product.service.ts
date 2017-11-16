@@ -9,10 +9,14 @@ import {
     BaseProductOption
 } from '../models/product.model';
 import { Planet, People } from '../models/starwars.model';
-import { LogManager } from '../../common/log-manager';
+// import { LogManager } from '../../common/log-manager';
+import { inject, injectable } from 'inversify';
+import IProduct from '../interfaces/iproduct';
+import container from '../../common/config/ioc_config';
+import SERVICE_IDENTIFIER from '../../common/constants/identifiers';
 
+import ILogger from '../../common/interfaces/ilogger';
 
-const LOG = LogManager.getInstance();
 
 const rp: any = require('request-promise');
 
@@ -123,7 +127,15 @@ const baseProducts: BaseProduct[] = [
     }
 ];
 
-export class ProductService {
+@injectable()
+class ProductService implements IProduct {
+
+    public loggerService: ILogger;
+    public constructor(
+        @inject(SERVICE_IDENTIFIER.LOGGER) loggerService: ILogger
+    ) {
+        this.loggerService = loggerService;
+    }
     public allBaseProducts(): Observable<BaseProduct[]> {
         return Observable.from(baseProducts).toArray();
     }
@@ -211,4 +223,4 @@ export class ProductService {
 }
 
 
-export default new ProductService();
+export default ProductService;

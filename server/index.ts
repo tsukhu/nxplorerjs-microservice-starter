@@ -4,8 +4,7 @@ import routes from './routes';
 
 import * as cluster from 'cluster';
 
-
-if (cluster.isMaster) {
+if (process.env.CLUSTER_MODE === 'true' && cluster.isMaster) {
   const numWorkers = require('os').cpus().length;
 
   console.log('Master cluster setting up ' + numWorkers + ' workers...');

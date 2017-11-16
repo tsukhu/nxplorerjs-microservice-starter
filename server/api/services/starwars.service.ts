@@ -3,16 +3,26 @@ import { Observable } from 'rxjs/Observable';
 import { AsyncSubject } from 'rxjs/AsyncSubject';
 import * as _ from 'lodash';
 import { Planet, People } from '../models/starwars.model';
-import { LogManager } from '../../common/log-manager';
+import { inject, injectable } from 'inversify';
+import container from '../../common/config/ioc_config';
+import SERVICE_IDENTIFIER from '../../common/constants/identifiers';
 
+import ILogger from '../../common/interfaces/ilogger';
+import IStarwars from '../interfaces/istarwars';
 
-const LOG = LogManager.getInstance();
+// const LOG = container.get<ILogger>(SERVICE_IDENTIFIER.LOGGER);
 
 const rp: any = require('request-promise');
 
+@injectable()
+class StarwarsService implements IStarwars {
 
-export class StarwarsService {
-
+    public loggerService: ILogger;
+    public constructor(
+        @inject(SERVICE_IDENTIFIER.LOGGER) loggerService: ILogger
+    ) {
+        this.loggerService = loggerService;
+    }
 
     public getPeopleById(id: number): Observable<People> {
         const loadedCharacter: AsyncSubject<People> = new AsyncSubject<People>();
@@ -39,8 +49,8 @@ export class StarwarsService {
             results => {
                 //     const result_0: People = JSON.parse(results[0]);
                 //     const result_1: Planet = JSON.parse(results[1]);
-                LOG.info(url1_options.uri, results[0].timings);
-                LOG.info(url2_options.uri, results[1].timings);
+                this.loggerService.info(url1_options.uri, results[0].timings);
+                this.loggerService.info(url2_options.uri, results[1].timings);
                 const result_0: People = results[0].body;
                 const result_1: Planet = results[1].body;
                 result_0.homeworld = result_1;
@@ -48,17 +58,14 @@ export class StarwarsService {
                 loadedCharacter.complete();
             },
             error => {
-                LOG.info(url1_options.uri, error);
-                LOG.info(url2_options.uri, error);
+                this.loggerService.info(url1_options.uri, error);
+                this.loggerService.info(url2_options.uri, error);
                 loadedCharacter.next(undefined);
                 loadedCharacter.complete();
             });
-
-
 
         return loadedCharacter;
     }
 }
 
-
-export default new StarwarsService();
+export default StarwarsService;

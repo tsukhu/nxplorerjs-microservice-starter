@@ -2,9 +2,11 @@ import * as Promise from 'bluebird';
 import { Observable } from 'rxjs';
 import { Example } from '../models/example.model';
 import { LogManager } from '../../common/log-manager';
+import { inject, injectable } from 'inversify';
 
-
-const LOG = LogManager.getInstance();
+import SERVICE_IDENTIFIER from '../../common/constants/identifiers';
+import ILogger from '../../common/interfaces/ilogger';
+import IExample from '../interfaces/iexample';
 
 const rp: any = require('request-promise');
 
@@ -18,7 +20,17 @@ const examples: Example[] = [
   { id: id++, name: 'example 1' }
 ];
 
-export class ExamplesService {
+@injectable()
+class ExamplesService implements IExample {
+
+  public logService: ILogger;
+
+  public constructor(
+    @inject(SERVICE_IDENTIFIER.LOGGER) logger: ILogger
+  ) {
+    this.logService = logger;
+  }
+
   public all(): Promise<Example[]> {
     return Promise.resolve(examples);
   }
@@ -44,7 +56,7 @@ export class ExamplesService {
             transform: _include_headers
         };
     const api = { uri: url_options.uri , method: url_options.method };
-    LOG.info(api);
+    this.logService.info(api);
     return Observable.fromPromise(rp(url_options));
   }
 
@@ -63,4 +75,4 @@ export class ExamplesService {
   }
 }
 
-export default new ExamplesService();
+export default ExamplesService;
