@@ -1,11 +1,12 @@
 import * as request from 'supertest';
 import './common/env';
 import Server from './common/server';
-import routes from './routes';
 
-const app = new Server()
-  .router(routes)
-  .listen(process.env.PORT);
+const app = new Server().getServer().build();
+
+app.listen(process.env.PORT);
+
+
 
 describe('Express-Microservice: routes spec', () => {
 

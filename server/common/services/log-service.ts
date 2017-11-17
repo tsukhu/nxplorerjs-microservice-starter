@@ -6,7 +6,7 @@ import ILogger from '../interfaces/ilogger';
 const pino = require('pino')();
 
 @injectable()
-export class LogService implements ILogger {
+class LogService implements ILogger {
 
     private logger: any;
     private uuid: string;

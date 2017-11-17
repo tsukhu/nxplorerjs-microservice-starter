@@ -9,6 +9,7 @@ export class LogManager {
     private constructor() {
         // do something construct...
     }
+
     static getInstance() {
         if (!LogManager.instance) {
             LogManager.instance = new LogManager();

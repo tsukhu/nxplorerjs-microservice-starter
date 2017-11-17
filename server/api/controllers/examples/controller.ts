@@ -6,23 +6,40 @@ import { HttpError } from '../../models/error.model';
 import { AppMetrics } from '../../../common/metrics';
 import { HttpStatus } from '../../services/http-status-codes';
 import { LogManager } from '../../../common/log-manager';
+import { interfaces, controller, httpGet, httpPost, httpDelete, request, queryParam, response, requestParam } from 'inversify-express-utils';
+
 import container from '../../../common/config/ioc_config';
 import SERVICE_IDENTIFIER from '../../../common/constants/identifiers';
 import { inject, injectable } from 'inversify';
 
 import ILogger from '../../../common/interfaces/ilogger';
+import IExample from '../../interfaces/iexample';
 
-const LOG = container.get<ILogger>(SERVICE_IDENTIFIER.LOGGER);
+@controller('/examples')
 @injectable()
-export class Controller {
+class ExampleController {
 
-  public all(req: Request, res: Response): void {
-    ExamplesService
+  public exampleService: IExample;
+  public loggerService: ILogger;
+
+  public constructor(
+    @inject(SERVICE_IDENTIFIER.EXAMPLE) exampleService: IExample,
+    @inject(SERVICE_IDENTIFIER.LOGGER) loggerService: ILogger
+  ) {
+    this.exampleService = exampleService;
+    this.loggerService = loggerService;
+    this.loggerService.info('In the constructor');
+  }
+
+  @httpGet('/')
+  public all(@request() req: Request, @response() res: Response): void {
+    this.loggerService.info('Hello');
+    this.exampleService
       .all()
       .then(
       result => {
         res.status(HttpStatus.OK).json(result);
-        LOG.logAPITrace(req, res, HttpStatus.OK);
+        this.loggerService.logAPITrace(req, res, HttpStatus.OK);
         AppMetrics.getInstance().logAPIMetrics(req, res, HttpStatus.OK);
       },
       error => {
@@ -34,23 +51,25 @@ export class Controller {
           .setSource(req.url)
           .build();
         res.status(HttpStatus.INTERNAL_SERVER_ERROR).json(error);
-        LOG.logAPITrace(req, res, HttpStatus.NOT_FOUND);
+        this.loggerService.logAPITrace(req, res, HttpStatus.NOT_FOUND);
         AppMetrics.getInstance().logAPIMetrics(req, res, HttpStatus.NOT_FOUND);
       }
       );
   }
 
-  public byPostsByID(req: Request, res: Response): void {
-    LOG.info(req.originalUrl);
-    ExamplesService
-      .byPostsByID(req.params.id)
+  @httpGet('/:id')
+  public byPostsByID(@requestParam('id') id: number,
+  @request() req: Request, @response() res: Response): void {
+    this.loggerService.info(req.originalUrl);
+    this.exampleService
+      .byPostsByID(id)
       .timeout(+process.env.TIME_OUT)
       .subscribe(
       result => {
-        LOG.info(<Quote>result.data);
-        LOG.info(result.timings);
+        this.loggerService.info(<Quote>result.data);
+        this.loggerService.info(result.timings);
         res.status(HttpStatus.OK).send(result.data);
-        LOG.logAPITrace(req, res, HttpStatus.OK);
+        this.loggerService.logAPITrace(req, res, HttpStatus.OK);
         AppMetrics.getInstance().logAPIMetrics(req, res, HttpStatus.OK);
       },
       err => {
@@ -63,7 +82,7 @@ export class Controller {
           .setSource(req.url)
           .build();
         res.status(HttpStatus.NOT_FOUND).json(resp);
-        LOG.logAPITrace(req, res, HttpStatus.NOT_FOUND);
+        this.loggerService.logAPITrace(req, res, HttpStatus.NOT_FOUND);
         AppMetrics.getInstance().logAPIMetrics(req, res, HttpStatus.NOT_FOUND);
       }
       );
@@ -73,16 +92,16 @@ export class Controller {
    * Check by ID
    */
   public byId(req: Request, res: Response): void {
-    ExamplesService
+    this.exampleService
       .byId(req.params.id)
       .then(r => {
         if (r) {
           res.json(r);
-          LOG.logAPITrace(req, res, HttpStatus.OK);
+          this.loggerService.logAPITrace(req, res, HttpStatus.OK);
           AppMetrics.getInstance().logAPIMetrics(req, res, HttpStatus.OK);
         } else {
           res.status(HttpStatus.NOT_FOUND).end();
-          LOG.logAPITrace(req, res, HttpStatus.NOT_FOUND);
+          this.loggerService.logAPITrace(req, res, HttpStatus.NOT_FOUND);
           AppMetrics.getInstance().logAPIMetrics(req, res, HttpStatus.NOT_FOUND);
         }
       },
@@ -95,7 +114,7 @@ export class Controller {
           .setSource(req.url)
           .build();
         res.status(HttpStatus.NOT_FOUND).json(error);
-        LOG.logAPITrace(req, res, HttpStatus.NOT_FOUND);
+        this.loggerService.logAPITrace(req, res, HttpStatus.NOT_FOUND);
         AppMetrics.getInstance().logAPIMetrics(req, res, HttpStatus.NOT_FOUND);
       });
   }
@@ -104,16 +123,17 @@ export class Controller {
    * Create request sample
    * Add a new element to the in memory Sample object
    */
-  public create(req: Request, res: Response): void {
-    ExamplesService
+  @httpPost('/')
+  public create(@request() req: Request, @response() res: Response): void {
+    this.exampleService
       .create(req.body.name)
       .then(r => {
         res.status(HttpStatus.CREATED).location(`/api/v1/examples/${r.id}`).json(r);
-        LOG.logAPITrace(req, res, HttpStatus.CREATED);
+        this.loggerService.logAPITrace(req, res, HttpStatus.CREATED);
         AppMetrics.getInstance().logAPIMetrics(req, res, HttpStatus.CREATED);
       }
       );
   }
 
 }
-export default new Controller();
+export default ExampleController;

@@ -10,20 +10,36 @@ import SERVICE_IDENTIFIER from '../../../common/constants/identifiers';
 import { inject, injectable } from 'inversify';
 
 import ILogger from '../../../common/interfaces/ilogger';
-
-const LOG = container.get<ILogger>(SERVICE_IDENTIFIER.LOGGER);
+import IProduct from '../../interfaces/iproduct';
+import { interfaces, controller, httpGet, httpPost, httpDelete, request, queryParam, response, requestParam } from 'inversify-express-utils';
 
 /**
  * Shop API Controller
  */
-export class Controller {
-  public allBaseProducts(req: Request, res: Response): void {
-    ProductService
+@controller('/shop')
+@injectable()
+class ShopController {
+
+  public productService: IProduct;
+  public loggerService: ILogger;
+
+  public constructor(
+    @inject(SERVICE_IDENTIFIER.PRODUCT) productService: IProduct,
+    @inject(SERVICE_IDENTIFIER.LOGGER) loggerService: ILogger
+  ) {
+    this.productService = productService;
+    this.loggerService = loggerService;
+  }
+
+  @httpGet('/products')
+  public allBaseProducts(@request() req: Request, @response() res: Response): void {
+
+    this.productService
       .allBaseProducts()
       .subscribe(
       result => {
         res.status(HttpStatus.OK).json(result);
-        LOG.logAPITrace(req, res, HttpStatus.OK);
+        this.loggerService.logAPITrace(req, res, HttpStatus.OK);
         AppMetrics.getInstance().logAPIMetrics(req, res, HttpStatus.OK);
       },
       err => {
@@ -36,19 +52,20 @@ export class Controller {
           .setSource(req.url)
           .build();
         res.status(HttpStatus.NOT_FOUND).json(resp);
-        LOG.logAPITrace(req, res, HttpStatus.NOT_FOUND);
+        this.loggerService.logAPITrace(req, res, HttpStatus.NOT_FOUND);
         AppMetrics.getInstance().logAPIMetrics(req, res, HttpStatus.NOT_FOUND);
       }
       );
   }
 
-  public allBaseProductOptions(req: Request, res: Response): void {
-    ProductService
+  @httpGet('/productOptions')
+  public allBaseProductOptions(@request() req: Request, @response() res: Response): void {
+    this.productService
       .allBaseProductOptions()
       .subscribe(
       result => {
         res.status(HttpStatus.OK).json(result);
-        LOG.logAPITrace(req, res, HttpStatus.OK);
+        this.loggerService.logAPITrace(req, res, HttpStatus.OK);
         AppMetrics.getInstance().logAPIMetrics(req, res, HttpStatus.OK);
       },
       err => {
@@ -61,19 +78,20 @@ export class Controller {
           .setSource(req.url)
           .build();
         res.status(HttpStatus.NOT_FOUND).json(resp);
-        LOG.logAPITrace(req, res, HttpStatus.NOT_FOUND);
+        this.loggerService.logAPITrace(req, res, HttpStatus.NOT_FOUND);
         AppMetrics.getInstance().logAPIMetrics(req, res, HttpStatus.NOT_FOUND);
       }
       );
   }
 
-  public allBaseProductPrice(req: Request, res: Response): void {
-    ProductService
+  @httpGet('/prices')
+  public allBaseProductPrice(@request() req: Request, @response() res: Response): void {
+    this.productService
       .allBaseProductPrice()
       .subscribe(
       result => {
         res.status(HttpStatus.OK).json(result);
-        LOG.logAPITrace(req, res, HttpStatus.OK);
+        this.loggerService.logAPITrace(req, res, HttpStatus.OK);
         AppMetrics.getInstance().logAPIMetrics(req, res, HttpStatus.OK);
       },
       err => {
@@ -86,19 +104,20 @@ export class Controller {
           .setSource(req.url)
           .build();
         res.status(HttpStatus.NOT_FOUND).json(resp);
-        LOG.logAPITrace(req, res, HttpStatus.NOT_FOUND);
+        this.loggerService.logAPITrace(req, res, HttpStatus.NOT_FOUND);
         AppMetrics.getInstance().logAPIMetrics(req, res, HttpStatus.NOT_FOUND);
       }
       );
   }
 
-  public allBaseProductInventory(req: Request, res: Response): void {
-    ProductService
+  @httpGet('/inventory')
+  public allBaseProductInventory(@request() req: Request, @response() res: Response): void {
+    this.productService
       .allBaseProductInventory()
       .subscribe(
       result => {
         res.status(HttpStatus.OK).json(result);
-        LOG.logAPITrace(req, res, HttpStatus.OK);
+        this.loggerService.logAPITrace(req, res, HttpStatus.OK);
         AppMetrics.getInstance().logAPIMetrics(req, res, HttpStatus.OK);
       },
       err => {
@@ -111,74 +130,78 @@ export class Controller {
           .setSource(req.url)
           .build();
         res.status(HttpStatus.NOT_FOUND).json(resp);
-        LOG.logAPITrace(req, res, HttpStatus.NOT_FOUND);
+        this.loggerService.logAPITrace(req, res, HttpStatus.NOT_FOUND);
         AppMetrics.getInstance().logAPIMetrics(req, res, HttpStatus.NOT_FOUND);
       }
       );
   }
 
-  public productbyId(req: Request, res: Response): void {
-    ProductService
-      .baseProductbyId(req.params.id)
+  @httpGet('/products/:id')
+  public productbyId(@requestParam('id') id: number, @request() req: Request, @response() res: Response): void {
+    this.productService
+      .baseProductbyId(id)
       .subscribe(r => {
         if (r) {
           res.json(r);
-          LOG.logAPITrace(req, res, HttpStatus.OK);
+          this.loggerService.logAPITrace(req, res, HttpStatus.OK);
           AppMetrics.getInstance().logAPIMetrics(req, res, HttpStatus.OK);
         } else {
           res.status(HttpStatus.NOT_FOUND).end();
-          LOG.logAPITrace(req, res, HttpStatus.NOT_FOUND);
+          this.loggerService.logAPITrace(req, res, HttpStatus.NOT_FOUND);
           AppMetrics.getInstance().logAPIMetrics(req, res, HttpStatus.NOT_FOUND);
         }
       });
   }
 
-  public baseProductOptionsbyId(req: Request, res: Response): void {
-    ProductService
-      .baseProductOptionsbyId(req.params.id)
+  @httpGet('/productOptions/:id')
+  public baseProductOptionsbyId(@requestParam('id') id: number, @request() req: Request, @response() res: Response): void {
+    this.productService
+      .baseProductOptionsbyId(id)
       .subscribe(r => {
         if (r) {
           res.json(r);
-          LOG.logAPITrace(req, res, HttpStatus.OK);
+          this.loggerService.logAPITrace(req, res, HttpStatus.OK);
           AppMetrics.getInstance().logAPIMetrics(req, res, HttpStatus.OK);
         } else {
           res.status(HttpStatus.NOT_FOUND).end();
-          LOG.logAPITrace(req, res, HttpStatus.NOT_FOUND);
+          this.loggerService.logAPITrace(req, res, HttpStatus.NOT_FOUND);
           AppMetrics.getInstance().logAPIMetrics(req, res, HttpStatus.NOT_FOUND);
         }
       });
   }
 
-  public baseProductPricebyId(req: Request, res: Response): void {
-    ProductService
-      .baseProductPricebyId(req.params.id)
+  @httpGet('/prices/:id')
+  public baseProductPricebyId(@requestParam('id') id: number, @request() req: Request, @response() res: Response): void {
+    this.productService
+      .baseProductPricebyId(id)
       .subscribe(r => {
         if (r) {
           res.json(r);
-          LOG.logAPITrace(req, res, HttpStatus.OK);
+          this.loggerService.logAPITrace(req, res, HttpStatus.OK);
           AppMetrics.getInstance().logAPIMetrics(req, res, HttpStatus.OK);
         } else {
           res.status(HttpStatus.NOT_FOUND).end();
-          LOG.logAPITrace(req, res, HttpStatus.NOT_FOUND);
+          this.loggerService.logAPITrace(req, res, HttpStatus.NOT_FOUND);
           AppMetrics.getInstance().logAPIMetrics(req, res, HttpStatus.NOT_FOUND);
         }
       });
   }
 
-/**
- * Check by ID
- */
-  public baseProductInventorybyId(req: Request, res: Response): void {
-    ProductService
-      .baseProductInventorybyId(req.params.id)
+  /**
+   * Check by ID
+   */
+  @httpGet('/inventory/:id')
+  public baseProductInventorybyId(@requestParam('id') id: number, @request() req: Request, @response() res: Response): void {
+    this.productService
+      .baseProductInventorybyId(id)
       .subscribe(r => {
         if (r) {
           res.json(r);
-          LOG.logAPITrace(req, res, HttpStatus.OK);
+          this.loggerService.logAPITrace(req, res, HttpStatus.OK);
           AppMetrics.getInstance().logAPIMetrics(req, res, HttpStatus.OK);
         } else {
           res.status(HttpStatus.NOT_FOUND).end();
-          LOG.logAPITrace(req, res, HttpStatus.NOT_FOUND);
+          this.loggerService.logAPITrace(req, res, HttpStatus.NOT_FOUND);
           AppMetrics.getInstance().logAPIMetrics(req, res, HttpStatus.NOT_FOUND);
         }
       });
@@ -189,16 +212,17 @@ export class Controller {
    * @param req Request Param
    * @param res Response Param
    */
-  public flatMapProductOptionPricebyId(req: Request, res: Response): void {
-     ProductService
-      .getProductOptionPricebyId(req.params.id)
+  @httpGet('/priceByOptionId/:id')
+  public flatMapProductOptionPricebyId(@requestParam('id') id: number, @request() req: Request, @response() res: Response): void {
+    this.productService
+      .getProductOptionPricebyId(id)
       .subscribe(r => {
         if (r) {
           res.json(r);
           AppMetrics.getInstance().logAPIMetrics(req, res, HttpStatus.OK);
         } else {
           res.status(HttpStatus.NOT_FOUND).end();
-          LOG.logAPITrace(req, res, HttpStatus.NOT_FOUND);
+          this.loggerService.logAPITrace(req, res, HttpStatus.NOT_FOUND);
           AppMetrics.getInstance().logAPIMetrics(req, res, HttpStatus.NOT_FOUND);
         }
       },
@@ -212,10 +236,10 @@ export class Controller {
           .setSource(req.url)
           .build();
         res.status(HttpStatus.NOT_FOUND).json(resp);
-        LOG.logAPITrace(req, res, HttpStatus.NOT_FOUND);
+        this.loggerService.logAPITrace(req, res, HttpStatus.NOT_FOUND);
         AppMetrics.getInstance().logAPIMetrics(req, res, HttpStatus.NOT_FOUND);
       });
   }
 
 }
-export default new Controller();
+export default ShopController;

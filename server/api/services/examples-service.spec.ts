@@ -1,6 +1,10 @@
-import { ExamplesService } from './examples.service';
 import { Example } from '../models/example.model';
 import * as request from 'supertest';
+import container from '../../common/config/ioc_config';
+import SERVICE_IDENTIFIER from '../../common/constants/identifiers';
+import IExample from '../../api/interfaces/iexample';
+import ILogger from '../../common/interfaces/ilogger';
+
 
 let id = 0;
 const examples: Example[] = [
@@ -9,9 +13,9 @@ const examples: Example[] = [
   ];
 
 describe('Example Service Tests', () => {
-    let exampleService: ExamplesService;
+    let exampleService: IExample;
     beforeEach(() => {
-        exampleService = new ExamplesService();
+        exampleService = container.get<IExample>(SERVICE_IDENTIFIER.EXAMPLE);
     });
     it('Get Example array', () => {
         return exampleService

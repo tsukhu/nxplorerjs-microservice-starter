@@ -10,13 +10,27 @@ import SERVICE_IDENTIFIER from '../../../common/constants/identifiers';
 import { inject, injectable } from 'inversify';
 
 import ILogger from '../../../common/interfaces/ilogger';
+import IHystrixDemo from '../../interfaces/ihystrix-demo';
+import { interfaces, controller, httpGet, httpPost, httpDelete, request, queryParam, response, requestParam } from 'inversify-express-utils';
 
-const LOG = container.get<ILogger>(SERVICE_IDENTIFIER.LOGGER);
+@controller('/hystrix-demo')
+@injectable()
+class HystrixController  {
 
-export class Controller {
+  public hystrixDemoService: IHystrixDemo;
+  public loggerService: ILogger;
 
-  public start(req: Request, res: Response): void {
-    HystrixService.start()
+  public constructor(
+    @inject(SERVICE_IDENTIFIER.HYSTRIX) hystrixDemoService: IHystrixDemo,
+    @inject(SERVICE_IDENTIFIER.LOGGER) loggerService: ILogger
+  ) {
+    this.hystrixDemoService = hystrixDemoService;
+    this.loggerService = loggerService;
+  }
+
+  @httpGet('/start')
+  public start(@request() req: Request, @response() res: Response): void {
+    this.hystrixDemoService.start()
       .subscribe(
       r => {
         res.status(HttpStatus.OK).json(r);
@@ -24,15 +38,16 @@ export class Controller {
       );
   }
 
-  public posts(req: Request, res: Response): void {
-    LOG.info(req.originalUrl);
-    HystrixService
+  @httpGet('/posts')
+  public posts(@request() req: Request, @response() res: Response): void {
+    this.loggerService.info(req.originalUrl);
+    this.hystrixDemoService
       .getPosts(req.query.timeOut)
       .subscribe(
       result => {
-       // LOG.info(result);
+        // LOG.info(result);
         res.status(HttpStatus.OK).send(result);
-        LOG.logAPITrace(req, res, HttpStatus.OK);
+        this.loggerService.logAPITrace(req, res, HttpStatus.OK);
         AppMetrics.getInstance().logAPIMetrics(req, res, HttpStatus.OK);
       },
       err => {
@@ -45,10 +60,10 @@ export class Controller {
           .setSource(req.url)
           .build();
         res.status(HttpStatus.NOT_FOUND).json(resp);
-        LOG.logAPITrace(req, res, HttpStatus.NOT_FOUND);
+        this.loggerService.logAPITrace(req, res, HttpStatus.NOT_FOUND);
         AppMetrics.getInstance().logAPIMetrics(req, res, HttpStatus.NOT_FOUND);
       }
       );
   }
 }
-export default new Controller();
+export default HystrixController;

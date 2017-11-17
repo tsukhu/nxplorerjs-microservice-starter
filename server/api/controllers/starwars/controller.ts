@@ -10,22 +10,37 @@ import SERVICE_IDENTIFIER from '../../../common/constants/identifiers';
 import { inject, injectable } from 'inversify';
 
 import ILogger from '../../../common/interfaces/ilogger';
+import IStarwars from '../../interfaces/istarwars';
 
-const LOG = container.get<ILogger>(SERVICE_IDENTIFIER.LOGGER);
+import { interfaces, controller, httpGet, httpPost, httpDelete, request, queryParam, response, requestParam } from 'inversify-express-utils';
 
-export class Controller {
+@controller('/starwars')
+@injectable()
+class StarwarsController {
 
-  public getPeopleById(req: Request, res: Response): void {
-    StarwarsService
-      .getPeopleById(req.params.id)
+  public starwarsService: IStarwars;
+  public loggerService: ILogger;
+
+  public constructor(
+    @inject(SERVICE_IDENTIFIER.STARWARS) starwarsService: IStarwars,
+    @inject(SERVICE_IDENTIFIER.LOGGER) loggerService: ILogger
+  ) {
+    this.starwarsService = starwarsService;
+    this.loggerService = loggerService;
+  }
+
+  @httpGet('/people/:id')
+  public getPeopleById(@requestParam('id') id: number, @request() req: Request, @response() res: Response): void {
+    this.starwarsService
+      .getPeopleById(id)
       .timeout(+process.env.TIME_OUT)
       .subscribe(r => {
         if (r === undefined) {
           res.status(HttpStatus.NOT_FOUND).end();
-          LOG.logAPITrace(req, res, HttpStatus.NOT_FOUND);
+          this.loggerService.logAPITrace(req, res, HttpStatus.NOT_FOUND);
         } else {
           res.status(HttpStatus.OK).json(r);
-          LOG.logAPITrace(req, res, HttpStatus.OK);
+          this.loggerService.logAPITrace(req, res, HttpStatus.OK);
         }
         AppMetrics.getInstance().logAPIMetrics(req, res, req.statusCode);
       },
@@ -39,12 +54,11 @@ export class Controller {
           .setSource(req.url)
           .build();
         res.status(HttpStatus.NOT_FOUND).json(resp);
-        LOG.logAPITrace(req, res, HttpStatus.NOT_FOUND, error);
+        this.loggerService.logAPITrace(req, res, HttpStatus.NOT_FOUND, error);
         AppMetrics.getInstance().logAPIMetrics(req, res, HttpStatus.NOT_FOUND);
       }
       );
   }
 
-
 }
-export default new Controller();
+export default StarwarsController;
