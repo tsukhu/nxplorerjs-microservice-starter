@@ -57,7 +57,7 @@ export default class ExpressServer {
       //   app.use(logger(bunyanOpts));
       app.use(bodyParser.urlencoded({ extended: true }));
 
-      if (process.env.NODE_ENV === 'production') {
+      if (process.env.NODE_ENV === 'production' && process.env.CORS === 'true') {
         app.use(csrf({ cookie: true }));
       }
       app.use(express.static(`${root}/public`));
@@ -67,7 +67,7 @@ export default class ExpressServer {
         // write the csrf cookie in the response in the ‘XSRF-TOKEN’ field
         // The client must pass 'x-xsrf-token' or 'x-csrf-token'
         // or 'xsrf-token' or 'csrf-token' in the header with the value set
-        if (process.env.NODE_ENV === 'production') {
+        if (process.env.NODE_ENV === 'production' && process.env.CORS === 'true') {
           res.cookie('XSRF-TOKEN', req.csrfToken());
         }
 
