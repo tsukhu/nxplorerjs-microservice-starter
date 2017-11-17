@@ -13,8 +13,6 @@ import ILogger from '../../../common/interfaces/ilogger';
 import IProduct from '../../interfaces/iproduct';
 import { interfaces, controller, httpGet, httpPost, httpDelete, request, queryParam, response, requestParam } from 'inversify-express-utils';
 
-// onst LOG = container.get<ILogger>(SERVICE_IDENTIFIER.LOGGER);
-
 /**
  * Shop API Controller
  */

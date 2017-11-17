@@ -16,22 +16,17 @@ import * as YAML from 'yamljs';
 import myGraphQLSchema from '../graphql/schema';
 import container from '../common/config/ioc_config';
 import SERVICE_IDENTIFIER from '../common/constants/identifiers';
-
 import { interfaces, InversifyExpressServer, TYPE } from 'inversify-express-utils';
 import { inject, injectable } from 'inversify';
 
 import ILogger from '../common/interfaces/ilogger';
 
-
 const LOG = container.get<ILogger>(SERVICE_IDENTIFIER.LOGGER);
-
 
 const responseTime = require('response-time');
 
-
 // tslint:disable-next-line:typedef
 const app = express();
-
 
 // Init
 const Prometheus = require('prom-client');
@@ -40,7 +35,6 @@ const collectDefaultMetrics = Prometheus.collectDefaultMetrics;
 
 // Probe every 5th second.
 collectDefaultMetrics({ timeout: 5000 });
-
 
 export default class ExpressServer {
   public server: InversifyExpressServer;
@@ -131,7 +125,6 @@ export default class ExpressServer {
             '<pre>' + err.message + '</pre>'
           );
         });
-
       });
 
       const swaggerDocument = YAML.load('./server/common/swagger/Api.yaml');
