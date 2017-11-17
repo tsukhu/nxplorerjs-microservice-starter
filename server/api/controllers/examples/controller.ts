@@ -5,7 +5,6 @@ import { ErrorResponseBuilder } from '../../services/response-builder';
 import { HttpError } from '../../models/error.model';
 import { AppMetrics } from '../../../common/metrics';
 import { HttpStatus } from '../../services/http-status-codes';
-import { LogManager } from '../../../common/log-manager';
 import { interfaces, controller, httpGet, httpPost, httpDelete, request, queryParam, response, requestParam } from 'inversify-express-utils';
 
 import container from '../../../common/config/ioc_config';
@@ -28,7 +27,6 @@ class ExampleController {
   ) {
     this.exampleService = exampleService;
     this.loggerService = loggerService;
-    this.loggerService.info('In the constructor');
   }
 
   @httpGet('/')

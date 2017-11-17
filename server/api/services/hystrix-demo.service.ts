@@ -4,7 +4,6 @@ import { AsyncSubject } from 'rxjs/AsyncSubject';
 import * as _ from 'lodash';
 import { Post } from '../models/example.model';
 import { inject, injectable } from 'inversify';
-import { LogManager } from '../../common/log-manager';
 import * as Brakes from 'brakes';
 import container from '../../common/config/ioc_config';
 import SERVICE_IDENTIFIER from '../../common/constants/identifiers';
