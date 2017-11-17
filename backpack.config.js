@@ -27,13 +27,19 @@ module.exports = {
         new TypedocWebpackPlugin({
           out: './docs',
           target: 'es6',
-          mode: 'file',
-          exclude: '**/node_modules/**/*.*',
+          module: 'commonjs',
+          moduleResolution: 'node',
           experimentalDecorators: true,
+          emitDecoratorMetadata: true,
+          exclude: '**/node_modules/**/*.*',
           excludeExternals: true,
           includeDeclarations: false,
           ignoreCompilerErrors: true,
-          excludePrivate: true
+          excludePrivate: true,
+          lib: [
+            'lib.esnext.full.d.ts',
+            'lib.esnext.asynciterable.d.ts'
+          ]
         },['./server'])
       ];
     }
