@@ -78,7 +78,6 @@ class HystrixDemoService implements IHystrixDemo {
             time: true,
             timeout: postTimeOut
         };
-        this.loggerService.info(url_options.uri);
         return rp(url_options);
     }
 

@@ -3,13 +3,13 @@ import { Request, Response } from 'express';
 import { Observable } from 'rxjs/Observable';
 import { ErrorResponseBuilder } from '../../services/response-builder';
 import { HttpError } from '../../models/error.model';
-import { AppMetrics } from '../../../common/metrics';
 import { HttpStatus } from '../../services/http-status-codes';
 import container from '../../../common/config/ioc_config';
 import SERVICE_IDENTIFIER from '../../../common/constants/identifiers';
 import { inject, injectable } from 'inversify';
 
 import ILogger from '../../../common/interfaces/ilogger';
+import IMetrics from '../../../common/interfaces/imetrics';
 import IStarwars from '../../interfaces/istarwars';
 
 import { interfaces, controller, httpGet, httpPost, httpDelete, request, queryParam, response, requestParam } from 'inversify-express-utils';
@@ -20,13 +20,16 @@ class StarwarsController {
 
   public starwarsService: IStarwars;
   public loggerService: ILogger;
+  public metricsService: IMetrics;
 
   public constructor(
     @inject(SERVICE_IDENTIFIER.STARWARS) starwarsService: IStarwars,
-    @inject(SERVICE_IDENTIFIER.LOGGER) loggerService: ILogger
+    @inject(SERVICE_IDENTIFIER.LOGGER) loggerService: ILogger,
+    @inject(SERVICE_IDENTIFIER.METRICS) metricsService: IMetrics
   ) {
     this.starwarsService = starwarsService;
     this.loggerService = loggerService;
+    this.metricsService = metricsService;
   }
 
   @httpGet('/people/:id')
@@ -42,7 +45,7 @@ class StarwarsController {
           res.status(HttpStatus.OK).json(r);
           this.loggerService.logAPITrace(req, res, HttpStatus.OK);
         }
-        AppMetrics.getInstance().logAPIMetrics(req, res, req.statusCode);
+        this.metricsService.logAPIMetrics(req, res, req.statusCode);
       },
       err => {
         const error: HttpError = <HttpError>err;
@@ -55,7 +58,7 @@ class StarwarsController {
           .build();
         res.status(HttpStatus.NOT_FOUND).json(resp);
         this.loggerService.logAPITrace(req, res, HttpStatus.NOT_FOUND, error);
-        AppMetrics.getInstance().logAPIMetrics(req, res, HttpStatus.NOT_FOUND);
+        this.metricsService.logAPIMetrics(req, res, HttpStatus.NOT_FOUND);
       }
       );
   }

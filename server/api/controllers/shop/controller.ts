@@ -3,13 +3,13 @@ import { Request, Response } from 'express';
 import { Observable } from 'rxjs/Observable';
 import { ErrorResponseBuilder } from '../../services/response-builder';
 import { HttpError } from '../../models/error.model';
-import { AppMetrics } from '../../../common/metrics';
 import { HttpStatus } from '../../services/http-status-codes';
 import container from '../../../common/config/ioc_config';
 import SERVICE_IDENTIFIER from '../../../common/constants/identifiers';
 import { inject, injectable } from 'inversify';
 
 import ILogger from '../../../common/interfaces/ilogger';
+import IMetrics from '../../../common/interfaces/imetrics';
 import IProduct from '../../interfaces/iproduct';
 import { interfaces, controller, httpGet, httpPost, httpDelete, request, queryParam, response, requestParam } from 'inversify-express-utils';
 
@@ -22,13 +22,16 @@ class ShopController {
 
   public productService: IProduct;
   public loggerService: ILogger;
+  public metricsService: IMetrics;
 
   public constructor(
     @inject(SERVICE_IDENTIFIER.PRODUCT) productService: IProduct,
-    @inject(SERVICE_IDENTIFIER.LOGGER) loggerService: ILogger
+    @inject(SERVICE_IDENTIFIER.LOGGER) loggerService: ILogger,
+    @inject(SERVICE_IDENTIFIER.METRICS) metricsService: IMetrics
   ) {
     this.productService = productService;
     this.loggerService = loggerService;
+    this.metricsService = metricsService;
   }
 
   @httpGet('/products')
@@ -40,7 +43,7 @@ class ShopController {
       result => {
         res.status(HttpStatus.OK).json(result);
         this.loggerService.logAPITrace(req, res, HttpStatus.OK);
-        AppMetrics.getInstance().logAPIMetrics(req, res, HttpStatus.OK);
+        this.metricsService.logAPIMetrics(req, res, HttpStatus.OK);
       },
       err => {
         const error: HttpError = <HttpError>err;
@@ -53,7 +56,7 @@ class ShopController {
           .build();
         res.status(HttpStatus.NOT_FOUND).json(resp);
         this.loggerService.logAPITrace(req, res, HttpStatus.NOT_FOUND);
-        AppMetrics.getInstance().logAPIMetrics(req, res, HttpStatus.NOT_FOUND);
+        this.metricsService.logAPIMetrics(req, res, HttpStatus.NOT_FOUND);
       }
       );
   }
@@ -66,7 +69,7 @@ class ShopController {
       result => {
         res.status(HttpStatus.OK).json(result);
         this.loggerService.logAPITrace(req, res, HttpStatus.OK);
-        AppMetrics.getInstance().logAPIMetrics(req, res, HttpStatus.OK);
+        this.metricsService.logAPIMetrics(req, res, HttpStatus.OK);
       },
       err => {
         const error: HttpError = <HttpError>err;
@@ -79,7 +82,7 @@ class ShopController {
           .build();
         res.status(HttpStatus.NOT_FOUND).json(resp);
         this.loggerService.logAPITrace(req, res, HttpStatus.NOT_FOUND);
-        AppMetrics.getInstance().logAPIMetrics(req, res, HttpStatus.NOT_FOUND);
+        this.metricsService.logAPIMetrics(req, res, HttpStatus.NOT_FOUND);
       }
       );
   }
@@ -92,7 +95,7 @@ class ShopController {
       result => {
         res.status(HttpStatus.OK).json(result);
         this.loggerService.logAPITrace(req, res, HttpStatus.OK);
-        AppMetrics.getInstance().logAPIMetrics(req, res, HttpStatus.OK);
+        this.metricsService.logAPIMetrics(req, res, HttpStatus.OK);
       },
       err => {
         const error: HttpError = <HttpError>err;
@@ -105,7 +108,7 @@ class ShopController {
           .build();
         res.status(HttpStatus.NOT_FOUND).json(resp);
         this.loggerService.logAPITrace(req, res, HttpStatus.NOT_FOUND);
-        AppMetrics.getInstance().logAPIMetrics(req, res, HttpStatus.NOT_FOUND);
+        this.metricsService.logAPIMetrics(req, res, HttpStatus.NOT_FOUND);
       }
       );
   }
@@ -118,7 +121,7 @@ class ShopController {
       result => {
         res.status(HttpStatus.OK).json(result);
         this.loggerService.logAPITrace(req, res, HttpStatus.OK);
-        AppMetrics.getInstance().logAPIMetrics(req, res, HttpStatus.OK);
+        this.metricsService.logAPIMetrics(req, res, HttpStatus.OK);
       },
       err => {
         const error: HttpError = <HttpError>err;
@@ -131,7 +134,7 @@ class ShopController {
           .build();
         res.status(HttpStatus.NOT_FOUND).json(resp);
         this.loggerService.logAPITrace(req, res, HttpStatus.NOT_FOUND);
-        AppMetrics.getInstance().logAPIMetrics(req, res, HttpStatus.NOT_FOUND);
+        this.metricsService.logAPIMetrics(req, res, HttpStatus.NOT_FOUND);
       }
       );
   }
@@ -144,11 +147,11 @@ class ShopController {
         if (r) {
           res.json(r);
           this.loggerService.logAPITrace(req, res, HttpStatus.OK);
-          AppMetrics.getInstance().logAPIMetrics(req, res, HttpStatus.OK);
+          this.metricsService.logAPIMetrics(req, res, HttpStatus.OK);
         } else {
           res.status(HttpStatus.NOT_FOUND).end();
           this.loggerService.logAPITrace(req, res, HttpStatus.NOT_FOUND);
-          AppMetrics.getInstance().logAPIMetrics(req, res, HttpStatus.NOT_FOUND);
+          this.metricsService.logAPIMetrics(req, res, HttpStatus.NOT_FOUND);
         }
       });
   }
@@ -161,11 +164,11 @@ class ShopController {
         if (r) {
           res.json(r);
           this.loggerService.logAPITrace(req, res, HttpStatus.OK);
-          AppMetrics.getInstance().logAPIMetrics(req, res, HttpStatus.OK);
+          this.metricsService.logAPIMetrics(req, res, HttpStatus.OK);
         } else {
           res.status(HttpStatus.NOT_FOUND).end();
           this.loggerService.logAPITrace(req, res, HttpStatus.NOT_FOUND);
-          AppMetrics.getInstance().logAPIMetrics(req, res, HttpStatus.NOT_FOUND);
+          this.metricsService.logAPIMetrics(req, res, HttpStatus.NOT_FOUND);
         }
       });
   }
@@ -178,11 +181,11 @@ class ShopController {
         if (r) {
           res.json(r);
           this.loggerService.logAPITrace(req, res, HttpStatus.OK);
-          AppMetrics.getInstance().logAPIMetrics(req, res, HttpStatus.OK);
+          this.metricsService.logAPIMetrics(req, res, HttpStatus.OK);
         } else {
           res.status(HttpStatus.NOT_FOUND).end();
           this.loggerService.logAPITrace(req, res, HttpStatus.NOT_FOUND);
-          AppMetrics.getInstance().logAPIMetrics(req, res, HttpStatus.NOT_FOUND);
+          this.metricsService.logAPIMetrics(req, res, HttpStatus.NOT_FOUND);
         }
       });
   }
@@ -198,11 +201,11 @@ class ShopController {
         if (r) {
           res.json(r);
           this.loggerService.logAPITrace(req, res, HttpStatus.OK);
-          AppMetrics.getInstance().logAPIMetrics(req, res, HttpStatus.OK);
+          this.metricsService.logAPIMetrics(req, res, HttpStatus.OK);
         } else {
           res.status(HttpStatus.NOT_FOUND).end();
           this.loggerService.logAPITrace(req, res, HttpStatus.NOT_FOUND);
-          AppMetrics.getInstance().logAPIMetrics(req, res, HttpStatus.NOT_FOUND);
+          this.metricsService.logAPIMetrics(req, res, HttpStatus.NOT_FOUND);
         }
       });
   }
@@ -219,11 +222,11 @@ class ShopController {
       .subscribe(r => {
         if (r) {
           res.json(r);
-          AppMetrics.getInstance().logAPIMetrics(req, res, HttpStatus.OK);
+          this.metricsService.logAPIMetrics(req, res, HttpStatus.OK);
         } else {
           res.status(HttpStatus.NOT_FOUND).end();
           this.loggerService.logAPITrace(req, res, HttpStatus.NOT_FOUND);
-          AppMetrics.getInstance().logAPIMetrics(req, res, HttpStatus.NOT_FOUND);
+          this.metricsService.logAPIMetrics(req, res, HttpStatus.NOT_FOUND);
         }
       },
       err => {
@@ -237,7 +240,7 @@ class ShopController {
           .build();
         res.status(HttpStatus.NOT_FOUND).json(resp);
         this.loggerService.logAPITrace(req, res, HttpStatus.NOT_FOUND);
-        AppMetrics.getInstance().logAPIMetrics(req, res, HttpStatus.NOT_FOUND);
+        this.metricsService.logAPIMetrics(req, res, HttpStatus.NOT_FOUND);
       });
   }
 

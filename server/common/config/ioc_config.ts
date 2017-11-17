@@ -2,7 +2,8 @@ import 'reflect-metadata';
 
 import { Container } from 'inversify';
 
-import LogService from '../services/log-service';
+import LogService from '../services/log.service';
+import MetricsService from '../services/metrics.service';
 import ExamplesService from '../../api/services/examples.service';
 import ExampleController from '../../api/controllers/examples/controller';
 import IExample from '../../api/interfaces/iexample';
@@ -21,6 +22,7 @@ import { interfaces, InversifyExpressServer, TYPE } from 'inversify-express-util
 import TAG from '../constants/tags';
 
 import ILogger from '../interfaces/ilogger';
+import IMetrics from '../interfaces/imetrics';
 
 const container = new Container();
 
@@ -29,10 +31,11 @@ container.bind<interfaces.Controller>(TYPE.Controller).to(ExampleController).whe
 container.bind<interfaces.Controller>(TYPE.Controller).to(HystrixController).whenTargetNamed('HystrixController');
 container.bind<interfaces.Controller>(TYPE.Controller).to(ShopController).whenTargetNamed('ShopController');
 container.bind<interfaces.Controller>(TYPE.Controller).to(StarwarsController).whenTargetNamed('StarwarsController');
-container.bind<ILogger>(SERVICE_IDENTIFIER.LOGGER).to(LogService).inSingletonScope();
 container.bind<IExample>(SERVICE_IDENTIFIER.EXAMPLE).to(ExamplesService);
 container.bind<IHystrixDemo>(SERVICE_IDENTIFIER.HYSTRIX).to(HystrixDemoService);
 container.bind<IProduct>(SERVICE_IDENTIFIER.PRODUCT).to(ProductService);
 container.bind<IStarwars>(SERVICE_IDENTIFIER.STARWARS).to(StarwarsService);
+container.bind<ILogger>(SERVICE_IDENTIFIER.LOGGER).to(LogService).inSingletonScope();
+container.bind<IMetrics>(SERVICE_IDENTIFIER.METRICS).to(MetricsService).inSingletonScope();
 
 export default container;

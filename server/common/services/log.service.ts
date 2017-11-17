@@ -1,7 +1,6 @@
 import { Request, Response } from 'express';
 import { inject, injectable } from 'inversify';
 
-import SERVICE_IDENTIFIER from '../constants/identifiers';
 import ILogger from '../interfaces/ilogger';
 const pino = require('pino')();
 
