@@ -376,10 +376,6 @@ loadtest http://localhost:3000/api/v1/examples/1 -t 20 -c 20
 
 * This is not an official HCL ERS product.
 
-### Credits
-
-* The initial base project structure was generated using [generator-express-no-stress-typescript project](https://github.com/cdimascio/generator-express-no-stress-typescript) 
-
 ### License
 
 MIT
