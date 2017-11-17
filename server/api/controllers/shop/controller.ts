@@ -32,6 +32,7 @@ class ShopController {
     this.productService = productService;
     this.loggerService = loggerService;
   }
+
   @httpGet('/products')
   public allBaseProducts(@request() req: Request, @response() res: Response): void {
 

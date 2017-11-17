@@ -105,7 +105,7 @@ class HystrixDemoService implements IHystrixDemo {
         brake.fallback(this.getPostsFallback);
         brake.exec('Posts Demo')
             .then((data) => {
-               // console.log(data);
+                // console.log(data);
                 loadedPosts.next(data);
                 loadedPosts.complete();
                 console.log('Successful');

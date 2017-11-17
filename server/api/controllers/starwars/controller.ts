@@ -30,7 +30,6 @@ class StarwarsController {
     this.loggerService = loggerService;
   }
 
-
   @httpGet('/people/:id')
   public getPeopleById(@requestParam('id') id: number, @request() req: Request, @response() res: Response): void {
     this.starwarsService

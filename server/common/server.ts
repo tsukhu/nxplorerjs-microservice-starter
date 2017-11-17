@@ -95,10 +95,10 @@ export default class ExpressServer {
         endpointURL: '/graphql',
         subscriptionsEndpoint: `ws://localhost:${process.env.PORT}/subscriptions`
       })); // if you want GraphiQL enabled
+
+      // Add Swagger support
       middleware('./server/common/swagger/Api.yaml', app, function (err, middleware) {
 
-        // enable Express' case-sensitive and strict options
-        // (so "/entities", "/Entities", and "/Entities/" are all different)
         app.enable('case sensitive routing');
         app.enable('strict routing');
 
@@ -136,7 +136,6 @@ export default class ExpressServer {
 
       const swaggerDocument = YAML.load('./server/common/swagger/Api.yaml');
       app.use('/swagger', swaggerUi.serve, swaggerUi.setup(swaggerDocument));
-
 
     });
 
