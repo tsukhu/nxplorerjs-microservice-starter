@@ -29,7 +29,7 @@ This project provides complete Node JS / Typescript based microservices template
 * Standard HTTP Codes for cleaner code
 * Sample APIs, Patterns for reference
 * Sonar Qube integration
-* Hystrix Circuit Break Support (Using Brakes)
+* Hystrix Circuit Breaker Support (Using Brakes)
 * Now using the super fast pino logger for all logging needs
 * REST APIs
    - examples - Basic examples with a search by ID example from the jsonplaceholder API (/examples/:id)
