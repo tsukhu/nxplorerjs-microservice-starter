@@ -17,8 +17,7 @@ import { interfaces, controller, httpGet, httpPost, httpDelete, request, queryPa
  * Shop API Controller
  */
 @controller('/shop')
-@injectable()
-class ShopController {
+class ShopController implements interfaces.Controller {
 
   public productService: IProduct;
   public loggerService: ILogger;

@@ -14,8 +14,7 @@ import IHystrixDemo from '../../interfaces/ihystrix-demo';
 import { interfaces, controller, httpGet, httpPost, httpDelete, request, queryParam, response, requestParam } from 'inversify-express-utils';
 
 @controller('/hystrix-demo')
-@injectable()
-class HystrixController  {
+class HystrixController  implements interfaces.Controller {
 
   public hystrixDemoService: IHystrixDemo;
   public loggerService: ILogger;
