@@ -15,8 +15,7 @@ import IMetrics from '../../../common/interfaces/imetrics';
 import IExample from '../../interfaces/iexample';
 
 @controller('/examples')
-@injectable()
-class ExampleController {
+class ExampleController implements interfaces.Controller {
 
   public exampleService: IExample;
   public loggerService: ILogger;

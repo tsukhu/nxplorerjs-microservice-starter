@@ -15,8 +15,7 @@ import IStarwars from '../../interfaces/istarwars';
 import { interfaces, controller, httpGet, httpPost, httpDelete, request, queryParam, response, requestParam } from 'inversify-express-utils';
 
 @controller('/starwars')
-@injectable()
-class StarwarsController {
+class StarwarsController implements interfaces.Controller {
 
   public starwarsService: IStarwars;
   public loggerService: ILogger;

@@ -1,6 +1,6 @@
 {
   "name": "express-microservice",
-  "version": "1.4.0",
+  "version": "1.4.1",
   "description": "Express Microservice Starter Project",
   "main": "index.js",
   "scripts": {
@@ -63,7 +63,7 @@
     "graphql-tools": "^2.7.2",
     "helmet": "^3.6.1",
     "inversify": "^4.5.1",
-    "inversify-express-utils": "^4.2.2",
+    "inversify-express-utils": "^5.0.0",
     "lodash": "^4.17.4",
     "node-fetch": "^1.7.3",
     "node-rx-http": "^1.0.1",
@@ -97,7 +97,7 @@
     "ts-jest": "^21.0.0",
     "ts-node": "^3.1.0",
     "tslint": "^5.3.2",
-    "tslint-config-standard": "^6.0.1",
+    "tslint-config-standard": "^7.0.0",
     "typedoc": "^0.9.0",
     "typedoc-webpack-plugin": "^1.1.4",
     "typescript": "^2.4.2"
