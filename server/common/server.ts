@@ -16,7 +16,11 @@ import * as YAML from 'yamljs';
 import myGraphQLSchema from '../graphql/schema';
 import container from '../common/config/ioc_config';
 import SERVICE_IDENTIFIER from '../common/constants/identifiers';
-import { interfaces, InversifyExpressServer, TYPE } from 'inversify-express-utils';
+import {
+  interfaces,
+  InversifyExpressServer,
+  TYPE
+} from 'inversify-express-utils';
 import { inject, injectable } from 'inversify';
 
 import ILogger from '../common/interfaces/ilogger';
@@ -43,13 +47,14 @@ export default class ExpressServer {
     // console.log(process.env.NODE_ENV);
     if (process.env.NODE_ENV === 'development') {
       root = path.normalize(__dirname + '/../..');
-    }
-    else {
+    } else {
       root = path.normalize('.');
     }
 
-    this.server = new InversifyExpressServer(container, undefined, { rootPath: '/api/v1' });
-    this.server.setConfig((app) => {
+    this.server = new InversifyExpressServer(container, undefined, {
+      rootPath: '/api/v1'
+    });
+    this.server.setConfig(app => {
       app.set('appPath', root + 'client');
       app.use(bodyParser.json());
       app.use(helmet());
@@ -57,7 +62,10 @@ export default class ExpressServer {
       //   app.use(logger(bunyanOpts));
       app.use(bodyParser.urlencoded({ extended: true }));
 
-      if (process.env.NODE_ENV === 'production' && process.env.CORS === 'true') {
+      if (
+        process.env.NODE_ENV === 'production' &&
+        process.env.CORS === 'true'
+      ) {
         app.use(csrf({ cookie: true }));
       }
       app.use(express.static(`${root}/public`));
@@ -67,7 +75,10 @@ export default class ExpressServer {
         // write the csrf cookie in the response in the ‘XSRF-TOKEN’ field
         // The client must pass 'x-xsrf-token' or 'x-csrf-token'
         // or 'xsrf-token' or 'csrf-token' in the header with the value set
-        if (process.env.NODE_ENV === 'production' && process.env.CORS === 'true') {
+        if (
+          process.env.NODE_ENV === 'production' &&
+          process.env.CORS === 'true'
+        ) {
           res.cookie('XSRF-TOKEN', req.csrfToken());
         }
 
@@ -85,23 +96,45 @@ export default class ExpressServer {
 
       // Graphql
       app.use('/graphql', graphqlExpress({ schema: myGraphQLSchema }));
-      app.get('/graphiql', graphiqlExpress({
-        endpointURL: '/graphql',
-        subscriptionsEndpoint: `ws://localhost:${process.env.PORT}/subscriptions`
-      })); // if you want GraphiQL enabled
+      app.get(
+        '/graphiql',
+        graphiqlExpress({
+          endpointURL: '/graphql',
+          subscriptionsEndpoint: `ws://localhost:${
+            process.env.PORT
+          }/subscriptions`
+        })
+      ); // if you want GraphiQL enabled
 
-      // Add Swagger support
-      middleware('./server/common/swagger/Api.yaml', app, function (err, middleware) {
+      // Add swagger support
+      this.swaggerify(app);
+      const swaggerDocument = YAML.load('./server/common/swagger/Api.yaml');
+      app.use('/swagger', swaggerUi.serve, swaggerUi.setup(swaggerDocument));
+    });
+  }
 
-        app.enable('case sensitive routing');
-        app.enable('strict routing');
+  public getServer(): InversifyExpressServer {
+    return this.server;
+  }
 
-        app.use(middleware.metadata());
-        app.use(middleware.files(app, {
-          apiPath: process.env.SWAGGER_API_DOCS_ROOT,
-        }));
+  private swaggerify(app: express.Application) {
+    // Add Swagger support
+    middleware('./server/common/swagger/Api.yaml', app, function(
+      err,
+      middleware
+    ) {
+      app.enable('case sensitive routing');
+      app.enable('strict routing');
 
-        app.use(middleware.parseRequest({
+      app.use(middleware.metadata());
+      app.use(
+        middleware.files(app, {
+          apiPath: process.env.SWAGGER_API_DOCS_ROOT
+        })
+      );
+
+      app.use(
+        middleware.parseRequest({
           // Configure the cookie parser to use secure cookies
           cookie: {
             secret: process.env.SESSION_SECRET
@@ -110,33 +143,20 @@ export default class ExpressServer {
           json: {
             limit: process.env.REQUEST_LIMIT
           }
-        }));
+        })
+      );
 
-        // These two middleware don't have any options (yet)
-        app.use(
-          middleware.CORS(),
-          middleware.validateRequest());
+      // These two middleware don't have any options (yet)
+      app.use(middleware.CORS(), middleware.validateRequest());
 
-        // Error handler to display the validation error as HTML
-        app.use(function (err, req, res, next) {
-          res.status(err.status);
-          res.send(
-            '<h1>' + err.status + ' Error</h1>' +
-            '<pre>' + err.message + '</pre>'
-          );
-        });
+      // Error handler to display the validation error as HTML
+      app.use(function(err, req, res, next) {
+        res.status(err.status);
+        res.send(
+          '<h1>' + err.status + ' Error</h1>' + '<pre>' + err.message + '</pre>'
+        );
       });
-
-      const swaggerDocument = YAML.load('./server/common/swagger/Api.yaml');
-      app.use('/swagger', swaggerUi.serve, swaggerUi.setup(swaggerDocument));
-
     });
-
-
-  }
-
-  public getServer(): InversifyExpressServer {
-    return this.server;
   }
 
   // tslint:disable-next-line:eofline
