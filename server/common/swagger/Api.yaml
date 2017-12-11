@@ -1,7 +1,7 @@
 swagger: "2.0"
 info:
   version: 1.0.0
-  title: express-microservice
+  title: nxplorerjs-microservice
   description: Express Microservice Starter
 basePath: /api/v1
 tags:

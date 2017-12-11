@@ -1,12 +1,12 @@
-# express-microservice-starter
-[![Build Status](https://travis-ci.org/ERS-HCL/express-microservice-starter.svg?branch=master)](https://travis-ci.org/ERS-HCL/express-microservice-starter) [![tested with jest](https://img.shields.io/badge/tested_with-jest-99424f.svg)](https://github.com/facebook/jest) [![GitHub version](https://badge.fury.io/gh/ERS-HCL%2Fexpress-microservice-starter.svg)](https://badge.fury.io/gh/ERS-HCL%2Fexpress-microservice-starter) [![Dependency Status](https://david-dm.org/ERS-HCL/express-microservice-starter.svg)](https://david-dm.org/ERS-HCL/express-microservice-starter)
+# nxplorerjs-microservice-starter
+[![Build Status](https://travis-ci.org/ERS-HCL/nxplorerjs-microservice-starter.svg?branch=master)](https://travis-ci.org/ERS-HCL/nxplorerjs-microservice-starter) [![tested with jest](https://img.shields.io/badge/tested_with-jest-99424f.svg)](https://github.com/facebook/jest) [![GitHub version](https://badge.fury.io/gh/ERS-HCL%2Fnxplorerjs-microservice-starter.svg)](https://badge.fury.io/gh/ERS-HCL%2Fnxplorerjs-microservice-starter) [![Dependency Status](https://david-dm.org/ERS-HCL/nxplorerjs-microservice-starter.svg)](https://david-dm.org/ERS-HCL/nxplorerjs-microservice-starter)
 ---
-
+![nxplorer microservice starter](public/logo.png)
 
 Cloud Native Node JS Express Reactive Microservice Starter Template
 This project provides complete Node JS / Typescript based microservices template with all that will be needed features for production deployment , monitoring , debugging , logging , security. Reactive extensions based samples are added as well to demonstrate how this can be used for building a microservice API edge-service , a backend for frontend or use it as a base for building any kind of microservice.
 
-![architecture vision](screenshots/express-microservice-starter.png)
+![architecture vision](screenshots/nxplorerjs-microservice-starter.png)
 
 ## Features
 
@@ -246,8 +246,8 @@ npm run test
 * A sample output
 
 ```
-release "express-service" deleted
-NAME:   express-service
+release "nxplorerjs-microservice" deleted
+NAME:   nxplorerjs-microservice
 LAST DEPLOYED: Fri Sep 22 22:10:58 2017
 NAMESPACE: default
 STATUS: DEPLOYED
@@ -255,20 +255,20 @@ STATUS: DEPLOYED
 RESOURCES:
 ==> v1/ConfigMap
 NAME                          DATA  AGE
-express-microservice-starter  5     1s
+nxplorerjs-microservice-starter  5     1s
 
 ==> v1/Service
 NAME                          CLUSTER-IP  EXTERNAL-IP  PORT(S)       AGE
-express-microservice-starter  10.0.0.196  <nodes>      80:30316/TCP  1s
+nxplorerjs-microservice-starter  10.0.0.196  <nodes>      80:30316/TCP  1s
 
 ==> v1beta1/Deployment
 NAME                          DESIRED  CURRENT  UP-TO-DATE  AVAILABLE  AGE
-express-microservice-starter  1        1        1           0          1s
+nxplorerjs-microservice-starter  1        1        1           0          1s
 
 
 NOTES:
 1. Get the application URL by running these commands:
-  export NODE_PORT=$(kubectl get --namespace default -o jsonpath="{.spec.ports[0].nodePort}" services express-service-express-microservice-starter)
+  export NODE_PORT=$(kubectl get --namespace default -o jsonpath="{.spec.ports[0].nodePort}" services nxplorerjs-microservice-nxplorerjs-microservice-starter)
   export NODE_IP=$(kubectl get nodes --namespace default -o jsonpath="{.items[0].status.addresses[0].address}")
   echo http://$NODE_IP:$NODE_PORT
 
@@ -353,7 +353,7 @@ Note: for Sonar 6.x turn sonar56x to “false” and that will generate the test
 ```bash
 npm install -g loadtest
 ``` 
-* Start the express-microservice
+* Start the nxplorerjs-microservice
 ```bash
 npm run start
 ```

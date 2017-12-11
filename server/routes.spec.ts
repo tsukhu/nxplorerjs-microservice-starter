@@ -8,7 +8,7 @@ app.listen(process.env.PORT);
 
 
 
-describe('Express-Microservice: routes spec', () => {
+describe('nxplorerjs-microservice: routes spec', () => {
 
   it('should get 200 response from home page', done => {
     request(app)

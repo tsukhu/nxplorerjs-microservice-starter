@@ -10,7 +10,7 @@ services:
         max-size: "10m"
         max-file: "10"
 
-  express-service:
+  nxplorerjs-microservice:
     build: .
     restart: always
     ports:
