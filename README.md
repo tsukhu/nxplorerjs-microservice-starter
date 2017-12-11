@@ -1,12 +1,12 @@
 # nxplorerjs-microservice-starter
 [![Build Status](https://travis-ci.org/ERS-HCL/nxplorerjs-microservice-starter.svg?branch=master)](https://travis-ci.org/ERS-HCL/nxplorerjs-microservice-starter) [![tested with jest](https://img.shields.io/badge/tested_with-jest-99424f.svg)](https://github.com/facebook/jest) [![GitHub version](https://badge.fury.io/gh/ERS-HCL%2Fnxplorerjs-microservice-starter.svg)](https://badge.fury.io/gh/ERS-HCL%2Fnxplorerjs-microservice-starter) [![Dependency Status](https://david-dm.org/ERS-HCL/nxplorerjs-microservice-starter.svg)](https://david-dm.org/ERS-HCL/nxplorerjs-microservice-starter)
 ---
-![nxplorer microservice starter](public/logo.png)
+![nxplorer microservice starter](public/logo_small.png)
 
 Cloud Native Node JS Express Reactive Microservice Starter Template (REST/GraphQL)
 This project provides complete Node JS / Typescript based microservices template with all that will be needed features for production deployment , monitoring , debugging , logging , security. Reactive extensions based samples are added as well to demonstrate how this can be used for building a microservice API edge-service , a backend for frontend or use it as a base for building any kind of microservice.
 
-![architecture vision](screenshots/nxplorerjs-microservice-starter.png)
+![architecture vision](screenshots/express-microservice-starter.png)
 
 ## Features
 
