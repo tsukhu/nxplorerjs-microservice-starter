@@ -6,6 +6,7 @@ import { configGraphQLSubscription } from '../server/common/config/graphql-subsc
 import * as cluster from 'cluster';
 import * as os from 'os';
 
+// Run in cluster mode
 if (process.env.CLUSTER_MODE === 'true' && cluster.isMaster) {
   const numWorkers = require('os').cpus().length;
 
@@ -25,6 +26,7 @@ if (process.env.CLUSTER_MODE === 'true' && cluster.isMaster) {
     cluster.fork();
   });
 } else {
+  // Single Node execution
   const welcome = (port) => console.log(`up and running in ${process.env.NODE_ENV || 'development'} @: ${os.hostname()} on port: ${port}`);
 
   // create server

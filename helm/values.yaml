@@ -20,9 +20,6 @@ configMap:
   sessionSecret:
     key: session_secret
     value: mySecret
-  logDirectory:  
-    key: log_directory
-    value: ./logs
 deployment:
   serviceAccount: default
   restartPolicy: Always

@@ -12,4 +12,3 @@ data:
   log_level: {{ .Values.configMap.logLevel.value }}
   request_limit: {{ .Values.configMap.requestLimit.value }}
   session_secret: {{ .Values.configMap.sessionSecret.value }}
-  log_directory: {{ .Values.configMap.logDirectory.value }}
