@@ -372,7 +372,7 @@ loadtest http://localhost:3000/api/v1/examples/1 -t 20 -c 20
 ```
 
 ### Future RoadMap
-* Coming Soon - Support for InversifyJS based IOC - WIP
+* Authentication using JWT
 
 ### FAQ
 
