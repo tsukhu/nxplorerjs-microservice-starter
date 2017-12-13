@@ -10,7 +10,7 @@ import { SubscriptionServer } from 'subscriptions-transport-ws';
  * Configure GraphQL Subscription endpoint
  * @param app Express Application
  */
-export function configGraphQLSubscription(app,callback) {
+export function configGraphQLSubscription(app: Application,callback: any) {
     // Create Server so that it can be reused for the 
     // configuring the SubscriptionServer
     const ws = http.createServer(app);

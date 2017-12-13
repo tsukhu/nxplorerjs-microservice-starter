@@ -6,7 +6,7 @@ import myGraphQLSchema from '../../graphql/schema';
  * Configure GraphQL endpoints
  * @param app Express Application
  */
-export function configGraphQL(app) {
+export function configGraphQL(app: Application) {
     
     // Add GraphQL Endpoint
     app.use('/graphql', graphqlExpress({ schema: myGraphQLSchema }));

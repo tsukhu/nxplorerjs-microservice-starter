@@ -1,4 +1,3 @@
-import { Application } from 'express';
 import * as Brakes from 'brakes';
 import * as http from 'http';
 

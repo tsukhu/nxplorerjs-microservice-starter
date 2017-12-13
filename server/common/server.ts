@@ -1,12 +1,9 @@
 import * as express from 'express';
-import { Application } from 'express';
 import * as partialResponse from 'express-partial-response';
 import * as path from 'path';
 import { swaggerify } from './config/swagger';
 import { secureApp } from './config/security';
-import LOG from './config/logging';
 import { configLogging } from './config/logging';
-import prometheusMetrics from './config/metrics';
 import { configMetrics } from './config/metrics';
 import { configGraphQL } from './config/graphql';
 import container from '../common/config/ioc_config';
@@ -19,9 +16,6 @@ import {
 
 const responseTime = require('response-time');
 
-// tslint:disable-next-line:typedef
-const app = express();
-
 /**
  * Node Express Server setup and configuration
  */
@@ -29,7 +23,7 @@ export default class ExpressServer {
   public server: InversifyExpressServer;
   constructor() {
     let root: string;
-    
+
     // Setup application root
     if (process.env.NODE_ENV === 'development') {
       root = path.normalize(__dirname + '/../..');
@@ -41,13 +35,13 @@ export default class ExpressServer {
       rootPath: '/api/v1'
     });
     this.server.setConfig(app => {
-
       // Add security configuration
       secureApp(app);
 
+      // Add public folder
       app.use(express.static(`${root}/public`));
 
-      // Add response time support 
+      // Add response time support
       // This will add x-response-time to the response headers
       app.use(responseTime({ suffix: false }));
 

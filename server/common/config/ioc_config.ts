@@ -26,8 +26,10 @@ import TAG from '../constants/tags';
 import ILogger from '../interfaces/ilogger';
 import IMetrics from '../interfaces/imetrics';
 
+// Initialize the container
 const container = new Container();
 
+// Define service bindings
 container.bind<IExample>(SERVICE_IDENTIFIER.EXAMPLE).to(ExamplesService);
 container.bind<IHystrixDemo>(SERVICE_IDENTIFIER.HYSTRIX).to(HystrixDemoService);
 container.bind<IProduct>(SERVICE_IDENTIFIER.PRODUCT).to(ProductService);
