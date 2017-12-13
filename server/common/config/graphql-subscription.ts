@@ -11,6 +11,8 @@ import { SubscriptionServer } from 'subscriptions-transport-ws';
  * @param app Express Application
  */
 export function configGraphQLSubscription(app,callback) {
+    // Create Server so that it can be reused for the 
+    // configuring the SubscriptionServer
     const ws = http.createServer(app);
     ws.listen(process.env.PORT, () => {
       callback(process.env.PORT);
