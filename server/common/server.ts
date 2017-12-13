@@ -2,13 +2,13 @@ import * as express from 'express';
 import { Application } from 'express';
 import * as partialResponse from 'express-partial-response';
 import * as path from 'path';
-import * as http from 'http';
-import * as os from 'os';
-import * as Brakes from 'brakes';
-import { graphqlExpress, graphiqlExpress } from 'apollo-server-express';
 import { swaggerify } from './config/swagger';
 import { secureApp } from './config/security';
-import myGraphQLSchema from '../graphql/schema';
+import LOG from './config/logging';
+import { configLogging } from './config/logging';
+import prometheusMetrics from './config/metrics';
+import { configMetrics } from './config/metrics';
+import { configGraphQL } from './config/graphql';
 import container from '../common/config/ioc_config';
 import SERVICE_IDENTIFIER from '../common/constants/identifiers';
 import {
@@ -16,30 +16,21 @@ import {
   InversifyExpressServer,
   TYPE
 } from 'inversify-express-utils';
-import { inject, injectable } from 'inversify';
-
-import ILogger from '../common/interfaces/ilogger';
-
-const LOG = container.get<ILogger>(SERVICE_IDENTIFIER.LOGGER);
 
 const responseTime = require('response-time');
 
 // tslint:disable-next-line:typedef
 const app = express();
 
-// Init
-const Prometheus = require('prom-client');
-
-const collectDefaultMetrics = Prometheus.collectDefaultMetrics;
-
-// Probe every 5th second.
-collectDefaultMetrics({ timeout: 5000 });
-
+/**
+ * Node Express Server setup and configuration
+ */
 export default class ExpressServer {
   public server: InversifyExpressServer;
   constructor() {
     let root: string;
-    // console.log(process.env.NODE_ENV);
+    
+    // Setup application root
     if (process.env.NODE_ENV === 'development') {
       root = path.normalize(__dirname + '/../..');
     } else {
@@ -50,36 +41,27 @@ export default class ExpressServer {
       rootPath: '/api/v1'
     });
     this.server.setConfig(app => {
-      app.set('appPath', root + 'client');
+
       // Add security configuration
       secureApp(app);
+
       app.use(express.static(`${root}/public`));
+
+      // Add response time support 
+      // This will add x-response-time to the response headers
       app.use(responseTime({ suffix: false }));
+
+      // Add partial response support
       app.use(partialResponse());
-      app.use((req: any, res, next) => {
-        // If UUID set in the cookie then add to the log for tracking
-        if (req.cookies['UUID'] !== undefined) {
-          LOG.setUUID(req.cookies['UUID']);
-        }
-        next();
-      });
-      // Metrics endpoint
-      app.get('/metrics', (req, res) => {
-        res.set('Content-Type', Prometheus.register.contentType);
-        res.end(Prometheus.register.metrics());
-      });
+
+      // Add logging configuration
+      configLogging(app);
+
+      // Add metrics configuration
+      configMetrics(app);
 
       // Graphql
-      app.use('/graphql', graphqlExpress({ schema: myGraphQLSchema }));
-      app.get(
-        '/graphiql',
-        graphiqlExpress({
-          endpointURL: '/graphql',
-          subscriptionsEndpoint: `ws://localhost:${
-            process.env.PORT
-          }/subscriptions`
-        })
-      ); // if you want GraphiQL enabled
+      configGraphQL(app);
 
       // Add swagger support
       swaggerify(app);
