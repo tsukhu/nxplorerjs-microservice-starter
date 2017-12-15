@@ -1,3 +1,6 @@
+/**
+ * HTTP Status Codes
+ */
 export class HttpStatus {
     public static OK = 200;
     public static NOT_FOUND = 404;

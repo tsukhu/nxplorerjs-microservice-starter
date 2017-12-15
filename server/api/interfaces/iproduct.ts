@@ -6,6 +6,9 @@ import {
   BaseProductOption
 } from '../models/product.model';
 
+/**
+ * Product Service Interface
+ */
 interface IProduct {
 
   allBaseProducts(): Observable<BaseProduct[]>;

@@ -9,7 +9,6 @@ import {
     BaseProductOption
 } from '../models/product.model';
 import { Planet, People } from '../models/starwars.model';
-// import { LogManager } from '../../common/log-manager';
 import { inject, injectable } from 'inversify';
 import IProduct from '../interfaces/iproduct';
 import container from '../../common/config/ioc_config';
@@ -127,6 +126,9 @@ const baseProducts: BaseProduct[] = [
     }
 ];
 
+/**
+ * Product Service Implementation
+ */
 @injectable()
 class ProductService implements IProduct {
 

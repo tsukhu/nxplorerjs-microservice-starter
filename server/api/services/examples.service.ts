@@ -18,6 +18,9 @@ const examples: Example[] = [
   { id: id++, name: 'example 1' }
 ];
 
+/**
+ * Examples Service Implementation
+ */
 @injectable()
 class ExamplesService implements IExample {
 

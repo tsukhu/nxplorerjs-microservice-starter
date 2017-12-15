@@ -14,6 +14,9 @@ import IStarwars from '../../interfaces/istarwars';
 
 import { interfaces, controller, httpGet, httpPost, httpDelete, request, queryParam, response, requestParam } from 'inversify-express-utils';
 
+/**
+ * Controller for StarWars APIs
+ */
 @controller('/starwars')
 class StarwarsController implements interfaces.Controller {
 
@@ -31,6 +34,12 @@ class StarwarsController implements interfaces.Controller {
     this.metricsService = metricsService;
   }
 
+  /**
+   * Get Starwars Actors by ID
+   * @param id Actor ID
+   * @param req Request
+   * @param res Response
+   */
   @httpGet('/people/:id')
   public getPeopleById(@requestParam('id') id: number, @request() req: Request, @response() res: Response): void {
     this.starwarsService

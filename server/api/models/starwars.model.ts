@@ -1,3 +1,6 @@
+/**
+ * Starwars People API Response Model
+ */
 export interface People {
     name: string;
     height: string;
@@ -17,6 +20,9 @@ export interface People {
     url: string;
 }
 
+/**
+ * Starwars Planet API Response Model
+ */
 export interface Planet {
     name: string;
     rotation_period: string;

@@ -13,6 +13,9 @@ import IMetrics from '../../../common/interfaces/imetrics';
 import IHystrixDemo from '../../interfaces/ihystrix-demo';
 import { interfaces, controller, httpGet, httpPost, httpDelete, request, queryParam, response, requestParam } from 'inversify-express-utils';
 
+/**
+ * Hystrix Demo Controller
+ */
 @controller('/hystrix-demo')
 class HystrixController  implements interfaces.Controller {
 
@@ -30,6 +33,11 @@ class HystrixController  implements interfaces.Controller {
     this.metricsService = metricsService;
   }
 
+  /**
+   * Simulate a circuit breaker sequence
+   * @param req request
+   * @param res response
+   */
   @httpGet('/start')
   public start(@request() req: Request, @response() res: Response): void {
     this.hystrixDemoService.start()
@@ -40,6 +48,13 @@ class HystrixController  implements interfaces.Controller {
       );
   }
 
+  /**
+   * Get Posts from the jsonplaceholder API
+   * Pass the timeout as a query parameter
+   * Based on the timeout value the circuit breaker will open or close
+   * @param req Request
+   * @param res Response
+   */
   @httpGet('/posts')
   public posts(@request() req: Request, @response() res: Response): void {
     this.loggerService.info(req.originalUrl);

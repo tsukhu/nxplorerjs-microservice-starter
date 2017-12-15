@@ -27,6 +27,9 @@ const posts: Post[] = [
     { userId: id++, id: id, title: 'sample post #' + id, body: 'sample body #' + id }
 ];
 
+/**
+ * Hystrix Demo Service Implementation
+ */
 @injectable()
 class HystrixDemoService implements IHystrixDemo {
 

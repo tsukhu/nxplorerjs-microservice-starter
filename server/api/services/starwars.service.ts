@@ -10,10 +10,11 @@ import SERVICE_IDENTIFIER from '../../common/constants/identifiers';
 import ILogger from '../../common/interfaces/ilogger';
 import IStarwars from '../interfaces/istarwars';
 
-// const LOG = container.get<ILogger>(SERVICE_IDENTIFIER.LOGGER);
-
 const rp: any = require('request-promise');
 
+/**
+ * Starwars Service Implementation
+ */
 @injectable()
 class StarwarsService implements IStarwars {
 

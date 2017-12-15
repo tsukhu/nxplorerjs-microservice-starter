@@ -33,6 +33,11 @@ class ShopController implements interfaces.Controller {
     this.metricsService = metricsService;
   }
 
+  /**
+   * Get All products
+   * @param req
+   * @param res 
+   */
   @httpGet('/products')
   public allBaseProducts(@request() req: Request, @response() res: Response): void {
 
@@ -60,6 +65,11 @@ class ShopController implements interfaces.Controller {
       );
   }
 
+  /**
+   * Get all product options for all products
+   * @param req 
+   * @param res 
+   */
   @httpGet('/productOptions')
   public allBaseProductOptions(@request() req: Request, @response() res: Response): void {
     this.productService
@@ -86,6 +96,11 @@ class ShopController implements interfaces.Controller {
       );
   }
 
+  /**
+   * Get all product pricing per product option
+   * @param req
+   * @param res 
+   */
   @httpGet('/prices')
   public allBaseProductPrice(@request() req: Request, @response() res: Response): void {
     this.productService
@@ -112,6 +127,11 @@ class ShopController implements interfaces.Controller {
       );
   }
 
+  /**
+   * Get the inventory for each product option per product
+   * @param req 
+   * @param res 
+   */
   @httpGet('/inventory')
   public allBaseProductInventory(@request() req: Request, @response() res: Response): void {
     this.productService
@@ -138,6 +158,13 @@ class ShopController implements interfaces.Controller {
       );
   }
 
+  /**
+   * Get Product by ID and then show pricing and inventory for all product options
+   * in one reactive RxJS call.
+   * @param id 
+   * @param req 
+   * @param res 
+   */
   @httpGet('/products/:id')
   public productbyId(@requestParam('id') id: number, @request() req: Request, @response() res: Response): void {
     this.productService

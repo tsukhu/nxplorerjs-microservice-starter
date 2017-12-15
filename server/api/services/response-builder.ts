@@ -1,5 +1,8 @@
 import { HttpError } from '../models/error.model';
 
+/**
+ * Error Response Builder
+ */
 export class ErrorResponseBuilder {
     private status: number;
     private source: string;

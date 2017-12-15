@@ -14,6 +14,9 @@ import ILogger from '../../../common/interfaces/ilogger';
 import IMetrics from '../../../common/interfaces/imetrics';
 import IExample from '../../interfaces/iexample';
 
+/**
+ * Examples Controller
+ */
 @controller('/examples')
 class ExampleController implements interfaces.Controller {
 
@@ -31,6 +34,11 @@ class ExampleController implements interfaces.Controller {
     this.metricsService = metricsService;
   }
 
+  /**
+   * Get all items in the examples collection
+   * @param req request
+   * @param res response
+   */
   @httpGet('/')
   public all(@request() req: Request, @response() res: Response): void {
     this.loggerService.info('Hello');
@@ -57,6 +65,12 @@ class ExampleController implements interfaces.Controller {
       );
   }
 
+  /**
+   * Get Posts by ID
+   * @param id post ID
+   * @param req request
+   * @param res response
+   */
   @httpGet('/:id')
   public byPostsByID(@requestParam('id') id: number,
   @request() req: Request, @response() res: Response): void {
@@ -90,6 +104,8 @@ class ExampleController implements interfaces.Controller {
 
   /**
    * Check by ID
+   * @param req request
+   * @param res response
    */
   public byId(req: Request, res: Response): void {
     this.exampleService
@@ -122,6 +138,8 @@ class ExampleController implements interfaces.Controller {
   /**
    * Create request sample
    * Add a new element to the in memory Sample object
+   * @param req request
+   * @param res response
    */
   @httpPost('/')
   public create(@request() req: Request, @response() res: Response): void {
