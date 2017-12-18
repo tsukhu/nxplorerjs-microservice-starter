@@ -1,6 +1,6 @@
 {
   "name": "nxplorerjs-microservice",
-  "version": "1.4.2",
+  "version": "1.4.3",
   "description": "Express Microservice Starter Project",
   "main": "index.js",
   "scripts": {
@@ -58,7 +58,7 @@
     "express": "^4.14.0",
     "express-partial-response": "^0.3.4",
     "graphql": "^0.12.0",
-    "graphql-server-express": "^1.2.0",
+    "graphql-server-express": "^1.3.0",
     "graphql-subscriptions": "^0.5.4",
     "graphql-tools": "^2.7.2",
     "helmet": "^3.6.1",
