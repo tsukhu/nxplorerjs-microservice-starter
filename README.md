@@ -205,6 +205,8 @@ npm install
 |                       | server (true or false)                |
 | CORS                  | Enable/Disable CORS on the server     |
 |                       |  (true or false)                      |
+| SUBSCRIPTIONS         | Enable/Disable GraphQL subscriptions  |
+|                       |  (true or false)                      |
 | CLUSTER_MODE          | Enable/Disable Node Clustering on the |
 |                       | server (true or false)                |
 | SWAGGER_API_DOCS_ROOT | Serves your Swagger API file(s) so    |
