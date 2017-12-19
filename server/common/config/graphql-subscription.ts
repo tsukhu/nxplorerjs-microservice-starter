@@ -6,26 +6,30 @@ import { execute } from 'graphql';
 import { subscribe } from 'graphql/subscription';
 import { SubscriptionServer } from 'subscriptions-transport-ws';
 
+export let subscriptionServer: SubscriptionServer;
 /**
  * Configure GraphQL Subscription endpoint
  * @param app Express Application
  */
-export function configGraphQLSubscription(app: Application,callback: any) {
-    // Create Server so that it can be reused for the 
-    // configuring the SubscriptionServer
-    const ws = http.createServer(app);
-    ws.listen(process.env.PORT, () => {
-      callback(process.env.PORT);
-    });
-  
-    const subscriptionServer = new SubscriptionServer({
-      execute,
-      subscribe,
-      schema: myGraphQLSchema
-    }, {
+export function configGraphQLSubscription(app: Application, callback: any) {
+  // Create Server so that it can be reused for the
+  // configuring the SubscriptionServer
+  const ws = http.createServer(app);
+  ws.listen(process.env.PORT, err => {
+    if (err) {
+      throw new Error(err);
+    }
+    new SubscriptionServer(
+      {
+        execute,
+        subscribe,
+        schema: myGraphQLSchema
+      },
+      {
         server: ws,
-        path: '/subscriptions',
-      });
-  
-
+        path: '/graphql'
+      }
+    );
+    callback(process.env.PORT);
+  });
 }
