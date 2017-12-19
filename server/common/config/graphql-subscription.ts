@@ -10,22 +10,32 @@ import { SubscriptionServer } from 'subscriptions-transport-ws';
  * Configure GraphQL Subscription endpoint
  * @param app Express Application
  */
-export function configGraphQLSubscription(app: Application,callback: any) {
-    // Create Server so that it can be reused for the 
-    // configuring the SubscriptionServer
-    const ws = http.createServer(app);
-    ws.listen(process.env.PORT, () => {
-      callback(process.env.PORT);
-    });
-  
-    const subscriptionServer = new SubscriptionServer({
-      execute,
-      subscribe,
-      schema: myGraphQLSchema
-    }, {
-        server: ws,
-        path: '/subscriptions',
-      });
-  
+export function configGraphQLSubscription(app: Application, callback: any) {
+  // Create Server so that it can be reused for the
+  // configuring the SubscriptionServer
+  const ws = http.createServer(app);
+  ws.listen(process.env.PORT, err => {
+    if (err) {
+      throw new Error(err);
+    }
 
+    if (process.env.SUBSCRIPTIONS === 'true') {
+      // Create subscription server
+      SubscriptionServer.create(
+        {
+          execute,
+          subscribe,
+          schema: myGraphQLSchema
+        },
+        {
+          server: ws,
+          path: '/subscriptions'
+        }
+      );
+      console.log('-------------------------------');
+      console.log('Graphql Subscriptions : Enabled');
+      console.log('-------------------------------');
+    }
+    callback(process.env.PORT);
+  });
 }
