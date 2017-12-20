@@ -149,6 +149,7 @@ This project provides complete Node JS / Typescript based microservices template
       - addExample(name: String!): ExampleType
 
     - Sample Mutation Execution
+    
     ![Sample Mutation](screenshots/mutation_1.PNG)
 
     - Subscriptions
