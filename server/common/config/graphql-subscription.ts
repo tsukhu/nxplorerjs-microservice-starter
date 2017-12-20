@@ -19,17 +19,19 @@ export function configGraphQLSubscription(app: Application, callback: any) {
     if (err) {
       throw new Error(err);
     }
-    new SubscriptionServer(
-      {
-        execute,
-        subscribe,
-        schema: myGraphQLSchema
-      },
-      {
-        server: ws,
-        path: '/graphql'
-      }
-    );
+    if (process.env.GRAPHQL_SUBSCRIPTIONS === 'true') {
+      new SubscriptionServer(
+        {
+          execute,
+          subscribe,
+          schema: myGraphQLSchema
+        },
+        {
+          server: ws,
+          path: '/graphql'
+        }
+      );
+    }
     callback(process.env.PORT);
   });
 }
