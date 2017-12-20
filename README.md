@@ -128,6 +128,7 @@ This project provides complete Node JS / Typescript based microservices template
 * GraphQL
    - GraphQL support has been added based on the [apollo framework](https://github.com/apollographql) and a reference implementation (including the starwars apis from swapi.co)
     ![GraphQL](screenshots/graphql.png)
+   - Access the graphql playground from http://localhost:3000/playground  
    - Access the graphiql tool from http://localhost:3000/graphiql
    - Multiple samples added
       - RxJS API call - peopleWithPlanets(id : <number>)
@@ -195,17 +196,20 @@ npm install
 
 * Edit the .env file
 
-| Variable              | Description                           |
-|-----------------------|---------------------------------------|
-| PORT                  | Server Port                           |
-| LOG_LEVEL             | Log Level (info,debug,error)          |
-| SESSION_SECRET        | String used for signing cookies       |
-| TIME_OUT              | Default API Timeout (in milli secs)   |
-| STREAM_HYSTRIX        | Enable/Disable Hystrix streaming server (true or false)   |
-| CORS                  | Enable/Disable CORS on the server (true or false)   |
-| SUBSCRIPTIONS         | Enable/Disable GraphQL subscriptions (true or false) |
-| CLUSTER_MODE          | Enable/Disable Node Clustering on the server (true or false) |
-| SWAGGER_API_DOCS_ROOT | Serves your Swagger API file(s) so they can be used with front-end tools like like Swagger UI, PostMan. |
+| Variable              | Description                           | Default Value |
+|-----------------------|---------------------------------------|---------------|
+| PORT                  | Server Port                           | 3000          |
+| LOG_LEVEL             | Log Level (info,debug,error)          | info          |
+| SESSION_SECRET        | String used for signing cookies       |               |
+| TIME_OUT              | Default API Timeout (in milli secs)   | 10000         |  
+| STREAM_HYSTRIX        | Enable/Disable Hystrix streaming server (true or false)   |   false   |
+| CORS                  | Enable/Disable CORS on the server (true or false). Will work only in production build  | false |
+| CLUSTER_MODE          | Enable/Disable Node Clustering on the server (true or false) | false |
+| SWAGGER_API_DOCS_ROOT | Serves your Swagger API file(s) so they can be used with front-end tools like like Swagger UI, PostMan. | /api/api-docs |
+| GRAPHQL_SUBSCRIPTIONS | Enable/Disable GraphQL subscriptions (true or false) | true |
+| GRAPHQL_PLAYGROUND | Enable/Disable GraphQL Playground (true or false) | true |
+| GRAPHQL_IQL | Enable/Disable GraphQL IQL Explorer (true or false) | true |
+| GRAPHQL_TRACING | Enable/Disable GraphQL tracing (true or false) | true |
 
 
 ## Run It
