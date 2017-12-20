@@ -142,19 +142,19 @@ This project provides complete Node JS / Typescript based microservices template
       - people(id: Int): Person
       - planet(id: Int): Planet
 
-    Sample Query Execution
+    - Sample Query Execution
     ![Sample Query](screenshots/query_1.PNG)
 
     - Mutations
       - addExample(name: String!): ExampleType
 
-    Sample Mutation Execution
+    - Sample Mutation Execution
     ![Sample Mutation](screenshots/mutation_1.PNG)
 
     - Subscriptions
       - exampleAdded (Will check whenever a new element is added via a mutation)
 
-    Sample Subscription Execution
+    - Sample Subscription Execution
     
     ![Sample Subscription step 1](screenshots/subscription_1.PNG)
     
