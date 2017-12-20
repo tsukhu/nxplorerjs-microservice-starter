@@ -19,7 +19,9 @@ export function configGraphQLSubscription(app: Application, callback: any) {
     if (err) {
       throw new Error(err);
     }
+
     if (process.env.GRAPHQL_SUBSCRIPTIONS === 'true') {
+      // Create subscription server
       new SubscriptionServer(
         {
           execute,
@@ -31,6 +33,9 @@ export function configGraphQLSubscription(app: Application, callback: any) {
           path: '/graphql'
         }
       );
+      console.log('-------------------------------');
+      console.log('Graphql Subscriptions : Enabled');
+      console.log('-------------------------------');
     }
     callback(process.env.PORT);
   });
