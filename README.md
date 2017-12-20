@@ -143,7 +143,8 @@ This project provides complete Node JS / Typescript based microservices template
       - planet(id: Int): Planet
 
     - Sample Query Execution
-    ![Sample Query](screenshots/query_1.PNG)
+    
+      ![Sample Query](screenshots/query_1.PNG)
 
     - Mutations
       - addExample(name: String!): ExampleType
