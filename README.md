@@ -130,6 +130,7 @@ This project provides complete Node JS / Typescript based microservices template
     ![GraphQL](screenshots/graphql.png)
    - Access the graphql playground from http://localhost:3000/playground  
    - Access the graphiql tool from http://localhost:3000/graphiql
+   - GraphQL API tracing (configurable)
    - Multiple samples added
       - RxJS API call - peopleWithPlanets(id : <number>)
       - Starwars APIs - people(id: <number>) , planet(id: <number>)
