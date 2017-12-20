@@ -6,6 +6,7 @@ import { execute } from 'graphql';
 import { subscribe } from 'graphql/subscription';
 import { SubscriptionServer } from 'subscriptions-transport-ws';
 
+export let subscriptionServer: SubscriptionServer;
 /**
  * Configure GraphQL Subscription endpoint
  * @param app Express Application
@@ -19,9 +20,9 @@ export function configGraphQLSubscription(app: Application, callback: any) {
       throw new Error(err);
     }
 
-    if (process.env.SUBSCRIPTIONS === 'true') {
+    if (process.env.GRAPHQL_SUBSCRIPTIONS === 'true') {
       // Create subscription server
-      SubscriptionServer.create(
+      new SubscriptionServer(
         {
           execute,
           subscribe,
@@ -29,7 +30,7 @@ export function configGraphQLSubscription(app: Application, callback: any) {
         },
         {
           server: ws,
-          path: '/subscriptions'
+          path: '/graphql'
         }
       );
       console.log('-------------------------------');

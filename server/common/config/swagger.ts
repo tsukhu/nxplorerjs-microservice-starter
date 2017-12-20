@@ -36,9 +36,12 @@ export function swaggerify(app: express.Application) {
       })
     );
 
-    // These two middleware don't have any options (yet)
-    app.use(middleware.CORS(), middleware.validateRequest());
+    // CORS enabled for production builds
+    if (process.env.NODE_ENV === 'production' && process.env.CORS === 'true') {
+      app.use('/api/*', middleware.metadata(), middleware.CORS());
+    }
 
+    app.use(middleware.validateRequest());
     // Error handler to display the validation error as HTML
     app.use(function(err, req, res, next) {
       res.status(err.status);
