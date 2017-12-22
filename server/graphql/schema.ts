@@ -2,6 +2,7 @@ import * as fetch from 'node-fetch';
 import { merge } from 'lodash';
 import PeopleType from './models/starwars.model';
 import PlanetType from './models/starwars.model';
+import StarshipType from './models/starwars.model';
 import PeopleWithPlanetType from './models/starwars.model';
 import ExampleType  from './models/example.model';
 import ExampleArrayType from './models/example.model';
@@ -29,7 +30,8 @@ type RootQueryType {
     rollThreeDice: [Int] 
     peopleWithPlanet (id: Int!) : PeopleWithPlanetType 
     people (id: Int!) : PeopleType 
-    planet (id: Int!) : PlanetType 
+    planet (id: Int!) : PlanetType
+    starship (id: Int!) : StarshipType 
     example (id: Int!) : ExampleType 
     examples: [ExampleType]
 }`;
@@ -56,6 +58,7 @@ export default makeExecutableSchema({
         PeopleType,
         PlanetType,
         PeopleWithPlanetType,
+        StarshipType,
         ExampleType,
         ExampleArrayType
     ],

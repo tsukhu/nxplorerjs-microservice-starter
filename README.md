@@ -133,14 +133,15 @@ This project provides complete Node JS / Typescript based microservices template
    - GraphQL API tracing (configurable)
    - Multiple samples added
       - RxJS API call - peopleWithPlanets(id : <number>)
-      - Starwars APIs - people(id: <number>) , planet(id: <number>)
+      - Starwars APIs - people(id: <number>) , planet(id: <number>) , starship(id: <number>)
    - List of Queries
       - quoteOfTheDay: String
       - random: Float
       - rollThreeDice: [Int]
       - peopleWithPlanet(id: Int): PeopleWithPlanetType (Uses RxJS to combine results from 2 APIs)
-      - people(id: Int): Person
-      - planet(id: Int): Planet
+      - people(id: Int): PersonType
+      - planet(id: Int): PlanetType
+      - starship(id: Int): StarshipType
 
     - Sample Query Execution
     

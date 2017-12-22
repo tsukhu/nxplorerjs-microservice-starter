@@ -32,6 +32,10 @@ export default {
         planet(parent, args, context, info) {
             const URI = 'http://swapi.co/api/planets/' + args.id;
             return fetch(URI).then(res => res.json());
+        },
+        starship(parent, args, context, info) {
+            const URI = 'http://swapi.co/api/starships/' + args.id;
+            return fetch(URI).then(res => res.json());
         }
     }
 };
