@@ -65,6 +65,7 @@
     "helmet": "^3.6.1",
     "inversify": "^4.5.1",
     "inversify-express-utils": "^5.0.0",
+    "jsonwebtoken": "^8.1.0",
     "lodash": "^4.17.4",
     "node-fetch": "^1.7.3",
     "node-rx-http": "^1.0.1",

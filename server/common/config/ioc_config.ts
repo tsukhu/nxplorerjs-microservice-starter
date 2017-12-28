@@ -18,6 +18,7 @@ import '../../api/controllers/hystrix-demo/controller';
 import '../../api/controllers/examples/controller';
 import '../../api/controllers/shop/controller';
 import '../../api/controllers/starwars/controller';
+import '../../api/controllers/security/controller';
 
 import SERVICE_IDENTIFIER from '../constants/identifiers';
 import { interfaces, InversifyExpressServer, TYPE } from 'inversify-express-utils';

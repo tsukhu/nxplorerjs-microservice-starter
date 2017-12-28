@@ -22,8 +22,42 @@ definitions:
       name:
         type: string
         description: The example name
-
+  LoginBody:
+    type: object
+    title: user login
+    required:
+      - email
+      - password
+    properties:
+      email:
+        type: string
+        description: The user email
+      password:
+        type: string
+        description: The user password
+        
 paths:
+  /login:
+    post:
+      tags:
+        - Login
+      description: Login to get JWT Token for API Access
+      responses:
+        '200':
+          description: Returns valid JWT Token
+        '401':
+          description: Unauthorized user
+      consumes: 
+        - application/json
+      produces: 
+        - application/json
+      parameters: 
+        - name: body
+          in: body
+          description: used credentials
+          required: true
+          schema: 
+            $ref: "#/definitions/LoginBody"
   /examples:
     get:
       tags:
