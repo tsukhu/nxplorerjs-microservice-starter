@@ -24,8 +24,7 @@ import {
   requestParam
 } from 'inversify-express-utils';
 
-// Generated using https://gist.github.com/ygotthilf/baa58da5c3dd1f69fae9
-const RSA_PRIVATE_KEY = fs.readFileSync(process.env.RSA_PRIVATE_KEY_FILE);
+
 
 /**
  * Controller for Security Token
@@ -33,7 +32,8 @@ const RSA_PRIVATE_KEY = fs.readFileSync(process.env.RSA_PRIVATE_KEY_FILE);
 @controller('/login')
 class SecurityController implements interfaces.Controller {
   public loggerService: ILogger;
-
+  // Generated using https://gist.github.com/ygotthilf/baa58da5c3dd1f69fae9
+  private RSA_PRIVATE_KEY = fs.readFileSync(process.env.RSA_PRIVATE_KEY_FILE);
   public constructor(
     @inject(SERVICE_IDENTIFIER.LOGGER) loggerService: ILogger
   ) {
@@ -52,7 +52,7 @@ class SecurityController implements interfaces.Controller {
     if (this.validateEmailAndPassword(email, password)) {
       const userId = this.findUserIdForEmail(email);
 
-      const jwtBearerToken = jwt.sign({}, RSA_PRIVATE_KEY, {
+      const jwtBearerToken = jwt.sign({}, this.RSA_PRIVATE_KEY, {
         algorithm: 'RS256',
         expiresIn: 120,
         subject: userId
