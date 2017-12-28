@@ -8,6 +8,7 @@ import {
   Post,
   Route,
   Request,
+  Response,
   Body,
   Query,
   Header,
@@ -15,7 +16,12 @@ import {
   SuccessResponse,
   Controller
 } from 'tsoa';
-import { provideSingleton, inject,provide } from '../../../common/config/ioc';
+import {
+  provideSingleton,
+  inject,
+  provide,
+  injectable
+} from '../../../common/config/ioc';
 
 import { LogService } from '../../../common/services/log.service';
 import { MetricsService } from '../../../common/services/metrics.service';
@@ -24,27 +30,27 @@ import ILogger from '../../../common/interfaces/ilogger';
 import IMetrics from '../../../common/interfaces/imetrics';
 import IExample from '../../interfaces/iexample';
 import { Example } from '../../models/example.model';
-import "reflect-metadata";
+import 'reflect-metadata';
 
 /**
  * Examples Controller
  */
 @Route('examples')
 @provideSingleton(ExampleController)
-class ExampleController extends Controller {
+export class ExampleController {
+
   public exampleService: IExample;
   public loggerService: ILogger;
   public metricsService: IMetrics;
-
   public constructor(
-    @inject(ExamplesService) exampleService: IExample,
     @inject(LogService) loggerService: ILogger,
-    @inject(MetricsService) metricsService: IMetrics
+    @inject(MetricsService) metricsService: IMetrics,
+    @inject(ExamplesService) exampleService: IExample
+
   ) {
-    super();
     this.exampleService = exampleService;
-    this.loggerService = loggerService;
     this.metricsService = metricsService;
+    this.loggerService = loggerService;
   }
 
   /**
@@ -55,10 +61,10 @@ class ExampleController extends Controller {
     this.loggerService.info('Hello');
     return this.exampleService.all().then(
       async result => {
-        this.setStatus(HttpStatus.OK);
-        this.loggerService.APITrace(req, this, HttpStatus.OK);
-        this.metricsService.APIMetrics(req, this, HttpStatus.OK);
-        return await result;
+      //  this.setStatus(HttpStatus.OK);
+      //  this.loggerService.APITrace(req, this, HttpStatus.OK);
+      //  this.metricsService.APIMetrics(req, this, HttpStatus.OK);
+        return await Promise.resolve(result);
       },
       async error => {
         const resp = new ErrorResponseBuilder()
@@ -69,9 +75,9 @@ class ExampleController extends Controller {
           .setSource(req.url)
           .build();
         let examples: Example[];
-        this.setStatus(HttpStatus.INTERNAL_SERVER_ERROR);
-        this.loggerService.APITrace(req, this, HttpStatus.NOT_FOUND);
-        this.metricsService.APIMetrics(req, this, HttpStatus.NOT_FOUND);
+      //  this.setStatus(HttpStatus.INTERNAL_SERVER_ERROR);
+      //  this.loggerService.APITrace(req, this, HttpStatus.NOT_FOUND);
+      //  this.metricsService.APIMetrics(req, this, HttpStatus.NOT_FOUND);
         return await examples;
       }
     );
@@ -96,9 +102,9 @@ class ExampleController extends Controller {
         async result => {
           this.loggerService.info(<Quote>result.data);
           this.loggerService.info(result.timings);
-          this.setStatus(HttpStatus.OK);
-          this.loggerService.APITrace(req, this, HttpStatus.OK);
-          this.metricsService.APIMetrics(req, this, HttpStatus.OK);
+        //  this.setStatus(HttpStatus.OK);
+        //  this.loggerService.APITrace(req, this, HttpStatus.OK);
+        //  this.metricsService.APIMetrics(req, this, HttpStatus.OK);
           return await result.data;
         },
         async err => {
@@ -110,9 +116,9 @@ class ExampleController extends Controller {
             .setMessage(error.message)
             .setSource(req.url)
             .build();
-          this.setStatus(HttpStatus.NOT_FOUND);
-          this.loggerService.APITrace(req, this, HttpStatus.NOT_FOUND);
-          this.metricsService.APIMetrics(req, this, HttpStatus.NOT_FOUND);
+        //  this.setStatus(HttpStatus.NOT_FOUND);
+        //  this.loggerService.APITrace(req, this, HttpStatus.NOT_FOUND);
+        //  this.metricsService.APIMetrics(req, this, HttpStatus.NOT_FOUND);
           return await error;
         }
       );
@@ -160,9 +166,9 @@ class ExampleController extends Controller {
   @Post('/')
   public async create(@Request() req: express.Request): Promise<Example> {
     return this.exampleService.create(req.body.name).then(async r => {
-      this.setStatus(HttpStatus.CREATED);
-      this.loggerService.APITrace(req, this, HttpStatus.CREATED);
-      this.metricsService.APIMetrics(req, this, HttpStatus.CREATED);
+    //  this.setStatus(HttpStatus.CREATED);
+    //  this.loggerService.APITrace(req, this, HttpStatus.CREATED);
+    //  this.metricsService.APIMetrics(req, this, HttpStatus.CREATED);
       return await r;
     });
   }

@@ -14,6 +14,13 @@ import {
   InversifyExpressServer,
   TYPE
 } from 'inversify-express-utils';
+import 'reflect-metadata';
+
+import '../common/config/ioc';
+import '../api/controllers/examples/controller';
+import '../api/controllers/hystrix-demo/controller';
+import '../api/controllers/shop/controller';
+import '../api/controllers/starwars/controller';
 
 const responseTime = require('response-time');
 
@@ -37,6 +44,7 @@ export default class ExpressServer {
       rootPath: '/api/v1'
     });*/
     this.app = express();
+
 
     RegisterRoutes(this.app);
     
@@ -64,6 +72,7 @@ export default class ExpressServer {
 
     // Add swagger support
     swaggerify(this.app);
+
 
   }
 

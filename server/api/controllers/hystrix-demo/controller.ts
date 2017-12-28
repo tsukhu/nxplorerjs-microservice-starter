@@ -4,11 +4,11 @@ import { Observable } from 'rxjs/Observable';
 import { ErrorResponseBuilder } from '../../services/response-builder';
 import { HttpError } from '../../models/error.model';
 import { HttpStatus } from '../../services/http-status-codes';
-import { inject, injectable } from 'inversify';
 import { BlogPost } from '../../models/example.model';
 import ILogger from '../../../common/interfaces/ilogger';
 import IMetrics from '../../../common/interfaces/imetrics';
 import IHystrixDemo from '../../interfaces/ihystrix-demo';
+import { provideSingleton, inject,provide } from '../../../common/config/ioc';
 import {
   Get,
   Post,
@@ -30,7 +30,8 @@ import { HystrixDemoService } from '../../services/hystrix-demo.service';
  * Hystrix Demo Controller
  */
 @Route('hystrix-demo')
-class HystrixController extends Controller {
+@provideSingleton(HystrixController)
+export class HystrixController extends Controller {
   public hystrixDemoService: IHystrixDemo;
   public loggerService: ILogger;
   public metricsService: IMetrics;

@@ -1,9 +1,9 @@
 import { Application } from 'express';
 import SERVICE_IDENTIFIER from '../constants/identifiers';
-
+import iocContainer from '../config/ioc';
 import ILogger from '../interfaces/ilogger';
 import { LogService } from '../../common/services/log.service';
-const LOG = new LogService();
+const LOG = iocContainer.get<ILogger>(LogService);
 
 /**
  * Add Logging configuration to the app server

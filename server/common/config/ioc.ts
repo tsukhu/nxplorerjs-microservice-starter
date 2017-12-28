@@ -1,4 +1,4 @@
-import { Container, inject, interfaces } from 'inversify';
+import { Container, inject, interfaces , injectable } from 'inversify';
 import "reflect-metadata";
 import {
   autoProvide,
@@ -37,11 +37,13 @@ let provideSingleton = function(
     .done();
 };
 
+export default iocContainer;
 export {
   iocContainer,
   autoProvide,
   provide,
   provideSingleton,
   provideNamed,
-  inject
+  inject,
+  injectable
 };

@@ -6,8 +6,6 @@ import { HttpError } from '../../models/error.model';
 import { Planet, People } from '../../models/starwars.model';
 import { HttpStatus } from '../../services/http-status-codes';
 import SERVICE_IDENTIFIER from '../../../common/constants/identifiers';
-import { inject, injectable } from 'inversify';
-
 import ILogger from '../../../common/interfaces/ilogger';
 import IMetrics from '../../../common/interfaces/imetrics';
 import IStarwars from '../../interfaces/istarwars';
@@ -26,11 +24,15 @@ import {
 
 import { LogService } from '../../../common/services/log.service';
 import { MetricsService } from '../../../common/services/metrics.service';
+
+
+import { provideSingleton, inject, provide } from '../../../common/config/ioc';
 /**
  * Controller for StarWars APIs
  */
 @Route('starwars')
-class StarwarsController extends Controller {
+@provideSingleton(StarwarsController)
+export class StarwarsController extends Controller {
 
   public starwarsService: IStarwars;
   public loggerService: ILogger;
