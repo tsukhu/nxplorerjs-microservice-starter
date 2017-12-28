@@ -30,7 +30,7 @@ if (process.env.CLUSTER_MODE === 'true' && cluster.isMaster) {
   const welcome = (port) => console.log(`up and running in ${process.env.NODE_ENV || 'development'} @: ${os.hostname()} on port: ${port}`);
 
   // create server
-  const app = new Server().getServer().build();
+  const app = new Server().getServer();
 
   // configure Subscription
   configGraphQLSubscription(app,welcome);

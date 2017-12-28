@@ -9,7 +9,7 @@ export interface Example {
 /**
  * Posts API Response Model
  */
-export interface Post {
+export interface BlogPost {
   userId: number;
   id: number;
   title: string;

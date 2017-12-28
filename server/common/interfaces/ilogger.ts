@@ -1,4 +1,5 @@
 import { Request, Response } from 'express';
+import { Controller } from 'tsoa';
 
 interface ILogger {
 
@@ -11,6 +12,8 @@ interface ILogger {
     logAPITraceOut(req: Request, res: Response, message?: any);
 
     logAPITrace(req: Request, res: Response, statusCode: number, message?: any);
+
+    APITrace(req: Request, res: Controller, message?: any);
 
     setUUID(uuid: string);
 

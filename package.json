@@ -6,10 +6,10 @@
   "scripts": {
     "start": "node build/main",
     "start:docker": "node main",
-    "compile": "node build.js && backpack build",
-    "dev": "node build.js && backpack dev",
+    "compile": "tsoa routes && tsoa swagger && node build.js && backpack build",
+    "dev": "tsoa routes && tsoa swagger && node build.js && backpack dev",
     "dash": "nodejs-dashboard -- node -r nodejs-dashboard build/main",
-    "test": "node build.js && npm run lint && jest --forceExit",
+    "test": "tsoa routes && tsoa swagger-gen && node build.js && npm run lint && jest --forceExit",
     "lint": "npm run tslint -- -o reports/lint_issues.json -t json --force \"server/**/*.ts\" ",
     "tslint": "tslint",
     "sonar-scanner": "sonar-scanner"
@@ -63,7 +63,8 @@
     "graphql-subscriptions": "^0.5.6",
     "graphql-tools": "^2.14.0",
     "helmet": "^3.6.1",
-    "inversify": "^4.5.1",
+    "inversify": "^4.9.0",
+    "inversify-binding-decorators": "^3.2.0",
     "inversify-express-utils": "^5.0.0",
     "lodash": "^4.17.4",
     "node-fetch": "^1.7.3",
@@ -78,7 +79,9 @@
     "source-map-support": "^0.5.0",
     "subscriptions-transport-ws": "^0.9.4",
     "swagger-express-middleware": "^1.0.0-alpha.12",
+    "swagger-jsdoc": "^1.9.7",
     "swagger-ui-express": "^2.0.7",
+    "tsoa": "^2.0.1",
     "yamljs": "^0.3.0"
   },
   "devDependencies": {

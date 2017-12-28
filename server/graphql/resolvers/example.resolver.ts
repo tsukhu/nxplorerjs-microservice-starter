@@ -1,10 +1,11 @@
 import { PubSub } from 'graphql-subscriptions';
-import container from '../../common/config/ioc_config';
 import SERVICE_IDENTIFIER from '../../common/constants/identifiers';
 
 import IExample from '../../api/interfaces/iexample';
 
-const ExampleService = container.get<IExample>(SERVICE_IDENTIFIER.EXAMPLE);
+import { ExamplesService } from '../../api/services/examples.service';
+import { LogService } from '../../common/services/log.service';
+const ExampleService = new ExamplesService(new LogService);
 
 export const pubsub = new PubSub();
 

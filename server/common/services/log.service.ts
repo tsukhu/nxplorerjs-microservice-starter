@@ -1,11 +1,12 @@
 import { Request, Response } from 'express';
-import { inject, injectable } from 'inversify';
+import { provideSingleton } from '../config/ioc';
+import { Controller } from 'tsoa';
 
 import ILogger from '../interfaces/ilogger';
 const pino = require('pino')();
 
-@injectable()
-class LogService implements ILogger {
+@provideSingleton(LogService)
+export class LogService implements ILogger {
 
     private logger: any;
     private uuid: string;
@@ -51,6 +52,17 @@ class LogService implements ILogger {
     }
 
     public logAPITrace(req: Request, res: Response, statusCode: number, message?: any) {
+        const fullUrl = req.protocol + '://' + req.get('host') + req.originalUrl;
+        const responseTime = res.getHeader('x-response-time');
+        const uuid = this.getUUID();
+        if (message !== undefined) {
+            this.logger.info({ uuid, fullUrl, statusCode, responseTime, message });
+        } else {
+            this.logger.info({ uuid, fullUrl, statusCode, responseTime });
+        }
+    }
+
+    public APITrace(req: Request, res: Controller, statusCode: number, message?: any) {
         const fullUrl = req.protocol + '://' + req.get('host') + req.originalUrl;
         const responseTime = res.getHeader('x-response-time');
         const uuid = this.getUUID();

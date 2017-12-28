@@ -6,7 +6,8 @@ import { secureApp } from './config/security';
 import { configLogging } from './config/logging';
 import { configMetrics } from './config/metrics';
 import { configGraphQL } from './config/graphql';
-import container from '../common/config/ioc_config';
+// generated routes using tsoa
+import { RegisterRoutes } from '../routes';
 import SERVICE_IDENTIFIER from '../common/constants/identifiers';
 import {
   interfaces,
@@ -20,7 +21,8 @@ const responseTime = require('response-time');
  * Node Express Server setup and configuration
  */
 export default class ExpressServer {
-  public server: InversifyExpressServer;
+  // public server: InversifyExpressServer;
+  public app: express.Express;
   constructor() {
     let root: string;
 
@@ -31,38 +33,41 @@ export default class ExpressServer {
       root = path.normalize('.');
     }
 
-    this.server = new InversifyExpressServer(container, undefined, {
+    /* this.server = new InversifyExpressServer(container, undefined, {
       rootPath: '/api/v1'
-    });
-    this.server.setConfig(app => {
-      // Add security configuration
-      secureApp(app);
+    });*/
+    this.app = express();
 
-      // Add public folder
-      app.use(express.static(`${root}/public`));
+    RegisterRoutes(this.app);
+    
+    // Add security configuration
+    secureApp(this.app);
 
-      // Add response time support
-      // This will add x-response-time to the response headers
-      app.use(responseTime({ suffix: false }));
+    // Add public folder
+    this.app.use(express.static(`${root}/public`));
 
-      // Add partial response support
-      app.use(partialResponse());
+    // Add response time support
+    // This will add x-response-time to the response headers
+    this.app.use(responseTime({ suffix: false }));
 
-      // Add logging configuration
-      configLogging(app);
+    // Add partial response support
+    this.app.use(partialResponse());
 
-      // Add metrics configuration
-      configMetrics(app);
+    // Add logging configuration
+    configLogging(this.app);
 
-      // Graphql
-      configGraphQL(app);
+    // Add metrics configuration
+    configMetrics(this.app);
 
-      // Add swagger support
-      swaggerify(app);
-    });
+    // Graphql
+    configGraphQL(this.app);
+
+    // Add swagger support
+    swaggerify(this.app);
+
   }
 
-  public getServer(): InversifyExpressServer {
-    return this.server;
+  public getServer(): express.Express {
+    return this.app;
   }
 }

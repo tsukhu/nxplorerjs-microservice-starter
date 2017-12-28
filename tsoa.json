@@ -1,0 +1,17 @@
+{
+    "swagger": {
+        "outputDirectory": "./build/",
+        "specMerging": "recursive",
+        "entryFile": "./server/common/server.ts",
+        "host": "localhost:3000",
+        "basePath": "/api/v1",
+        "yaml": false
+    },
+    "routes": {
+        "basePath": "/api/v1",
+        "entryFile": "./server/common/server.ts",
+        "routesDir": "./server/",
+        "middleware": "express",
+        "iocModule": "./server/common/config/ioc.ts"
+    }
+}

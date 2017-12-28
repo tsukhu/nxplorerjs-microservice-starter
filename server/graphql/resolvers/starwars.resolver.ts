@@ -1,18 +1,18 @@
 import * as fetch from 'node-fetch';
-import container from '../../common/config/ioc_config';
 import SERVICE_IDENTIFIER from '../../common/constants/identifiers';
 
 import IStarwars from '../../api/interfaces/istarwars';
-
-const StarwarsService = container.get<IStarwars>(SERVICE_IDENTIFIER.STARWARS);
-
+import { StarwarsService } from '../../api/services/starwars.service';
+import { LogService } from '../../common/services/log.service';
+//const StarwarsService = container.get<IStarwars>(SERVICE_IDENTIFIER.STARWARS);
+const myStarwarsService = new StarwarsService(new LogService);
 
 export default {
 
     RootQueryType: {
         peopleWithPlanet(parent, args, context, info) {
             return new Promise(function (resolve, reject) {
-                StarwarsService
+                myStarwarsService
                     .getPeopleById(args.id)
                     .timeout(+process.env.TIME_OUT)
                     .subscribe(r => {

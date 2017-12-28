@@ -3,20 +3,20 @@ import { Observable } from 'rxjs/Observable';
 import { AsyncSubject } from 'rxjs/AsyncSubject';
 import * as _ from 'lodash';
 import { Planet, People } from '../models/starwars.model';
-import { inject, injectable } from 'inversify';
-import container from '../../common/config/ioc_config';
 import SERVICE_IDENTIFIER from '../../common/constants/identifiers';
 
 import ILogger from '../../common/interfaces/ilogger';
 import IStarwars from '../interfaces/istarwars';
+
+import { provideSingleton, iocContainer, inject, provide} from '../../common/config/ioc';
 
 const rp: any = require('request-promise');
 
 /**
  * Starwars Service Implementation
  */
-@injectable()
-class StarwarsService implements IStarwars {
+@provide(StarwarsService)
+export class StarwarsService implements IStarwars {
 
     public loggerService: ILogger;
     public constructor(

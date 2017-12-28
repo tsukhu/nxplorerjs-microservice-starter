@@ -1,11 +1,13 @@
 import * as Promise from 'bluebird';
 import { Observable } from 'rxjs';
 import { Example } from '../models/example.model';
-import { inject, injectable } from 'inversify';
 
 import SERVICE_IDENTIFIER from '../../common/constants/identifiers';
 import ILogger from '../../common/interfaces/ilogger';
 import IExample from '../interfaces/iexample';
+import { provideSingleton, iocContainer, inject , provide} from '../../common/config/ioc';
+
+
 
 const rp: any = require('request-promise');
 
@@ -21,8 +23,8 @@ const examples: Example[] = [
 /**
  * Examples Service Implementation
  */
-@injectable()
-class ExamplesService implements IExample {
+@provide(ExamplesService)
+export class ExamplesService implements IExample {
 
   public logService: ILogger;
 

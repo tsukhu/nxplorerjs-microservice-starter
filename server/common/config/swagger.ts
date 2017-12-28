@@ -9,7 +9,7 @@ import * as express from 'express';
  */
 export function swaggerify(app: express.Application) {
   // Add Swagger support
-  swaggerMiddleware('./server/common/swagger/Api.yaml', app, function(
+  swaggerMiddleware('E:/workspace/express-microservice-starter/build/swagger.json', app, function(
     err,
     middleware
   ) {
@@ -51,6 +51,6 @@ export function swaggerify(app: express.Application) {
     });
   });
 
-  const swaggerDocument = YAML.load('./server/common/swagger/Api.yaml');
+  const swaggerDocument = require('E:/workspace/express-microservice-starter/build/swagger.json'); //YAML.load('./swagger.yaml');
   app.use('/swagger', swaggerUi.serve, swaggerUi.setup(swaggerDocument));
 }

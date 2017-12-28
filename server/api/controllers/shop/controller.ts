@@ -1,33 +1,48 @@
-import ProductService from '../../services/product.service';
-import { Request, Response } from 'express';
+import * as express from 'express';
 import { Observable } from 'rxjs/Observable';
 import { ErrorResponseBuilder } from '../../services/response-builder';
 import { HttpError } from '../../models/error.model';
 import { HttpStatus } from '../../services/http-status-codes';
-import container from '../../../common/config/ioc_config';
+import {
+  Get,
+  Post,
+  Route,
+  Request,
+  Body,
+  Query,
+  Header,
+  Path,
+  SuccessResponse,
+  Controller
+} from 'tsoa';
+
+
 import SERVICE_IDENTIFIER from '../../../common/constants/identifiers';
 import { inject, injectable } from 'inversify';
 
 import ILogger from '../../../common/interfaces/ilogger';
 import IMetrics from '../../../common/interfaces/imetrics';
 import IProduct from '../../interfaces/iproduct';
-import { interfaces, controller, httpGet, httpPost, httpDelete, request, queryParam, response, requestParam } from 'inversify-express-utils';
 
+import { LogService } from '../../../common/services/log.service';
+import { MetricsService } from '../../../common/services/metrics.service';
+import { ProductService } from '../../services/product.service';
 /**
  * Shop API Controller
  */
-@controller('/shop')
-class ShopController implements interfaces.Controller {
+@Route('shop')
+class ShopController extends Controller {
 
   public productService: IProduct;
   public loggerService: ILogger;
   public metricsService: IMetrics;
 
   public constructor(
-    @inject(SERVICE_IDENTIFIER.PRODUCT) productService: IProduct,
-    @inject(SERVICE_IDENTIFIER.LOGGER) loggerService: ILogger,
-    @inject(SERVICE_IDENTIFIER.METRICS) metricsService: IMetrics
+    @inject(ProductService) productService: IProduct,
+    @inject(LogService) loggerService: ILogger,
+    @inject(MetricsService) metricsService: IMetrics
   ) {
+    super();
     this.productService = productService;
     this.loggerService = loggerService;
     this.metricsService = metricsService;
@@ -38,18 +53,19 @@ class ShopController implements interfaces.Controller {
    * @param req
    * @param res 
    */
-  @httpGet('/products')
-  public allBaseProducts(@request() req: Request, @response() res: Response): void {
+  @Get('products')
+  public async allBaseProducts(@Request() req: express.Request): Promise<any> {
 
-    this.productService
+    return this.productService
       .allBaseProducts()
       .subscribe(
-      result => {
-        res.status(HttpStatus.OK).json(result);
-        this.loggerService.logAPITrace(req, res, HttpStatus.OK);
-        this.metricsService.logAPIMetrics(req, res, HttpStatus.OK);
+      async result => {
+        this.setStatus(HttpStatus.OK);
+        this.loggerService.APITrace(req, this, HttpStatus.OK);
+        this.metricsService.APIMetrics(req, this, HttpStatus.OK);
+        return await result;
       },
-      err => {
+      async err => {
         const error: HttpError = <HttpError>err;
         const resp = new ErrorResponseBuilder()
           .setTitle(error.name)
@@ -58,9 +74,10 @@ class ShopController implements interfaces.Controller {
           .setMessage(error.message)
           .setSource(req.url)
           .build();
-        res.status(HttpStatus.NOT_FOUND).json(resp);
-        this.loggerService.logAPITrace(req, res, HttpStatus.NOT_FOUND);
-        this.metricsService.logAPIMetrics(req, res, HttpStatus.NOT_FOUND);
+        this.setStatus(HttpStatus.NOT_FOUND);
+        this.loggerService.APITrace(req, this, HttpStatus.NOT_FOUND);
+        this.metricsService.APIMetrics(req, this, HttpStatus.NOT_FOUND);
+        return await err;
       }
       );
   }
@@ -70,17 +87,18 @@ class ShopController implements interfaces.Controller {
    * @param req 
    * @param res 
    */
-  @httpGet('/productOptions')
-  public allBaseProductOptions(@request() req: Request, @response() res: Response): void {
-    this.productService
+  @Get('productOptions')
+  public async allBaseProductOptions(@Request() req: express.Request): Promise<any> {
+    return this.productService
       .allBaseProductOptions()
       .subscribe(
-      result => {
-        res.status(HttpStatus.OK).json(result);
-        this.loggerService.logAPITrace(req, res, HttpStatus.OK);
-        this.metricsService.logAPIMetrics(req, res, HttpStatus.OK);
+      async result => {
+        this.setStatus(HttpStatus.OK);
+        this.loggerService.APITrace(req, this, HttpStatus.OK);
+        this.metricsService.APIMetrics(req, this, HttpStatus.OK);
+        return await result;
       },
-      err => {
+      async err => {
         const error: HttpError = <HttpError>err;
         const resp = new ErrorResponseBuilder()
           .setTitle(error.name)
@@ -89,9 +107,10 @@ class ShopController implements interfaces.Controller {
           .setMessage(error.message)
           .setSource(req.url)
           .build();
-        res.status(HttpStatus.NOT_FOUND).json(resp);
-        this.loggerService.logAPITrace(req, res, HttpStatus.NOT_FOUND);
-        this.metricsService.logAPIMetrics(req, res, HttpStatus.NOT_FOUND);
+        this.setStatus(HttpStatus.NOT_FOUND);
+        this.loggerService.APITrace(req, this, HttpStatus.NOT_FOUND);
+        this.metricsService.APIMetrics(req, this, HttpStatus.NOT_FOUND);
+        return await err;
       }
       );
   }
@@ -101,17 +120,18 @@ class ShopController implements interfaces.Controller {
    * @param req
    * @param res 
    */
-  @httpGet('/prices')
-  public allBaseProductPrice(@request() req: Request, @response() res: Response): void {
-    this.productService
+  @Get('prices')
+  public async allBaseProductPrice(@Request() req: express.Request): Promise<any> {
+    return this.productService
       .allBaseProductPrice()
       .subscribe(
-      result => {
-        res.status(HttpStatus.OK).json(result);
-        this.loggerService.logAPITrace(req, res, HttpStatus.OK);
-        this.metricsService.logAPIMetrics(req, res, HttpStatus.OK);
+      async result => {
+        this.setStatus(HttpStatus.OK);
+        this.loggerService.APITrace(req, this, HttpStatus.OK);
+        this.metricsService.APIMetrics(req, this, HttpStatus.OK);
+        return await result;
       },
-      err => {
+      async err => {
         const error: HttpError = <HttpError>err;
         const resp = new ErrorResponseBuilder()
           .setTitle(error.name)
@@ -120,9 +140,10 @@ class ShopController implements interfaces.Controller {
           .setMessage(error.message)
           .setSource(req.url)
           .build();
-        res.status(HttpStatus.NOT_FOUND).json(resp);
-        this.loggerService.logAPITrace(req, res, HttpStatus.NOT_FOUND);
-        this.metricsService.logAPIMetrics(req, res, HttpStatus.NOT_FOUND);
+        this.setStatus(HttpStatus.NOT_FOUND);
+        this.loggerService.APITrace(req, this, HttpStatus.NOT_FOUND);
+        this.metricsService.APIMetrics(req, this, HttpStatus.NOT_FOUND);
+        return await err;
       }
       );
   }
@@ -132,17 +153,18 @@ class ShopController implements interfaces.Controller {
    * @param req 
    * @param res 
    */
-  @httpGet('/inventory')
-  public allBaseProductInventory(@request() req: Request, @response() res: Response): void {
-    this.productService
+  @Get('inventory')
+  public async allBaseProductInventory(@Request() req: express.Request): Promise<any> {
+    return this.productService
       .allBaseProductInventory()
       .subscribe(
-      result => {
-        res.status(HttpStatus.OK).json(result);
-        this.loggerService.logAPITrace(req, res, HttpStatus.OK);
-        this.metricsService.logAPIMetrics(req, res, HttpStatus.OK);
+      async result => {
+        this.setStatus(HttpStatus.OK);
+        this.loggerService.APITrace(req, this, HttpStatus.OK);
+        this.metricsService.APIMetrics(req, this, HttpStatus.OK);
+        return await result;
       },
-      err => {
+      async err => {
         const error: HttpError = <HttpError>err;
         const resp = new ErrorResponseBuilder()
           .setTitle(error.name)
@@ -151,9 +173,10 @@ class ShopController implements interfaces.Controller {
           .setMessage(error.message)
           .setSource(req.url)
           .build();
-        res.status(HttpStatus.NOT_FOUND).json(resp);
-        this.loggerService.logAPITrace(req, res, HttpStatus.NOT_FOUND);
-        this.metricsService.logAPIMetrics(req, res, HttpStatus.NOT_FOUND);
+        this.setStatus(HttpStatus.NOT_FOUND);
+        this.loggerService.APITrace(req, this, HttpStatus.NOT_FOUND);
+        this.metricsService.APIMetrics(req, this, HttpStatus.NOT_FOUND);
+        return err;
       }
       );
   }
@@ -165,53 +188,60 @@ class ShopController implements interfaces.Controller {
    * @param req 
    * @param res 
    */
-  @httpGet('/products/:id')
-  public productbyId(@requestParam('id') id: number, @request() req: Request, @response() res: Response): void {
-    this.productService
+  @Get('/products/{id}')
+  public async productbyId(id: number, @Request() req: express.Request): Promise<any> {
+    return this.productService
       .baseProductbyId(id)
-      .subscribe(r => {
+      .subscribe( async r => {
         if (r) {
-          res.json(r);
-          this.loggerService.logAPITrace(req, res, HttpStatus.OK);
-          this.metricsService.logAPIMetrics(req, res, HttpStatus.OK);
+          this.setStatus(HttpStatus.OK);
+          this.loggerService.APITrace(req, this, HttpStatus.OK);
+          this.metricsService.APIMetrics(req, this, HttpStatus.OK);
+          return await r;
         } else {
-          res.status(HttpStatus.NOT_FOUND).end();
-          this.loggerService.logAPITrace(req, res, HttpStatus.NOT_FOUND);
-          this.metricsService.logAPIMetrics(req, res, HttpStatus.NOT_FOUND);
+          this.setStatus(HttpStatus.NOT_FOUND);
+          this.loggerService.APITrace(req, this, HttpStatus.NOT_FOUND);
+          this.metricsService.APIMetrics(req, this, HttpStatus.NOT_FOUND);
+          return await undefined;
         }
+        
       });
   }
 
-  @httpGet('/productOptions/:id')
-  public baseProductOptionsbyId(@requestParam('id') id: number, @request() req: Request, @response() res: Response): void {
-    this.productService
+  @Get('/productOptions/{id}')
+  public async baseProductOptionsbyId(id: number, @Request() req: express.Request): Promise<any> {
+    return this.productService
       .baseProductOptionsbyId(id)
-      .subscribe(r => {
+      .subscribe(async r => {
         if (r) {
-          res.json(r);
-          this.loggerService.logAPITrace(req, res, HttpStatus.OK);
-          this.metricsService.logAPIMetrics(req, res, HttpStatus.OK);
+          this.setStatus(HttpStatus.OK);
+          this.loggerService.APITrace(req, this, HttpStatus.OK);
+          this.metricsService.APIMetrics(req, this, HttpStatus.OK);
+          return await r;
         } else {
-          res.status(HttpStatus.NOT_FOUND).end();
-          this.loggerService.logAPITrace(req, res, HttpStatus.NOT_FOUND);
-          this.metricsService.logAPIMetrics(req, res, HttpStatus.NOT_FOUND);
+          this.setStatus(HttpStatus.NOT_FOUND);
+          this.loggerService.APITrace(req, this, HttpStatus.NOT_FOUND);
+          this.metricsService.APIMetrics(req, this, HttpStatus.NOT_FOUND);
+          return await undefined;
         }
       });
   }
 
-  @httpGet('/prices/:id')
-  public baseProductPricebyId(@requestParam('id') id: number, @request() req: Request, @response() res: Response): void {
-    this.productService
+  @Get('/prices/{id}')
+  public async baseProductPricebyId(id: number, @Request() req: express.Request): Promise<any> {
+    return this.productService
       .baseProductPricebyId(id)
-      .subscribe(r => {
+      .subscribe(async r => {
         if (r) {
-          res.json(r);
-          this.loggerService.logAPITrace(req, res, HttpStatus.OK);
-          this.metricsService.logAPIMetrics(req, res, HttpStatus.OK);
+          this.setStatus(HttpStatus.OK);
+          this.loggerService.APITrace(req, this, HttpStatus.OK);
+          this.metricsService.APIMetrics(req, this, HttpStatus.OK);
+          return await r;
         } else {
-          res.status(HttpStatus.NOT_FOUND).end();
-          this.loggerService.logAPITrace(req, res, HttpStatus.NOT_FOUND);
-          this.metricsService.logAPIMetrics(req, res, HttpStatus.NOT_FOUND);
+          this.setStatus(HttpStatus.NOT_FOUND);
+          this.loggerService.APITrace(req, this, HttpStatus.NOT_FOUND);
+          this.metricsService.APIMetrics(req, this, HttpStatus.NOT_FOUND);
+          return await undefined;
         }
       });
   }
@@ -219,19 +249,21 @@ class ShopController implements interfaces.Controller {
   /**
    * Check by ID
    */
-  @httpGet('/inventory/:id')
-  public baseProductInventorybyId(@requestParam('id') id: number, @request() req: Request, @response() res: Response): void {
-    this.productService
+  @Get('/inventory/{id}')
+  public async baseProductInventorybyId(id: number, @Request() req: express.Request): Promise<any> {
+    return this.productService
       .baseProductInventorybyId(id)
-      .subscribe(r => {
+      .subscribe(async r => {
         if (r) {
-          res.json(r);
-          this.loggerService.logAPITrace(req, res, HttpStatus.OK);
-          this.metricsService.logAPIMetrics(req, res, HttpStatus.OK);
+          this.setStatus(HttpStatus.OK);
+          this.loggerService.APITrace(req, this, HttpStatus.OK);
+          this.metricsService.APIMetrics(req, this, HttpStatus.OK);
+          return await r;
         } else {
-          res.status(HttpStatus.NOT_FOUND).end();
-          this.loggerService.logAPITrace(req, res, HttpStatus.NOT_FOUND);
-          this.metricsService.logAPIMetrics(req, res, HttpStatus.NOT_FOUND);
+          this.setStatus(HttpStatus.NOT_FOUND);
+          this.loggerService.APITrace(req, this, HttpStatus.NOT_FOUND);
+          this.metricsService.APIMetrics(req, this, HttpStatus.NOT_FOUND);
+          return await undefined;
         }
       });
   }
@@ -241,21 +273,24 @@ class ShopController implements interfaces.Controller {
    * @param req Request Param
    * @param res Response Param
    */
-  @httpGet('/priceByOptionId/:id')
-  public flatMapProductOptionPricebyId(@requestParam('id') id: number, @request() req: Request, @response() res: Response): void {
-    this.productService
+  @Get('/priceByOptionId/{id}')
+  public async flatMapProductOptionPricebyId(id: number, @Request() req: express.Request): Promise<any> {
+    return this.productService
       .getProductOptionPricebyId(id)
-      .subscribe(r => {
+      .subscribe(async r => {
         if (r) {
-          res.json(r);
-          this.metricsService.logAPIMetrics(req, res, HttpStatus.OK);
+          this.setStatus(HttpStatus.OK);
+          this.loggerService.APITrace(req, this, HttpStatus.OK);
+          this.metricsService.APIMetrics(req, this, HttpStatus.OK);
+          return await r;
         } else {
-          res.status(HttpStatus.NOT_FOUND).end();
-          this.loggerService.logAPITrace(req, res, HttpStatus.NOT_FOUND);
-          this.metricsService.logAPIMetrics(req, res, HttpStatus.NOT_FOUND);
+          this.setStatus(HttpStatus.NOT_FOUND);
+          this.loggerService.APITrace(req, this, HttpStatus.NOT_FOUND);
+          this.metricsService.APIMetrics(req, this, HttpStatus.NOT_FOUND);
+          return await undefined;
         }
       },
-      err => {
+      async err => {
         const error: HttpError = <HttpError>err;
         const resp = new ErrorResponseBuilder()
           .setTitle(error.name)
@@ -264,9 +299,10 @@ class ShopController implements interfaces.Controller {
           .setMessage(error.message)
           .setSource(req.url)
           .build();
-        res.status(HttpStatus.NOT_FOUND).json(resp);
-        this.loggerService.logAPITrace(req, res, HttpStatus.NOT_FOUND);
-        this.metricsService.logAPIMetrics(req, res, HttpStatus.NOT_FOUND);
+        this.setStatus(HttpStatus.NOT_FOUND);
+        this.loggerService.APITrace(req, this, HttpStatus.NOT_FOUND);
+        this.metricsService.APIMetrics(req, this, HttpStatus.NOT_FOUND);
+        return await err;
       });
   }
 

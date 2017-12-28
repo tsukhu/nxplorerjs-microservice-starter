@@ -1,34 +1,47 @@
 import StarwarsService from '../../services/starwars.service';
-import { Request, Response } from 'express';
+import * as express from 'express';
 import { Observable } from 'rxjs/Observable';
 import { ErrorResponseBuilder } from '../../services/response-builder';
 import { HttpError } from '../../models/error.model';
+import { Planet, People } from '../../models/starwars.model';
 import { HttpStatus } from '../../services/http-status-codes';
-import container from '../../../common/config/ioc_config';
 import SERVICE_IDENTIFIER from '../../../common/constants/identifiers';
 import { inject, injectable } from 'inversify';
 
 import ILogger from '../../../common/interfaces/ilogger';
 import IMetrics from '../../../common/interfaces/imetrics';
 import IStarwars from '../../interfaces/istarwars';
+import {
+  Get,
+  Post,
+  Route,
+  Request,
+  Body,
+  Query,
+  Header,
+  Path,
+  SuccessResponse,
+  Controller
+} from 'tsoa';
 
-import { interfaces, controller, httpGet, httpPost, httpDelete, request, queryParam, response, requestParam } from 'inversify-express-utils';
-
+import { LogService } from '../../../common/services/log.service';
+import { MetricsService } from '../../../common/services/metrics.service';
 /**
  * Controller for StarWars APIs
  */
-@controller('/starwars')
-class StarwarsController implements interfaces.Controller {
+@Route('starwars')
+class StarwarsController extends Controller {
 
   public starwarsService: IStarwars;
   public loggerService: ILogger;
   public metricsService: IMetrics;
 
   public constructor(
-    @inject(SERVICE_IDENTIFIER.STARWARS) starwarsService: IStarwars,
-    @inject(SERVICE_IDENTIFIER.LOGGER) loggerService: ILogger,
-    @inject(SERVICE_IDENTIFIER.METRICS) metricsService: IMetrics
+    @inject(StarwarsService) starwarsService: IStarwars,
+    @inject(LogService) loggerService: ILogger,
+    @inject(MetricsService) metricsService: IMetrics
   ) {
+    super();
     this.starwarsService = starwarsService;
     this.loggerService = loggerService;
     this.metricsService = metricsService;
@@ -40,22 +53,23 @@ class StarwarsController implements interfaces.Controller {
    * @param req Request
    * @param res Response
    */
-  @httpGet('/people/:id')
-  public getPeopleById(@requestParam('id') id: number, @request() req: Request, @response() res: Response): void {
-    this.starwarsService
+  @Get('/people/{id}')
+  public async getPeopleById(id: number, @Request() req: express.Request): Promise<any> {
+    return this.starwarsService
       .getPeopleById(id)
       .timeout(+process.env.TIME_OUT)
-      .subscribe(r => {
+      .subscribe(async r => {
         if (r === undefined) {
-          res.status(HttpStatus.NOT_FOUND).end();
-          this.loggerService.logAPITrace(req, res, HttpStatus.NOT_FOUND);
+          this.setStatus(HttpStatus.NOT_FOUND);
+          this.loggerService.APITrace(req, this, HttpStatus.NOT_FOUND);
         } else {
-          res.status(HttpStatus.OK).json(r);
-          this.loggerService.logAPITrace(req, res, HttpStatus.OK);
+          this.setStatus(HttpStatus.OK);
+          this.loggerService.APITrace(req, this, HttpStatus.OK);
         }
-        this.metricsService.logAPIMetrics(req, res, req.statusCode);
+        this.metricsService.APIMetrics(req, this, req.statusCode);
+        return await r;
       },
-      err => {
+      async err => {
         const error: HttpError = <HttpError>err;
         const resp = new ErrorResponseBuilder()
           .setTitle(error.name)
@@ -64,9 +78,10 @@ class StarwarsController implements interfaces.Controller {
           .setMessage(error.message)
           .setSource(req.url)
           .build();
-        res.status(HttpStatus.NOT_FOUND).json(resp);
-        this.loggerService.logAPITrace(req, res, HttpStatus.NOT_FOUND, error);
-        this.metricsService.logAPIMetrics(req, res, HttpStatus.NOT_FOUND);
+        this.setStatus(HttpStatus.NOT_FOUND);
+        this.loggerService.APITrace(req, this, HttpStatus.NOT_FOUND);
+        this.metricsService.APIMetrics(req, this, HttpStatus.NOT_FOUND);
+        return await error;
       }
       );
   }

@@ -9,12 +9,12 @@ import {
     BaseProductOption
 } from '../models/product.model';
 import { Planet, People } from '../models/starwars.model';
-import { inject, injectable } from 'inversify';
 import IProduct from '../interfaces/iproduct';
-import container from '../../common/config/ioc_config';
 import SERVICE_IDENTIFIER from '../../common/constants/identifiers';
 
 import ILogger from '../../common/interfaces/ilogger';
+import { provideSingleton, iocContainer, inject, provide} from '../../common/config/ioc';
+
 
 
 const rp: any = require('request-promise');
@@ -129,8 +129,8 @@ const baseProducts: BaseProduct[] = [
 /**
  * Product Service Implementation
  */
-@injectable()
-class ProductService implements IProduct {
+@provide(ProductService)
+export class ProductService implements IProduct {
 
     public loggerService: ILogger;
     public constructor(

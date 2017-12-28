@@ -2,14 +2,14 @@ import * as Promise from 'bluebird';
 import { Observable } from 'rxjs/Observable';
 import { AsyncSubject } from 'rxjs/AsyncSubject';
 import * as _ from 'lodash';
-import { Post } from '../models/example.model';
-import { inject, injectable } from 'inversify';
+import { BlogPost } from '../models/example.model';
 import * as Brakes from 'brakes';
-import container from '../../common/config/ioc_config';
 import SERVICE_IDENTIFIER from '../../common/constants/identifiers';
 
 import ILogger from '../../common/interfaces/ilogger';
 import IHystrixDemo from '../interfaces/ihystrix-demo';
+import { provideSingleton, iocContainer, inject , provide} from '../../common/config/ioc';
+
 
 const timer = 100;
 let successRate = 1;
@@ -19,7 +19,7 @@ const rp: any = require('request-promise');
 
 let id = 0;
 
-const posts: Post[] = [
+const posts: BlogPost[] = [
     { userId: id++, id: id, title: 'sample post #' + id, body: 'sample body #' + id },
     { userId: id++, id: id, title: 'sample post #' + id, body: 'sample body #' + id },
     { userId: id++, id: id, title: 'sample post #' + id, body: 'sample body #' + id },
@@ -30,8 +30,8 @@ const posts: Post[] = [
 /**
  * Hystrix Demo Service Implementation
  */
-@injectable()
-class HystrixDemoService implements IHystrixDemo {
+@provide(HystrixDemoService)
+export class HystrixDemoService implements IHystrixDemo {
 
 
     public loggerService: ILogger;
@@ -88,7 +88,7 @@ class HystrixDemoService implements IHystrixDemo {
         return Promise.resolve(posts);
     }
 
-    public getPosts(timeOut: number): Observable<any> {
+    public getPosts(timeOut: number): Observable<BlogPost[]> {
 
         let brakeTimeOut = 2000;
         if (timeOut !== undefined) {
