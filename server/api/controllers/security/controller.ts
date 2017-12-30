@@ -51,14 +51,17 @@ class SecurityController implements interfaces.Controller {
       password = req.body.password;
     if (this.validateEmailAndPassword(email, password)) {
       const userId = this.findUserIdForEmail(email);
-
+      const expiryTime = process.env.TOKEN_EXPIRY_TIME !== undefined ? process.env.TOKEN_EXPIRY_TIME : '1h';
       const jwtBearerToken = jwt.sign({}, this.RSA_PRIVATE_KEY, {
         algorithm: 'RS256',
-        expiresIn: 120,
+        expiresIn: expiryTime,
         subject: userId
       });
 
-      res.status(HttpStatus.OK).send(jwtBearerToken);
+      res.status(HttpStatus.OK).json({
+        idToken: jwtBearerToken, 
+        expiresIn: expiryTime
+      });
     } else {
       res.sendStatus(401);
     }
