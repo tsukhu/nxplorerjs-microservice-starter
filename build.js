@@ -1,11 +1,11 @@
 const s = require('shelljs');
-
+ 
 s.rm('-rf', 'build');
 s.rm('-rf', 'reports');
 s.mkdir('build');
 s.mkdir('reports');
 s.mkdir('-p','logs');
-s.cp('.env', 'build/.env');
+s.cp(`.${s.env.NODE_ENV}.env`, 'build/.env');
 s.cp('jwtRS256.key', 'build/');
 s.cp('jwtRS256.key.pub', 'build/');
 s.cp('-R', 'public', 'build/public');
