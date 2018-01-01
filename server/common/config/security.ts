@@ -24,7 +24,7 @@ export function secureApp(app: express.Application) {
 
   if (process.env.JWT_AUTH === 'true') {
     const RSA_PUBLIC_KEY = fs.readFileSync(process.env.RSA_PUBLIC_KEY_FILE);
-    app.get('/api/v1/examples', expressJwt({ secret: RSA_PUBLIC_KEY }));
+    // app.get('/api/v1/examples', expressJwt({ secret: RSA_PUBLIC_KEY }));
    /* app.use(
       expressJwt({ secret: RSA_PUBLIC_KEY }).unless({
         path: [

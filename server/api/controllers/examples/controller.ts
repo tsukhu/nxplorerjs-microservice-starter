@@ -13,11 +13,12 @@ import { inject, injectable } from 'inversify';
 import ILogger from '../../../common/interfaces/ilogger';
 import IMetrics from '../../../common/interfaces/imetrics';
 import IExample from '../../interfaces/iexample';
+import { authMiddleware } from '../../../common/middleware/auth-middleware';
 
 /**
  * Examples Controller
  */
-@controller('/examples')
+@controller('/examples', authMiddleware())
 class ExampleController implements interfaces.Controller {
 
   public exampleService: IExample;
