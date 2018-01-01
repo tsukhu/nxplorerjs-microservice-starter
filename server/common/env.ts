@@ -1,2 +1,4 @@
 import * as dotenv from 'dotenv';
-dotenv.config();
+// Load environment based on profile
+dotenv.config({ path: `.${process.env.NODE_ENV}.env` });
+
