@@ -4,8 +4,6 @@ import * as bodyParser from 'body-parser';
 import * as cookieParser from 'cookie-parser';
 import * as helmet from 'helmet';
 import * as csrf from 'csurf';
-import * as fs from 'fs';
-const expressJwt = require('express-jwt');
 
 /**
  * Add Security Settings for the Express App
@@ -20,24 +18,6 @@ export function secureApp(app: express.Application) {
 
   if (process.env.NODE_ENV === 'production' && process.env.CORS === 'true') {
     app.use(csrf({ cookie: true }));
-  }
-
-  if (process.env.JWT_AUTH === 'true') {
-    const RSA_PUBLIC_KEY = fs.readFileSync(process.env.RSA_PUBLIC_KEY_FILE);
-    // app.get('/api/v1/examples', expressJwt({ secret: RSA_PUBLIC_KEY }));
-   /* app.use(
-      expressJwt({ secret: RSA_PUBLIC_KEY }).unless({
-        path: [
-          { url: '/graphql' , methods: ['GET', 'PUT' ,'DELETE', 'POST'] },
-          { url: '/swagger/' , methods: ['GET', 'PUT' ,'DELETE', 'POST'] },
-          { url: '/graphiql/' },
-          { url: '/login/' },
-          { url: '/' },
-          { url: '/playground/' }
-        ]
-      })
-    );
-    */
   }
 
   app.use((req: any, res, next) => {
