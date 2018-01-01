@@ -14,11 +14,12 @@ import ILogger from '../../../common/interfaces/ilogger';
 import IMetrics from '../../../common/interfaces/imetrics';
 import IExample from '../../interfaces/iexample';
 import { authMiddleware } from '../../../common/middleware/auth-middleware';
+import { UserRole } from '../../../common/models/security.model';
 
 /**
  * Examples Controller
  */
-@controller('/examples', authMiddleware())
+@controller('/examples', authMiddleware(<UserRole>{ role: 'admin'}))
 class ExampleController implements interfaces.Controller {
 
   public exampleService: IExample;
