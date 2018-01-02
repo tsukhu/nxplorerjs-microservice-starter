@@ -199,14 +199,18 @@ npm install
 ```
 ## Setup *external environment*
 
-* Edit the .env file
+* Edit the .<PROFILE>.env file (where the profile could be test, development , production)
 
 | Variable              | Description                           | Default Value |
 |-----------------------|---------------------------------------|---------------|
 | PORT                  | Server Port                           | 3000          |
 | LOG_LEVEL             | Log Level (info,debug,error)          | info          |
 | SESSION_SECRET        | String used for signing cookies       |               |
-| TIME_OUT              | Default API Timeout (in milli secs)   | 10000         |  
+| TIME_OUT              | Default API Timeout (in milli secs)   | 10000         |
+| JWT_AUTH              | Enable/Disable JWT based API security | true  |
+| RSA_PRIVATE_KEY_FILE | Sample RSA private key path            | |
+| RSA_PUBLIC_KEY_FILE |  Sample RSA public key path            | |
+| TOKEN_EXPIRY_TIME | JWT Token expiry (Generated from /login ) | 1 hour (1h) |
 | STREAM_HYSTRIX        | Enable/Disable Hystrix streaming server (true or false)   |   false   |
 | CORS                  | Enable/Disable CORS on the server (true or false). Will work only in production build  | false |
 | CLUSTER_MODE          | Enable/Disable Node Clustering on the server (true or false) | false |
