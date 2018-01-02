@@ -1,6 +1,9 @@
 /**
- * User Role Information
+ * Logged in User Information
  */
-export interface UserRole {
+export interface User {
+    id: any;
     role: string;
+    email: string;
+    jwt: string;
 }

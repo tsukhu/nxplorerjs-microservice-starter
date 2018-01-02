@@ -6,8 +6,10 @@ import StarshipType from './models/starwars.model';
 import PeopleWithPlanetType from './models/starwars.model';
 import ExampleType  from './models/example.model';
 import ExampleArrayType from './models/example.model';
+import UserType from './models/user.model';
 import ExampleResolver from './resolvers/example.resolver';
 import StarwarsResolver from './resolvers/starwars.resolver';
+import UserResolver from './resolvers/user.resolver';
 import { makeExecutableSchema } from 'graphql-tools';
 
 
@@ -20,6 +22,7 @@ type SubscriptionType {
 const RootMutationType = `
 type RootMutationType { 
     addExample(name: String!): ExampleType
+    login( email: String!, password: String!): UserType
 }`;
 
 
@@ -45,7 +48,7 @@ schema {
   `;
 
 
-const resolvers = merge(ExampleResolver, StarwarsResolver);
+const resolvers = merge(ExampleResolver, StarwarsResolver, UserResolver);
 
 export default makeExecutableSchema({
     typeDefs: [
@@ -60,7 +63,8 @@ export default makeExecutableSchema({
         PeopleWithPlanetType,
         StarshipType,
         ExampleType,
-        ExampleArrayType
+        ExampleArrayType,
+        UserType
     ],
     // we could also concatenate arrays
     // typeDefs: [SchemaDefinition, RootQuery].concat(Post)

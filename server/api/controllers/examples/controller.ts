@@ -14,12 +14,13 @@ import ILogger from '../../../common/interfaces/ilogger';
 import IMetrics from '../../../common/interfaces/imetrics';
 import IExample from '../../interfaces/iexample';
 import { authMiddleware } from '../../../common/middleware/auth-middleware';
-import { UserRole } from '../../../common/models/security.model';
+import { User } from '../../../common/models/security.model';
 
 /**
  * Examples Controller
+ * JWT Auth middleware
  */
-@controller('/examples', authMiddleware(<UserRole>{ role: 'admin'}))
+@controller('/examples', authMiddleware(<User>{ role: 'admin'}))
 class ExampleController implements interfaces.Controller {
 
   public exampleService: IExample;

@@ -3,10 +3,10 @@ import { Container } from 'inversify';
 import * as fs from 'fs';
 const expressJwt = require('express-jwt');
 import container from '../../common/config/ioc_config';
-import { UserRole } from '../../common/models/security.model';
+import { User } from '../../common/models/security.model';
 
 function authMiddlewareFactory(container: Container) {
-  return (config: UserRole) => {
+  return (config: User) => {
     return (
       req: express.Request,
       res: express.Response,
@@ -43,6 +43,38 @@ function authMiddlewareFactory(container: Container) {
   };
 }
 
-const authMiddleware = authMiddlewareFactory(container);
 
-export { authMiddleware };
+function authGraphQLMiddlewareFactory() {
+  return (req, res, next) => {
+    console.log('Middleware called');
+
+    // If the token is valid, req.user will be set with the JSON object decoded
+    let obj: any = req;
+    if (obj.user.role !== undefined && 'test' === obj.user.role) {
+      next();
+    } else {
+      res.status(401).end('Unauthorized role');
+    }
+  };
+}
+
+export async function checkUser(user: any): Promise<any> {
+  if (user.role !== undefined && 'admin' === user.role) {
+    return Promise.resolve(user);
+  } else {
+    return Promise.reject({error: 'Unauthorised User'});
+  }
+}
+
+export function getAuthenticatedUser(ctx) {
+  if (process.env.JWT_AUTH === 'true') {
+    return checkUser(ctx.user);
+  } else {
+    return Promise.resolve(ctx);
+  }
+  
+}
+
+const authMiddleware = authMiddlewareFactory(container);
+const graphQLAuthMiddleware = authGraphQLMiddlewareFactory();
+export { authMiddleware, graphQLAuthMiddleware };

@@ -13,7 +13,9 @@ import IStarwarsService from '../../api/interfaces/istarwars';
 import HystrixDemoService from '../../api/services/hystrix-demo.service';
 import IProduct from '../../api/interfaces/iproduct';
 import IStarwars from '../../api/interfaces/istarwars';
+import IUser from '../../api/interfaces/iuser';
 import StarwarsService from '../../api/services/starwars.service';
+import UserService from '../../api/services/user.service';
 import '../../api/controllers/hystrix-demo/controller';
 import '../../api/controllers/examples/controller';
 import '../../api/controllers/shop/controller';
@@ -35,6 +37,7 @@ container.bind<IExample>(SERVICE_IDENTIFIER.EXAMPLE).to(ExamplesService);
 container.bind<IHystrixDemo>(SERVICE_IDENTIFIER.HYSTRIX).to(HystrixDemoService);
 container.bind<IProduct>(SERVICE_IDENTIFIER.PRODUCT).to(ProductService);
 container.bind<IStarwars>(SERVICE_IDENTIFIER.STARWARS).to(StarwarsService);
+container.bind<IUser>(SERVICE_IDENTIFIER.USER).to(UserService);
 container.bind<ILogger>(SERVICE_IDENTIFIER.LOGGER).to(LogService).inSingletonScope();
 container.bind<IMetrics>(SERVICE_IDENTIFIER.METRICS).to(MetricsService).inSingletonScope();
 

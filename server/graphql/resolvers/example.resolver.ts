@@ -1,6 +1,7 @@
 import { PubSub } from 'graphql-subscriptions';
 import container from '../../common/config/ioc_config';
 import SERVICE_IDENTIFIER from '../../common/constants/identifiers';
+import { getAuthenticatedUser } from '../../common/middleware/auth-middleware';
 
 import IExample from '../../api/interfaces/iexample';
 
@@ -35,7 +36,15 @@ export default {
             return ExampleService.byId(args.id);
         },
         examples(parent, args, context, info) {
-            return ExampleService.all();
+            // Check if user is authenticated then enable access
+            return getAuthenticatedUser(context).then(
+               user =>  {
+                return ExampleService.all();
+               },
+               error => {
+                  return Promise.resolve({ error: 'Authentication Failure'});
+               }
+            );
         }
     },
     RootMutationType: {

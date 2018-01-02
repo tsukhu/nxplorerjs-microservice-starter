@@ -4,7 +4,8 @@ const SERVICE_IDENTIFIER = {
     EXAMPLE: Symbol('Example'),
     HYSTRIX: Symbol('Hystrix'),
     STARWARS: Symbol('Starwars'),
-    PRODUCT: Symbol('Product')
+    PRODUCT: Symbol('Product'),
+    USER: Symbol('User')
 };
 
 export default SERVICE_IDENTIFIER;

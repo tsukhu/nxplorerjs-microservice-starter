@@ -150,6 +150,7 @@ This project provides complete Node JS / Typescript based microservices template
 
     - Mutations
       - addExample(name: String!): ExampleType
+      - login(email: String!,password: String!): UserType
 
     - Sample Mutation Execution
     
@@ -301,8 +302,17 @@ npm run compile
 npm run dash
 ```
 * This will start up the application with the node dashboard attached providing details of the memory , cpu and logs
+#### JWT Security GraphQL
+* A demo implementation of JWT based security has enabled for one query "examples". Given below are the steps to test it out.
+* If the JWT Security is enabled (environment variable JWT_AUTH is true) , we need to use the login mutation API to get the sample JWT Token (currently set at an expiry of 1 hour)
+* Step 1 - use the login mutation to get the jwt token for a valid user. For demo purposes any email and password string can be provided.
+![Login Mutation](screenshots/jwt_login_mutation.png) 
+* Step 2 - Verify if "examples" works without Authentication. It will give an error (Note: error handling needs to be improved but here we are only looking at the concept)
+![UnSecure Query](screenshots/jwt_unauthenticated.png)
+* Step 3 - Set the Authorization Header with the Bearer Token before executiong the "examples" query.
+![Secure Query](screenshots/jwt_authenticated.png)
 
-#### JWT Security
+#### JWT Security REST APIs
 
 * If the JWT Security is enabled , we need to use the /login API to get the sample JWT Token (currently set at an expiry of 1 hour)
 ```bash
@@ -311,14 +321,14 @@ curl -X POST "http://localhost:3000/api/v1/login" -H "accept: application/json" 
 * The sample output . Note the JWT token is the value of the property **idToken**
 ```json
 {
-  "idToken": "eyJhbGciOiJSUzI1NiIsInR5cCI6IkpXVCJ9.eyJyb2xlIjoiYWRtaW4iLCJpYXQiOjE1MTQ4NjQ3ODMsImV4cCI6MTUxNDg2ODM4Mywic3ViIjoidGVzdEBnbWFpbC5jb20ifQ.hAEa6AL1KJDvtnPH6g6BVNKXZxTzbjEwQr0ozmAb7wsxOCTUc_Dqg3w8aIxIv5vQz4RRUEgE_RsZRnI4CcMbMPPnIV-jJOI12B8JubOwz9Fos9i0Gf2_AG-HxcuygPoQ-7JEVnFKaCA1jKi2JJdGn6KLMsDU6wp7tzgjjKujc9hUa2EPcwOj1i6uICFO80ZqZ5geu0oUie55CYi64wuYDmss7fOFRqjxqhkTBv-Op9RhHklgbghBHC_e-byR3VoKSKn5XLLoeRkcau1YZQPu051Y3QLuR1aTB2iUJwbsL1t96W17bnVcnBfUzglpTA8FzzhbYPMvrR7q7iBc23ClRlLeAvFhjC1DNjA061iTwwcg1HzuqfuNB-iQZIR3NOA_9QpjFNXJ_c_N1ztMyVyK2rZGSxIbd5vGgdzB7O-Nq4O9ZgwkQLKn3ETqwgkeY_G6WehAmXlx5Si6Y5mLiv3rprwnLyqdzJOPJ9e1cdzFa5T6JSqnd6hM8yk3y9I0i6ycqRDNCW92vwQkInOHJ2CN0AA5lYLfd_dTs9rBNo6AxrT8aK2EeRTn6-R4P4e4uwK-SUxY9Yl5wcwUoj8RMqNdRgypqzMmuMicJd-DAr7C1uI21ezYz9TZoF_qp_llbXNjY7x5-9IZ-PAxgPWr5RgjvVIbKFjf-C_SuBmMdbzYIWI",
+  "idToken": "eyJhbGciOiJSUzI1NiIsInR5cCI6IkpXVCJ9.eyJyb2xlIjoiYWRtaW4iLCJpYXQiOjE1MTQ4NjQ3ODMsImV4cCI6MTUxNDg2ODM4Mywic3ViIjoidGVzdEBnbWFpbC5jb20ifQ.hAEa6AL1Kxxxxxxx",
   "expiresIn": "1h"
 }
 ```
 * The api/v1/examples APIs a valid JWT token must be passed in all the queries in the ‘Authorization’ header. Note this is done just as an example. You can easily enable addition endpoints similarly.
     * Please see the [examples controller](server/api/controllers/examples/controller.ts)
     ```typescript
-    @controller('/examples', authMiddleware(<UserRole>{ role: 'admin'}))
+    @controller('/examples', authMiddleware(<User>{ role: 'admin'}))
     ```
     * The function [authMiddleware](server/common/middleware/auth-middleware.ts) takes care of validating the JWT token passed in the header.
     * This can be extended to support role based access as well and the provision for that is added.
