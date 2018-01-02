@@ -8,6 +8,13 @@ This project provides complete Node JS / Typescript based microservices template
 
 ![architecture vision](screenshots/express-microservice-starter.png)
 
+## Design Principles
+* Use best of breed modules to create a production ready microservice framework
+* No custom code or wrappers so that any developer can modify/replace any of the modules or implementation
+* Design patterns for implementation that can be used as a reference
+* Modular , replacable and plug and play code
+* Provide a starter for both the business APIs and microservice platform development.
+
 ## Features
 
 * Node JS, Express, Typescript , Dependency Injection base
