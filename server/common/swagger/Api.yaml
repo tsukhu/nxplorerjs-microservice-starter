@@ -100,6 +100,8 @@ paths:
       tags:
         - Examples
       description: Create a new example
+      security:
+        - Bearer: []
       consumes:
       - application/json
       produces:
@@ -121,6 +123,8 @@ paths:
     get:
       tags:
         - Examples
+      security:
+        - Bearer: []
       parameters:
         - name: id
           in: path

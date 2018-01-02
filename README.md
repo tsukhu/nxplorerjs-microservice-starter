@@ -30,6 +30,7 @@ This project provides complete Node JS / Typescript based microservices template
 * Sample APIs, Patterns for reference
 * Sonar Qube integration
 * Hystrix Circuit Breaker Support (Using Brakes)
+* JWT Based API Security - jsonwebtoken, express-jwt
 * Now using the super fast pino logger for all logging needs
 * REST APIs
    - examples - Basic examples with a search by ID example from the jsonplaceholder API (/examples/:id)
@@ -296,6 +297,33 @@ npm run compile
 npm run dash
 ```
 * This will start up the application with the node dashboard attached providing details of the memory , cpu and logs
+
+#### JWT Security
+
+* If the JWT Security is enabled , we need to use the /login API to get the sample JWT Token (currently set at an expiry of 1 hour)
+```bash
+curl -X POST "http://localhost:3000/api/v1/login" -H "accept: application/json" -H "content-type: application/json" -d "{ \"email\": \"test@gmail.com\", \"password\": \"abc123\"}"
+```
+* The sample output . Note the JWT token is the value of the property **idToken**
+```json
+{
+  "idToken": "eyJhbGciOiJSUzI1NiIsInR5cCI6IkpXVCJ9.eyJyb2xlIjoiYWRtaW4iLCJpYXQiOjE1MTQ4NjQ3ODMsImV4cCI6MTUxNDg2ODM4Mywic3ViIjoidGVzdEBnbWFpbC5jb20ifQ.hAEa6AL1KJDvtnPH6g6BVNKXZxTzbjEwQr0ozmAb7wsxOCTUc_Dqg3w8aIxIv5vQz4RRUEgE_RsZRnI4CcMbMPPnIV-jJOI12B8JubOwz9Fos9i0Gf2_AG-HxcuygPoQ-7JEVnFKaCA1jKi2JJdGn6KLMsDU6wp7tzgjjKujc9hUa2EPcwOj1i6uICFO80ZqZ5geu0oUie55CYi64wuYDmss7fOFRqjxqhkTBv-Op9RhHklgbghBHC_e-byR3VoKSKn5XLLoeRkcau1YZQPu051Y3QLuR1aTB2iUJwbsL1t96W17bnVcnBfUzglpTA8FzzhbYPMvrR7q7iBc23ClRlLeAvFhjC1DNjA061iTwwcg1HzuqfuNB-iQZIR3NOA_9QpjFNXJ_c_N1ztMyVyK2rZGSxIbd5vGgdzB7O-Nq4O9ZgwkQLKn3ETqwgkeY_G6WehAmXlx5Si6Y5mLiv3rprwnLyqdzJOPJ9e1cdzFa5T6JSqnd6hM8yk3y9I0i6ycqRDNCW92vwQkInOHJ2CN0AA5lYLfd_dTs9rBNo6AxrT8aK2EeRTn6-R4P4e4uwK-SUxY9Yl5wcwUoj8RMqNdRgypqzMmuMicJd-DAr7C1uI21ezYz9TZoF_qp_llbXNjY7x5-9IZ-PAxgPWr5RgjvVIbKFjf-C_SuBmMdbzYIWI",
+  "expiresIn": "1h"
+}
+```
+* The api/v1/examples APIs a valid JWT token must be passed in all the queries in the ‘Authorization’ header. Note this is done just as an example. You can easily enable addition endpoints similarly.
+    * Please see the [examples controller](server/api/controllers/examples/controller.ts)
+    ```typescript
+    @controller('/examples', authMiddleware(<UserRole>{ role: 'admin'}))
+    ```
+    * The function [authMiddleware](server/common/middleware/auth-middleware.ts) takes care of validating the JWT token passed in the header.
+    * This can be extended to support role based access as well and the provision for that is added.
+    * Note: as a demo sample public and private keys have been provided. Ideally these are maintained externally in a real world scenario JWKS (JSON Web Key Set) endpoints 
+* The following syntax must be used in the ‘Authorization’ header :
+    Bearer xxxxxx.yyyyyyy.zzzzzz
+* Testing using the [swagger ui]/(http://localhost:3000/swagger)
+    * Click on the ‘Authorize’ button and set the Bearer token as mentioned above
+    * Now all the /examples related APIs will work
 
 #### CSRF Security
 * CSRF Security has been enabled in the **production** mode
