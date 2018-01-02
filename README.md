@@ -8,6 +8,13 @@ This project provides complete Node JS / Typescript based microservices template
 
 ![architecture vision](screenshots/express-microservice-starter.png)
 
+## Design Principles
+* Use best of breed modules to create a production ready microservice framework
+* No custom code or wrappers so that any developer can modify/replace any of the modules or implementation
+* Design patterns for implementation that can be used as a reference
+* Modular , replacable and plug and play code
+* Provide a starter for both the business APIs and microservice platform development.
+
 ## Features
 
 * Node JS, Express, Typescript , Dependency Injection base
@@ -306,11 +313,11 @@ npm run dash
 * A demo implementation of JWT based security has enabled for one query "examples". Given below are the steps to test it out.
 * If the JWT Security is enabled (environment variable JWT_AUTH is true) , we need to use the login mutation API to get the sample JWT Token (currently set at an expiry of 1 hour)
 * Step 1 - use the login mutation to get the jwt token for a valid user. For demo purposes any email and password string can be provided.
-![Login Mutation](screenshots/jwt_login_mutation.png) 
+![Login Mutation](screenshots/jwt_login_mutation.PNG) 
 * Step 2 - Verify if "examples" works without Authentication. It will give an error (Note: error handling needs to be improved but here we are only looking at the concept)
-![UnSecure Query](screenshots/jwt_unauthenticated.png)
+![UnSecure Query](screenshots/jwt_unauthenticated.PNG)
 * Step 3 - Set the Authorization Header with the Bearer Token before executiong the "examples" query.
-![Secure Query](screenshots/jwt_authenticated.png)
+![Secure Query](screenshots/jwt_authenticated.PNG)
 
 #### JWT Security REST APIs
 
