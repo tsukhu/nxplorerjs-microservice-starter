@@ -7,6 +7,7 @@ import { HttpStatus } from '../../services/http-status-codes';
 import container from '../../../common/config/ioc_config';
 import SERVICE_IDENTIFIER from '../../../common/constants/identifiers';
 import { inject, injectable } from 'inversify';
+import { IDGenerator } from '../../../common/config/utils';
 import * as jwt from 'jsonwebtoken';
 import * as fs from 'fs';
 
@@ -52,7 +53,7 @@ class SecurityController implements interfaces.Controller {
     if (this.validateEmailAndPassword(email, password)) {
       const userId = this.findUserIdForEmail(email);
       const expiryTime = process.env.TOKEN_EXPIRY_TIME !== undefined ? process.env.TOKEN_EXPIRY_TIME : '1h';
-      const jwtBearerToken = jwt.sign({role: 'admin'}, this.RSA_PRIVATE_KEY, {
+      const jwtBearerToken = jwt.sign({role: 'admin' , email: email}, this.RSA_PRIVATE_KEY, {
         algorithm: 'RS256',
         expiresIn: expiryTime,
         subject: userId
@@ -67,12 +68,21 @@ class SecurityController implements interfaces.Controller {
     }
   }
 
+  /**
+   * Email validation place holder
+   * @param email 
+   * @param password 
+   */
   private validateEmailAndPassword(email, password): boolean {
     return true;
   }
 
+  /**
+   * Get the user ID based on email provided
+   * Dummy implementation for showing the concept
+   */
   private findUserIdForEmail(email): string {
-    return email;
+    return IDGenerator();
   }
 }
 export default SecurityController;

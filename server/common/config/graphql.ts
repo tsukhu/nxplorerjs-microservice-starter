@@ -4,6 +4,10 @@ import { graphqlExpress, graphiqlExpress } from 'apollo-server-express';
 import myGraphQLSchema from '../../graphql/schema';
 import Register from 'graphql-playground-middleware-express';
 import { MiddlewareOptions } from 'graphql-playground-html';
+import { configJWT } from './jwt';
+import * as bodyParser from 'body-parser';
+const expressJwt = require('express-jwt');
+import * as fs from 'fs';
 
 /**
  * Configure GraphQL endpoints
@@ -19,8 +23,33 @@ export function configGraphQL(app: Application) {
     graphQLServerOptions.tracing = true;
   }
 
-  // Add GraphQL Endpoint
-  app.use('/graphql', graphqlExpress(graphQLServerOptions));
+  // If JWT Auth is enabled added JWT header verification for all graphql
+  // calls
+  if (process.env.JWT_AUTH === 'true') {
+    const RSA_PUBLIC_KEY = fs.readFileSync(process.env.RSA_PUBLIC_KEY_FILE);
+    // If a valid Bearer token is present the req.user object is set
+    // set those details in the context.user
+    // The context can then be used by the resolvers to validate user credentials
+    app.use(
+      '/graphql',
+      bodyParser.json(),
+      expressJwt({ secret: RSA_PUBLIC_KEY, credentialsRequired: false }),
+      graphqlExpress((req: any) => ({
+        schema: myGraphQLSchema,
+        context: {
+          user: req.user ? req.user : Promise.resolve(null)
+        }
+      }))
+    );
+  } else {
+    // Add GraphQL Endpoint
+    app.use(
+      '/graphql',
+      graphqlExpress({
+        schema: myGraphQLSchema
+      })
+    );
+  }
 
   // Add GraphQL Playground if enabled
   if (process.env.GRAPHQL_PLAYGROUND === 'true') {
