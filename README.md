@@ -199,7 +199,7 @@ npm install
 ```
 ## Setup *external environment*
 
-* Edit the '.<PROFILE>.env' file (where the PROFILE could be test, development , production)
+* Edit the **.{PROFILE}.env** file (where the PROFILE could be test, development , production)
 
 | Variable              | Description                           | Default Value |
 |-----------------------|---------------------------------------|---------------|
