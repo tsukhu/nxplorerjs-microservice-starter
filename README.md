@@ -252,10 +252,26 @@ Press F5
 
 #### Runs tests with code coverage:
 
+##### Run Unit Tests
+* Unit Tests are located in the same directory as the module or class being tested
+* All Unit tests need to have an extension *.spec.ts
+
 ```
 npm run test
 ```
 
+##### Run Integration Tests
+* Integration tests are located in the same directory as the module or class being tested
+* All Unit tests need to have an extension *.itest.ts
+* First built the integration test . This will setup the integration test environment in the build
+```
+npm run itest:build
+```
+* Run the node server and run the integration tests against it
+* This waits for the server to start , runs the test and then terminate all processes on completion
+```
+npm itest:run
+```
 #### Build Docker image
 
 ```

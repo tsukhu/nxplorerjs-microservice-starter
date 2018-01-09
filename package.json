@@ -9,38 +9,13 @@
     "compile": "cross-env NODE_ENV=production node build.js && backpack build",
     "dev": "cross-env NODE_ENV=development node build.js && backpack dev",
     "dash": "nodejs-dashboard -- node -r nodejs-dashboard build/main",
-    "test": "cross-env NODE_ENV=test node build.js && npm run lint && jest --forceExit",
+    "test": "cross-env NODE_ENV=test node build.js && npm run lint && jest --forceExit --config unit.config.json",
     "lint": "npm run tslint -- -o reports/lint_issues.json -t json --force \"server/**/*.ts\" ",
     "tslint": "tslint",
-    "sonar-scanner": "sonar-scanner"
-  },
-  "jest": {
-    "moduleFileExtensions": [
-      "js",
-      "jsx",
-      "json",
-      "ts",
-      "tsx"
-    ],
-    "testResultsProcessor": "jest-sonar-reporter",
-    "transform": {
-      "^.+\\.(ts|tsx)$": "./node_modules/ts-jest/preprocessor.js"
-    },
-    "testMatch": [
-      "**/server/**/*.spec.(ts)"
-    ],
-    "testEnvironment": "node",
-    "mapCoverage": true,
-    "collectCoverage": true,
-    "coverageReporters": [
-      "lcov"
-    ],
-    "coverageDirectory": "coverage",
-    "collectCoverageFrom": [
-      "**/server/**/*.{ts}",
-      "!**/node_modules/**",
-      "!**/build/**"
-    ]
+    "wait-port": "wait-port",
+    "sonar-scanner": "sonar-scanner",
+    "itest:build": "cross-env NODE_ENV=test node build.js && backpack build",
+    "itest:run": "concurrent --kill-others --success first \"cd build && node main\" \"wait-port localhost:3000 && jest --forceExit --config itest.config.json\""
   },
   "jestSonar": {
     "reportPath": "reports",
@@ -92,7 +67,9 @@
     "apollo-link": "^1.0.3",
     "awesome-typescript-loader": "^3.1.3",
     "backpack-core": "^0.4.2",
+    "concurrently": "^3.5.1",
     "cross-env": "^5.1.3",
+    "graphql-tester": "0.0.5",
     "jest": "^21.1.0",
     "jest-sonar-reporter": "^1.3.0",
     "nodejs-dashboard": "^0.4.1",
@@ -104,7 +81,8 @@
     "tslint-config-standard": "^7.0.0",
     "typedoc": "^0.9.0",
     "typedoc-webpack-plugin": "^1.1.4",
-    "typescript": "^2.4.2"
+    "typescript": "^2.4.2",
+    "wait-port": "^0.2.2"
   },
   "repository": {
     "type": "git",
