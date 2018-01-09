@@ -1,6 +1,6 @@
 {
   "name": "nxplorerjs-microservice",
-  "version": "1.4.6",
+  "version": "1.4.7",
   "description": "Express Microservice Starter Project",
   "main": "index.js",
   "scripts": {
@@ -94,7 +94,9 @@
     "microservice",
     "express",
     "reactive",
-    "12-factor"
+    "12-factor",
+    "graphql",
+    "jest"
   ],
   "author": "Tarun Kumar Sukhu <tksukhu@gmail.com>",
   "license": "MIT",
