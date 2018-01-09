@@ -4,7 +4,7 @@
 ![nxplorer microservice starter](public/logo.png)
 
 Cloud Native Node JS Express Reactive Microservice Starter Template (REST/GraphQL)
-This project provides complete Node JS / Typescript based microservices template with all that will be needed features for production deployment , monitoring , debugging , logging , security. Reactive extensions based samples are added as well to demonstrate how this can be used for building a microservice API edge-service , a backend for frontend or use it as a base for building any kind of microservice.
+This project provides complete Node JS / Typescript based microservices template with all that will be needed features for production deployment , monitoring , debugging , logging , security , CI/CD. Reactive extensions based samples are added as well to demonstrate how this can be used for building a microservice API edge-service , a backend for frontend or use it as a base for building any kind of microservice.
 
 ![architecture vision](screenshots/express-microservice-starter.png)
 
@@ -21,7 +21,7 @@ This project provides complete Node JS / Typescript based microservices template
 * Backpack (webpack) based - build , development , packaging
 * Swagger Enabled - Express swagger middleware / Swagger UI integration
 * Externalized Configuration - DotEnv
-* Tests - Jest , SuperTest
+* Tests - Jest , SuperTest , GraphQL Tester. Infrastructure for automated unit and integration tests
 * Code Coverage - Istanbul
 * Code Quality - tslint
 * Container support - Docker , Kubernetes Clusters
