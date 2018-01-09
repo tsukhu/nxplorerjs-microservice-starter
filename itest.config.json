@@ -1,0 +1,18 @@
+{
+  "moduleFileExtensions": ["js", "jsx", "json", "ts", "tsx"],
+  "testResultsProcessor": "jest-sonar-reporter",
+  "transform": {
+    "^.+\\.(ts|tsx)$": "./node_modules/ts-jest/preprocessor.js"
+  },
+  "testMatch": ["**/server/**/*.itest.(ts)"],
+  "testEnvironment": "node",
+  "mapCoverage": true,
+  "collectCoverage": true,
+  "coverageReporters": ["lcov"],
+  "coverageDirectory": "coverage",
+  "collectCoverageFrom": [
+    "**/server/**/*.{ts}",
+    "!**/node_modules/**",
+    "!**/build/**"
+  ]
+}

@@ -1,3 +1,7 @@
+// Need to include the next line for Visual Studio Code 
+// intellisense to work for jest types
+import {} from 'jest';
+
 import * as request from 'supertest';
 import { graphql } from 'graphql';
 import schema from './schema';
