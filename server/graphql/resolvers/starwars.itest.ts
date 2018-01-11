@@ -6,7 +6,7 @@ import { tester } from 'graphql-tester';
 import * as _ from 'lodash';
 import '../../common/env';
 
-describe('Example Resolver Tests', () => {
+describe('StarWars API Test', () => {
   const self = this;
   beforeAll(() => {
     self.test = tester({
@@ -15,21 +15,23 @@ describe('Example Resolver Tests', () => {
     });
   });
 
-  it('should return list of examples', done => {
+  it('should return list of people by id', done => {
     self
       .test(
         JSON.stringify({
           query: `query {
-      examples {
-        id
-        name
-      }
-    }`}),
+            people(id: 1) {
+              name
+              gender
+            }
+          }`
+        }),
         { jar: true }
-      )
+      ,10000)
       .then(res => {
-        const examplesArray: Array<any> = res.data.examples;
-        expect(_.filter(examplesArray, (data) => { return _.includes(['example 0'],data.name)}).length).toBe(1);
+        console.log(res.data.people);
+        expect(res.data.people.name).toBe('Luke Skywalker');
+        expect(res.data.people.gender).toBe('male');
         expect(res.status).toBe(200);
         expect(res.success).toBe(true);
         done();
@@ -41,21 +43,23 @@ describe('Example Resolver Tests', () => {
       });
   });
 
-
-  it('should return example based on id', done => {
+  it('should return list of planet by id', done => {
     self
       .test(
         JSON.stringify({
           query: `query {
-      example(id: 1) {
-        id
-        name
-      }
-    }`}),
+            planet(id: 1) {
+              name
+              population
+            }
+          }`
+        }),
         { jar: true }
-      )
+      , 10000)
       .then(res => {
-        expect(res.data.example.name).toBe('example 1');
+        console.log(res.data.planet);
+        expect(res.data.planet.name).toBe('Tatooine');
+        expect(res.data.planet.population).toBe('200000');
         expect(res.status).toBe(200);
         expect(res.success).toBe(true);
         done();
@@ -66,28 +70,4 @@ describe('Example Resolver Tests', () => {
         done();
       });
   });
-
-  it('should return error based on invalid id', done => {
-    self
-      .test(
-        JSON.stringify({
-          query: `query {
-      example(id: 11) {
-        id
-        name
-      }
-    }`}),
-        { jar: true }
-      )
-      .then(res => {
-        expect(res.data.example).toBe(null);
-        done();
-      })
-      .catch(err => {
-        console.log(err);
-        expect(err).toBe(null);
-        done();
-      });
-  });
-
 });
