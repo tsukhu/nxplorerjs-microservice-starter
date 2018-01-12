@@ -11,7 +11,7 @@ export default {
 
     RootQueryType: {
         peopleWithPlanet(parent, args, context, info) {
-            return new Promise(function (resolve, reject) {
+            return new Promise( (resolve, reject) => {
                 StarwarsService
                     .getPeopleById(args.id)
                     .timeout(+process.env.TIME_OUT)

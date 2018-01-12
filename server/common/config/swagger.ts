@@ -7,12 +7,10 @@ import * as express from 'express';
  * Add Swagger Middleware and setup the UI route for swagger
  * @param app Express App
  */
-export function swaggerify(app: express.Application) {
+export const swaggerify = (app: express.Application) => {
   // Add Swagger support
-  swaggerMiddleware('./server/common/swagger/Api.yaml', app, function(
-    err,
-    middleware
-  ) {
+  swaggerMiddleware('./server/common/swagger/Api.yaml', app, 
+  (err,middleware) => {
     app.enable('case sensitive routing');
     app.enable('strict routing');
 
@@ -43,7 +41,7 @@ export function swaggerify(app: express.Application) {
 
     app.use(middleware.validateRequest());
     // Error handler to display the validation error as HTML
-    app.use(function(err, req, res, next) {
+    app.use((err, req, res, next) => {
       res.status(err.status);
       res.send(
         '<h1>' + err.status + ' Error</h1>' + '<pre>' + err.message + '</pre>'

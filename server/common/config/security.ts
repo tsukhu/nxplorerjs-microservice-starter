@@ -9,7 +9,7 @@ import * as csrf from 'csurf';
  * Add Security Settings for the Express App
  * @param app Express App
  */
-export function secureApp(app: express.Application) {
+export const secureApp = (app: express.Application) => {
   app.use(bodyParser.json());
   app.use(helmet());
   app.use(cookieParser(process.env.SESSION_SECRET));
