@@ -1,5 +1,5 @@
 import IUser from '../interfaces/iuser';
-import { IDGenerator } from '../../common/config/utils';
+import IDGenerator from '../../common/config/utils';
 import { injectable } from 'inversify';
 
 /**

@@ -16,25 +16,36 @@ if (process.env.CLUSTER_MODE === 'true' && cluster.isMaster) {
     cluster.fork();
   }
 
-  cluster.on('online', function (worker) {
+  cluster.on('online', worker => {
     console.log('Worker ' + worker.process.pid + ' is online');
   });
 
-  cluster.on('exit', function (worker, code, signal) {
-    console.log('Worker ' + worker.process.pid + ' died with code: ' + code + ', and signal: ' + signal);
+  cluster.on('exit', (worker, code, signal) => {
+    console.log(
+      'Worker ' +
+        worker.process.pid +
+        ' died with code: ' +
+        code +
+        ', and signal: ' +
+        signal
+    );
     console.log('Starting a new worker');
     cluster.fork();
   });
 } else {
   // Single Node execution
-  const welcome = (port) => console.log(`up and running in ${process.env.NODE_ENV || 'development'} @: ${os.hostname()} on port: ${port}`);
+  const welcome = port =>
+    console.log(
+      `up and running in ${process.env.NODE_ENV ||
+        'development'} @: ${os.hostname()} on port: ${port}`
+    );
 
   // create server
   const app = new Server().getServer().build();
 
   // configure Subscription
-  configGraphQLSubscription(app,welcome);
-  
+  configGraphQLSubscription(app, welcome);
+
   // configure Hystrix Support
   configHystrix();
 }

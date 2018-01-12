@@ -11,7 +11,7 @@ export let subscriptionServer: SubscriptionServer;
  * Configure GraphQL Subscription endpoint
  * @param app Express Application
  */
-export function configGraphQLSubscription(app: Application, callback: any) {
+export const configGraphQLSubscription = (app: Application, callback: any) => {
   // Create Server so that it can be reused for the
   // configuring the SubscriptionServer
   const ws = http.createServer(app);
@@ -39,4 +39,4 @@ export function configGraphQLSubscription(app: Application, callback: any) {
     }
     callback(process.env.PORT);
   });
-}
+};

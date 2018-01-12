@@ -5,7 +5,7 @@ const expressJwt = require('express-jwt');
 import container from '../../common/config/ioc_config';
 import { User } from '../../common/models/security.model';
 
-function authMiddlewareFactory(container: Container) {
+const authMiddlewareFactory = (container: Container) => {
   return (config: User) => {
     return (
       req: express.Request,
@@ -17,7 +17,7 @@ function authMiddlewareFactory(container: Container) {
           const RSA_PUBLIC_KEY = fs.readFileSync(
             process.env.RSA_PUBLIC_KEY_FILE
           );
-          expressJwt({ secret: RSA_PUBLIC_KEY })(req, res, function(err) {
+          expressJwt({ secret: RSA_PUBLIC_KEY })(req, res, (err) => {
             // Check if token is valid
             if (err) {
               res.status(401).end('Unauthorized');
@@ -44,7 +44,7 @@ function authMiddlewareFactory(container: Container) {
 }
 
 
-function authGraphQLMiddlewareFactory() {
+const authGraphQLMiddlewareFactory = () => {
   return (req, res, next) => {
     console.log('Middleware called');
 
@@ -58,7 +58,7 @@ function authGraphQLMiddlewareFactory() {
   };
 }
 
-export async function checkUser(user: any): Promise<any> {
+export const checkUser = async (user: any): Promise<any> => {
   if (user.role !== undefined && 'admin' === user.role) {
     return Promise.resolve(user);
   } else {
@@ -66,7 +66,7 @@ export async function checkUser(user: any): Promise<any> {
   }
 }
 
-export function getAuthenticatedUser(ctx) {
+export const getAuthenticatedUser = (ctx) => {
   if (process.env.JWT_AUTH === 'true') {
     return checkUser(ctx.user);
   } else {

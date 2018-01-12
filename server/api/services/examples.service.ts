@@ -43,7 +43,7 @@ class ExamplesService implements IExample {
   public byPostsByID(id: number): Observable<any> {
 
     // Request perfroamcne interceptor
-    const _include_headers = function (body, response, resolveWithFullResponse) {
+    const _include_headers = (body, response, resolveWithFullResponse) => {
       return { 'timings': response.timings, 'data': body };
     };
 

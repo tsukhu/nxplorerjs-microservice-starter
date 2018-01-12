@@ -4,7 +4,7 @@ import * as http from 'http';
 /**
  * Add Hystrix configuration to the app server
  */
-export function configHystrix() {
+export const configHystrix = () => {
     if (process.env.STREAM_HYSTRIX === 'true') {
         const globalStats = Brakes.getGlobalStats();
         http.createServer((req, res) => {

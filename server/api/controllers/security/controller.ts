@@ -7,7 +7,7 @@ import { HttpStatus } from '../../services/http-status-codes';
 import container from '../../../common/config/ioc_config';
 import SERVICE_IDENTIFIER from '../../../common/constants/identifiers';
 import { inject, injectable } from 'inversify';
-import { IDGenerator } from '../../../common/config/utils';
+import IDGenerator from '../../../common/config/utils';
 import * as jwt from 'jsonwebtoken';
 import * as fs from 'fs';
 

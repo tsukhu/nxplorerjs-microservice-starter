@@ -13,7 +13,7 @@ prometheusMetrics({ timeout: 5000 });
  * Configure Prometheus metrics and /metric endpoint
  * @param app Express Application
  */
-export function configMetrics(app: Application) {
+export const configMetrics = (app: Application) => {
       // Metrics endpoint
       app.get('/metrics', (req, res) => {
         res.set('Content-Type', Prometheus.register.contentType);
