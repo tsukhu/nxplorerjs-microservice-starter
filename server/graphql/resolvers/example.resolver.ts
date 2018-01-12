@@ -2,6 +2,7 @@ import { PubSub } from 'graphql-subscriptions';
 import container from '../../common/config/ioc_config';
 import SERVICE_IDENTIFIER from '../../common/constants/identifiers';
 import { getAuthenticatedUser } from '../../common/middleware/auth-middleware';
+import { UnAuthorizedError } from '../errors';
 
 import IExample from '../../api/interfaces/iexample';
 
@@ -42,7 +43,11 @@ export default {
                 return ExampleService.all();
                },
                error => {
-                  return Promise.resolve({ error: 'Authentication Failure'});
+                throw new UnAuthorizedError({
+                    data: {
+                      error_code: 'AUTH01'
+                    }
+                  });
                }
             );
         }
