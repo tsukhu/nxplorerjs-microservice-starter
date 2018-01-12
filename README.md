@@ -145,6 +145,8 @@ This project provides complete Node JS / Typescript based microservices template
    - List of Queries
       - quoteOfTheDay: String
       - random: Float
+      - examples: [ExampleType] <-- JWT Authentication. Please read the JWT Security section for details
+      - example(id: Ind): ExampleType
       - rollThreeDice: [Int]
       - peopleWithPlanet(id: Int): PeopleWithPlanetType (Uses RxJS to combine results from 2 APIs)
       - people(id: Int): PersonType

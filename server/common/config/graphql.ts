@@ -6,6 +6,7 @@ import Register from 'graphql-playground-middleware-express';
 import { MiddlewareOptions } from 'graphql-playground-html';
 import configJWT from './jwt';
 import * as bodyParser from 'body-parser';
+import { formatError } from 'apollo-errors';
 const expressJwt = require('express-jwt');
 import * as fs from 'fs';
 
@@ -36,6 +37,7 @@ export const configGraphQL = (app: Application) => {
       expressJwt({ secret: RSA_PUBLIC_KEY, credentialsRequired: false }),
       graphqlExpress((req: any) => ({
         schema: myGraphQLSchema,
+        formatError,
         context: {
           user: req.user ? req.user : Promise.resolve(null)
         }
@@ -46,7 +48,8 @@ export const configGraphQL = (app: Application) => {
     app.use(
       '/graphql',
       graphqlExpress({
-        schema: myGraphQLSchema
+        schema: myGraphQLSchema,
+        formatError
       })
     );
   }

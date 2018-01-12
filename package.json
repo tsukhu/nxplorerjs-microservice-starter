@@ -24,6 +24,7 @@
     "sonar56x": true
   },
   "dependencies": {
+    "apollo-errors": "^1.5.1",
     "bluebird": "^3.5.0",
     "body-parser": "^1.15.2",
     "brakes": "^2.5.3",
