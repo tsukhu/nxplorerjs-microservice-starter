@@ -40,9 +40,6 @@ export default {
             return getAuthenticatedUser(context).then(
                user =>  {
                 return ExampleService.all();
-               },
-               error => {
-                  return Promise.resolve({ error: 'Authentication Failure'});
                }
             );
         }

@@ -71,4 +71,4 @@ export const configGraphQL = (app: Application) => {
       })
     );
   }
-}
+};

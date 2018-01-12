@@ -62,7 +62,7 @@ export default class ExpressServer {
     });
   }
 
-  public getServer(): InversifyExpressServer {
+  public getServer = (): InversifyExpressServer => {
     return this.server;
   }
 }

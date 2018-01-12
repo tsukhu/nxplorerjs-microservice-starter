@@ -62,7 +62,7 @@ export const checkUser = async (user: any): Promise<any> => {
   if (user.role !== undefined && 'admin' === user.role) {
     return Promise.resolve(user);
   } else {
-    return Promise.reject({error: 'Unauthorised User'});
+    return Promise.reject('Unauthorised User');
   }
 }
 
