@@ -57,7 +57,7 @@ See REST API /examples/{id}
     curl http://localhost:3000/api/v1/starwars/people/1
 ```
 - Response
-```json
+```
     {
         name: "Luke Skywalker",
         height: "172",
