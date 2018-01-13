@@ -39,6 +39,11 @@ This project provides complete Node JS / Typescript based microservices template
 * Hystrix Circuit Breaker Support (Using Brakes)
 * JWT Based API Security - jsonwebtoken, express-jwt
 * Now using the super fast pino logger for all logging needs
+* Additional performance time logging built in
+See REST API /examples/{id}
+```json
+{"pid":3984,"hostname":"LP-507B9DA1D355","level":30,"time":1515813665734,"0":{"socket":5.656709999995655,"lookup":186.8375229999947,"connect":389.5646870000055,"response":594.8022639999981,"end":599.1270230000082},"v":1}
+```
 * REST APIs
    - examples - Basic examples with a search by ID example from the jsonplaceholder API (/examples/:id)
    - shop     - Example of how to use Reactive Extensions for API orchestration (FlatMap) (/shop/priceByOptionId/:id)
