@@ -26,6 +26,7 @@ Table of contents
     * [Unit Tests](#run-unit-tests)
     * [Integration Tests](#run-integration-tests) 
   * [Run It](#try-it)
+  * [Passing UUID for requests]()
   * [Docker Build](#build-docker-image)
   * [Kubernetes Deployment](#k8s-deployment)
   * [Debug Dashboard](#using-node-dashboard-view-development-only)
@@ -319,6 +320,13 @@ npm itest:run
 * Invoke the example REST endpoints directly or via swagger `http://localhost:3000/swagger`
 * Invoke the prometheus metrics using the endpoint `curl http://localhost:3000/metrics`
 * Access in-browser IDE for graphQL http://localhost:3000/graphiql
+
+### Log with UUID
+* A sample implementation of UUID propogation has been added. This depends on a cookie 'UUID' to be set in the request object. The [LogService]() will add the uuid to all logs it generates.
+* For example if 'UUID' is set to xxxx-dddd-ssss-wwww-ssss then calling the /shop/products API will produce
+```json
+{"pid":13492,"hostname":"LP-507B9DA1D355","level":30,"time":1515859200496,"uuid":"xxxx-dddd-ssss-wwww-ssss","fullUrl":"http://localhost:3000/api/v1/shop/products","statusCode":200,"responseTime":"1.187","v":1}
+```
 
 #### Build Docker image
 
