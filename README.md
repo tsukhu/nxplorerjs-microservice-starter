@@ -128,7 +128,7 @@ See REST API /examples/{id}
     curl http://localhost:3000/api/v1/starwars/people/1?fields=name,gender,homeworld(gravity,population)
 ```
 - Response
-```json
+```
     {
         name: "Luke Skywalker",
         gender: "male",
