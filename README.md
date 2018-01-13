@@ -26,7 +26,7 @@ Table of contents
     * [Unit Tests](#run-unit-tests)
     * [Integration Tests](#run-integration-tests) 
   * [Run It](#try-it)
-  * [Passing UUID for requests]()
+  * [Passing UUID for requests](#log-with-uuid)
   * [Docker Build](#build-docker-image)
   * [Kubernetes Deployment](#k8s-deployment)
   * [Debug Dashboard](#using-node-dashboard-view-development-only)
