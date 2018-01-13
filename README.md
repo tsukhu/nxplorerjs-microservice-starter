@@ -8,6 +8,39 @@ This project provides complete Node JS / Typescript based microservices template
 
 ![architecture vision](screenshots/express-microservice-starter.png)
 
+Table of contents
+=================
+
+  * [Design Principles](##design-principles)
+  * [Features](#features)
+  * [REST APIs](#rest-apis)
+  * [GraphQL APIs](#graphql)
+  * [Installation Prerequisites](#pre-requisites)
+  * [Installation](#install-it)
+  * [External Environment Configuration Details](#setup-external-environment)
+  * [Build Modes](#run-it)
+    * [Development](#run-in-development-mode)
+    * [Production](#run-in-production-mode)
+    * [Debug in VSCode](#run-in-vs-code-debug-mode)
+  * [Tests](#runs-tests-with-code-coverage)
+    * [Unit Tests](#run-unit-tests)
+    * [Integration Tests](#run-integration-tests) 
+  * [Docker Build](#build-docker-image)
+  * [Kubernetes Deployment](#k8s-deployment)
+  * [Debug Dashboard](#using-node-dashboard-view-development-only)
+  * Security
+    * [JWT GraphQL APIs](#jwt-security-graphql)
+    * [JWT REST APIs](#jwt-security-rest-apis)
+    * [CSRF](#csrf-security)
+  * [Hystrix Support](#hystrix-circuit-breaker-support)
+  * [Run It](#try-it)
+  * [Sonar Integration](#integrate-with-sonarqube-for-continous-code-quality)
+  * [Load Testing](#load-testing)
+  * [Future Roadmap](#future-roadmap)
+  * [FAQ](#faq)
+  * [License](#license)
+    
+  
 ## Design Principles
 * Use best of breed modules to create a production ready microservice framework
 * No custom code or wrappers so that any developer can modify/replace any of the modules or implementation
@@ -44,7 +77,7 @@ See REST API /examples/{id}
 ```json
 {"pid":3984,"hostname":"LP-507B9DA1D355","level":30,"time":1515813665734,"0":{"socket":5.656709999995655,"lookup":186.8375229999947,"connect":389.5646870000055,"response":594.8022639999981,"end":599.1270230000082},"v":1}
 ```
-* REST APIs
+### REST APIs
    - examples - Basic examples with a search by ID example from the jsonplaceholder API (/examples/:id)
    - shop     - Example of how to use Reactive Extensions for API orchestration (FlatMap) (/shop/priceByOptionId/:id)
    - starwars - Example of how to use Reactive Extensions for API orchestration (ForkJoin) (/starwars/people/:id)
@@ -138,7 +171,7 @@ See REST API /examples/{id}
         }
     }
 ```
-* GraphQL
+### GraphQL
    - GraphQL support has been added based on the [apollo framework](https://github.com/apollographql) and a reference implementation (including the starwars apis from swapi.co)
     ![GraphQL](screenshots/graphql.png)
    - Access the graphql playground from http://localhost:3000/playground  
