@@ -53,11 +53,11 @@ See REST API /examples/{id}
    - metrics  - Prometheus based metrics added for all APIs (/metrics)
    - API Partial JSON response support
 
-```
+```bash
     curl http://localhost:3000/api/v1/starwars/people/1
 ```
 - Response
-```
+```json
     {
         name: "Luke Skywalker",
         height: "172",
@@ -124,11 +124,11 @@ See REST API /examples/{id}
         }
 ```
 ---
-```
+```bash
     curl http://localhost:3000/api/v1/starwars/people/1?fields=name,gender,homeworld(gravity,population)
 ```
 - Response
-```
+```json
     {
         name: "Luke Skywalker",
         gender: "male",
@@ -150,7 +150,7 @@ See REST API /examples/{id}
    - List of Queries
       - quoteOfTheDay: String
       - random: Float
-      - examples: [ExampleType] <-- JWT Authentication. Please read the JWT Security section for details
+      - examples: [ExampleType] <-- **JWT Authentication. Please read the JWT Security section for details**
       - example(id: Ind): ExampleType
       - rollThreeDice: [Int]
       - peopleWithPlanet(id: Int): PeopleWithPlanetType (Uses RxJS to combine results from 2 APIs)
@@ -183,7 +183,7 @@ See REST API /examples/{id}
 * Node Dashboard view added for telemetry during development process
 * Added NodeJS cluster mode (load balanced workers)
  - When you start the server it adds workers based on the number of CPUs
-```
+```bash
 Master cluster setting up 4 workers...
 Worker 2828 is online
 Worker 2816 is online
@@ -203,13 +203,13 @@ node version >= 6.x
 
 * To use the node dashboard view , install node dashboard at the global level 
 
-```
+```bash
 npm install -g nodejs-dashboard
 
 ```
 ## Install It
 
-```
+```bash
 npm install
 ```
 ## Setup *external environment*
@@ -239,20 +239,20 @@ npm install
 ## Run It
 #### Run in *development* mode:
 
-```
+```bash
 npm run dev
 ```
 
 #### Run in *production* mode:
 
-```
+```bash
 npm run compile
 npm start
 ```
 
 #### Run in *VS Code debug* mode:
 
-```
+```bash
 npm run compile
 Press F5
 ```
@@ -263,7 +263,7 @@ Press F5
 * Unit Tests are located in the same directory as the module or class being tested
 * All Unit tests need to have an extension *.spec.ts
 
-```
+```bash
 npm run test
 ```
 
@@ -271,30 +271,30 @@ npm run test
 * Integration tests are located in the same directory as the module or class being tested
 * All Unit tests need to have an extension *.itest.ts
 * First built the integration test . This will setup the integration test environment in the build
-```
+```bash
 npm run itest:build
 ```
 * Run the node server and run the integration tests against it
 * This waits for the server to start , runs the test and then terminate all processes on completion
-```
+```bash
 npm itest:run
 ```
 #### Build Docker image
 
-```
+```bash
 ./build-docker.sh
 ```
 
 #### k8s deployment 
 * Helm chart based deployment
 
-```
+```bash
 ./deploy-k8s.sh
 ```
 
 * A sample output
 
-```
+```bash
 release "nxplorerjs-microservice" deleted
 NAME:   nxplorerjs-microservice
 LAST DEPLOYED: Fri Sep 22 22:10:58 2017
@@ -327,7 +327,7 @@ Express Microservice is deployed at  http://192.168.99.100:30316/
 #### Using node dashboard view (Development Only)
 * To use the node dashboard view
 
-```
+```bash
 npm run compile
 npm run dash
 ```
@@ -385,7 +385,7 @@ curl -X POST "http://localhost:3000/api/v1/login" -H "accept: application/json" 
 
 ##### Steps to execute on Docker
 
-```
+```bash
 npm run compile
 docker-compose build
 docker-compose up
@@ -454,7 +454,7 @@ loadtest http://localhost:3000/api/v1/examples/1 -t 20 -c 20
 ### FAQ
 
 * tslint error appearing in VSCode IDE for node_modules
-```
+```json
 // Configure glob patterns of file paths to exclude from linting
 "tslint.exclude": "**/node_modules/**/*.ts"
 ```
