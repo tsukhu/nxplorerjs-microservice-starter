@@ -316,10 +316,11 @@ npm itest:run
 
 ### Try It
 
-* Point you're browser to [http://localhost:3000](http://localhost:3000)
+* Point you're browser to [http://localhost:3000](http://localhost:3000). 
 * Invoke the example REST endpoints directly or via swagger `http://localhost:3000/swagger`
 * Invoke the prometheus metrics using the endpoint `curl http://localhost:3000/metrics`
-* Access in-browser IDE for graphQL http://localhost:3000/graphiql
+* Access in-browser IDE for graphQL `http://localhost:3000/graphiql`
+* Access the graphQL playground app `http://localhost:3000/playground/`
 
 ### Log with UUID
 * A sample implementation of UUID propogation has been added. This depends on a cookie 'UUID' to be set in the request object. The [LogService](server/common/services/log.service.ts) will add the uuid to all logs it generates.
