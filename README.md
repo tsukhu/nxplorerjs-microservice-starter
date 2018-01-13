@@ -322,7 +322,7 @@ npm itest:run
 * Access in-browser IDE for graphQL http://localhost:3000/graphiql
 
 ### Log with UUID
-* A sample implementation of UUID propogation has been added. This depends on a cookie 'UUID' to be set in the request object. The [LogService]() will add the uuid to all logs it generates.
+* A sample implementation of UUID propogation has been added. This depends on a cookie 'UUID' to be set in the request object. The [LogService](server/common/services/log.service.ts) will add the uuid to all logs it generates.
 * For example if 'UUID' is set to xxxx-dddd-ssss-wwww-ssss then calling the /shop/products API will produce
 ```json
 {"pid":13492,"hostname":"LP-507B9DA1D355","level":30,"time":1515859200496,"uuid":"xxxx-dddd-ssss-wwww-ssss","fullUrl":"http://localhost:3000/api/v1/shop/products","statusCode":200,"responseTime":"1.187","v":1}
