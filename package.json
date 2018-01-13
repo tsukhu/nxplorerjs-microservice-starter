@@ -52,7 +52,7 @@
     "request": "^2.81.0",
     "request-promise": "^4.2.1",
     "response-time": "^2.3.2",
-    "rxjs": "^5.4.2",
+    "rxjs": "^5.5.6",
     "source-map-support": "^0.5.0",
     "subscriptions-transport-ws": "^0.9.4",
     "swagger-express-middleware": "^1.0.0-alpha.12",
