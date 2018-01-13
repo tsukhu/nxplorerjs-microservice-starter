@@ -25,6 +25,7 @@ Table of contents
   * [Tests](#runs-tests-with-code-coverage)
     * [Unit Tests](#run-unit-tests)
     * [Integration Tests](#run-integration-tests) 
+  * [Run It](#try-it)
   * [Docker Build](#build-docker-image)
   * [Kubernetes Deployment](#k8s-deployment)
   * [Debug Dashboard](#using-node-dashboard-view-development-only)
@@ -33,7 +34,6 @@ Table of contents
     * [JWT REST APIs](#jwt-security-rest-apis)
     * [CSRF](#csrf-security)
   * [Hystrix Support](#hystrix-circuit-breaker-support)
-  * [Run It](#try-it)
   * [Sonar Integration](#integrate-with-sonarqube-for-continous-code-quality)
   * [Load Testing](#load-testing)
   * [Future Roadmap](#future-roadmap)
@@ -312,6 +312,14 @@ npm run itest:build
 ```bash
 npm itest:run
 ```
+
+### Try It
+
+* Point you're browser to [http://localhost:3000](http://localhost:3000)
+* Invoke the example REST endpoints directly or via swagger `http://localhost:3000/swagger`
+* Invoke the prometheus metrics using the endpoint `curl http://localhost:3000/metrics`
+* Access in-browser IDE for graphQL http://localhost:3000/graphiql
+
 #### Build Docker image
 
 ```bash
@@ -430,14 +438,7 @@ docker-compose up
 * Execute the samples under /api/v1/hystrix and view the hystrix stream results on the dashboard
 
 ![hystrix stream](screenshots/Hystrix.PNG)
-
-### Try It
-
-* Point you're browser to [http://localhost:3000](http://localhost:3000)
-* Invoke the example REST endpoints directly or via swagger `http://localhost:3000/swagger`
-* Invoke the prometheus metrics using the endpoint `curl http://localhost:3000/metrics`
-* Access in-browser IDE for graphQL http://localhost:3000/graphiql
-   
+  
 ### integrate with SonarQube (for continous code quality)
 Assuming you have SonarQube 5.5.6 (LTS) installed
 * Setup SonarQube with the [Sonar Typescript plugin](https://github.com/Pablissimo/SonarTsPlugin#installation) and the Generic Test Coverage plugin https://docs.sonarqube.org/display/PLUG/Generic+Test+Coverage
