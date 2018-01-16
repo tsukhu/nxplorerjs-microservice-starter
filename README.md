@@ -55,6 +55,8 @@ Table of contents
 * Node JS, Express, Typescript , Dependency Injection base
 * Backpack (webpack) based - build , development , packaging
 * Swagger Enabled - Express swagger middleware / Swagger UI integration
+* GraphQL based on Apollo with JWT security and data loader
+* REST APIs - using Inversify Controller
 * Externalized Configuration - DotEnv
 * Tests - Jest , SuperTest , GraphQL Tester. Infrastructure for automated unit and integration tests
 * Code Coverage - Istanbul
