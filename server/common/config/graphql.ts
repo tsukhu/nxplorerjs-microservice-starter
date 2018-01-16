@@ -23,12 +23,31 @@ const tracing =
     ? true
     : false;
 
-// Data Loaders with Batch and Cache Enabled
-const peopleLoader = new DataLoader(keys => Promise.all(keys.map(fetchPeople)));
-const planetLoader = new DataLoader(keys => Promise.all(keys.map(fetchPlanet)));
-const starshipLoader = new DataLoader(keys => Promise.all(keys.map(fetchStarship)));
-const peopleWithPlanetLoader = new DataLoader(keys => Promise.all(keys.map(fetchPeopleWithPlanet)));
 
+const getGraphQLConfig = (req: any): GraphQLOptions => {
+  // Data Loaders with Batch and Cache Enabled
+  const peopleLoader = new DataLoader(keys => Promise.all(keys.map(fetchPeople)));
+  const planetLoader = new DataLoader(keys => Promise.all(keys.map(fetchPlanet)));
+  const starshipLoader = new DataLoader(keys => Promise.all(keys.map(fetchStarship)));
+  const peopleWithPlanetLoader = new DataLoader(keys => Promise.all(keys.map(fetchPeopleWithPlanet)));
+  let user =  Promise.resolve(null);
+  if (process.env.JWT_AUTH === 'true') {
+    user = req.user ? req.user : Promise.resolve(null);
+  }
+
+  return {
+    schema: myGraphQLSchema,
+    formatError,
+    tracing: tracing,
+    context: {
+      user,
+      peopleLoader,
+      planetLoader,
+      starshipLoader,
+      peopleWithPlanetLoader
+    }
+  };
+}
 /**
  * Configure GraphQL endpoints
  * @param app Express Application
@@ -45,34 +64,14 @@ export const configGraphQL = (app: Application) => {
       '/graphql',
       bodyParser.json(),
       expressJwt({ secret: RSA_PUBLIC_KEY, credentialsRequired: false }),
-      graphqlExpress((req: any) => ({
-        schema: myGraphQLSchema,
-        formatError,
-        tracing: tracing,
-        context: {
-          user: req.user ? req.user : Promise.resolve(null),
-          peopleLoader,
-          planetLoader,
-          starshipLoader,
-          peopleWithPlanetLoader
-        }
-      }))
+      graphqlExpress((req: any) => ( getGraphQLConfig(req)))
     );
   } else {
     // Add GraphQL Endpoint
     app.use(
       '/graphql',
-      graphqlExpress({
-        schema: myGraphQLSchema,
-        formatError,
-        tracing: tracing,
-        context: {
-          peopleLoader,
-          planetLoader,
-          starshipLoader,
-          peopleWithPlanetLoader
-        }
-      })
+      bodyParser.json(),
+      graphqlExpress((req: any) => ( getGraphQLConfig(req)))
     );
   }
 

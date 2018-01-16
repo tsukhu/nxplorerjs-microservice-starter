@@ -5,6 +5,13 @@ import {} from 'jest';
 import * as request from 'supertest';
 import { graphql } from 'graphql';
 import schema from './schema';
+const DataLoader = require('dataloader');
+import {
+    fetchPeopleWithPlanet,
+    fetchPeople,
+    fetchPlanet,
+    fetchStarship
+  } from './dataloader/starwars';
 import '../common/env';
 
 
@@ -54,10 +61,14 @@ describe('Example Service Tests', () => {
       `;
         const expectedValue = 'Luke Skywalker';
         const rootValue = {};
-        const result = await graphql(schema, query, rootValue);
+        const peopleLoader = new DataLoader(keys => Promise.all(keys.map(fetchPeople)));
+        const contextValue = {
+            peopleLoader
+        }
+        const result = await graphql(schema, query, rootValue, contextValue);
         const { people } = result.data;
         expect(people.name).toEqual(expectedValue);
-    });
+    },10000);
 
 
 });
