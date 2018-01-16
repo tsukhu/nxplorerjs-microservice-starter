@@ -26,6 +26,7 @@ Table of contents
     * [Unit Tests](#run-unit-tests)
     * [Integration Tests](#run-integration-tests) 
   * [Run It](#try-it)
+  * [File Structure](#file-structure)
   * [Passing UUID for requests](#log-with-uuid)
   * [Docker Build](#build-docker-image)
   * [Kubernetes Deployment](#k8s-deployment)
@@ -321,6 +322,57 @@ npm itest:run
 * Invoke the prometheus metrics using the endpoint `curl http://localhost:3000/metrics`
 * Access in-browser IDE for graphQL `http://localhost:3000/graphiql`
 * Access the graphQL playground app `http://localhost:3000/playground/`
+
+### File Structure
+```
+* The 
+├───public                      * Landing page for nxplorer server
+├───screenshots                 * Sample screenshots
+└───server                      * Server configuration and apis
+|   ├───api                     * REST APIs defined on the server
+|   │   ├───controllers         * API controllers using RxJS, Inversify
+|   │   │   ├───examples        * Examples controller
+|   │   │   ├───hystrix-demo    * Hystrix demo controller
+|   │   │   ├───security        * JWT login API controller
+|   │   │   ├───shop            * Sample shop APIs with products, prices , inventory
+|   │   │   └───starwars        * SWAPI controller
+|   │   ├───interfaces          * Service interfaces
+|   │   ├───models              * API data models
+|   │   └───services            * Service API implementations
+|   ├───common                  * Server setup and configuration
+|   │   ├───config              * Server configuration
+|   │   ├───constants           * Inversify and other common identifier constants
+|   │   ├───interfaces          * Common service interfaces  
+|   │   ├───middleware          * Custom middleware
+|   │   ├───models              * Common API data models
+|   │   ├───services            * Common service implementations
+|   │   └───swagger             * Swagger API specification (YAML)
+|   |   └───env.ts              * DotENV configuration
+|   |   └───server.ts           * Express Server setup and configuration 
+|   └───graphql                 * GraphQL APIs defined on the server
+|   |   ├───errors              * GraphQL error handler
+|   |   ├───models              * GraphQL Schema Types
+|   |   └───resolvers           * GraphQL resolvers
+|   |   └───schema.ts           * GraphQL schema configuration
+|   └───index.ts                * Main Server entry point
+├───helm                        * Helm chart deployment scripts
+│   ├───charts                  *
+│   └───templates               *
+└───backpack.config.js          * Backpack configuratio
+└───package.json                * npm dependencies
+└───build.js                    * ShellJS utility build scripts
+└───deploy-k8s.sh               * Kubernetes deployment script
+└───Dockerfile                  * Docker build file
+└───docker-compose.yml          * Docker build and run file
+└───build-docker.bat|sh         * Docker build file
+└───itest.config.json           * Jest integration test configuration
+└───unit.config.json            * Jest unit test configuration
+└───tsconfig.json               * typescript config
+└───tslint.json                 * tslint config
+└───.{profile}.env              * externalized environment files based on profiles (development,test,production)
+└───sonar-properties.json       * sonarscanner|SonarQube configuration
+└───jwtRS256.key|.key.pub       * Sample JWT private and public keys used by the server
+```
 
 ### Log with UUID
 * A sample implementation of UUID propogation has been added. This depends on a cookie 'UUID' to be set in the request object. The [LogService](server/common/services/log.service.ts) will add the uuid to all logs it generates.
