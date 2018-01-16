@@ -9,21 +9,31 @@ import * as bodyParser from 'body-parser';
 import { formatError } from 'apollo-errors';
 const expressJwt = require('express-jwt');
 import * as fs from 'fs';
+const DataLoader = require('dataloader');
+import {
+  fetchPeopleWithPlanet,
+  fetchPeople,
+  fetchPlanet,
+  fetchStarship
+} from '../../graphql/dataloader/starwars';
+
+const tracing =
+  process.env.GRAPHQL_TRACING !== undefined &&
+  process.env.GRAPHQL_TRACING === 'true'
+    ? true
+    : false;
+
+// Data Loaders with Batch and Cache Enabled
+const peopleLoader = new DataLoader(keys => Promise.all(keys.map(fetchPeople)));
+const planetLoader = new DataLoader(keys => Promise.all(keys.map(fetchPlanet)));
+const starshipLoader = new DataLoader(keys => Promise.all(keys.map(fetchStarship)));
+const peopleWithPlanetLoader = new DataLoader(keys => Promise.all(keys.map(fetchPeopleWithPlanet)));
 
 /**
  * Configure GraphQL endpoints
  * @param app Express Application
  */
 export const configGraphQL = (app: Application) => {
-  let graphQLServerOptions: GraphQLOptions = {
-    schema: myGraphQLSchema
-  };
-
-  // Enable graphql tracing
-  if (process.env.GRAPHQL_TRACING === 'true') {
-    graphQLServerOptions.tracing = true;
-  }
-
   // If JWT Auth is enabled added JWT header verification for all graphql
   // calls
   if (process.env.JWT_AUTH === 'true') {
@@ -38,8 +48,13 @@ export const configGraphQL = (app: Application) => {
       graphqlExpress((req: any) => ({
         schema: myGraphQLSchema,
         formatError,
+        tracing: tracing,
         context: {
-          user: req.user ? req.user : Promise.resolve(null)
+          user: req.user ? req.user : Promise.resolve(null),
+          peopleLoader,
+          planetLoader,
+          starshipLoader,
+          peopleWithPlanetLoader
         }
       }))
     );
@@ -49,7 +64,14 @@ export const configGraphQL = (app: Application) => {
       '/graphql',
       graphqlExpress({
         schema: myGraphQLSchema,
-        formatError
+        formatError,
+        tracing: tracing,
+        context: {
+          peopleLoader,
+          planetLoader,
+          starshipLoader,
+          peopleWithPlanetLoader
+        }
       })
     );
   }

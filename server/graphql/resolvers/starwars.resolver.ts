@@ -1,43 +1,25 @@
-import * as fetch from 'node-fetch';
-import container from '../../common/config/ioc_config';
-import SERVICE_IDENTIFIER from '../../common/constants/identifiers';
-
-import IStarwars from '../../api/interfaces/istarwars';
-
-const StarwarsService = container.get<IStarwars>(SERVICE_IDENTIFIER.STARWARS);
-
+import {
+  fetchPeopleWithPlanet,
+  fetchPeople,
+  fetchPlanet,
+  fetchStarship
+} from '../dataloader/starwars';
 
 export default {
-
-    RootQueryType: {
-        peopleWithPlanet(parent, args, context, info) {
-            return new Promise( (resolve, reject) => {
-                StarwarsService
-                    .getPeopleById(args.id)
-                    .timeout(+process.env.TIME_OUT)
-                    .subscribe(r => {
-                        resolve(r);
-                    },
-                    error => {
-                        reject(error);
-                    }
-                    );
-            }
-            );
-        },
-        people(parent, args, context, info) {
-            const URI = 'http://swapi.co/api/people/' + args.id;
-            return fetch(URI).then(res => res.json());
-        },
-        planet(parent, args, context, info) {
-            const URI = 'http://swapi.co/api/planets/' + args.id;
-            return fetch(URI).then(res => res.json());
-        },
-        starship(parent, args, context, info) {
-            const URI = 'http://swapi.co/api/starships/' + args.id;
-            return fetch(URI).then(res => res.json());
-        }
+  RootQueryType: {
+    peopleWithPlanet(parent, args, context, info) {
+      return context.peopleWithPlanetLoader.load(args.id);
+    },
+    people(parent, args, context, info) {
+      return context.peopleLoader.load(args.id);
+    },
+    planet(parent, args, context, info) {
+      return context.planetLoader.load(args.id);
+    },
+    starship(parent, args, context, info) {
+      return context.starshipLoader.load(args.id);
     }
+  }
 };
 /**
  * Starwars GraphQL resolver
