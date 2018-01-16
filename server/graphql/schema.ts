@@ -32,7 +32,8 @@ type RootQueryType {
     random: Float 
     rollThreeDice: [Int] 
     peopleWithPlanet (id: Int!) : PeopleWithPlanetType 
-    people (id: Int!) : PeopleType 
+    people (id: Int!) : PeopleType
+    peopleList(keys: [Int]): [PeopleType]
     planet (id: Int!) : PlanetType
     starship (id: Int!) : StarshipType 
     example (id: Int!) : ExampleType 

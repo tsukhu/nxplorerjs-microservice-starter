@@ -180,9 +180,10 @@ See REST API /examples/{id}
    - Access the graphiql tool from http://localhost:3000/graphiql
    - GraphQL API tracing (configurable)
    - Dataloader for caching and batching
-   - Multiple samples added
-      - RxJS API call - peopleWithPlanets(id : <number>) **Dataloader Enabled**
-      - Starwars APIs - people(id: <number>) , planet(id: <number>) , starship(id: <number>) **Dataloader Enabled**
+   - Multiple samples added **Dataloader Enabled**
+      - RxJS API call - peopleWithPlanets(id : <number>)
+      - Starwars APIs - people(id: <number>) , planet(id: <number>) , starship(id: <number>)
+                      - peopleList(keys: [number]) 
    - List of Queries
       - quoteOfTheDay: String
       - random: Float
@@ -193,6 +194,7 @@ See REST API /examples/{id}
       - people(id: Int): PersonType
       - planet(id: Int): PlanetType
       - starship(id: Int): StarshipType
+      - peopleList(keys: [Int]): [PersonType]
 
     - Sample Query Execution
     
