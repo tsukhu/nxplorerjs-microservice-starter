@@ -357,7 +357,7 @@ npm itest:run
 ├───helm                        * Helm chart deployment scripts
 │   ├───charts                  *
 │   └───templates               *
-└───backpack.config.js          * Backpack configuratio
+└───backpack.config.js          * Backpack configuration
 └───package.json                * npm dependencies
 └───build.js                    * ShellJS utility build scripts
 └───deploy-k8s.sh               * Kubernetes deployment script
