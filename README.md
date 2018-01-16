@@ -179,9 +179,10 @@ See REST API /examples/{id}
    - Access the graphql playground from http://localhost:3000/playground  
    - Access the graphiql tool from http://localhost:3000/graphiql
    - GraphQL API tracing (configurable)
+   - Dataloader for caching and batching
    - Multiple samples added
-      - RxJS API call - peopleWithPlanets(id : <number>)
-      - Starwars APIs - people(id: <number>) , planet(id: <number>) , starship(id: <number>)
+      - RxJS API call - peopleWithPlanets(id : <number>) **Dataloader Enabled**
+      - Starwars APIs - people(id: <number>) , planet(id: <number>) , starship(id: <number>) **Dataloader Enabled**
    - List of Queries
       - quoteOfTheDay: String
       - random: Float
@@ -349,6 +350,7 @@ npm itest:run
 |   |   └───env.ts              * DotENV configuration
 |   |   └───server.ts           * Express Server setup and configuration 
 |   └───graphql                 * GraphQL APIs defined on the server
+|   |   ├───dataloader          * GraphQL data loader functions
 |   |   ├───errors              * GraphQL error handler
 |   |   ├───models              * GraphQL Schema Types
 |   |   └───resolvers           * GraphQL resolvers
