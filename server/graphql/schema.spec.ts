@@ -68,7 +68,7 @@ describe('Example Service Tests', () => {
         const result = await graphql(schema, query, rootValue, contextValue);
         const { people } = result.data;
         expect(people.name).toEqual(expectedValue);
-    });
+    },10000);
 
 
 });
