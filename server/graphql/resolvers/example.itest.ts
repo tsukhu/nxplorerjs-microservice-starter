@@ -24,23 +24,27 @@ describe('Example Resolver Tests', () => {
         id
         name
       }
-    }`}),
+    }`
+        }),
         { jar: true }
       )
       .then(res => {
         const examplesArray: Array<any> = res.data.examples;
-        expect(_.filter(examplesArray, (data) => { return _.includes(['example 0'],data.name)}).length).toBe(1);
+        expect(
+          _.filter(examplesArray, data => {
+            return _.includes(['example 0'], data.name);
+          }).length
+        ).toBe(1);
         expect(res.status).toBe(200);
         expect(res.success).toBe(true);
         done();
       })
       .catch(err => {
         console.log(err);
-        expect(err).toBe(null);
+        expect(err).toBe(undefined);
         done();
       });
   });
-
 
   it('should return example based on id', done => {
     self
@@ -51,7 +55,8 @@ describe('Example Resolver Tests', () => {
         id
         name
       }
-    }`}),
+    }`
+        }),
         { jar: true }
       )
       .then(res => {
@@ -62,7 +67,7 @@ describe('Example Resolver Tests', () => {
       })
       .catch(err => {
         console.log(err);
-        expect(err).toBe(null);
+        expect(err).toBe(undefined);
         done();
       });
   });
@@ -76,18 +81,18 @@ describe('Example Resolver Tests', () => {
         id
         name
       }
-    }`}),
+    }`
+        }),
         { jar: true }
       )
       .then(res => {
-        expect(res.data.example).toBe(null);
+        expect(res.data.example).toBe(undefined);
         done();
       })
       .catch(err => {
         console.log(err);
-        expect(err).toBe(null);
+        expect(err).toBe(undefined);
         done();
       });
   });
-
 });

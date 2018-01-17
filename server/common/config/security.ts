@@ -29,4 +29,4 @@ export const secureApp = (app: express.Application) => {
     }
     next();
   });
-}
+};

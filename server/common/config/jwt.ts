@@ -12,6 +12,6 @@ const configJWT = async (): Promise<any> => {
     result = expressJwt({ secret: RSA_PUBLIC_KEY, credentialsRequired: false });
   }
   return result;
-}
+};
 
 export default configJWT;

@@ -11,14 +11,23 @@ import { inject, injectable } from 'inversify';
 import ILogger from '../../../common/interfaces/ilogger';
 import IMetrics from '../../../common/interfaces/imetrics';
 import IProduct from '../../interfaces/iproduct';
-import { interfaces, controller, httpGet, httpPost, httpDelete, request, queryParam, response, requestParam } from 'inversify-express-utils';
+import {
+  interfaces,
+  controller,
+  httpGet,
+  httpPost,
+  httpDelete,
+  request,
+  queryParam,
+  response,
+  requestParam
+} from 'inversify-express-utils';
 
 /**
  * Shop API Controller
  */
 @controller('/shop')
 class ShopController implements interfaces.Controller {
-
   public productService: IProduct;
   public loggerService: ILogger;
   public metricsService: IMetrics;
@@ -36,14 +45,14 @@ class ShopController implements interfaces.Controller {
   /**
    * Get All products
    * @param req
-   * @param res 
+   * @param res
    */
   @httpGet('/products')
-  public allBaseProducts(@request() req: Request, @response() res: Response): void {
-
-    this.productService
-      .allBaseProducts()
-      .subscribe(
+  public allBaseProducts(
+    @request() req: Request,
+    @response() res: Response
+  ): void {
+    this.productService.allBaseProducts().subscribe(
       result => {
         res.status(HttpStatus.OK).json(result);
         this.loggerService.logAPITrace(req, res, HttpStatus.OK);
@@ -62,19 +71,20 @@ class ShopController implements interfaces.Controller {
         this.loggerService.logAPITrace(req, res, HttpStatus.NOT_FOUND);
         this.metricsService.logAPIMetrics(req, res, HttpStatus.NOT_FOUND);
       }
-      );
+    );
   }
 
   /**
    * Get all product options for all products
-   * @param req 
-   * @param res 
+   * @param req
+   * @param res
    */
   @httpGet('/productOptions')
-  public allBaseProductOptions(@request() req: Request, @response() res: Response): void {
-    this.productService
-      .allBaseProductOptions()
-      .subscribe(
+  public allBaseProductOptions(
+    @request() req: Request,
+    @response() res: Response
+  ): void {
+    this.productService.allBaseProductOptions().subscribe(
       result => {
         res.status(HttpStatus.OK).json(result);
         this.loggerService.logAPITrace(req, res, HttpStatus.OK);
@@ -93,19 +103,20 @@ class ShopController implements interfaces.Controller {
         this.loggerService.logAPITrace(req, res, HttpStatus.NOT_FOUND);
         this.metricsService.logAPIMetrics(req, res, HttpStatus.NOT_FOUND);
       }
-      );
+    );
   }
 
   /**
    * Get all product pricing per product option
    * @param req
-   * @param res 
+   * @param res
    */
   @httpGet('/prices')
-  public allBaseProductPrice(@request() req: Request, @response() res: Response): void {
-    this.productService
-      .allBaseProductPrice()
-      .subscribe(
+  public allBaseProductPrice(
+    @request() req: Request,
+    @response() res: Response
+  ): void {
+    this.productService.allBaseProductPrice().subscribe(
       result => {
         res.status(HttpStatus.OK).json(result);
         this.loggerService.logAPITrace(req, res, HttpStatus.OK);
@@ -124,19 +135,20 @@ class ShopController implements interfaces.Controller {
         this.loggerService.logAPITrace(req, res, HttpStatus.NOT_FOUND);
         this.metricsService.logAPIMetrics(req, res, HttpStatus.NOT_FOUND);
       }
-      );
+    );
   }
 
   /**
    * Get the inventory for each product option per product
-   * @param req 
-   * @param res 
+   * @param req
+   * @param res
    */
   @httpGet('/inventory')
-  public allBaseProductInventory(@request() req: Request, @response() res: Response): void {
-    this.productService
-      .allBaseProductInventory()
-      .subscribe(
+  public allBaseProductInventory(
+    @request() req: Request,
+    @response() res: Response
+  ): void {
+    this.productService.allBaseProductInventory().subscribe(
       result => {
         res.status(HttpStatus.OK).json(result);
         this.loggerService.logAPITrace(req, res, HttpStatus.OK);
@@ -155,85 +167,93 @@ class ShopController implements interfaces.Controller {
         this.loggerService.logAPITrace(req, res, HttpStatus.NOT_FOUND);
         this.metricsService.logAPIMetrics(req, res, HttpStatus.NOT_FOUND);
       }
-      );
+    );
   }
 
   /**
    * Get Product by ID and then show pricing and inventory for all product options
    * in one reactive RxJS call.
-   * @param id 
-   * @param req 
-   * @param res 
+   * @param id
+   * @param req
+   * @param res
    */
   @httpGet('/products/:id')
-  public productbyId(@requestParam('id') id: number, @request() req: Request, @response() res: Response): void {
-    this.productService
-      .baseProductbyId(id)
-      .subscribe(r => {
-        if (r) {
-          res.json(r);
-          this.loggerService.logAPITrace(req, res, HttpStatus.OK);
-          this.metricsService.logAPIMetrics(req, res, HttpStatus.OK);
-        } else {
-          res.status(HttpStatus.NOT_FOUND).end();
-          this.loggerService.logAPITrace(req, res, HttpStatus.NOT_FOUND);
-          this.metricsService.logAPIMetrics(req, res, HttpStatus.NOT_FOUND);
-        }
-      });
+  public productbyId(
+    @requestParam('id') id: number,
+    @request() req: Request,
+    @response() res: Response
+  ): void {
+    this.productService.baseProductbyId(id).subscribe(r => {
+      if (r) {
+        res.json(r);
+        this.loggerService.logAPITrace(req, res, HttpStatus.OK);
+        this.metricsService.logAPIMetrics(req, res, HttpStatus.OK);
+      } else {
+        res.status(HttpStatus.NOT_FOUND).end();
+        this.loggerService.logAPITrace(req, res, HttpStatus.NOT_FOUND);
+        this.metricsService.logAPIMetrics(req, res, HttpStatus.NOT_FOUND);
+      }
+    });
   }
 
   @httpGet('/productOptions/:id')
-  public baseProductOptionsbyId(@requestParam('id') id: number, @request() req: Request, @response() res: Response): void {
-    this.productService
-      .baseProductOptionsbyId(id)
-      .subscribe(r => {
-        if (r) {
-          res.json(r);
-          this.loggerService.logAPITrace(req, res, HttpStatus.OK);
-          this.metricsService.logAPIMetrics(req, res, HttpStatus.OK);
-        } else {
-          res.status(HttpStatus.NOT_FOUND).end();
-          this.loggerService.logAPITrace(req, res, HttpStatus.NOT_FOUND);
-          this.metricsService.logAPIMetrics(req, res, HttpStatus.NOT_FOUND);
-        }
-      });
+  public baseProductOptionsbyId(
+    @requestParam('id') id: number,
+    @request() req: Request,
+    @response() res: Response
+  ): void {
+    this.productService.baseProductOptionsbyId(id).subscribe(r => {
+      if (r) {
+        res.json(r);
+        this.loggerService.logAPITrace(req, res, HttpStatus.OK);
+        this.metricsService.logAPIMetrics(req, res, HttpStatus.OK);
+      } else {
+        res.status(HttpStatus.NOT_FOUND).end();
+        this.loggerService.logAPITrace(req, res, HttpStatus.NOT_FOUND);
+        this.metricsService.logAPIMetrics(req, res, HttpStatus.NOT_FOUND);
+      }
+    });
   }
 
   @httpGet('/prices/:id')
-  public baseProductPricebyId(@requestParam('id') id: number, @request() req: Request, @response() res: Response): void {
-    this.productService
-      .baseProductPricebyId(id)
-      .subscribe(r => {
-        if (r) {
-          res.json(r);
-          this.loggerService.logAPITrace(req, res, HttpStatus.OK);
-          this.metricsService.logAPIMetrics(req, res, HttpStatus.OK);
-        } else {
-          res.status(HttpStatus.NOT_FOUND).end();
-          this.loggerService.logAPITrace(req, res, HttpStatus.NOT_FOUND);
-          this.metricsService.logAPIMetrics(req, res, HttpStatus.NOT_FOUND);
-        }
-      });
+  public baseProductPricebyId(
+    @requestParam('id') id: number,
+    @request() req: Request,
+    @response() res: Response
+  ): void {
+    this.productService.baseProductPricebyId(id).subscribe(r => {
+      if (r) {
+        res.json(r);
+        this.loggerService.logAPITrace(req, res, HttpStatus.OK);
+        this.metricsService.logAPIMetrics(req, res, HttpStatus.OK);
+      } else {
+        res.status(HttpStatus.NOT_FOUND).end();
+        this.loggerService.logAPITrace(req, res, HttpStatus.NOT_FOUND);
+        this.metricsService.logAPIMetrics(req, res, HttpStatus.NOT_FOUND);
+      }
+    });
   }
 
   /**
    * Check by ID
    */
   @httpGet('/inventory/:id')
-  public baseProductInventorybyId(@requestParam('id') id: number, @request() req: Request, @response() res: Response): void {
-    this.productService
-      .baseProductInventorybyId(id)
-      .subscribe(r => {
-        if (r) {
-          res.json(r);
-          this.loggerService.logAPITrace(req, res, HttpStatus.OK);
-          this.metricsService.logAPIMetrics(req, res, HttpStatus.OK);
-        } else {
-          res.status(HttpStatus.NOT_FOUND).end();
-          this.loggerService.logAPITrace(req, res, HttpStatus.NOT_FOUND);
-          this.metricsService.logAPIMetrics(req, res, HttpStatus.NOT_FOUND);
-        }
-      });
+  public baseProductInventorybyId(
+    @requestParam('id') id: number,
+    @request() req: Request,
+    @response() res: Response
+  ): void {
+    this.productService.baseProductInventorybyId(id).subscribe(r => {
+      if (r) {
+        res.json(r);
+        this.loggerService.logAPITrace(req, res, HttpStatus.OK);
+        this.metricsService.logAPIMetrics(req, res, HttpStatus.OK);
+      } else {
+        res.status(HttpStatus.NOT_FOUND).end();
+        this.loggerService.logAPITrace(req, res, HttpStatus.NOT_FOUND);
+        this.metricsService.logAPIMetrics(req, res, HttpStatus.NOT_FOUND);
+      }
+    });
   }
 
   /**
@@ -242,10 +262,13 @@ class ShopController implements interfaces.Controller {
    * @param res Response Param
    */
   @httpGet('/priceByOptionId/:id')
-  public flatMapProductOptionPricebyId(@requestParam('id') id: number, @request() req: Request, @response() res: Response): void {
-    this.productService
-      .getProductOptionPricebyId(id)
-      .subscribe(r => {
+  public flatMapProductOptionPricebyId(
+    @requestParam('id') id: number,
+    @request() req: Request,
+    @response() res: Response
+  ): void {
+    this.productService.getProductOptionPricebyId(id).subscribe(
+      r => {
         if (r) {
           res.json(r);
           this.metricsService.logAPIMetrics(req, res, HttpStatus.OK);
@@ -267,8 +290,8 @@ class ShopController implements interfaces.Controller {
         res.status(HttpStatus.NOT_FOUND).json(resp);
         this.loggerService.logAPITrace(req, res, HttpStatus.NOT_FOUND);
         this.metricsService.logAPIMetrics(req, res, HttpStatus.NOT_FOUND);
-      });
+      }
+    );
   }
-
 }
 export default ShopController;
