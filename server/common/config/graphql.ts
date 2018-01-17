@@ -23,16 +23,23 @@ const tracing =
     ? true
     : false;
 
-
 const getGraphQLConfig = (req: any): GraphQLOptions => {
   // Data Loaders with Batch and Cache Enabled
-  const peopleLoader = new DataLoader(keys => Promise.all(keys.map(fetchPeople)));
-  const planetLoader = new DataLoader(keys => Promise.all(keys.map(fetchPlanet)));
-  const starshipLoader = new DataLoader(keys => Promise.all(keys.map(fetchStarship)));
-  const peopleWithPlanetLoader = new DataLoader(keys => Promise.all(keys.map(fetchPeopleWithPlanet)));
-  let user =  Promise.resolve(null);
+  const peopleLoader = new DataLoader(keys =>
+    Promise.all(keys.map(fetchPeople))
+  );
+  const planetLoader = new DataLoader(keys =>
+    Promise.all(keys.map(fetchPlanet))
+  );
+  const starshipLoader = new DataLoader(keys =>
+    Promise.all(keys.map(fetchStarship))
+  );
+  const peopleWithPlanetLoader = new DataLoader(keys =>
+    Promise.all(keys.map(fetchPeopleWithPlanet))
+  );
+  let user = Promise.resolve(undefined);
   if (process.env.JWT_AUTH === 'true') {
-    user = req.user ? req.user : Promise.resolve(null);
+    user = req.user ? req.user : Promise.resolve(undefined);
   }
 
   return {
@@ -47,7 +54,7 @@ const getGraphQLConfig = (req: any): GraphQLOptions => {
       peopleWithPlanetLoader
     }
   };
-}
+};
 /**
  * Configure GraphQL endpoints
  * @param app Express Application
@@ -64,21 +71,21 @@ export const configGraphQL = (app: Application) => {
       '/graphql',
       bodyParser.json(),
       expressJwt({ secret: RSA_PUBLIC_KEY, credentialsRequired: false }),
-      graphqlExpress((req: any) => ( getGraphQLConfig(req)))
+      graphqlExpress((req: any) => getGraphQLConfig(req))
     );
   } else {
     // Add GraphQL Endpoint
     app.use(
       '/graphql',
       bodyParser.json(),
-      graphqlExpress((req: any) => ( getGraphQLConfig(req)))
+      graphqlExpress((req: any) => getGraphQLConfig(req))
     );
   }
 
   // Add GraphQL Playground if enabled
   if (process.env.GRAPHQL_PLAYGROUND === 'true') {
     // GraphQL playground currently explects both the endpoints to be same
-    let graphQLPlaygroundOptions: MiddlewareOptions = {
+    const graphQLPlaygroundOptions: MiddlewareOptions = {
       endpoint: '/graphql',
       subscriptionsEndpoint: '/graphql'
     };

@@ -25,7 +25,6 @@ import {
   requestParam
 } from 'inversify-express-utils';
 
-
 /**
  * Controller for Security Token
  */
@@ -52,15 +51,22 @@ class SecurityController implements interfaces.Controller {
       password = req.body.password;
     if (this.validateEmailAndPassword(email, password)) {
       const userId = this.findUserIdForEmail(email);
-      const expiryTime = process.env.TOKEN_EXPIRY_TIME !== undefined ? process.env.TOKEN_EXPIRY_TIME : '1h';
-      const jwtBearerToken = jwt.sign({role: 'admin' , email: email}, this.RSA_PRIVATE_KEY, {
-        algorithm: 'RS256',
-        expiresIn: expiryTime,
-        subject: userId
-      });
+      const expiryTime =
+        process.env.TOKEN_EXPIRY_TIME !== undefined
+          ? process.env.TOKEN_EXPIRY_TIME
+          : '1h';
+      const jwtBearerToken = jwt.sign(
+        { role: 'admin', email: email },
+        this.RSA_PRIVATE_KEY,
+        {
+          algorithm: 'RS256',
+          expiresIn: expiryTime,
+          subject: userId
+        }
+      );
 
       res.status(HttpStatus.OK).json({
-        idToken: jwtBearerToken, 
+        idToken: jwtBearerToken,
         expiresIn: expiryTime
       });
     } else {
@@ -70,8 +76,8 @@ class SecurityController implements interfaces.Controller {
 
   /**
    * Email validation place holder
-   * @param email 
-   * @param password 
+   * @param email
+   * @param password
    */
   private validateEmailAndPassword(email, password): boolean {
     return true;

@@ -26,8 +26,9 @@ describe('StarWars API Test', () => {
             }
           }`
         }),
-        { jar: true }
-      ,10000)
+        { jar: true },
+        10000
+      )
       .then(res => {
         console.log(res.data.people);
         expect(res.data.people.name).toBe('Luke Skywalker');
@@ -38,7 +39,7 @@ describe('StarWars API Test', () => {
       })
       .catch(err => {
         console.log(err);
-        expect(err).toBe(null);
+        expect(err).toBe(undefined);
         done();
       });
   });
@@ -54,8 +55,9 @@ describe('StarWars API Test', () => {
             }
           }`
         }),
-        { jar: true }
-      , 10000)
+        { jar: true },
+        10000
+      )
       .then(res => {
         console.log(res.data.planet);
         expect(res.data.planet.name).toBe('Tatooine');
@@ -66,7 +68,7 @@ describe('StarWars API Test', () => {
       })
       .catch(err => {
         console.log(err);
-        expect(err).toBe(null);
+        expect(err).toBe(undefined);
         done();
       });
   });

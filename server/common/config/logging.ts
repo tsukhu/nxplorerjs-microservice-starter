@@ -21,6 +21,6 @@ export const configLogging = (app: Application) => {
     }
     next();
   });
-}
+};
 
 export default LOG;
