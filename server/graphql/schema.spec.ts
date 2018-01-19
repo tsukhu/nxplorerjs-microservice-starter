@@ -4,7 +4,7 @@ import {} from 'jest';
 
 import * as request from 'supertest';
 import { graphql } from 'graphql';
-import schema from './schema';
+import { setupSchema } from './schema';
 const DataLoader = require('dataloader');
 import {
   fetchPeopleWithPlanet,
@@ -33,7 +33,7 @@ describe('Example Service Tests', () => {
         }
       `;
     const rootValue = {};
-    const result = await graphql(schema, query, rootValue);
+    const result = await graphql(setupSchema(), query, rootValue);
     const { data } = result;
     expect(data.quoteOfTheDay).not.toHaveLength(0);
   });
@@ -45,7 +45,7 @@ describe('Example Service Tests', () => {
         }
       `;
     const rootValue = {};
-    const result = await graphql(schema, query, rootValue);
+    const result = await graphql(setupSchema(), query, rootValue);
     const { data } = result;
     expect(data.random).toBeGreaterThan(0);
   });
@@ -68,7 +68,7 @@ describe('Example Service Tests', () => {
       const contextValue = {
         peopleLoader
       };
-      const result = await graphql(schema, query, rootValue, contextValue);
+      const result = await graphql(setupSchema(), query, rootValue, contextValue);
       const { people } = result.data;
       expect(people.name).toEqual(expectedValue);
     },
