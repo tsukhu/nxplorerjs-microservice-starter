@@ -274,6 +274,7 @@ npm install
 | GRAPHQL_PLAYGROUND | Enable/Disable GraphQL Playground (true or false) | true |
 | GRAPHQL_IQL | Enable/Disable GraphQL IQL Explorer (true or false) | true |
 | GRAPHQL_TRACING | Enable/Disable GraphQL tracing (true or false) | true |
+| GRAPHQL_MOCK | Enable/Disable GraphQL Mock Unimplemented Interfaces(true or false) | true |
 
 
 ## Run It
