@@ -12,6 +12,7 @@ import StarwarsResolver from './resolvers/starwars.resolver';
 import UserResolver from './resolvers/user.resolver';
 import { makeExecutableSchema, addMockFunctionsToSchema } from 'graphql-tools';
 import { GraphQLSchema } from 'graphql/type/schema';
+import mocks from './mocks';
 
 const SubscriptionType = `
 type SubscriptionType {
@@ -34,9 +35,12 @@ type RootQueryType {
     people (id: Int!) : PeopleType
     ex2: PeopleType
     peopleList(keys: [Int]): [PeopleType]
+    peopleMock:  PeopleType
     planet (id: Int!) : PlanetType
     starship (id: Int!) : StarshipType 
-    example (id: Int!) : ExampleType 
+    example (id: Int!) : ExampleType
+    exampleMock: ExampleType
+    examplesMock: [ExampleType] 
     examples: [ExampleType]
 }`;
 
@@ -73,7 +77,7 @@ export const setupSchema = (): GraphQLSchema => {
     // Preserve resolvers that are implemented
     addMockFunctionsToSchema({
       schema,
-      mocks: {},
+      mocks: mocks,
       preserveResolvers: true
     });
   }
