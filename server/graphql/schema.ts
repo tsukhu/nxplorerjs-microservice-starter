@@ -33,7 +33,6 @@ type RootQueryType {
     rollThreeDice: [Int] 
     peopleWithPlanet (id: Int!) : PeopleWithPlanetType 
     people (id: Int!) : PeopleType
-    ex2: PeopleType
     peopleList(keys: [Int]): [PeopleType]
     peopleMock:  PeopleType
     planet (id: Int!) : PlanetType

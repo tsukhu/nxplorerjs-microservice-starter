@@ -1,4 +1,4 @@
-import casual from 'casual';
+import * as casual from 'casual';
 import RandExp from 'randexp';
 import { MockList } from 'graphql-tools';
 import { startCase } from 'lodash';
@@ -26,5 +26,8 @@ export default {
   ExampleType: () => ({
     id: casual.integer(0),
     name: casual.title
+  }),
+  RootQueryType: () => ({
+    examplesMock: () => new MockList(4),
   })
 };
