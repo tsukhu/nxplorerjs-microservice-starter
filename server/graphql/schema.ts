@@ -4,14 +4,15 @@ import PeopleType from './models/starwars.model';
 import PlanetType from './models/starwars.model';
 import StarshipType from './models/starwars.model';
 import PeopleWithPlanetType from './models/starwars.model';
-import ExampleType  from './models/example.model';
+import ExampleType from './models/example.model';
 import ExampleArrayType from './models/example.model';
 import UserType from './models/user.model';
 import ExampleResolver from './resolvers/example.resolver';
 import StarwarsResolver from './resolvers/starwars.resolver';
 import UserResolver from './resolvers/user.resolver';
-import { makeExecutableSchema } from 'graphql-tools';
-
+import { makeExecutableSchema, addMockFunctionsToSchema } from 'graphql-tools';
+import { GraphQLSchema } from 'graphql/type/schema';
+import mocks from './mocks';
 
 const SubscriptionType = `
 type SubscriptionType {
@@ -25,7 +26,6 @@ type RootMutationType {
     login( email: String!, password: String!): UserType
 }`;
 
-
 const RootQueryType = `
 type RootQueryType { 
     quoteOfTheDay: String 
@@ -34,9 +34,12 @@ type RootQueryType {
     peopleWithPlanet (id: Int!) : PeopleWithPlanetType 
     people (id: Int!) : PeopleType
     peopleList(keys: [Int]): [PeopleType]
+    peopleMock:  PeopleType
     planet (id: Int!) : PlanetType
     starship (id: Int!) : StarshipType 
-    example (id: Int!) : ExampleType 
+    example (id: Int!) : ExampleType
+    exampleMock: ExampleType
+    examplesMock: [ExampleType] 
     examples: [ExampleType]
 }`;
 
@@ -48,26 +51,34 @@ schema {
 }
   `;
 
-
 const resolvers = merge(ExampleResolver, StarwarsResolver, UserResolver);
 
-export default makeExecutableSchema({
+export const setupSchema = (): GraphQLSchema => {
+  const schema = makeExecutableSchema({
     typeDefs: [
-        SchemaDefinition,
-        RootQueryType,
-        RootMutationType,
-        SubscriptionType,
-        // we have to destructure array imported from the post.js file
-        // as typeDefs only accepts an array of strings or functions
-        PeopleType,
-        PlanetType,
-        PeopleWithPlanetType,
-        StarshipType,
-        ExampleType,
-        ExampleArrayType,
-        UserType
+      SchemaDefinition,
+      RootQueryType,
+      RootMutationType,
+      SubscriptionType,
+      PeopleType,
+      PlanetType,
+      PeopleWithPlanetType,
+      StarshipType,
+      ExampleType,
+      ExampleArrayType,
+      UserType
     ],
-    // we could also concatenate arrays
-    // typeDefs: [SchemaDefinition, RootQuery].concat(Post)
-    resolvers: resolvers,
-});
+    resolvers: resolvers
+  });
+
+  if ( process.env.GRAPHQL_MOCK != undefined && process.env.GRAPHQL_MOCK === 'true') {
+    // Add mocks, modifies schema in place
+    // Preserve resolvers that are implemented
+    addMockFunctionsToSchema({
+      schema,
+      mocks: mocks,
+      preserveResolvers: true
+    });
+  }
+  return schema;
+};

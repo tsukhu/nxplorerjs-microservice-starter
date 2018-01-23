@@ -1,7 +1,7 @@
 import { Application } from 'express';
 import * as http from 'http';
 import { graphqlExpress, graphiqlExpress } from 'apollo-server-express';
-import myGraphQLSchema from '../../graphql/schema';
+import { setupSchema } from '../../graphql/schema';
 import { execute } from 'graphql';
 import { subscribe } from 'graphql/subscription';
 import { SubscriptionServer } from 'subscriptions-transport-ws';
@@ -26,7 +26,7 @@ export const configGraphQLSubscription = (app: Application, callback: any) => {
         {
           execute,
           subscribe,
-          schema: myGraphQLSchema
+          schema: setupSchema()
         },
         {
           server: ws,
