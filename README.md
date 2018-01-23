@@ -28,6 +28,7 @@ Table of contents
   * [Run It](#try-it)
   * [File Structure](#file-structure)
   * [Passing UUID for requests](#log-with-uuid)
+  * [GraphQL Mocks](#graphql-mocks)
   * [Docker Build](#build-docker-image)
   * [Kubernetes Deployment](#k8s-deployment)
   * [Debug Dashboard](#using-node-dashboard-view-development-only)
@@ -56,6 +57,7 @@ Table of contents
 * Backpack (webpack) based - build , development , packaging
 * Swagger Enabled - Express swagger middleware / Swagger UI integration
 * GraphQL based on Apollo with JWT security and data loader
+* GraphQL mock resolvers (optional) during development - graphql-tools
 * REST APIs - using Inversify Controller
 * Externalized Configuration - DotEnv
 * Tests - Jest , SuperTest , GraphQL Tester. Infrastructure for automated unit and integration tests
@@ -358,6 +360,7 @@ npm itest:run
 |   |   ├───dataloader          * GraphQL data loader functions
 |   |   ├───errors              * GraphQL error handler
 |   |   ├───models              * GraphQL Schema Types
+|   |   ├───mocks               * GraphQL Mock Resolvers
 |   |   └───resolvers           * GraphQL resolvers
 |   |   └───schema.ts           * GraphQL schema configuration
 |   └───index.ts                * Main Server entry point
@@ -386,7 +389,16 @@ npm itest:run
 ```json
 {"pid":13492,"hostname":"LP-507B9DA1D355","level":30,"time":1515859200496,"uuid":"xxxx-dddd-ssss-wwww-ssss","fullUrl":"http://localhost:3000/api/v1/shop/products","statusCode":200,"responseTime":"1.187","v":1}
 ```
-
+### GraphQL Mocks
+* As part of TDD we may need to mock the graphql responses till we are able to implement the resolvers
+* The infrastructure is setup to add mocks only for the resolvers that are currently not implemented. Hence once the implementation is available the actual resolvers take over. Also incase there is a resolvers execution failure , then this will fall back on the mocked response. This feature must be used only during development, hence a check has been added to disable this feature in 'production' builds.
+* To support that 
+  * Set the environemnt variable GRAPHQL_MOCK to true
+  * Define the mock resolvers in the [mocks/index.ts](server/graphql/mocks/index.ts) file
+* As a sample there are queries added examplesMock, peopleMock
+* Sample output is given below
+![Sample Mock output](screenshots/graphql_mock.PNG)
+  
 #### Build Docker image
 
 ```bash
