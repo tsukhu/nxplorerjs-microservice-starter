@@ -5,6 +5,9 @@ const expressJwt = require('express-jwt');
 import container from '../../common/config/ioc_config';
 import { User } from '../../common/models/security.model';
 
+/**
+ * JWT Authentication middleware from the REST APIs
+ */
 const authMiddlewareFactory = () => {
   return (config: User) => {
     return (
@@ -13,6 +16,7 @@ const authMiddlewareFactory = () => {
       next: express.NextFunction
     ) => {
       (async () => {
+        // Enabled if JWT Authentication is turned on
         if (process.env.JWT_AUTH === 'true') {
           const RSA_PUBLIC_KEY = fs.readFileSync(
             process.env.RSA_PUBLIC_KEY_FILE
@@ -43,6 +47,9 @@ const authMiddlewareFactory = () => {
   };
 };
 
+/**
+ * GraphQL Middleware which will check if the user credentials are proper
+ */
 const authGraphQLMiddlewareFactory = () => {
   return (req, res, next) => {
     console.log('Middleware called');

@@ -1,5 +1,6 @@
 import { Request, Response } from 'express';
 
+/** Logging Service Interface */
 interface ILogger {
 
     info(...message);

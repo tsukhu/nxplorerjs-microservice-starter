@@ -17,6 +17,7 @@ import {
   fetchStarship
 } from '../../graphql/dataloader/starwars';
 
+// Tracing Configuration
 const tracing =
   process.env.GRAPHQL_TRACING !== undefined &&
   process.env.GRAPHQL_TRACING === 'true'
@@ -44,9 +45,9 @@ const getGraphQLConfig = (req: any): GraphQLOptions => {
 
   return {
     schema: setupSchema(),
-    formatError,
+    formatError,    // Error Handler
     tracing: tracing,
-    context: {
+    context: { // Setup the user context as well as the dataload context
       user,
       peopleLoader,
       planetLoader,

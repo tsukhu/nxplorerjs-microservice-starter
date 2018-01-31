@@ -14,18 +14,21 @@ import { makeExecutableSchema, addMockFunctionsToSchema } from 'graphql-tools';
 import { GraphQLSchema } from 'graphql/type/schema';
 import mocks from './mocks';
 
+// GraphQL Subscription Definitions
 const SubscriptionType = `
 type SubscriptionType {
     exampleAdded: ExampleType!
 }
 `;
 
+// GraphQL Mutation Definitions
 const RootMutationType = `
 type RootMutationType { 
     addExample(name: String!): ExampleType
     login( email: String!, password: String!): UserType
 }`;
 
+// GraphQL Query Definitions
 const RootQueryType = `
 type RootQueryType { 
     quoteOfTheDay: String 
@@ -43,6 +46,7 @@ type RootQueryType {
     examples: [ExampleType]
 }`;
 
+// GraphQL Schema Definitions
 const SchemaDefinition = `
 schema {
     query: RootQueryType 
@@ -51,8 +55,10 @@ schema {
 }
   `;
 
+// Merge all the resolvers
 const resolvers = merge(ExampleResolver, StarwarsResolver, UserResolver);
 
+// Create GraphQL Schema with all the pieces in place
 export const setupSchema = (): GraphQLSchema => {
   const schema = makeExecutableSchema({
     typeDefs: [
