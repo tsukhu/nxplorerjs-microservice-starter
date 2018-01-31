@@ -16,6 +16,7 @@ import IStarwars from '../../api/interfaces/istarwars';
 import IUser from '../../api/interfaces/iuser';
 import StarwarsService from '../../api/services/starwars.service';
 import UserService from '../../api/services/user.service';
+import LoggerMiddleware from '../middleware/logger-middleware';
 import '../../api/controllers/hystrix-demo/controller';
 import '../../api/controllers/examples/controller';
 import '../../api/controllers/shop/controller';
@@ -40,5 +41,5 @@ container.bind<IStarwars>(SERVICE_IDENTIFIER.STARWARS).to(StarwarsService);
 container.bind<IUser>(SERVICE_IDENTIFIER.USER).to(UserService);
 container.bind<ILogger>(SERVICE_IDENTIFIER.LOGGER).to(LogService).inSingletonScope();
 container.bind<IMetrics>(SERVICE_IDENTIFIER.METRICS).to(MetricsService).inSingletonScope();
-
+container.bind<LoggerMiddleware>(SERVICE_IDENTIFIER.LOGGER_MIDDLEWARE) .to(LoggerMiddleware);
 export default container;

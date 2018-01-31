@@ -1,6 +1,6 @@
 {
   "name": "nxplorerjs-microservice",
-  "version": "1.5.0",
+  "version": "1.5.1",
   "description": "Express Microservice Starter Project",
   "main": "index.js",
   "scripts": {
@@ -43,8 +43,8 @@
     "graphql-subscriptions": "^0.5.6",
     "graphql-tools": "^2.14.0",
     "helmet": "^3.6.1",
-    "inversify": "^4.5.1",
-    "inversify-express-utils": "^5.0.0",
+    "inversify": "^4.10.0",
+    "inversify-express-utils": "^5.2.1",
     "jsonwebtoken": "^8.1.0",
     "lodash": "^4.17.4",
     "node-fetch": "^1.7.3",
