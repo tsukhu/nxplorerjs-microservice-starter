@@ -65,6 +65,12 @@ export const checkUser = async (user: any): Promise<any> => {
   }
 };
 
+/**
+ * GraphQL Context Middleware
+ * If Valid JWT token is present the user object is set on the context
+ * This functional validates the user information and role
+ * @param ctx 
+ */
 export const getAuthenticatedUser = ctx => {
   if (process.env.JWT_AUTH === 'true') {
     return checkUser(ctx.user);

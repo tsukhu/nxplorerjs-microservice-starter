@@ -452,6 +452,10 @@ npm run compile
 npm run dash
 ```
 * This will start up the application with the node dashboard attached providing details of the memory , cpu and logs
+#### Security
+* JWT based security has been implemented using [sample JWT private and public keys](https://gist.github.com/ygotthilf/baa58da5c3dd1f69fae9)
+* Both the REST APIs and GraphQL have sample implementations added.
+* The authentication middleware code can be viewed [here](server/common/middleware/auth-middleware.ts)
 #### JWT Security GraphQL
 * A demo implementation of JWT based security has enabled for one query "examples". Given below are the steps to test it out.
 * If the JWT Security is enabled (environment variable JWT_AUTH is true) , we need to use the login mutation API to get the sample JWT Token (currently set at an expiry of 1 hour)
