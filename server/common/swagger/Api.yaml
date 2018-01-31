@@ -47,6 +47,7 @@ definitions:
     required:
       - email
       - password
+      - role
     properties:
       email:
         type: string
@@ -54,6 +55,12 @@ definitions:
       password:
         type: string
         description: The user password
+      role:
+        type: string
+        description: User Role
+        enum:
+              - admin
+              - guest
   Token:
     type: object
     properties:

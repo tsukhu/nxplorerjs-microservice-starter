@@ -48,7 +48,8 @@ class SecurityController implements interfaces.Controller {
   @httpPost('/')
   public login(@request() req: Request, @response() res: Response): void {
     const email = req.body.email,
-      password = req.body.password;
+      password = req.body.password,
+      role = req.body.role;
     if (this.validateEmailAndPassword(email, password)) {
       const userId = this.findUserIdForEmail(email);
       const expiryTime =
@@ -56,7 +57,7 @@ class SecurityController implements interfaces.Controller {
           ? process.env.TOKEN_EXPIRY_TIME
           : '1h';
       const jwtBearerToken = jwt.sign(
-        { role: 'admin', email: email },
+        { role: role, email: email },
         this.RSA_PRIVATE_KEY,
         {
           algorithm: 'RS256',

@@ -35,6 +35,7 @@ Table of contents
   * [Security](#security)
     * [JWT GraphQL APIs](#jwt-security-graphql)
     * [JWT REST APIs](#jwt-security-rest-apis)
+      * [Role Based Access](#rbac-test)
     * [CSRF](#csrf-security)
   * [Hystrix Support](#hystrix-circuit-breaker-support)
   * [Sonar Integration](#integrate-with-sonarqube-for-continous-code-quality)
@@ -470,7 +471,7 @@ npm run dash
 
 * If the JWT Security is enabled , we need to use the /login API to get the sample JWT Token (currently set at an expiry of 1 hour)
 ```bash
-curl -X POST "http://localhost:3000/api/v1/login" -H "accept: application/json" -H "content-type: application/json" -d "{ \"email\": \"test@gmail.com\", \"password\": \"abc123\"}"
+curl -X POST "http://localhost:3000/api/v1/login" -H "accept: application/json" -H "Content-Type: application/json" -d "{ \"email\": \"test@gmail.com\", \"password\": \"pwd\", \"role\": \"admin\"}"
 ```
 * The sample output . Note the JWT token is the value of the property **idToken**
 ```json
@@ -492,6 +493,13 @@ curl -X POST "http://localhost:3000/api/v1/login" -H "accept: application/json" 
 * Testing using the [swagger ui]/(http://localhost:3000/swagger)
     * Click on the ‘Authorize’ button and set the Bearer token as mentioned above
     * Now all the /examples related APIs will work
+##### RBAC Test 
+* If the JWT Security is enabled and we use the /login API to get the sample JWT Token but with role as "guest" instead of "admin"
+```bash
+curl -X POST "http://localhost:3000/api/v1/login" -H "accept: application/json" -H "Content-Type: application/json" -d "{ \"email\": \"test@gmail.com\", \"password\": \"pwd\", \"role\": \"guest\"}"
+```
+* On setting the Bearer token in the ‘Authorization’ header for subsequent calls to any of the /examples APIs will result in a role based authorization failure
+![RBAC](screenshots/rbac1.PNG)
 
 #### CSRF Security
 * CSRF Security has been enabled in the **production** mode
