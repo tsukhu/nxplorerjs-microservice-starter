@@ -499,6 +499,7 @@ curl -X POST "http://localhost:3000/api/v1/login" -H "accept: application/json" 
 curl -X POST "http://localhost:3000/api/v1/login" -H "accept: application/json" -H "Content-Type: application/json" -d "{ \"email\": \"test@gmail.com\", \"password\": \"pwd\", \"role\": \"guest\"}"
 ```
 * On setting the Bearer token in the ‘Authorization’ header for subsequent calls to any of the /examples APIs will result in a role based authorization failure
+
 ![RBAC](screenshots/rbac1.PNG)
 
 #### CSRF Security
