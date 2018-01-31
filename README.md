@@ -32,7 +32,7 @@ Table of contents
   * [Docker Build](#build-docker-image)
   * [Kubernetes Deployment](#k8s-deployment)
   * [Debug Dashboard](#using-node-dashboard-view-development-only)
-  * Security
+  * [Security](#security)
     * [JWT GraphQL APIs](#jwt-security-graphql)
     * [JWT REST APIs](#jwt-security-rest-apis)
     * [CSRF](#csrf-security)
