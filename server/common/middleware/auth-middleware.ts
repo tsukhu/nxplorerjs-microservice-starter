@@ -5,7 +5,7 @@ const expressJwt = require('express-jwt');
 import container from '../../common/config/ioc_config';
 import { User } from '../../common/models/security.model';
 
-const authMiddlewareFactory = (container: Container) => {
+const authMiddlewareFactory = () => {
   return (config: User) => {
     return (
       req: express.Request,
@@ -73,6 +73,6 @@ export const getAuthenticatedUser = ctx => {
   }
 };
 
-const authMiddleware = authMiddlewareFactory(container);
+const authMiddleware = authMiddlewareFactory();
 const graphQLAuthMiddleware = authGraphQLMiddlewareFactory();
 export { authMiddleware, graphQLAuthMiddleware };
