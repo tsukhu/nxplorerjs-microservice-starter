@@ -1,10 +1,6 @@
-import {
-  fetchPeopleWithPlanet,
-  fetchPeople,
-  fetchPlanet,
-  fetchStarship
-} from '../dataloader/starwars';
-
+/**
+ * Starwars GraphQL resolver
+ */
 export default {
   RootQueryType: {
     peopleWithPlanet(parent, args, context, info) {
@@ -24,6 +20,3 @@ export default {
     }
   }
 };
-/**
- * Starwars GraphQL resolver
- */

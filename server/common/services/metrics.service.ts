@@ -12,11 +12,16 @@ const httpRequestDurationMicroseconds = new Prometheus.Summary({
   buckets: [0.1, 5, 15, 50, 100, 200, 300, 400, 500]
 });
 
+/**
+ * Prometheus Logging Service
+ */
 @injectable()
 class MetricsService implements IMetrics {
   logAPIMetrics(req: Request, res: Response, statusCode: number) {
     const fullUrl = req.protocol + '://' + req.get('host') + req.originalUrl;
     const responseTime = res.getHeader('x-response-time');
+    // If the x-response-time is present 
+    // Add that the metrics being logged for the URL
     if (responseTime) {
       httpRequestDurationMicroseconds
         .labels(fullUrl, statusCode)

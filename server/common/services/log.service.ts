@@ -4,6 +4,9 @@ import { inject, injectable } from 'inversify';
 import ILogger from '../interfaces/ilogger';
 const pino = require('pino')();
 
+/**
+ * Logging Facade that wraps the Pino logger implementation
+ */
 @injectable()
 class LogService implements ILogger {
 
@@ -38,6 +41,14 @@ class LogService implements ILogger {
         this.logger.error({ UUID, ...message });
     }
 
+    /**
+     * Since the express response time middleware is enabled
+     * x-response-time gets set and that along with the UUID 
+     * is added to the log
+     * @param req 
+     * @param res 
+     * @param message 
+     */
     public logAPITraceOut(req: Request, res: Response, message?: any) {
         const fullUrl = req.protocol + '://' + req.get('host') + req.originalUrl;
         const responseTime = res.getHeader('x-response-time');
