@@ -46,7 +46,7 @@
     "inversify": "^4.10.0",
     "inversify-express-utils": "^5.2.1",
     "jsonwebtoken": "^8.1.0",
-    "lodash": "4.17.4",
+    "lodash": "^4.17.5",
     "node-fetch": "^1.7.3",
     "node-rx-http": "^1.0.1",
     "pino": "^4.8.1",
@@ -66,6 +66,7 @@
   "devDependencies": {
     "@types/express": "^4.0.35",
     "@types/jest": "^22.0.1",
+    "@types/lodash": "^4.14.100",
     "@types/request": "^2.0.0",
     "@types/supertest": "^2.0.3",
     "@types/zen-observable": "^0.5.3",
