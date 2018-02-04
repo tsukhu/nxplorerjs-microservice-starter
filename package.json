@@ -1,6 +1,6 @@
 {
   "name": "nxplorerjs-microservice",
-  "version": "1.5.2",
+  "version": "1.5.3",
   "description": "Express Microservice Starter Project",
   "main": "index.js",
   "scripts": {
@@ -47,7 +47,7 @@
     "inversify-express-utils": "^5.2.1",
     "jsonwebtoken": "^8.1.0",
     "lodash": "^4.17.5",
-    "node-fetch": "^1.7.3",
+    "node-fetch": "^2.0.0",
     "node-rx-http": "^1.0.1",
     "pino": "^4.8.1",
     "prom-client": "^10.1.1",
@@ -85,9 +85,9 @@
     "ts-node": "^4.0.1",
     "tslint": "^5.3.2",
     "tslint-config-standard": "^7.0.0",
-    "typedoc": "^0.9.0",
+    "typedoc": "^0.10.0",
     "typedoc-webpack-plugin": "^1.1.4",
-    "typescript": "^2.6.2",
+    "typescript": "^2.7.1",
     "wait-port": "^0.2.2"
   },
   "repository": {
