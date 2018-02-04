@@ -1,2 +1,2 @@
 #!/bin/bash
-docker build -t tsukhu/nxplorerjs-microservice .
+docker build -t tksukhu/nxplorerjs-microservice .
