@@ -15,4 +15,4 @@ jobs:
       script:
         - npm install
         - npm run compile
-        - docker build -t tsukhu/nxplorerjs-microservice .
+        - docker build -t tksukhu/nxplorerjs-microservice .

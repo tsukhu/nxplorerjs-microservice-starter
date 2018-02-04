@@ -4,7 +4,7 @@
 replicaCount: 1
 nameSpace: default
 image:
-  repository: tsukhu/nxplorerjs-microservice
+  repository: tksukhu/nxplorerjs-microservice
   tag: latest
   pullPolicy: Never
 configMap:
