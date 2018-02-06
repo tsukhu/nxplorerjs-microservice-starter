@@ -1,12 +1,14 @@
 import * as express from 'express';
 import * as partialResponse from 'express-partial-response';
 import * as path from 'path';
-import { swaggerify } from './config/swagger';
-import { secureApp } from './config/security';
-import { configLogging } from './config/logging';
-import { configMetrics } from './config/metrics';
-import { configGraphQL } from './config/graphql';
-import container from '../common/config/ioc_config';
+import {
+  swaggerify,
+  secureApp,
+  configLogging,
+  configMetrics,
+  configGraphQL
+} from './config';
+import container from './config/ioc_config';
 import SERVICE_IDENTIFIER from '../common/constants/identifiers';
 import {
   interfaces,
@@ -64,5 +66,5 @@ export default class ExpressServer {
 
   public getServer = (): InversifyExpressServer => {
     return this.server;
-  }
+  };
 }
