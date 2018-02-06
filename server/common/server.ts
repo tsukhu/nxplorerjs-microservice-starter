@@ -6,7 +6,8 @@ import {
   secureApp,
   configLogging,
   configMetrics,
-  configGraphQL
+  configGraphQL,
+  configHealthChecks
 } from './config';
 import container from './config/ioc_config';
 import SERVICE_IDENTIFIER from '../common/constants/identifiers';
@@ -58,6 +59,9 @@ export default class ExpressServer {
 
       // Graphql
       configGraphQL(app);
+
+      // Configure Healthchecks
+      configHealthChecks(app);
 
       // Add swagger support
       swaggerify(app);
