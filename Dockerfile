@@ -1,4 +1,4 @@
-FROM node:boron-alpine
+FROM node:carbon
 
 # Create app directory
 RUN mkdir -p /var/www
