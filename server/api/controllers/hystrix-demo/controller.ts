@@ -11,14 +11,23 @@ import { inject, injectable } from 'inversify';
 import ILogger from '../../../common/interfaces/ilogger';
 import IMetrics from '../../../common/interfaces/imetrics';
 import IHystrixDemo from '../../interfaces/ihystrix-demo';
-import { interfaces, controller, httpGet, httpPost, httpDelete, request, queryParam, response, requestParam } from 'inversify-express-utils';
+import {
+  interfaces,
+  controller,
+  httpGet,
+  httpPost,
+  httpDelete,
+  request,
+  queryParam,
+  response,
+  requestParam
+} from 'inversify-express-utils';
 
 /**
  * Hystrix Demo Controller
  */
 @controller('/hystrix-demo')
-class HystrixController  implements interfaces.Controller {
-
+class HystrixController implements interfaces.Controller {
   public hystrixDemoService: IHystrixDemo;
   public loggerService: ILogger;
   public metricsService: IMetrics;
@@ -39,13 +48,12 @@ class HystrixController  implements interfaces.Controller {
    * @param res response
    */
   @httpGet('/start')
-  public start(@request() req: Request, @response() res: Response): void {
-    this.hystrixDemoService.start()
-      .subscribe(
-      r => {
-        res.status(HttpStatus.OK).json(r);
-      }
-      );
+  public async start(@request() req: Request, @response() res: Response) {
+    return await new Promise((resolve, reject) => {
+      this.hystrixDemoService.start().subscribe(r => {
+        resolve(r);
+      });
+    });
   }
 
   /**
@@ -56,31 +64,30 @@ class HystrixController  implements interfaces.Controller {
    * @param res Response
    */
   @httpGet('/posts')
-  public posts(@request() req: Request, @response() res: Response): void {
+  public async posts(@request() req: Request, @response() res: Response) {
     this.loggerService.info(req.originalUrl);
-    this.hystrixDemoService
-      .getPosts(req.query.timeOut)
-      .subscribe(
-      result => {
-        // LOG.info(result);
-        res.status(HttpStatus.OK).send(result);
-        this.loggerService.logAPITrace(req, res, HttpStatus.OK);
-        this.metricsService.logAPIMetrics(req, res, HttpStatus.OK);
-      },
-      err => {
-        const error: HttpError = <HttpError>err;
-        const resp = new ErrorResponseBuilder()
-          .setTitle(error.name)
-          .setStatus(HttpStatus.NOT_FOUND)
-          .setDetail(error.stack)
-          .setMessage(error.message)
-          .setSource(req.url)
-          .build();
-        res.status(HttpStatus.NOT_FOUND).json(resp);
-        this.loggerService.logAPITrace(req, res, HttpStatus.NOT_FOUND);
-        this.metricsService.logAPIMetrics(req, res, HttpStatus.NOT_FOUND);
-      }
+    return await new Promise((resolve, reject) => {
+      this.hystrixDemoService.getPosts(req.query.timeOut).subscribe(
+        result => {
+          this.loggerService.logAPITrace(req, res, HttpStatus.OK);
+          this.metricsService.logAPIMetrics(req, res, HttpStatus.OK);
+          resolve(result);
+        },
+        err => {
+          const error: HttpError = <HttpError>err;
+          const resp = new ErrorResponseBuilder()
+            .setTitle(error.name)
+            .setStatus(HttpStatus.NOT_FOUND)
+            .setDetail(error.stack)
+            .setMessage(error.message)
+            .setSource(req.url)
+            .build();
+          this.loggerService.logAPITrace(req, res, HttpStatus.NOT_FOUND);
+          this.metricsService.logAPIMetrics(req, res, HttpStatus.NOT_FOUND);
+          reject(resp);
+        }
       );
+    });
   }
 }
 export default HystrixController;
