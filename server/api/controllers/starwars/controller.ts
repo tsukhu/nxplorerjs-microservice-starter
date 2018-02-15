@@ -12,14 +12,23 @@ import ILogger from '../../../common/interfaces/ilogger';
 import IMetrics from '../../../common/interfaces/imetrics';
 import IStarwars from '../../interfaces/istarwars';
 
-import { interfaces, controller, httpGet, httpPost, httpDelete, request, queryParam, response, requestParam } from 'inversify-express-utils';
+import {
+  interfaces,
+  controller,
+  httpGet,
+  httpPost,
+  httpDelete,
+  request,
+  queryParam,
+  response,
+  requestParam
+} from 'inversify-express-utils';
 
 /**
  * Controller for StarWars APIs
  */
 @controller('/starwars')
 class StarwarsController implements interfaces.Controller {
-
   public starwarsService: IStarwars;
   public loggerService: ILogger;
   public metricsService: IMetrics;
@@ -41,35 +50,47 @@ class StarwarsController implements interfaces.Controller {
    * @param res Response
    */
   @httpGet('/people/:id')
-  public getPeopleById(@requestParam('id') id: number, @request() req: Request, @response() res: Response): void {
-    this.starwarsService
-      .getPeopleById(id)
-      .timeout(+process.env.TIME_OUT)
-      .subscribe(r => {
-        if (r === undefined) {
-          res.status(HttpStatus.NOT_FOUND).end();
-          this.loggerService.logAPITrace(req, res, HttpStatus.NOT_FOUND);
-        } else {
-          res.status(HttpStatus.OK).json(r);
-          this.loggerService.logAPITrace(req, res, HttpStatus.OK);
-        }
-        this.metricsService.logAPIMetrics(req, res, req.statusCode);
-      },
-      err => {
-        const error: HttpError = <HttpError>err;
-        const resp = new ErrorResponseBuilder()
-          .setTitle(error.name)
-          .setStatus(HttpStatus.NOT_FOUND)
-          .setDetail(error.stack)
-          .setMessage(error.message)
-          .setSource(req.url)
-          .build();
-        res.status(HttpStatus.NOT_FOUND).json(resp);
-        this.loggerService.logAPITrace(req, res, HttpStatus.NOT_FOUND, error);
-        this.metricsService.logAPIMetrics(req, res, HttpStatus.NOT_FOUND);
-      }
-      );
+  public async getPeopleById(
+    @requestParam('id') id: number,
+    @request() req: Request,
+    @response() res: Response
+  ) {
+    return await new Promise((resolve, reject) => {
+      this.starwarsService
+        .getPeopleById(id)
+        .timeout(+process.env.TIME_OUT)
+        .subscribe(
+          r => {
+            if (r === undefined) {
+              this.loggerService.logAPITrace(req,res,HttpStatus.INTERNAL_SERVER_ERROR);
+              this.metricsService.logAPIMetrics(req,res,HttpStatus.INTERNAL_SERVER_ERROR);
+              reject(r);
+            } else {
+              this.loggerService.logAPITrace(req, res, HttpStatus.OK);
+              this.metricsService.logAPIMetrics(req, res, HttpStatus.OK);
+              resolve(r);
+            }
+          },
+          err => {
+            const error: HttpError = <HttpError>err;
+            const resp = new ErrorResponseBuilder()
+              .setTitle(error.name)
+              .setStatus(HttpStatus.NOT_FOUND)
+              .setDetail(error.stack)
+              .setMessage(error.message)
+              .setSource(req.url)
+              .build();
+            this.loggerService.logAPITrace(
+              req,
+              res,
+              HttpStatus.NOT_FOUND,
+              error
+            );
+            this.metricsService.logAPIMetrics(req, res, HttpStatus.NOT_FOUND);
+            reject(resp);
+          }
+        );
+    });
   }
-
 }
 export default StarwarsController;
