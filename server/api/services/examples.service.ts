@@ -49,7 +49,7 @@ class ExamplesService implements IExample {
 
     const url_options = {
       method: 'GET',
-      uri: 'http://jsonplaceholder.typicode.com/posts/' + id,
+      uri: `${process.env.JSON_PLACEHOLDER_BASE_URL}/posts/` + id,
       resolveWithFullResponse: true,
       json: true,
       time: true,

@@ -75,7 +75,7 @@ class HystrixDemoService implements IHystrixDemo {
         const postTimeOut = 500;
         const url_options = {
             method: 'GET',
-            uri: 'http://jsonplaceholder.typicode.com/posts/',
+            uri: `${process.env.JSON_PLACEHOLDER_BASE_URL}/posts/`,
             resolveWithFullResponse: true,
             json: true,
             time: true,

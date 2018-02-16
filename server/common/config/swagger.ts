@@ -47,10 +47,7 @@ export const swaggerify = (app: express.Application) => {
       app.use(middleware.validateRequest());
       // Error handler to display the validation error as HTML
       app.use((err, req, res, next) => {
-        res.status(err.status);
-        res.send(
-          '<h1>' + err.status + ' Error</h1>' + '<pre>' + err.message + '</pre>'
-        );
+        res.status(err.status).send(err);
       });
     }
   );

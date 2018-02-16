@@ -47,6 +47,7 @@ Table of contents
   
 ## Design Principles
 * Use best of breed modules to create a production ready microservice framework
+* Based on the 12-factor app principles
 * No custom code or wrappers so that any developer can modify/replace any of the modules or implementation
 * Design patterns for implementation that can be used as a reference
 * Modular , replacable and plug and play code
@@ -60,7 +61,7 @@ Table of contents
 * GraphQL based on Apollo with JWT security and data loader
 * GraphQL mock resolvers (optional) during development - graphql-tools
 * REST APIs - using Inversify Controller
-* Externalized Configuration - DotEnv
+* Externalized Configuration - DotEnv (Settings, Env specific API URLs)
 * Tests - Jest , SuperTest , GraphQL Tester. Infrastructure for automated unit and integration tests
 * Code Coverage - Istanbul
 * Code Quality - tslint
@@ -329,8 +330,9 @@ npm itest:run
 * Point you're browser to [http://localhost:3000](http://localhost:3000). 
 * Invoke the example REST endpoints directly or via swagger `http://localhost:3000/swagger`
 * Invoke the prometheus metrics using the endpoint `curl http://localhost:3000/metrics`
-* Access in-browser IDE for graphQL `http://localhost:3000/graphiql`
-* Access the graphQL playground app `http://localhost:3000/playground/`
+* Access in-browser IDE for graphQL `http://localhost:3000/graphiql`  
+* Access the graphQL playground app `http://localhost:3000/playground/` 
+* Access the health check api `curl http://localhost:3000/healthcheck`
 
 ### File Structure
 ```

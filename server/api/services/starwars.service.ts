@@ -29,7 +29,7 @@ class StarwarsService implements IStarwars {
         const loadedCharacter: AsyncSubject<People> = new AsyncSubject<People>();
         const url1_options = {
             method: 'GET',
-            uri: 'http://swapi.co/api/people/' + id,
+            uri: `${process.env.SWAPI_BASE_URL}/people/` + id,
             resolveWithFullResponse: true,
             json: true,
             time: true,
@@ -37,7 +37,7 @@ class StarwarsService implements IStarwars {
         };
         const url2_options = {
             method: 'GET',
-            uri: 'http://swapi.co/api/planets/' + id,
+            uri: `${process.env.SWAPI_BASE_URL}/planets/` + id,
             resolveWithFullResponse: true,
             json: true,
             time: true,

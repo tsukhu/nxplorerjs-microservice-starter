@@ -15,7 +15,7 @@ export const fetchPeopleWithPlanet = id => {
     StarwarsService.getPeopleById(id)
       .timeout(+process.env.TIME_OUT)
       .subscribe(
-        r => {
+        (r: any) => {
           resolve(r);
         },
         error => {
@@ -30,7 +30,7 @@ export const fetchPeopleWithPlanet = id => {
  * @param id people id
  */
 export const fetchPeople = id => {
-  const URI = 'http://swapi.co/api/people/' + id;
+  const URI = `${process.env.SWAPI_BASE_URL}/people/` + id;
   return fetch(URI).then(res => res.json());
 };
 
@@ -39,7 +39,7 @@ export const fetchPeople = id => {
  * @param id planet id
  */
 export const fetchPlanet = id => {
-  const URI = 'http://swapi.co/api/planets/' + id;
+  const URI = `${process.env.SWAPI_BASE_URL}/planets/` + id;
   return fetch(URI).then(res => res.json());
 };
 
@@ -48,6 +48,6 @@ export const fetchPlanet = id => {
  * @param id starship id
  */
 export const fetchStarship = id => {
-  const URI = 'http://swapi.co/api/starships/' + id;
+  const URI = `${process.env.SWAPI_BASE_URL}/starships/` + id;
   return fetch(URI).then(res => res.json());
 };
