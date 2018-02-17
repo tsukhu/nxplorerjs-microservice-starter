@@ -201,26 +201,17 @@ See REST API /examples/{id}
       - planet(id: Int): PlanetType
       - starship(id: Int): StarshipType
       - peopleList(keys: [Int]): [PersonType]
-
     - Sample Query Execution
-    
       ![Sample Query](screenshots/query_1.PNG)
-
     - Mutations
       - addExample(name: String!): ExampleType
       - login(email: String!,password: String!): UserType
-
     - Sample Mutation Execution
-    
     ![Sample Mutation](screenshots/mutation_1.PNG)
-
     - Subscriptions
       - exampleAdded (Will check whenever a new element is added via a mutation)
-
-    - Sample Subscription Execution
-    
+    - Sample Subscription Execution   
     ![Sample Subscription step 1](screenshots/subscription_1.PNG)
-    
     ![Sample Subscription step 2](screenshots/subscription_2.PNG)
 
 * VSCode Debug Launch Configuration (Preconfigured Debug Launcher added)
