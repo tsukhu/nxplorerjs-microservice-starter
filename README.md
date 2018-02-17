@@ -202,12 +202,13 @@ See REST API /examples/{id}
       - starship(id: Int): StarshipType
       - peopleList(keys: [Int]): [PersonType]
     - Sample Query Execution
+                                    
       ![Sample Query](screenshots/query_1.PNG)
     - Mutations
       - addExample(name: String!): ExampleType
       - login(email: String!,password: String!): UserType
     - Sample Mutation Execution
-    ![Sample Mutation](screenshots/mutation_1.PNG)
+     ![Sample Mutation](screenshots/mutation_1.PNG)
     - Subscriptions
       - exampleAdded (Will check whenever a new element is added via a mutation)
     - Sample Subscription Execution   
