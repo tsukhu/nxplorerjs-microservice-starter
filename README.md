@@ -207,19 +207,20 @@ See REST API /examples/{id}
   * Starwars APIs - people(id: <number>) , planet(id: <number>) , starship(id: <number>)
                       - peopleList(keys: [number]) 
 * List of Queries
-      - quoteOfTheDay: String
-      - random: Float
-      - examples: [ExampleType] <-- [**JWT Authentication. Please read the JWT Security section for details**](#jwt-security-graphql)
-      - example(id: Ind): ExampleType
-      - rollThreeDice: [Int]
-      - peopleWithPlanet(id: Int): PeopleWithPlanetType (Uses RxJS to combine results from 2 APIs)
-      - people(id: Int): PersonType
-      - planet(id: Int): PlanetType
-      - starship(id: Int): StarshipType
-      - peopleList(keys: [Int]): [PersonType]
+  * quoteOfTheDay: String
+  * random: Float
+  * examples: [ExampleType] <-- [**JWT Authentication. Please read the JWT Security section for details**](#jwt-security-graphql)
+  * example(id: Ind): ExampleType
+  * rollThreeDice: [Int]
+  * peopleWithPlanet(id: Int): PeopleWithPlanetType (Uses RxJS to combine results from 2 APIs)
+  * people(id: Int): PersonType
+  * planet(id: Int): PlanetType
+  * starship(id: Int): StarshipType
+  * peopleList(keys: [Int]): [PersonType]
+  * movie: MovieType
 
   * Sample Query Execution
-      ![Sample Query](screenshots/query_1.PNG)
+  ![Sample Query](screenshots/query_1.PNG)
 
   * Mutations
     * addExample(name: String!): ExampleType
