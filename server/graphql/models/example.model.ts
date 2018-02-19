@@ -15,4 +15,4 @@ type ExampleArrayType {
 
 
 
-export default () => [ExampleType, ExampleArrayType];
+export default [ExampleType, ExampleArrayType];
