@@ -78,4 +78,4 @@ type StarshipType {
 	url: String
 }`;
 
-export default () => [PlanetType, PeopleType, PeopleWithPlanetType, StarshipType];
+export default [PlanetType, PeopleType, PeopleWithPlanetType, StarshipType];

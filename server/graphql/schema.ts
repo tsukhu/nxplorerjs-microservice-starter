@@ -1,15 +1,13 @@
 import * as fetch from 'node-fetch';
 import { merge } from 'lodash';
-import PeopleType from './models/starwars.model';
-import PlanetType from './models/starwars.model';
-import StarshipType from './models/starwars.model';
-import PeopleWithPlanetType from './models/starwars.model';
-import ExampleType from './models/example.model';
-import ExampleArrayType from './models/example.model';
-import UserType from './models/user.model';
+import StarwarsTypes from './models/starwars.model';
+import ExampleTypes from './models/example.model';
+import UserTypes from './models/user.model';
+import MovieTypes from './models/movie.model';
 import ExampleResolver from './resolvers/example.resolver';
 import StarwarsResolver from './resolvers/starwars.resolver';
 import UserResolver from './resolvers/user.resolver';
+import MovieResolver from './resolvers/movie.resolver';
 import { makeExecutableSchema, addMockFunctionsToSchema } from 'graphql-tools';
 import { GraphQLSchema } from 'graphql/type/schema';
 import mocks from './mocks';
@@ -44,6 +42,7 @@ type RootQueryType {
     exampleMock: ExampleType
     examplesMock: [ExampleType] 
     examples: [ExampleType]
+    movie: MovieType
 }`;
 
 // GraphQL Schema Definitions
@@ -56,7 +55,12 @@ schema {
   `;
 
 // Merge all the resolvers
-const resolvers = merge(ExampleResolver, StarwarsResolver, UserResolver);
+const resolvers = merge(
+  ExampleResolver,
+  StarwarsResolver,
+  UserResolver,
+  MovieResolver
+);
 
 // Create GraphQL Schema with all the pieces in place
 export const setupSchema = (): GraphQLSchema => {
@@ -66,18 +70,18 @@ export const setupSchema = (): GraphQLSchema => {
       RootQueryType,
       RootMutationType,
       SubscriptionType,
-      PeopleType,
-      PlanetType,
-      PeopleWithPlanetType,
-      StarshipType,
-      ExampleType,
-      ExampleArrayType,
-      UserType
+      ...StarwarsTypes,
+      ...ExampleTypes,
+      ...UserTypes,
+      ...MovieTypes
     ],
     resolvers: resolvers
   });
 
-  if ( process.env.GRAPHQL_MOCK != undefined && process.env.GRAPHQL_MOCK === 'true') {
+  if (
+    process.env.GRAPHQL_MOCK != undefined &&
+    process.env.GRAPHQL_MOCK === 'true'
+  ) {
     // Add mocks, modifies schema in place
     // Preserve resolvers that are implemented
     addMockFunctionsToSchema({

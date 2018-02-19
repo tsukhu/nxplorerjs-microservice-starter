@@ -7,4 +7,4 @@ type UserType {
 }
 `;
 
-export default () => [UserType];
+export default [UserType];
