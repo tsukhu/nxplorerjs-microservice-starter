@@ -116,7 +116,7 @@ See REST API /examples/{id}
 
 * Response
 
-```json
+```text
     {
         name: "Luke Skywalker",
         height: "172",
@@ -191,7 +191,7 @@ See REST API /examples/{id}
 
 * Response
 
-```json
+```text
     {
         name: "Luke Skywalker",
         gender: "male",
