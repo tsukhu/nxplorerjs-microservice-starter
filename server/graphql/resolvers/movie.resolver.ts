@@ -23,7 +23,7 @@ export default {
   RootQueryType: {
     movie: (parent, args, context, info) => {
       return Promise.resolve(
-        request('https://api.graph.cool/simple/v1/movies', query).then(
+        request(`${process.env.GRAPH_COOL_API_BASE_URL}/movies`, query).then(
           (data: any) => {
             LOG.info(data.Movie);
             return data.Movie;

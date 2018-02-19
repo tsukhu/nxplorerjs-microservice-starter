@@ -1,5 +1,15 @@
 # nxplorerjs-microservice-starter
-[![Build Status](https://travis-ci.org/ERS-HCL/nxplorerjs-microservice-starter.svg?branch=master)](https://travis-ci.org/ERS-HCL/nxplorerjs-microservice-starter) [![tested with jest](https://img.shields.io/badge/tested_with-jest-99424f.svg)](https://github.com/facebook/jest) [![GitHub version](https://badge.fury.io/gh/ERS-HCL%2Fnxplorerjs-microservice-starter.svg)](https://badge.fury.io/gh/ERS-HCL%2Fnxplorerjs-microservice-starter) [![Dependency Status](https://david-dm.org/ERS-HCL/nxplorerjs-microservice-starter.svg)](https://david-dm.org/ERS-HCL/nxplorerjs-microservice-starter)
+
+[![Build Status](https://travis-ci.org/ERS-HCL/nxplorerjs-microservice-starter.svg?branch=master)]
+
+(https://travis-ci.org/ERS-HCL/nxplorerjs-microservice-starter) [![tested with jest](https://img.shields.io/badge/tested_with-jest-99424f.svg)]
+
+(https://github.com/facebook/jest) [![GitHub version](https://badge.fury.io/gh/ERS-HCL%2Fnxplorerjs-microservice-starter.svg)]
+
+(https://badge.fury.io/gh/ERS-HCL%2Fnxplorerjs-microservice-starter) [![Dependency Status]
+
+(https://david-dm.org/ERS-HCL/nxplorerjs-microservice-starter.svg)](https://david-dm.org/ERS-HCL/nxplorerjs-microservice-starter)
+
 ---
 ![nxplorer microservice starter](public/logo.png)
 
@@ -11,41 +21,42 @@ This project provides complete Node JS / Typescript based microservices template
 Table of contents
 =================
 
-  * [Design Principles](##design-principles)
-  * [Features](#features)
-  * [REST APIs](#rest-apis)
-  * [GraphQL APIs](#graphql)
-  * [Installation Prerequisites](#pre-requisites)
-  * [Installation](#install-it)
-  * [External Environment Configuration Details](#setup-external-environment)
-  * [Build Modes](#run-it)
-    * [Development](#run-in-development-mode)
-    * [Production](#run-in-production-mode)
-    * [Debug in VSCode](#run-in-vs-code-debug-mode)
-  * [Tests](#runs-tests-with-code-coverage)
-    * [Unit Tests](#run-unit-tests)
-    * [Integration Tests](#run-integration-tests) 
-  * [Run It](#try-it)
-  * [File Structure](#file-structure)
-  * [Passing UUID for requests](#log-with-uuid)
-  * [GraphQL Mocks](#graphql-mocks)
-  * [Docker Build](#build-docker-image)
-  * [Kubernetes Deployment](#k8s-deployment)
-  * [Debug Dashboard](#using-node-dashboard-view-development-only)
-  * [Security](#security)
-    * [JWT GraphQL APIs](#jwt-security-graphql)
-    * [JWT REST APIs](#jwt-security-rest-apis)
-      * [Role Based Access](#rbac-test)
-    * [CSRF](#csrf-security)
-  * [Hystrix Support](#hystrix-circuit-breaker-support)
-  * [Sonar Integration](#integrate-with-sonarqube-for-continous-code-quality)
-  * [Load Testing](#load-testing)
-  * [Future Roadmap](#future-roadmap)
-  * [FAQ](#faq)
-  * [License](#license)
-    
-  
+* [Design Principles](#design-principles)
+* [Features](#features)
+* [REST APIs](#rest-apis)
+* [GraphQL APIs](#graphql)
+* [GraphQL Client APIs](#graphql-client-apis)
+* [Installation Prerequisites](#pre-requisites)
+* [Installation](#install-it)
+* [External Environment Configuration Details](#setup-external-environment)
+* [Build Modes](#run-it)
+  * [Development](#run-in-development-mode)
+  * [Production](#run-in-production-mode)
+  * [Debug in VSCode](#run-in-vs-code-debug-mode)
+* [Tests](#runs-tests-with-code-coverage)
+  * [Unit Tests](#run-unit-tests)
+  * [Integration Tests](#run-integration-tests) 
+* [Run It](#try-it)
+* [File Structure](#file-structure)
+* [Passing UUID for requests](#log-with-uuid)
+* [GraphQL Mocks](#graphql-mocks)
+* [Docker Build](#build-docker-image)
+* [Kubernetes Deployment](#k8s-deployment)
+* [Debug Dashboard](#using-node-dashboard-view-development-only)
+* [Security](#security)
+  * [JWT GraphQL APIs](#jwt-security-graphql)
+  * [JWT REST APIs](#jwt-security-rest-apis)
+    * [Role Based Access](#rbac-test)
+  * [CSRF](#csrf-security)
+* [Hystrix Support](#hystrix-circuit-breaker-support)
+* [Sonar Integration](#integrate-with-sonarqube-for-continous-code-quality)
+* [Load Testing](#load-testing)
+* [Future Roadmap](#future-roadmap)
+* [FAQ](#faq)
+* [License](#license)
+
 ## Design Principles
+
 * Use best of breed modules to create a production ready microservice framework
 * Based on the 12-factor app principles
 * No custom code or wrappers so that any developer can modify/replace any of the modules or implementation
@@ -60,6 +71,7 @@ Table of contents
 * Swagger Enabled - Express swagger middleware / Swagger UI integration
 * GraphQL based on Apollo with JWT security and data loader
 * GraphQL mock resolvers (optional) during development - graphql-tools
+* GraphQL based client wrapper APIs - graphql-request
 * REST APIs - using Inversify Controller
 * Externalized Configuration - DotEnv (Settings, Env specific API URLs)
 * Tests - Jest , SuperTest , GraphQL Tester. Infrastructure for automated unit and integration tests
@@ -81,24 +93,30 @@ Table of contents
 * JWT Based API Security - jsonwebtoken, express-jwt
 * Now using the super fast pino logger for all logging needs
 * Additional performance time logging built in
+
 See REST API /examples/{id}
+
 ```json
 {"pid":3984,"hostname":"LP-507B9DA1D355","level":30,"time":1515813665734,"0":{"socket":5.656709999995655,"lookup":186.8375229999947,"connect":389.5646870000055,"response":594.8022639999981,"end":599.1270230000082},"v":1}
 ```
+
 ### REST APIs
-   - examples - Basic examples with a search by ID example from the jsonplaceholder API (/examples/:id)
-   - shop     - Example of how to use Reactive Extensions for API orchestration (FlatMap) (/shop/priceByOptionId/:id)
-   - starwars - Example of how to use Reactive Extensions for API orchestration (ForkJoin) (/starwars/people/:id)
-   - hystrix  - Example of how to use the circuit break pattern for APIs (/hystrix)
-   - Use swagger UI for the complete list of sample APIs
-   - metrics  - Prometheus based metrics added for all APIs (/metrics)
-   - API Partial JSON response support
+
+* examples - Basic examples with a search by ID example from the jsonplaceholder API (/examples/:id)
+* shop     - Example of how to use Reactive Extensions for API orchestration (FlatMap) (/shop/priceByOptionId/:id)
+* starwars - Example of how to use Reactive Extensions for API orchestration (ForkJoin) (/starwars/people/:id)
+* hystrix  - Example of how to use the circuit break pattern for APIs (/hystrix)
+* Use swagger UI for the complete list of sample APIs
+* metrics  - Prometheus based metrics added for all APIs (/metrics)
+* API Partial JSON response support
 
 ```bash
     curl http://localhost:3000/api/v1/starwars/people/1
 ```
-- Response
-```
+
+* Response
+
+```json
     {
         name: "Luke Skywalker",
         height: "172",
@@ -164,12 +182,16 @@ See REST API /examples/{id}
         url: "http://swapi.co/api/people/1/"
         }
 ```
+
 ---
+
 ```bash
     curl http://localhost:3000/api/v1/starwars/people/1?fields=name,gender,homeworld(gravity,population)
 ```
-- Response
-```
+
+* Response
+
+```json
     {
         name: "Luke Skywalker",
         gender: "male",
@@ -179,18 +201,20 @@ See REST API /examples/{id}
         }
     }
 ```
+
 ### GraphQL
-   - GraphQL support has been added based on the [apollo framework](https://github.com/apollographql) and a reference implementation (including the starwars apis from swapi.co)
+
+* GraphQL support has been added based on the [apollo framework](https://github.com/apollographql) and a reference implementation (including the starwars apis from swapi.co)
     ![GraphQL](screenshots/graphql.png)
-   - Access the graphql playground from http://localhost:3000/playground  
-   - Access the graphiql tool from http://localhost:3000/graphiql
-   - GraphQL API tracing (configurable)
-   - Dataloader for caching and batching
-   - Multiple samples added **Dataloader Enabled**
-      - RxJS API call - peopleWithPlanets(id : <number>)
-      - Starwars APIs - people(id: <number>) , planet(id: <number>) , starship(id: <number>)
+* Access the graphql playground from http://localhost:3000/playground  
+* Access the graphiql tool from http://localhost:3000/graphiql
+* GraphQL API tracing (configurable)
+* Dataloader for caching and batching
+* Multiple samples added **Dataloader Enabled**
+  * RxJS API call - peopleWithPlanets(id : <number>)
+  * Starwars APIs - people(id: <number>) , planet(id: <number>) , starship(id: <number>)
                       - peopleList(keys: [number]) 
-   - List of Queries
+* List of Queries
       - quoteOfTheDay: String
       - random: Float
       - examples: [ExampleType] <-- [**JWT Authentication. Please read the JWT Security section for details**](#jwt-security-graphql)
@@ -202,31 +226,28 @@ See REST API /examples/{id}
       - starship(id: Int): StarshipType
       - peopleList(keys: [Int]): [PersonType]
 
-    - Sample Query Execution
-    
+  * Sample Query Execution
       ![Sample Query](screenshots/query_1.PNG)
 
-    - Mutations
-      - addExample(name: String!): ExampleType
-      - login(email: String!,password: String!): UserType
+  * Mutations
+    * addExample(name: String!): ExampleType
+    * login(email: String!,password: String!): UserType
 
-    - Sample Mutation Execution
-    
+    * Sample Mutation Execution
     ![Sample Mutation](screenshots/mutation_1.PNG)
 
-    - Subscriptions
-      - exampleAdded (Will check whenever a new element is added via a mutation)
+    * Subscriptions
+      * exampleAdded (Will check whenever a new element is added via a mutation)
 
-    - Sample Subscription Execution
-    
+    * Sample Subscription Execution
     ![Sample Subscription step 1](screenshots/subscription_1.PNG)
-    
     ![Sample Subscription step 2](screenshots/subscription_2.PNG)
 
 * VSCode Debug Launch Configuration (Preconfigured Debug Launcher added)
 * Node Dashboard view added for telemetry during development process
 * Added NodeJS cluster mode (load balanced workers)
- - When you start the server it adds workers based on the number of CPUs
+  * When you start the server it adds workers based on the number of CPUs
+
 ```bash
 Master cluster setting up 4 workers...
 Worker 2828 is online
@@ -238,6 +259,56 @@ up and running in development @: LP-507B9DA1D355 on port: 3000
 up and running in development @: LP-507B9DA1D355 on port: 3000
 up and running in development @: LP-507B9DA1D355 on port: 3000
 ```
+
+## Graphql client apis
+
+* While we build GraphQL based servers, there might a need to get data from other downstream GraphQL based API servers.
+* As an example the graphqlcool/graphql-request module has been used to demonstrate this, using graphqlcool demo graphQL api `https://api.graph.cool/simple/v1/movies`
+
+* API spec
+
+```text
+query {
+  movie {
+    releaseDate
+    slug
+    actors {
+      name
+    }
+  }
+}
+```
+
+* API output
+
+```json
+{
+  "data": {
+    "movie": {
+      "releaseDate": "2010-08-28T20:00:00.000Z",
+      "slug": "inception",
+      "actors": [
+        {
+          "name": "Leonardo DiCaprio"
+        },
+        {
+          "name": "Ellen Page"
+        },
+        {
+          "name": "Tom Hardy"
+        },
+        {
+          "name": "Joseph Gordon-Levitt"
+        },
+        {
+          "name": "Marion Cotillard"
+        }
+      ]
+    }
+  }
+}
+```
+
 ## Pre-requisites
 
 Install npm and nodeJS
@@ -251,11 +322,13 @@ node version >= 6.x
 npm install -g nodejs-dashboard
 
 ```
+
 ## Install It
 
 ```bash
 npm install
 ```
+
 ## Setup *external environment*
 
 * Edit the **.{PROFILE}.env** file (where the PROFILE could be test, development , production)
@@ -280,31 +353,32 @@ npm install
 | GRAPHQL_TRACING | Enable/Disable GraphQL tracing (true or false) | true |
 | GRAPHQL_MOCK | Enable/Disable GraphQL Mock Unimplemented Interfaces(true or false) | true |
 
-
 ## Run It
-#### Run in *development* mode:
+
+### Run in *development* mode
 
 ```bash
 npm run dev
 ```
 
-#### Run in *production* mode:
+### Run in *production* mode
 
 ```bash
 npm run compile
 npm start
 ```
 
-#### Run in *VS Code debug* mode:
+#### Run in *VS Code debug* mode
 
 ```bash
 npm run compile
 Press F5
 ```
 
-#### Runs tests with code coverage:
+#### Runs tests with code coverage
 
-##### Run Unit Tests
+#### Run Unit Tests
+
 * Unit Tests are located in the same directory as the module or class being tested
 * All Unit tests need to have an extension *.spec.ts
 
@@ -312,15 +386,19 @@ Press F5
 npm run test
 ```
 
-##### Run Integration Tests
+#### Run Integration Tests
+
 * Integration tests are located in the same directory as the module or class being tested
 * All Unit tests need to have an extension *.itest.ts
 * First built the integration test . This will setup the integration test environment in the build
+
 ```bash
 npm run itest:build
 ```
+
 * Run the node server and run the integration tests against it
 * This waits for the server to start , runs the test and then terminate all processes on completion
+
 ```bash
 npm itest:run
 ```
@@ -335,7 +413,8 @@ npm itest:run
 * Access the health check api `curl http://localhost:3000/healthcheck`
 
 ### File Structure
-```
+
+```text
 ├───public                      * Landing page for nxplorer server
 ├───screenshots                 * Sample screenshots
 └───server                      * Server configuration and apis
@@ -387,12 +466,17 @@ npm itest:run
 ```
 
 ### Log with UUID
+
 * A sample implementation of UUID propogation has been added. This depends on a cookie 'UUID' to be set in the request object. The [LogService](server/common/services/log.service.ts) will add the uuid to all logs it generates.
+
 * For example if 'UUID' is set to xxxx-dddd-ssss-wwww-ssss then calling the /shop/products API will produce
+
 ```json
 {"pid":13492,"hostname":"LP-507B9DA1D355","level":30,"time":1515859200496,"uuid":"xxxx-dddd-ssss-wwww-ssss","fullUrl":"http://localhost:3000/api/v1/shop/products","statusCode":200,"responseTime":"1.187","v":1}
 ```
+
 ### GraphQL Mocks
+
 * As part of TDD we may need to mock the graphql responses till we are able to implement the resolvers
 * The infrastructure is setup to add mocks only for the resolvers that are currently not implemented. Hence once the implementation is available the actual resolvers take over. Also incase there is a resolvers execution failure , then this will fall back on the mocked response. This feature must be used only during development, hence a check has been added to disable this feature in 'production' builds.
 * To support that 
@@ -400,15 +484,17 @@ npm itest:run
   * Define the mock resolvers in the [mocks/index.ts](server/graphql/mocks/index.ts) file
 * As a sample there are queries added examplesMock, peopleMock
 * Sample output is given below
+
 ![Sample Mock output](screenshots/graphql_mock.PNG)
-  
+
 #### Build Docker image
 
 ```bash
 ./build-docker.sh
 ```
 
-#### k8s deployment 
+#### k8s deployment
+
 * Helm chart based deployment
 
 ```bash
@@ -448,71 +534,91 @@ Express Microservice is deployed at  http://192.168.99.100:30316/
 ```
 
 #### Using node dashboard view (Development Only)
+
 * To use the node dashboard view
 
 ```bash
 npm run compile
 npm run dash
 ```
+
 * This will start up the application with the node dashboard attached providing details of the memory , cpu and logs
+
 #### Security
+
 * JWT based security has been implemented using [sample JWT private and public keys](https://gist.github.com/ygotthilf/baa58da5c3dd1f69fae9)
 * Both the REST APIs and GraphQL have sample implementations added.
 * The authentication middleware code can be viewed [here](server/common/middleware/auth-middleware.ts)
+
 #### JWT Security GraphQL
+
 * A demo implementation of JWT based security has enabled for one query "examples". Given below are the steps to test it out.
 * If the JWT Security is enabled (environment variable JWT_AUTH is true) , we need to use the login mutation API to get the sample JWT Token (currently set at an expiry of 1 hour)
 * Step 1 - use the login mutation to get the jwt token for a valid user. For demo purposes any email and password string can be provided.
+
 ![Login Mutation](screenshots/jwt_login_mutation.PNG) 
+
 * Step 2 - Verify if "examples" works without Authentication. It will give an error (Note: error handling needs to be improved but here we are only looking at the concept)
+
 ![UnSecure Query](screenshots/jwt_unauthenticated.PNG)
 * Step 3 - Set the Authorization Header with the Bearer Token before executiong the "examples" query.
+
 ![Secure Query](screenshots/jwt_authenticated.PNG)
 
 #### JWT Security REST APIs
 
 * If the JWT Security is enabled , we need to use the /login API to get the sample JWT Token (currently set at an expiry of 1 hour)
+
 ```bash
 curl -X POST "http://localhost:3000/api/v1/login" -H "accept: application/json" -H "Content-Type: application/json" -d "{ \"email\": \"test@gmail.com\", \"password\": \"pwd\", \"role\": \"admin\"}"
 ```
+
 * The sample output . Note the JWT token is the value of the property **idToken**
+
 ```json
 {
   "idToken": "eyJhbGciOiJSUzI1NiIsInR5cCI6IkpXVCJ9.eyJyb2xlIjoiYWRtaW4iLCJpYXQiOjE1MTQ4NjQ3ODMsImV4cCI6MTUxNDg2ODM4Mywic3ViIjoidGVzdEBnbWFpbC5jb20ifQ.hAEa6AL1Kxxxxxxx",
   "expiresIn": "1h"
 }
 ```
+
 * The api/v1/examples APIs a valid JWT token must be passed in all the queries in the ‘Authorization’ header. Note this is done just as an example. You can easily enable addition endpoints similarly.
-    * Please see the [examples controller](server/api/controllers/examples/controller.ts)
+  * Please see the [examples controller](server/api/controllers/examples/controller.ts)
     ```typescript
     @controller('/examples', authMiddleware(<User>{ role: 'admin'}))
     ```
-    * The function [authMiddleware](server/common/middleware/auth-middleware.ts) takes care of validating the JWT token passed in the header.
-    * This can be extended to support role based access as well and the provision for that is added.
-    * Note: as a demo sample public and private keys have been provided. Ideally these are maintained externally in a real world scenario JWKS (JSON Web Key Set) endpoints 
+  * The function [authMiddleware](server/common/middleware/auth-middleware.ts) takes care of validating the JWT token passed in the header.
+  * This can be extended to support role based access as well and the provision for that is added.
+  * Note: as a demo sample public and private keys have been provided. Ideally these are maintained externally in a real world scenario JWKS (JSON Web Key Set) endpoints 
 * The following syntax must be used in the ‘Authorization’ header :
     Bearer xxxxxx.yyyyyyy.zzzzzz
 * Testing using the [swagger ui]/(http://localhost:3000/swagger)
     * Click on the ‘Authorize’ button and set the Bearer token as mentioned above
     * Now all the /examples related APIs will work
+
 ##### RBAC Test 
+
 * If the JWT Security is enabled and we use the /login API to get the sample JWT Token but with role as "guest" instead of "admin"
+
 ```bash
 curl -X POST "http://localhost:3000/api/v1/login" -H "accept: application/json" -H "Content-Type: application/json" -d "{ \"email\": \"test@gmail.com\", \"password\": \"pwd\", \"role\": \"guest\"}"
 ```
+
 * On setting the Bearer token in the ‘Authorization’ header for subsequent calls to any of the /examples APIs will result in a role based authorization failure
 
 ![RBAC](screenshots/rbac1.PNG)
 
 #### CSRF Security
+
 * CSRF Security has been enabled in the **production** mode
 * All POST APIs will require to read the cookie 'XSRF-TOKEN' set in the browser and then pass it in the response head with either of the following keys
-   * req.headers['csrf-token'] - the CSRF-Token HTTP request header.
-   * req.headers['xsrf-token'] - the XSRF-Token HTTP request header.
-   * req.headers['x-csrf-token'] - the X-CSRF-Token HTTP request header.
-   * req.headers['x-xsrf-token'] - the X-XSRF-Token HTTP request header.
+  * req.headers['csrf-token'] - the CSRF-Token HTTP request header.
+  * req.headers['xsrf-token'] - the XSRF-Token HTTP request header.
+  * req.headers['x-csrf-token'] - the X-CSRF-Token HTTP request header.
+  * req.headers['x-xsrf-token'] - the X-XSRF-Token HTTP request header.
 
 #### Hystrix Circuit Breaker Support
+
 * Circuit breaker support has been added to the project and uses the hystrix compliant module [brakes](https://github.com/awolden/brakes)
 * Streaming support has been disabled by default for Hystrix. 
 * Enable it by setting the STREAM_HYSTRIX property to "STREAM_HYSTRIX=true" in the [.env](.env) file
@@ -525,30 +631,40 @@ npm run compile
 docker-compose build
 docker-compose up
 ```
+
 * On Docker set up the port forwarding for 3000 and 8080
 
 ![port forwarding](screenshots/port-forwarding.PNG)
+
 * Access the Hystrix dashboard at localhost:8080/hystrix and set the stream location to `localhost:3001/hystrix.stream`
 * Execute the samples under /api/v1/hystrix and view the hystrix stream results on the dashboard
 
 ![hystrix stream](screenshots/Hystrix.PNG)
-  
+
 ### integrate with SonarQube (for continous code quality)
+
 Assuming you have SonarQube 5.5.6 (LTS) installed
+
 * Setup SonarQube with the [Sonar Typescript plugin](https://github.com/Pablissimo/SonarTsPlugin#installation) and the Generic Test Coverage plugin https://docs.sonarqube.org/display/PLUG/Generic+Test+Coverage
 * Install sonar-scanner globally (`npm install --global sonar-scanner`)
 * Update [`sonar-project.properties`](sonar-project.properties) file for the property `sonar.host.url` to point to your SonarQube server. By default this assumes that the SonarQube server is running locally using the default port
 * Run the unit tests
+
 ```bash
 npm run test
 ```
+
 * The test results collected in the results folder in the sonar compatible format
 * Push results to SonarQube
+
 ```bash
 npm run sonar-scanner
-``` 
+```
+
 * If working with SonarQube 6.x it supports [Generic Test Data](https://docs.sonarqube.org/display/SONAR/Generic+Test+Data)
+
 Modify the [package.json](package.json) to set the appropriate version of the sonarQube
+
 ```json
 jestSonar": {
     "reportPath": "reports",
@@ -557,6 +673,7 @@ jestSonar": {
     "sonar56x": true
 }
 ```
+
 Note: for Sonar 6.x turn sonar56x to “false” and that will generate the test report that is using the sonar 6 schema.
 
 ### Load Testing
@@ -564,28 +681,36 @@ Note: for Sonar 6.x turn sonar56x to “false” and that will generate the test
 * [loadtest](https://www.npmjs.com/package/loadtest) is an excellent tool for loadtesting
 * Steps to use it
 * Install it as a global npm module
+
 ```bash
 npm install -g loadtest
-``` 
+```
+
 * Start the nxplorerjs-microservice
+
 ```bash
 npm run start
 ```
+
 * Run the load test against the production build. Given below is one example
+
 ```bash
 loadtest http://localhost:3000/api/v1/examples/1 -t 20 -c 20
 ```
 
 ### Future RoadMap
-* Authentication using JWT
+
+* Add additional health checks
 
 ### FAQ
 
 * tslint error appearing in VSCode IDE for node_modules
+
 ```json
 // Configure glob patterns of file paths to exclude from linting
 "tslint.exclude": "**/node_modules/**/*.ts"
 ```
+
 ### Disclaimer
 
 * This is not an official HCL ERS product.
@@ -593,4 +718,3 @@ loadtest http://localhost:3000/api/v1/examples/1 -t 20 -c 20
 ### License
 
 MIT
-
