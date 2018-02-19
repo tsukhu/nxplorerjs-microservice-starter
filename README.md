@@ -220,7 +220,8 @@ See REST API /examples/{id}
   * movie: MovieType
 
   * Sample Query Execution
-  ![Sample Query](screenshots/query_1.PNG)
+
+![Sample Query](screenshots/query_1.PNG)
 
   * Mutations
     * addExample(name: String!): ExampleType
