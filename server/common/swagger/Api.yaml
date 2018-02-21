@@ -7,6 +7,16 @@ basePath: /api/v1
 tags:
   - name: Examples
     description: Simple example endpoints
+  - name: Login
+    description: Security Login for JWT Generation
+  - name: Mock API
+    description: Cars / Drivers mock API using swagger middleware (needs API_MOCK=true)
+  - name: Products
+    description: Products,Product Options, Price,Inventory API sample
+  - name: Starwars
+    description: SWAPI API orchestration sample
+  - name: Hystrix Demo
+    description: Hystrix API demo using Brakes framework
 consumes:
   - application/json
 produces:
@@ -32,6 +42,61 @@ securityDefinitions:
   name: Authorization
   in: header
 definitions:
+  car:
+    required:
+      - model
+      - type
+    properties:
+      model:
+        type: string
+        minLength: 2
+        pattern: "^[a-zA-Z0-9- ]+$"
+      maker:
+        type: string
+        minLength: 2
+        pattern: "^[a-zA-Z0-9- ]+$"
+      registration:
+        type: string
+      dor:
+        type: string
+        format: 'date'
+      type:
+        type: string
+        enum: [hatchback,sedan,limo]
+      driver:
+        $ref: "#/definitions/driver"
+      tags:
+        type: array
+        uniqueItems: true
+        items:
+          type: string
+          minLength: 1
+  driver:
+    required:
+      - name
+    properties:
+      name:
+        type: string
+        minLength: 5
+      address:
+        $ref: "#/definitions/address"
+  address:
+    properties:
+      street:
+        type: string
+        minLength: 1
+      city:
+        type: string
+        minLength: 1
+      state:
+        type: string
+        minLength: 2
+        maxLength: 2
+        pattern: "^[A-Z]+$"
+      zipcode:
+        type: integer
+        minimum: 10000
+        maximum: 99999
   ExampleBody:
     type: object
     title: example
@@ -68,7 +133,270 @@ definitions:
         type: string
       expiresIn:
         type: string
+parameters:
+  carRegistration:
+    name: carRegistration
+    in: path
+    description: Car registration number
+    required: true
+    type: string
+
 paths:
+  /mock/cars:
+    get:
+      tags:
+        - Mock API
+      description: Returns all cars, optionally filtered by one or more criteria
+      operationId: findCars
+      parameters: &carFilters
+        - name: tags
+          in: query
+          description: Filters cars by one or more tags
+          required: false
+          type: array
+          items:
+            type: string
+          uniqueItems: true
+          collectionFormat: csv
+        - name: type
+          in: query
+          description: Filters cars by type (hatchback, sedan, limo)
+          required: false
+          type: string
+          enum: [hatchback, sedan, limo]
+        - name: maker
+          in: query
+          description: Filters cars by maker name
+          required: false
+          type: string
+        - name: dor
+          in: query
+          description: Filters cars by date of registration
+          required: false
+          type: string
+          format: date
+        - name: driver.address.city
+          in: query
+          description: Filters cars by driver city
+          required: false
+          type: string
+        - name: driver.address.state
+          in: query
+          description: Filters cars by driver state
+          required: false
+          type: string
+        - name: driver.address.zipcode
+          in: query
+          description: Filters cars by driver zip code
+          required: false
+          type: integer
+      responses:
+        default:
+          description: Returns the matching cars
+          schema:
+            type: array
+            items:
+              $ref: "#/definitions/car"
+          headers:
+            last-modified:
+              type: string
+              description: The date/time that a car was last modified
+
+    delete:
+      tags:
+        - Mock API
+      description: Deletes all cars, optionally filtered by one or more criteria
+      operationId: deleteCars
+      parameters: *carFilters
+      responses:
+        default:
+          description: Returns the cars that were deleted
+          schema:
+            type: array
+            items:
+              $ref: "#/definitions/car"
+
+    post:
+      tags:
+        - Mock API      
+      description: Creates a new car in the fleet
+      operationId: addCar
+      parameters:
+        - name: car
+          in: body
+          description: The car to add to the fleet
+          required: true
+          schema:
+            $ref: "#/definitions/car"
+      responses:
+        201:
+          description: Returns the newly-added car
+          schema:
+            $ref: "#/definitions/car"
+          headers:
+            Location:
+              type: string
+              description: The URL of the newly-added car
+
+  /mock/cars/{carRegistration}:
+    parameters:
+      - $ref: "#/parameters/carRegistration"
+
+    get:
+      tags:
+        - Mock API
+      description: Returns a car by registration number
+      operationId: findCarByRegistration
+      responses:
+        default:
+          description: Returns the car data
+          schema:
+            $ref: "#/definitions/car"
+          headers:
+            last-modified:
+              type: string
+              description: The date/time that the car was last modified
+
+    delete:
+      tags:
+        - Mock API
+      description: Deletes a single car based on the registration number supplied
+      operationId: deleteCar
+      responses:
+        default:
+          description: Returns the car that was deleted
+          schema:
+            $ref: "#/definitions/car"
+
+    patch:
+      tags:
+        - Mock API
+      description: Updates a car by registration number supplied
+      parameters:
+        - name: car
+          in: body
+          description: The updated car info
+          required: true
+          schema:
+            $ref: "#/definitions/car"
+      responses:
+        default:
+          description: Returns the updated car data
+          schema:
+            $ref: "#/definitions/car"
+  
+  /mock/cars/{carRegistration}/photos:
+    parameters:
+      - $ref: "#/parameters/carRegistration"
+
+    post:
+      tags:
+        - Mock API
+      description: Upload a new car photo
+      operationId: addCarPhoto
+      consumes:
+        - multipart/form-data
+      parameters:
+        - name: id
+          in: formData
+          description: The car photo ID (generated automatically)
+          type: integer
+          format: int32
+          minimum: 1
+        - name: label
+          in: formData
+          description: A label for the photo
+          required: true
+          type: string
+          minLength: 1
+        - name: description
+          in: formData
+          description: An optional description of the photo
+          type: string
+        - name: photo
+          in: formData
+          description: The car photo
+          required: true
+          type: file
+          minLength: 1
+          maxLength: 5000000  # ~5MB
+      responses:
+        default:
+          description: Returns the photo information
+          schema:
+            properties:
+              id:
+                type: integer
+                format: int32
+                description: The auto-generated photo ID
+              label:
+                type: string
+              description:
+                type: string
+              photo:
+                type: object
+                description: Information about the photo (size, file name, etc.)
+          headers:
+            Location:
+              type: string
+              description: The URL of the newly-added photo
+    get:
+      tags:
+        - Mock API
+      description: Get a list of the photos for a car
+      responses:
+        200:
+          description: Returns the list of photos
+          schema:
+            type: array
+            items:
+              properties:
+                id:
+                  type: integer
+                  format: int32
+                  description: The auto-generated photo ID
+                label:
+                  type: string
+                description:
+                  type: string
+                photo:
+                  type: object
+                  description: Information about the photo (size, file name, etc.)
+
+  /mock/cars/{carRegistration}/photos/{id}:
+    parameters:
+      - $ref: "#/parameters/carRegistration"
+      - name: id
+        in: path
+        description: The ID of the photo
+        required: true
+        type: integer
+        format: int32
+    get:
+      tags:
+        - Mock API
+      description: Gets a car photo
+      operationId: getCarPhoto
+      produces:
+        - image/jpeg
+        - image/gif
+        - image/png
+        - image/bmp
+      responses:
+        default:
+          description: Returns the car photo
+          schema:
+            type: file
+
+    delete:
+      tags:
+        - Mock API
+      description: Deletes a car photo
+      operationId: deleteCarPhoto
+      responses:
+        default:
+          description: The photo was deleted successfully
+
   /login:
     post:
       tags:
@@ -280,7 +608,7 @@ paths:
   /hystrix-demo/posts:
       get:
         tags:
-          - Hystrix Demo for Posts API
+          - Hystrix Demo
         parameters:
           - name: timeOut
             in: query
