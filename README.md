@@ -109,7 +109,7 @@ See REST API /examples/{id}
 
 * Response
 
-```text
+```bash
     {
         name: "Luke Skywalker",
         height: "172",
@@ -184,7 +184,7 @@ See REST API /examples/{id}
 
 * Response
 
-```text
+```bash
     {
         name: "Luke Skywalker",
         gender: "male",
@@ -264,7 +264,7 @@ up and running in development @: LP-507B9DA1D355 on port: 3000
 
 * API spec
 
-```text
+```bash
 query {
   movie {
     releaseDate
@@ -412,7 +412,7 @@ npm itest:run
 
 ### File Structure
 
-```text
+```bash
 ├───public                      * Landing page for nxplorer server
 ├───screenshots                 * Sample screenshots
 └───server                      * Server configuration and apis
