@@ -32,6 +32,7 @@ Table of contents
 * [File Structure](#file-structure)
 * [Passing UUID for requests](#log-with-uuid)
 * [GraphQL Mocks](#graphql-mocks)
+* [REST API Mocks](#restapi-mocks)
 * [Docker Build](#build-docker-image)
 * [Kubernetes Deployment](#k8s-deployment)
 * [Debug Dashboard](#using-node-dashboard-view-development-only)
@@ -347,7 +348,8 @@ npm install
 | GRAPHQL_PLAYGROUND | Enable/Disable GraphQL Playground (true or false) | true |
 | GRAPHQL_IQL | Enable/Disable GraphQL IQL Explorer (true or false) | true |
 | GRAPHQL_TRACING | Enable/Disable GraphQL tracing (true or false) | true |
-| GRAPHQL_MOCK | Enable/Disable GraphQL Mock Unimplemented Interfaces(true or false) | true |
+| GRAPHQL_MOCK | Enable/Disable GraphQL Mock for unimplemented Interfaces(true or false) | true |
+| API_MOCK | Enable/Disable REST API Mock unimplemented routes(true or false) | true |
 
 ## Run It
 
@@ -482,6 +484,15 @@ npm itest:run
 * Sample output is given below
 
 ![Sample Mock output](screenshots/graphql_mock.PNG)
+
+### RestAPI Mocks
+
+* Enable API_MOCK=true in the `.<Profile>.env` file . Note: For security this will not work in production mode even if API_MOCK is set to true
+* The `swagger-express-middleware` module provides out of the box support for [automated mock generation](https://github.com/BigstickCarpet/swagger-express-middleware/blob/master/docs/middleware/mock.md)
+* Steps
+  * Define the API swagger specification in [Api.yaml file](server/common/swagger/Api.yaml)
+  * If there is no implementation available in the express routes, the middleware creates mocks for those apis
+* One the swagger ui provided by nxplorer and refer to the apis tagged `Mock API` and with prefix /mock.The sample has two main entities - cars and drivers. You can search , perform CRUD operations as well as upload and download images.
 
 #### Build Docker image
 

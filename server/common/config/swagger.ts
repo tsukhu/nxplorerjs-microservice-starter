@@ -45,6 +45,12 @@ export const swaggerify = (app: express.Application) => {
       }
 
       app.use(middleware.validateRequest());
+
+      // Add mock support for REST APIs if configuration is enabled for the same
+      if (process.env.NODE_ENV !== 'production' && process.env.API_MOCK === 'true') {
+        app.use(middleware.mock(app));
+      }
+
       // Error handler to display the validation error as HTML
       app.use((err, req, res, next) => {
         res.status(err.status).send(err);
