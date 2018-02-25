@@ -17,14 +17,16 @@ describe('Example Service Tests', () => {
     beforeEach(() => {
         exampleService = container.get<IExample>(SERVICE_IDENTIFIER.EXAMPLE);
     });
-    it('Get Example array', () => {
+    it('Get All elements in the example array', () => {
         return exampleService
         .all()
         .then(
         result => {
-          expect(result.length).toBeGreaterThanOrEqual(2);
+            console.log(result);
+          expect(result.length).toEqual(2);
         });
     });
+
 
     it('POST Test', () => {
        const expectedName = 'Hello World';
