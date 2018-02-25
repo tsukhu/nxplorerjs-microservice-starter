@@ -4,41 +4,41 @@ import container from '../../common/config/ioc_config';
 import SERVICE_IDENTIFIER from '../../common/constants/identifiers';
 import IExample from '../../api/interfaces/iexample';
 import ILogger from '../../common/interfaces/ilogger';
-
+import '../../common/env';
 
 let id = 0;
 const examples: Example[] = [
-    { id: id++, name: 'example 0' },
-    { id: id++, name: 'example 1' }
-  ];
+  { id: id++, name: 'example 0' },
+  { id: id++, name: 'example 1' }
+];
 
 describe('Example Service Tests', () => {
-    let exampleService: IExample;
-    beforeEach(() => {
-        exampleService = container.get<IExample>(SERVICE_IDENTIFIER.EXAMPLE);
-    });
-    it('Get All elements in the example array', () => {
-        return exampleService
-        .all()
-        .then(
-        result => {
-            console.log(result);
-          expect(result.length).toEqual(2);
-        });
-    });
+  let exampleService: IExample;
+  beforeEach(() => {
+    exampleService = container.get<IExample>(SERVICE_IDENTIFIER.EXAMPLE);
+  });
 
-
-    it('POST Test', () => {
-       const expectedName = 'Hello World';
-       return exampleService.create(expectedName)
-        .then(
-            result => {
-                expect(result.name).toEqual(expectedName);
-                return exampleService.byId(2).then ( data =>
-                    expect(data.name).toEqual(expectedName)
-                );
-            }
-        );
+  it('Get All elements in the example array', () => {
+    return exampleService.all().then(result => {
+      console.log(result);
+      expect(result.length).toEqual(2);
     });
+  });
 
+  it('should return userId of 1 for byPostsByID call', done => {
+    const obs = exampleService.byPostsByID(1).subscribe(result => {
+      expect(result.data.userId).toEqual(1);
+      done();
+    });
+  });
+
+  it('POST Test', () => {
+    const expectedName = 'Hello World';
+    return exampleService.create(expectedName).then(result => {
+      expect(result.name).toEqual(expectedName);
+      return exampleService
+        .byId(2)
+        .then(data => expect(data.name).toEqual(expectedName));
+    });
+  });
 });
