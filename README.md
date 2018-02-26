@@ -56,6 +56,7 @@ Table of contents
 * Design patterns for implementation that can be used as a reference
 * Modular , replacable and plug and play code
 * Provide a starter for both the business APIs and microservice platform development.
+* DevOps ready with code quality, unit & integration tests, deployment automated.
 
 ## Features
 
