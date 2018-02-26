@@ -16,7 +16,7 @@
     "tslint": "tslint",
     "wait-port": "wait-port",
     "sonar-scanner": "sonar-scanner",
-    "itest:build": "cross-env NODE_ENV=test node build.js && backpack build",
+    "itest:build": "cross-env NODE_ENV=test node build.js && cross-env NODE_ENV=test backpack build",
     "itest:run": "concurrent --kill-others --success first \"cd build && node main\" \"wait-port localhost:3000 && jest --forceExit --config itest.config.json\""
   },
   "jestSonar": {

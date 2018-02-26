@@ -6,11 +6,16 @@ node_js:
   - "lts/carbon"
 jobs:
   include:
-    - stage: test
+    - stage: unit-test
       script:
         - npm install
         - npm run compile
         - npm run test
+    - stage: unit-itest
+      script:
+        - npm install
+        - npm run itest:build
+        - npm run itest:run
     - stage: package
       script:
         - npm install
