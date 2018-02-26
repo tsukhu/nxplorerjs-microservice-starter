@@ -11,7 +11,7 @@ jobs:
         - npm install
         - npm run compile
         - npm run test
-    - stage: unit-itest
+    - stage: itest
       script:
         - npm install
         - npm run itest:build
