@@ -86,7 +86,7 @@ describe('Example Resolver Tests', () => {
         { jar: true }
       )
       .then(res => {
-        expect(res.data.example).toBe(undefined);
+        expect(res.data.example).toBeNull();
         done();
       })
       .catch(err => {
