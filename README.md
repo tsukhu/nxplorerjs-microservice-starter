@@ -41,6 +41,7 @@ Table of contents
   * [JWT REST APIs](#jwt-security-rest-apis)
     * [Role Based Access](#rbac-test)
   * [CSRF](#csrf-security)
+  * [Compression](#compression)
 * [Hystrix Support](#hystrix-circuit-breaker-support)
 * [Sonar Integration](#integrate-with-sonarqube-for-continous-code-quality)
 * [Load Testing](#load-testing)
@@ -623,6 +624,12 @@ curl -X POST "http://localhost:3000/api/v1/login" -H "accept: application/json" 
   * req.headers['xsrf-token'] - the XSRF-Token HTTP request header.
   * req.headers['x-csrf-token'] - the X-CSRF-Token HTTP request header.
   * req.headers['x-xsrf-token'] - the X-XSRF-Token HTTP request header.
+
+#### Compression
+
+* Compression is enabled by default on the server and is based on the [compression module](https://www.npmjs.com/package/compression)
+* The configuration details are present in [the compression.ts file](server/common/config/compression.ts)
+* In case there is a need to get responses without compression pass the key `x-no-compression` in the request header
 
 #### Hystrix Circuit Breaker Support
 

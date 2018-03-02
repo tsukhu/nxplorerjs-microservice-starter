@@ -5,3 +5,4 @@ export { configLogging } from './logging';
 export { configMetrics } from './metrics';
 export { configGraphQL } from './graphql';
 export { configHealthChecks } from './healthchecks';
+export { addCompression } from './compression';
