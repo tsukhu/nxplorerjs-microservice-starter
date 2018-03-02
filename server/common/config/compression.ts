@@ -2,7 +2,8 @@ const compression = require('compression');
 import * as express from 'express';
 
 /**
- * Add Swagger Middleware and setup the UI route for swagger
+ * Add Compression Middleware , this will compress all requests 
+ * except those where the `x-no-compression` header is set.
  * @param app Express App
  */
 export const addCompression = (app: express.Application) => {
