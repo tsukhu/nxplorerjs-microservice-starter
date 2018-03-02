@@ -7,7 +7,8 @@ import {
   configLogging,
   configMetrics,
   configGraphQL,
-  configHealthChecks
+  configHealthChecks,
+  addCompression
 } from './config';
 import container from './config/ioc_config';
 import SERVICE_IDENTIFIER from '../common/constants/identifiers';
@@ -16,6 +17,7 @@ import {
   InversifyExpressServer,
   TYPE
 } from 'inversify-express-utils';
+
 
 const responseTime = require('response-time');
 
@@ -62,6 +64,9 @@ export default class ExpressServer {
 
       // Configure Healthchecks
       configHealthChecks(app);
+
+      // Add Compression support
+      addCompression(app);
 
       // Add swagger support
       swaggerify(app);
