@@ -2,7 +2,7 @@ const compression = require('compression');
 import * as express from 'express';
 
 /**
- * Add Compression Middleware , this will compress all requests 
+ * Add Compression Middleware , this will compress all requests
  * except those where the `x-no-compression` header is set.
  * @param app Express App
  */

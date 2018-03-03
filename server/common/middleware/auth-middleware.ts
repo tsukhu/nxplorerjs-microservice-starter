@@ -24,7 +24,7 @@ const authMiddlewareFactory = () => {
           expressJwt({ secret: RSA_PUBLIC_KEY })(req, res, err => {
             // Check if token is valid
             if (err) {
-              res.status(401).json({ message: 'Unauthorized User'});
+              res.status(401).json({ message: 'Unauthorized User' });
             } else {
               // If the token is valid, req.user will be set with the JSON object decoded
               const obj: any = req;
@@ -35,7 +35,9 @@ const authMiddlewareFactory = () => {
               ) {
                 next();
               } else {
-                res.status(401).json({ message: 'Unauthorized role :'+ obj.user.role} );
+                res
+                  .status(401)
+                  .json({ message: 'Unauthorized role :' + obj.user.role });
               }
             }
           });
@@ -76,7 +78,7 @@ export const checkUser = async (user: any): Promise<any> => {
  * GraphQL Context Middleware
  * If Valid JWT token is present the user object is set on the context
  * This functional validates the user information and role
- * @param ctx 
+ * @param ctx
  */
 export const getAuthenticatedUser = ctx => {
   if (process.env.JWT_AUTH === 'true') {

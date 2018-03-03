@@ -79,7 +79,7 @@ export const setupSchema = (): GraphQLSchema => {
   });
 
   if (
-    process.env.GRAPHQL_MOCK != undefined &&
+    process.env.GRAPHQL_MOCK !== undefined &&
     process.env.GRAPHQL_MOCK === 'true'
   ) {
     // Add mocks, modifies schema in place

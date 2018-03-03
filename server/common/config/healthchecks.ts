@@ -2,15 +2,14 @@ import { Application } from 'express';
 const physical = require('express-physical');
 const v8 = require('v8');
 
-
 // Sync healthcheck
 
-/** 
- * The v8 heap is actually split into regions or spaces: 
- * new_space, old_space, code_space, map_space and large_object_space. 
- * The first two roughly corresponds to nursery and tenured object heap, 
+/**
+ * The v8 heap is actually split into regions or spaces:
+ * new_space, old_space, code_space, map_space and large_object_space.
+ * The first two roughly corresponds to nursery and tenured object heap,
  * though in theory objects can sit in any of the five spaces.
-*/
+ */
 const heap = () => {
   const limit = 90;
   const name = 'Heap size';
