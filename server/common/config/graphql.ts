@@ -60,15 +60,15 @@ const getGraphQLConfig = (req: any): GraphQLOptions => {
  * Configure GraphQL endpoints
  * @param app Express Application
  */
-export const configGraphQL = (app: Application) => {
+export const configGraphQL = async (app: Application) => {
   // If JWT Auth is enabled added JWT header verification for all graphql
   // calls
   if (process.env.JWT_AUTH === 'true') {
-    const RSA_PUBLIC_KEY = fs.readFileSync(process.env.RSA_PUBLIC_KEY_FILE);
+    const RSA_PUBLIC_KEY = await fs.readFileSync(process.env.RSA_PUBLIC_KEY_FILE);
     // If a valid Bearer token is present the req.user object is set
     // set those details in the context.user
     // The context can then be used by the resolvers to validate user credentials
-    app.use(
+    await app.use(
       '/graphql',
       bodyParser.json(),
       expressJwt({ secret: RSA_PUBLIC_KEY, credentialsRequired: false }),
@@ -76,7 +76,7 @@ export const configGraphQL = (app: Application) => {
     );
   } else {
     // Add GraphQL Endpoint
-    app.use(
+    await app.use(
       '/graphql',
       bodyParser.json(),
       graphqlExpress((req: any) => getGraphQLConfig(req))
