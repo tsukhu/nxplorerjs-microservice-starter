@@ -49,9 +49,6 @@ const authMiddlewareFactory = () => {
   };
 };
 
-const setupAuth = (secret) => {
-
-}
 /**
  * GraphQL Middleware which will check if the user credentials are proper
  */
