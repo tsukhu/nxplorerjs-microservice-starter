@@ -5,7 +5,9 @@ import { ErrorResponseBuilder } from '../../services/response-builder';
 import { HttpError } from '../../models/error.model';
 import { HttpStatus } from '../../services/http-status-codes';
 import container from '../../../common/config/ioc_config';
+import ISecurity from '../../../common/interfaces/isecurity';
 import SERVICE_IDENTIFIER from '../../../common/constants/identifiers';
+import SecurityService from '../../../common/services/security.service';
 import { inject, injectable } from 'inversify';
 import IDGenerator from '../../../common/config/utils';
 import * as jwt from 'jsonwebtoken';
@@ -31,13 +33,14 @@ import {
 @controller('/login')
 class SecurityController implements interfaces.Controller {
   public loggerService: ILogger;
-  // Generated using https://gist.github.com/ygotthilf/baa58da5c3dd1f69fae9
-  private RSA_PRIVATE_KEY: any;
+  public securityService: ISecurity;
+
   public constructor(
-    @inject(SERVICE_IDENTIFIER.LOGGER) loggerService: ILogger
+    @inject(SERVICE_IDENTIFIER.LOGGER) loggerService: ILogger,
+    @inject(SERVICE_IDENTIFIER.SECURITY) securityService: ISecurity
   ) {
     this.loggerService = loggerService;
-    this.RSA_PRIVATE_KEY = fs.readFileSync(process.env.RSA_PRIVATE_KEY_FILE);
+    this.securityService = securityService;
   }
 
   /**
@@ -46,10 +49,12 @@ class SecurityController implements interfaces.Controller {
    * @param res response
    */
   @httpPost('/')
-  public login(@request() req: Request, @response() res: Response): void {
+  public async login(@request() req: Request, @response() res: Response) {
     const email = req.body.email,
       password = req.body.password,
       role = req.body.role;
+    const privateKey =  await this.securityService.getPrivateKey();
+    
     if (this.validateEmailAndPassword(email, password)) {
       const userId = this.findUserIdForEmail(email);
       const expiryTime =
@@ -58,7 +63,7 @@ class SecurityController implements interfaces.Controller {
           : '1h';
       const jwtBearerToken = jwt.sign(
         { role: role, email: email },
-        this.RSA_PRIVATE_KEY,
+        privateKey,
         {
           algorithm: 'RS256',
           expiresIn: expiryTime,

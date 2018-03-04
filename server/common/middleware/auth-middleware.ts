@@ -18,10 +18,10 @@ const authMiddlewareFactory = () => {
       (async () => {
         // Enabled if JWT Authentication is turned on
         if (process.env.JWT_AUTH === 'true') {
-          const RSA_PUBLIC_KEY = fs.readFileSync(
+          const RSA_PUBLIC_KEY = await fs.readFileSync(
             process.env.RSA_PUBLIC_KEY_FILE
           );
-          expressJwt({ secret: RSA_PUBLIC_KEY })(req, res, err => {
+          await expressJwt({ secret: RSA_PUBLIC_KEY })(req, res, err => {
             // Check if token is valid
             if (err) {
               res.status(401).json({ message: 'Unauthorized User' });
@@ -49,6 +49,9 @@ const authMiddlewareFactory = () => {
   };
 };
 
+const setupAuth = (secret) => {
+
+}
 /**
  * GraphQL Middleware which will check if the user credentials are proper
  */
