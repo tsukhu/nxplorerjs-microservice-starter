@@ -5,7 +5,7 @@ import { ErrorResponseBuilder } from '../../services/response-builder';
 import { HttpError } from '../../models/error.model';
 import { HttpStatus } from '../../services/http-status-codes';
 import container from '../../../common/config/ioc_config';
-import ISecurity from '../../../common/interfaces/isecurity';
+import { ISecurity, JWT_KeyType } from '../../../common/interfaces/isecurity';
 import SERVICE_IDENTIFIER from '../../../common/constants/identifiers';
 import SecurityService from '../../../common/services/security.service';
 import { inject, injectable } from 'inversify';
@@ -53,7 +53,7 @@ class SecurityController implements interfaces.Controller {
     const email = req.body.email,
       password = req.body.password,
       role = req.body.role;
-    const privateKey = await this.securityService.getPrivateKey();
+    const privateKey = await this.securityService.getKey(JWT_KeyType.Private);
 
     if (this.validateEmailAndPassword(email, password)) {
       const userId = this.findUserIdForEmail(email);
