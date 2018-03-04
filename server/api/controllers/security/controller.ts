@@ -53,8 +53,8 @@ class SecurityController implements interfaces.Controller {
     const email = req.body.email,
       password = req.body.password,
       role = req.body.role;
-    const privateKey =  await this.securityService.getPrivateKey();
-    
+    const privateKey = await this.securityService.getPrivateKey();
+
     if (this.validateEmailAndPassword(email, password)) {
       const userId = this.findUserIdForEmail(email);
       const expiryTime =
