@@ -30,7 +30,7 @@ import TAG from '../constants/tags';
 
 import ILogger from '../interfaces/ilogger';
 import IMetrics from '../interfaces/imetrics';
-import ISecurity from '../interfaces/isecurity';
+import { ISecurity } from '../interfaces/isecurity';
 
 // Initialize the container
 const container = new Container();

@@ -1,9 +1,12 @@
+export enum JWT_KeyType {
+  Private = 'PRIVATE',
+  Public = 'PUBLIC'
+}
+
 /**
  * Security Service Interface
  * Reads the RSA private key and provides the value
  */
-interface ISecurity {
-  getPrivateKey(): any;
+export interface ISecurity {
+  getKey(keyType: JWT_KeyType);
 }
-
-export default ISecurity;

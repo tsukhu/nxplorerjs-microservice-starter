@@ -3,7 +3,7 @@ import SERVICE_IDENTIFIER from '../../common/constants/identifiers';
 import * as jwt from 'jsonwebtoken';
 import * as fs from 'fs';
 import IUser from '../../api/interfaces/iuser';
-import ISecurity from '../../common/interfaces/isecurity';
+import { ISecurity, JWT_KeyType } from '../../common/interfaces/isecurity';
 import { User } from '../../common/models/security.model';
 import { isEmpty } from 'rxjs/operator/isEmpty';
 
@@ -18,7 +18,7 @@ export default {
       const email = args.email;
       const password = args.password;
       const userId = UserService.findUserIdForEmail(email);
-      const RSA_PRIVATE_KEY = await SecurityService.getPrivateKey();
+      const RSA_PRIVATE_KEY = await SecurityService.getKey(JWT_KeyType.Private);
       const expiryTime =
         process.env.TOKEN_EXPIRY_TIME !== undefined
           ? process.env.TOKEN_EXPIRY_TIME
