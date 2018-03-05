@@ -8,7 +8,6 @@ import {
     BaseProductInventory,
     BaseProductOption
 } from '../models/product.model';
-import { Planet, People } from '../models/starwars.model';
 import { inject, injectable } from 'inversify';
 import IProduct from '../interfaces/iproduct';
 import container from '../../common/config/ioc_config';
