@@ -212,7 +212,8 @@ See REST API /examples/{id}
   * quoteOfTheDay: String
   * random: Float
   * examples: [ExampleType] <-- [**JWT Authentication. Please read the JWT Security section for details**](#jwt-security-graphql)
-  * example(id: Ind): ExampleType
+  * example(id: Int): ExampleType
+  * blog(id: Int) (Paginated query)
   * rollThreeDice: [Int]
   * peopleWithPlanet(id: Int): PeopleWithPlanetType (Uses RxJS to combine results from 2 APIs)
   * people(id: Int): PersonType
