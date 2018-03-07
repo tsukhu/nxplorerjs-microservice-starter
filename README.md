@@ -213,7 +213,8 @@ See REST API /examples/{id}
   * quoteOfTheDay: String
   * random: Float
   * examples: [ExampleType] <-- [**JWT Authentication. Please read the JWT Security section for details**](#jwt-security-graphql)
-  * example(id: Ind): ExampleType
+  * example(id: Int): ExampleType
+  * blog(id: Int) (Paginated query)
   * rollThreeDice: [Int]
   * peopleWithPlanet(id: Int): PeopleWithPlanetType (Uses RxJS to combine results from 2 APIs)
   * people(id: Int): PersonType
@@ -228,6 +229,7 @@ See REST API /examples/{id}
 
   * Mutations
     * addExample(name: String!): ExampleType
+    * addComment(comment: CommentInput!): Comment
     * login(email: String!,password: String!): UserType
 
     * Sample Mutation Execution
@@ -236,6 +238,7 @@ See REST API /examples/{id}
 
     * Subscriptions
       * exampleAdded (Will check whenever a new element is added via a mutation)
+      * commentAdded (Will check whenever a new comment is added via a mutation)
 
     * Sample Subscription Execution
 
