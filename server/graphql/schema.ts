@@ -4,12 +4,12 @@ import StarwarsTypes from './models/starwars.model';
 import ExampleTypes from './models/example.model';
 import UserTypes from './models/user.model';
 import MovieTypes from './models/movie.model';
-import ChannelTypes from './models/channel.model';
+import BlogTypes from './models/blog.model';
 import ExampleResolver from './resolvers/example.resolver';
 import StarwarsResolver from './resolvers/starwars.resolver';
 import UserResolver from './resolvers/user.resolver';
 import MovieResolver from './resolvers/movie.resolver';
-import ChannelResolver from './resolvers/channel.resolver';
+import BlogResolver from './resolvers/blog.resolver';
 import { makeExecutableSchema, addMockFunctionsToSchema } from 'graphql-tools';
 import { GraphQLSchema } from 'graphql/type/schema';
 import mocks from './mocks';
@@ -18,7 +18,7 @@ import mocks from './mocks';
 const SubscriptionType = `
 type SubscriptionType {
     exampleAdded: ExampleType!
-    messageAdded(channelId: ID!): Message
+    commentAdded(blogId: ID!): Comment
 }
 `;
 
@@ -27,8 +27,8 @@ const RootMutationType = `
 type RootMutationType { 
     addExample(name: String!): ExampleType
     login( email: String!, password: String!): UserType
-    addChannel(name: String!): Channel
-    addMessage(message: MessageInput!): Message
+    addBlog(name: String!): Blog
+    addComment(comment: CommentInput!): Comment
 }`;
 
 // GraphQL Query Definitions
@@ -48,8 +48,8 @@ type RootQueryType {
     examplesMock: [ExampleType] 
     examples: [ExampleType]
     movie: MovieType
-    channels: [Channel]    # "[]" means this is a list of channels
-    channel(id: ID!): Channel
+    blogs: [Blog]    # "[]" means this is a list of blogs
+    blog(id: ID!): Blog
 }`;
 
 // GraphQL Schema Definitions
@@ -67,7 +67,7 @@ const resolvers = merge(
   StarwarsResolver,
   UserResolver,
   MovieResolver,
-  ChannelResolver
+  BlogResolver
 );
 
 // Create GraphQL Schema with all the pieces in place
@@ -82,7 +82,7 @@ export const setupSchema = (): GraphQLSchema => {
       ...ExampleTypes,
       ...UserTypes,
       ...MovieTypes,
-      ...ChannelTypes
+      ...BlogTypes
     ],
     resolvers: resolvers
   });

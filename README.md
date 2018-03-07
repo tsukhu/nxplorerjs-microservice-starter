@@ -227,6 +227,7 @@ See REST API /examples/{id}
 
   * Mutations
     * addExample(name: String!): ExampleType
+    * addComment(comment: CommentInput!): Comment
     * login(email: String!,password: String!): UserType
 
     * Sample Mutation Execution
@@ -235,6 +236,7 @@ See REST API /examples/{id}
 
     * Subscriptions
       * exampleAdded (Will check whenever a new element is added via a mutation)
+      * commentAdded (Will check whenever a new comment is added via a mutation)
 
     * Sample Subscription Execution
 
