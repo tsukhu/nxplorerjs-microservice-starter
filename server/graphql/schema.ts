@@ -4,10 +4,12 @@ import StarwarsTypes from './models/starwars.model';
 import ExampleTypes from './models/example.model';
 import UserTypes from './models/user.model';
 import MovieTypes from './models/movie.model';
+import ChannelTypes from './models/channel.model';
 import ExampleResolver from './resolvers/example.resolver';
 import StarwarsResolver from './resolvers/starwars.resolver';
 import UserResolver from './resolvers/user.resolver';
 import MovieResolver from './resolvers/movie.resolver';
+import ChannelResolver from './resolvers/channel.resolver';
 import { makeExecutableSchema, addMockFunctionsToSchema } from 'graphql-tools';
 import { GraphQLSchema } from 'graphql/type/schema';
 import mocks from './mocks';
@@ -16,6 +18,7 @@ import mocks from './mocks';
 const SubscriptionType = `
 type SubscriptionType {
     exampleAdded: ExampleType!
+    messageAdded(channelId: ID!): Message
 }
 `;
 
@@ -24,6 +27,8 @@ const RootMutationType = `
 type RootMutationType { 
     addExample(name: String!): ExampleType
     login( email: String!, password: String!): UserType
+    addChannel(name: String!): Channel
+    addMessage(message: MessageInput!): Message
 }`;
 
 // GraphQL Query Definitions
@@ -43,6 +48,8 @@ type RootQueryType {
     examplesMock: [ExampleType] 
     examples: [ExampleType]
     movie: MovieType
+    channels: [Channel]    # "[]" means this is a list of channels
+    channel(id: ID!): Channel
 }`;
 
 // GraphQL Schema Definitions
@@ -59,7 +66,8 @@ const resolvers = merge(
   ExampleResolver,
   StarwarsResolver,
   UserResolver,
-  MovieResolver
+  MovieResolver,
+  ChannelResolver
 );
 
 // Create GraphQL Schema with all the pieces in place
@@ -73,7 +81,8 @@ export const setupSchema = (): GraphQLSchema => {
       ...StarwarsTypes,
       ...ExampleTypes,
       ...UserTypes,
-      ...MovieTypes
+      ...MovieTypes,
+      ...ChannelTypes
     ],
     resolvers: resolvers
   });
