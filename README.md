@@ -715,6 +715,18 @@ npm run start
 loadtest http://localhost:3000/api/v1/examples/1 -t 20 -c 20
 ```
 
+## Deploying to Heroku
+
+```bash
+heroku create
+git push heroku master
+heroku open
+```
+
+or
+
+[![Deploy to Heroku](https://www.herokucdn.com/deploy/button.png)](https://heroku.com/deploy)
+
 ### Future RoadMap
 
 * Add additional health checks

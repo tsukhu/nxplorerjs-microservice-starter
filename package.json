@@ -6,6 +6,7 @@
   "scripts": {
     "start": "cross-env RSA_PRIVATE_KEY_FILE=./jwtRS256.key RSA_PUBLIC_KEY_FILE=./jwtRS256.key.pub node build/main",
     "start:docker": "node main",
+    "heroku-prebuild": "npm run compile",
     "compile": "cross-env NODE_ENV=production node build.js && backpack build",
     "dev": "cross-env NODE_ENV=development node build.js && backpack dev",
     "dev:debug": "cross-env NODE_ENV=development node build.js && cross-env DEBUG=express:* backpack dev",
