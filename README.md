@@ -46,6 +46,7 @@ Table of contents
 * [Sonar Integration](#integrate-with-sonarqube-for-continous-code-quality)
 * [Load Testing](#load-testing)
 * [Future Roadmap](#future-roadmap)
+* [Deploying to Heroku](#deploying-to-heroku)
 * [FAQ](#faq)
 * [License](#license)
 
@@ -58,6 +59,10 @@ Table of contents
 * Modular , replacable and plug and play code
 * Provide a starter for both the business APIs and microservice platform development.
 * DevOps ready with code quality, unit & integration tests, deployment automated.
+
+## Demo
+
+* nXplorer demo server is deployed on Heroku and can be accessed [here](https://nxplorer.herokuapp.com)
 
 ## Features
 
