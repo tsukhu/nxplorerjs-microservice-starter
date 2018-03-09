@@ -58,6 +58,10 @@ Table of contents
 * Modular , replacable and plug and play code
 * Provide a starter for both the business APIs and microservice platform development.
 
+## Demo 
+
+* nXplorer server demo is deployed on Heroku and can be accessed [here](https://nxplorer.herokuapp.com)
+
 ## Features
 
 * Node JS, Express, Typescript , Dependency Injection base
