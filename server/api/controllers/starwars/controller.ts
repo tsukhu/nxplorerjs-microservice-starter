@@ -58,7 +58,7 @@ class StarwarsController implements interfaces.Controller {
       const result: APIResponse = await new Promise((resolve, reject) => {
         this.starwarsService
           .getPeopleById(id)
-          .timeout(+process.env.TIME_OUT)
+          .timeout(+process.env.API_TIME_OUT)
           .subscribe(
             r => {
               if (r === undefined) {

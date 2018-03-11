@@ -7,7 +7,7 @@ import IStarwars from '../interfaces/istarwars';
 
 describe('Starwars Service Tests', () => {
     let starWarsService: IStarwars;
-
+    let testTimeOut = +process.env.TEST_TIMEOUT;
     beforeEach(() => {
         starWarsService = container.get<IStarwars>(SERVICE_IDENTIFIER.STARWARS);
     });
@@ -18,5 +18,5 @@ describe('Starwars Service Tests', () => {
           expect(results.homeworld.name).toEqual('Tatooine');
           done();
         });
-      },10000);
+      },testTimeOut);
 })

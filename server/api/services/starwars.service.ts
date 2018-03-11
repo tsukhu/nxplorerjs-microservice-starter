@@ -33,7 +33,7 @@ class StarwarsService implements IStarwars {
             resolveWithFullResponse: true,
             json: true,
             time: true,
-            timeout: process.env.TIME_OUT
+            timeout: process.env.API_TIME_OUT
         };
         const url2_options = {
             method: 'GET',
@@ -41,7 +41,7 @@ class StarwarsService implements IStarwars {
             resolveWithFullResponse: true,
             json: true,
             time: true,
-            timeout: process.env.TIME_OUT
+            timeout: process.env.API_TIME_OUT
         };
         const character: Observable<any> = Observable.fromPromise(rp(url1_options));
         const characterHomeworld: Observable<any> = Observable.fromPromise(rp(url2_options));

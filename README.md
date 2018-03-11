@@ -344,7 +344,8 @@ npm install
 | PORT                  | Server Port                           | 3000          |
 | LOG_LEVEL             | Log Level (info,debug,error)          | info          |
 | SESSION_SECRET        | String used for signing cookies       |               |
-| TIME_OUT              | Default API Timeout (in milli secs)   | 10000         |
+| API_TIME_OUT          | Default API Timeout (in milli secs)   | 10000         |
+| TEST_TIME_OUT         | Default Test Timeout (in milli secs)   | 10000         |
 | JWT_AUTH              | Enable/Disable JWT based API security | true  |
 | RSA_PRIVATE_KEY_FILE | Sample RSA private key path            | |
 | RSA_PUBLIC_KEY_FILE |  Sample RSA public key path            | |
