@@ -15,17 +15,7 @@ import {
 import '../common/env';
 
 describe('Example Service Tests', () => {
-  /*
-    let originalTimeout;
-    beforeEach(() => {
-        originalTimeout = jasmine.DEFAULT_TIMEOUT_INTERVAL;
-        jasmine.DEFAULT_TIMEOUT_INTERVAL = Number(process.env.TIMEOUT);
-    });
-
-    afterEach(function() {
-        jasmine.DEFAULT_TIMEOUT_INTERVAL = originalTimeout;
-    });
-*/
+  let testTimeOut = +process.env.TEST_TIMEOUT;
   it('should be returning a quote ', async () => {
     const query = `
         query Q {
@@ -72,6 +62,6 @@ describe('Example Service Tests', () => {
       const { people } = result.data;
       expect(people.name).toEqual(expectedValue);
     },
-    10000
+    testTimeOut
   );
 });

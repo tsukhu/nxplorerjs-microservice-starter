@@ -77,7 +77,7 @@ class ExampleController extends BaseHttpController {
     return await new Promise((resolve, reject) => {
       this.exampleService
         .byPostsByID(id)
-        .timeout(+process.env.TIME_OUT)
+        .timeout(+process.env.API_TIME_OUT)
         .subscribe(
           result => {
             this.loggerService.info(<Quote>result.data);

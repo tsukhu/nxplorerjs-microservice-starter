@@ -27,7 +27,7 @@ describe('StarWars API Test', () => {
           }`
         }),
         { jar: true },
-        10000
+        `${process.env.TEST_TIMEOUT}`
       )
       .then(res => {
         console.log(res.data.people);
@@ -56,7 +56,7 @@ describe('StarWars API Test', () => {
           }`
         }),
         { jar: true },
-        10000
+        `${process.env.TEST_TIMEOUT}`
       )
       .then(res => {
         console.log(res.data.planet);

@@ -53,7 +53,7 @@ class ExamplesService implements IExample {
       resolveWithFullResponse: true,
       json: true,
       time: true,
-      timeout: process.env.TIME_OUT,
+      timeout: process.env.API_TIME_OUT,
       transform: _include_headers
     };
     const api = { uri: url_options.uri, method: url_options.method };

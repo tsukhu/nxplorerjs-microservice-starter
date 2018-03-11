@@ -13,7 +13,7 @@ const StarwarsService = container.get<IStarwars>(SERVICE_IDENTIFIER.STARWARS);
 export const fetchPeopleWithPlanet = id => {
   return new Promise((resolve, reject) => {
     StarwarsService.getPeopleById(id)
-      .timeout(+process.env.TIME_OUT)
+      .timeout(+process.env.API_TIME_OUT)
       .subscribe(
         (r: any) => {
           resolve(r);
