@@ -422,7 +422,7 @@ npm itest:run
 
 ### File Structure
 
-```text
+```
 ├───public                      * Landing page for nxplorer server
 ├───screenshots                 * Sample screenshots
 └───server                      * Server configuration and apis
