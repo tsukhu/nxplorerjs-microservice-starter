@@ -1,5 +1,7 @@
 # nxplorerjs-microservice-starter
 
+[![Greenkeeper badge](https://badges.greenkeeper.io/ERS-HCL/nxplorerjs-microservice-starter.svg)](https://greenkeeper.io/)
+
 [![Build Status](https://travis-ci.org/ERS-HCL/nxplorerjs-microservice-starter.svg?branch=master)](https://travis-ci.org/ERS-HCL/nxplorerjs-microservice-starter) [![tested with jest](https://img.shields.io/badge/tested_with-jest-99424f.svg)](https://github.com/facebook/jest) [![GitHub version](https://badge.fury.io/gh/ERS-HCL%2Fnxplorerjs-microservice-starter.svg)](https://badge.fury.io/gh/ERS-HCL%2Fnxplorerjs-microservice-starter) [![Dependency Status](https://david-dm.org/ERS-HCL/nxplorerjs-microservice-starter.svg)](https://david-dm.org/ERS-HCL/nxplorerjs-microservice-starter)
 
 ---
@@ -58,6 +60,7 @@ Table of contents
 * Design patterns for implementation that can be used as a reference
 * Modular , replacable and plug and play code
 * Provide a starter for both the business APIs and microservice platform development.
+* DevOps ready with code quality, unit & integration tests, deployment automated.
 
 ## Demo
 
