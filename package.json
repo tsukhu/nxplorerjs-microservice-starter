@@ -67,7 +67,7 @@
     "source-map-support": "^0.5.0",
     "subscriptions-transport-ws": "^0.9.6",
     "swagger-express-middleware": "^1.0.0-alpha.12",
-    "swagger-ui-express": "^2.0.15",
+    "swagger-ui-express": "^3.0.0",
     "yamljs": "^0.3.0"
   },
   "devDependencies": {
