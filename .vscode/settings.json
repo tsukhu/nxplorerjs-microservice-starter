@@ -1,0 +1,11 @@
+{
+    "window.zoomLevel": -1,
+    "prettier.singleQuote": true,
+    "prettier.semi": true,
+    "git.enableSmartCommit": true,
+    "jshint.enable": false,
+    "javascript.format.insertSpaceAfterOpeningAndBeforeClosingNonemptyParenthesis": true,
+    "javascript.format.insertSpaceAfterOpeningAndBeforeClosingNonemptyBrackets": true,
+    "files.autoSave": "off",
+    "workbench.colorTheme": "Monokai"
+} // Place your settings in this file to overwrite the default settings

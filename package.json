@@ -1,6 +1,6 @@
 {
   "name": "nxplorerjs-microservice",
-  "version": "1.6.7",
+  "version": "1.6.8",
   "description": "Express Microservice Starter Project",
   "main": "index.js",
   "scripts": {
@@ -94,7 +94,7 @@
     "tslint-config-standard": "^7.0.0",
     "typedoc": "^0.11.1",
     "typedoc-webpack-plugin": "^1.1.4",
-    "typescript": "^2.7.2",
+    "typescript": "^2.8.1",
     "wait-port": "^0.2.2"
   },
   "repository": {
