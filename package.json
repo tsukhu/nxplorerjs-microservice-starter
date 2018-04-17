@@ -89,7 +89,7 @@
     "shelljs": "^0.8.1",
     "supertest": "^3.0.0",
     "ts-jest": "^22.4.1",
-    "ts-node": "^5.0.0",
+    "ts-node": "^6.0.0",
     "tslint": "^5.9.1",
     "tslint-config-standard": "^7.0.0",
     "typedoc": "^0.11.1",
