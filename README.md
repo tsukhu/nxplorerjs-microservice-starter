@@ -33,6 +33,7 @@ Table of contents
 * [Run It](#try-it)
 * [File Structure](#file-structure)
 * [Passing UUID for requests](#log-with-uuid)
+* [GraphQL Directives](#graphql-directives)
 * [GraphQL Mocks](#graphql-mocks)
 * [REST API Mocks](#restapi-mocks)
 * [Docker Build](#build-docker-image)
@@ -485,6 +486,12 @@ npm itest:run
 ```json
 {"pid":13492,"hostname":"LP-507B9DA1D355","level":30,"time":1515859200496,"uuid":"xxxx-dddd-ssss-wwww-ssss","fullUrl":"http://localhost:3000/api/v1/shop/products","statusCode":200,"responseTime":"1.187","v":1}
 ```
+
+### GraphQL Directives
+
+* This is work in progress.
+* Currently added a sample for using the @date directive (as explained in the graphql-tools documentation)
+* Query (`{ today }`)
 
 ### GraphQL Mocks
 

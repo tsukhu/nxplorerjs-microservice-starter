@@ -1,8 +1,20 @@
 const UserType = `
+"""
+User credentials for login
+""" 
 type UserType {
-    id: String 
+    id: String
+    """
+    User Role
+    """
     role: String
+    """
+    Email
+    """
     email: String
+    """
+    JWT token
+    """
     jwt: String
 }
 `;
