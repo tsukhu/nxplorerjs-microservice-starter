@@ -1,4 +1,3 @@
-import * as fetch from 'node-fetch';
 import { merge } from 'lodash';
 import StarwarsTypes from './models/starwars.model';
 import ExampleTypes from './models/example.model';
@@ -10,14 +9,10 @@ import StarwarsResolver from './resolvers/starwars.resolver';
 import UserResolver from './resolvers/user.resolver';
 import MovieResolver from './resolvers/movie.resolver';
 import BlogResolver from './resolvers/blog.resolver';
-import {
-  makeExecutableSchema,
-  addMockFunctionsToSchema,
-  SchemaDirectiveVisitor
-} from 'graphql-tools';
+import { makeExecutableSchema, addMockFunctionsToSchema } from 'graphql-tools';
+import FormattableDateDirective from './directives/formattableDate';
 import { GraphQLSchema } from 'graphql/type/schema';
-import { GraphQLString, defaultFieldResolver } from 'graphql';
-import formatDate from 'dateformat';
+
 import mocks from './mocks';
 
 // GraphQL Subscription Definitions
@@ -85,32 +80,6 @@ const resolvers = merge(
   MovieResolver,
   BlogResolver
 );
-
-class FormattableDateDirective extends SchemaDirectiveVisitor {
-  public visitFieldDefinition(field) {
-    const { resolve = defaultFieldResolver } = field;
-    const { defaultFormat } = this.args;
-
-    field.args.push({
-      name: 'format',
-      type: GraphQLString
-    });
-
-    field.resolve = async function(
-      source,
-      { format, ...otherArgs },
-      context,
-      info
-    ) {
-      const date = await resolve.call(this, source, otherArgs, context, info);
-      // If a format argument was not provided, default to the optional
-      // defaultFormat argument taken by the @date directive:
-      return require('dateformat')(date, format || defaultFormat);
-    };
-
-    field.type = GraphQLString;
-  }
-}
 
 // Create GraphQL Schema with all the pieces in place
 export const setupSchema = (): GraphQLSchema => {
