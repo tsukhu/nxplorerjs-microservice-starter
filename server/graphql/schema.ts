@@ -10,8 +10,14 @@ import StarwarsResolver from './resolvers/starwars.resolver';
 import UserResolver from './resolvers/user.resolver';
 import MovieResolver from './resolvers/movie.resolver';
 import BlogResolver from './resolvers/blog.resolver';
-import { makeExecutableSchema, addMockFunctionsToSchema } from 'graphql-tools';
+import {
+  makeExecutableSchema,
+  addMockFunctionsToSchema,
+  SchemaDirectiveVisitor
+} from 'graphql-tools';
 import { GraphQLSchema } from 'graphql/type/schema';
+import { GraphQLString, defaultFieldResolver } from 'graphql';
+import formatDate from 'dateformat';
 import mocks from './mocks';
 
 // GraphQL Subscription Definitions
@@ -33,11 +39,21 @@ type RootMutationType {
 
 // GraphQL Query Definitions
 const RootQueryType = `
+directive @date(
+  defaultFormat: String = "mmmm d, yyyy"
+) on FIELD_DEFINITION
+
+scalar Date
+
 type RootQueryType { 
     quoteOfTheDay: String 
     random: Float 
     rollThreeDice: [Int] 
     peopleWithPlanet (id: Int!) : PeopleWithPlanetType 
+    """
+      Schema directive based example
+    """
+    today: Date @date
     people (id: Int!) : PeopleType
     peopleList(keys: [Int]): [PeopleType]
     peopleMock:  PeopleType
@@ -70,6 +86,32 @@ const resolvers = merge(
   BlogResolver
 );
 
+class FormattableDateDirective extends SchemaDirectiveVisitor {
+  public visitFieldDefinition(field) {
+    const { resolve = defaultFieldResolver } = field;
+    const { defaultFormat } = this.args;
+
+    field.args.push({
+      name: 'format',
+      type: GraphQLString
+    });
+
+    field.resolve = async function(
+      source,
+      { format, ...otherArgs },
+      context,
+      info
+    ) {
+      const date = await resolve.call(this, source, otherArgs, context, info);
+      // If a format argument was not provided, default to the optional
+      // defaultFormat argument taken by the @date directive:
+      return require('dateformat')(date, format || defaultFormat);
+    };
+
+    field.type = GraphQLString;
+  }
+}
+
 // Create GraphQL Schema with all the pieces in place
 export const setupSchema = (): GraphQLSchema => {
   const schema = makeExecutableSchema({
@@ -84,7 +126,10 @@ export const setupSchema = (): GraphQLSchema => {
       ...MovieTypes,
       ...BlogTypes
     ],
-    resolvers: resolvers
+    resolvers: resolvers,
+    schemaDirectives: {
+      date: FormattableDateDirective
+    }
   });
 
   if (
