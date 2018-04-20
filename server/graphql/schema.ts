@@ -4,64 +4,21 @@ import ExampleTypes from './models/example.model';
 import UserTypes from './models/user.model';
 import MovieTypes from './models/movie.model';
 import BlogTypes from './models/blog.model';
-import ExampleResolver from './resolvers/example.resolver';
-import StarwarsResolver from './resolvers/starwars.resolver';
-import UserResolver from './resolvers/user.resolver';
-import MovieResolver from './resolvers/movie.resolver';
-import BlogResolver from './resolvers/blog.resolver';
+import {
+  ExampleResolver,
+  StarwarsResolver,
+  UserResolver,
+  MovieResolver,
+  BlogResolver
+} from './resolvers';
 import { makeExecutableSchema, addMockFunctionsToSchema } from 'graphql-tools';
 import FormattableDateDirective from './directives/formattableDate';
 import { GraphQLSchema } from 'graphql/type/schema';
 
 import mocks from './mocks';
-
-// GraphQL Subscription Definitions
-const SubscriptionType = `
-type SubscriptionType {
-    exampleAdded: ExampleType!
-    commentAdded(blogId: ID!): Comment
-}
-`;
-
-// GraphQL Mutation Definitions
-const RootMutationType = `
-type RootMutationType { 
-    addExample(name: String!): ExampleType
-    login( email: String!, password: String!): UserType
-    addBlog(name: String!): Blog
-    addComment(comment: CommentInput!): Comment
-}`;
-
-// GraphQL Query Definitions
-const RootQueryType = `
-directive @date(
-  defaultFormat: String = "mmmm d, yyyy"
-) on FIELD_DEFINITION
-
-scalar Date
-
-type RootQueryType { 
-    quoteOfTheDay: String 
-    random: Float 
-    rollThreeDice: [Int] 
-    peopleWithPlanet (id: Int!) : PeopleWithPlanetType 
-    """
-      Schema directive based example
-    """
-    today: Date @date
-    people (id: Int!) : PeopleType
-    peopleList(keys: [Int]): [PeopleType]
-    peopleMock:  PeopleType
-    planet (id: Int!) : PlanetType
-    starship (id: Int!) : StarshipType 
-    example (id: Int!) : ExampleType
-    exampleMock: ExampleType
-    examplesMock: [ExampleType] 
-    examples: [ExampleType]
-    movie: MovieType
-    blogs: [Blog]    # "[]" means this is a list of blogs
-    blog(id: ID!): Blog
-}`;
+import SubscriptionTypes from './subscriptions';
+import QueryTypes from './queries';
+import MutationTypes from './mutations';
 
 // GraphQL Schema Definitions
 const SchemaDefinition = `
@@ -86,9 +43,9 @@ export const setupSchema = (): GraphQLSchema => {
   const schema = makeExecutableSchema({
     typeDefs: [
       SchemaDefinition,
-      RootQueryType,
-      RootMutationType,
-      SubscriptionType,
+      ...QueryTypes,
+      ...MutationTypes,
+      ...SubscriptionTypes,
       ...StarwarsTypes,
       ...ExampleTypes,
       ...UserTypes,
