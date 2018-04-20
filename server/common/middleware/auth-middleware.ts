@@ -67,10 +67,18 @@ const authGraphQLMiddlewareFactory = () => {
 };
 
 export const checkUser = async (user: any): Promise<any> => {
-  if (user.role !== undefined && 'admin' === user.role) {
+  if (user.role !== undefined && 'ADMIN' === user.role) {
     return Promise.resolve(user);
   } else {
     return Promise.reject('Unauthorised User');
+  }
+};
+
+export const getUserRole = ctx => {
+  if (process.env.JWT_AUTH === 'true') {
+    return Promise.resolve(ctx.user && ctx.user.role ? ctx.user.role : 'UNKNOWN');
+  } else {
+    return Promise.resolve('UNKNOWN');
   }
 };
 

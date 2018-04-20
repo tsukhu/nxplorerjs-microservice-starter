@@ -37,6 +37,10 @@ export default {
     example(parent, args, context, info) {
       return ExampleService.byId(args.id);
     },
+    examplesWithAuth(parent, args, context, info) {
+      // Check if user is authenticated then enable access
+      return ExampleService.all();
+    },
     examples(parent, args, context, info) {
       // Check if user is authenticated then enable access
       return getAuthenticatedUser(context).then(

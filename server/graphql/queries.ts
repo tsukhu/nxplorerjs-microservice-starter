@@ -1,5 +1,9 @@
 // GraphQL Query Definitions
 const RootQueryType = `
+directive @auth(
+  requires: Role = ADMIN,
+) on OBJECT | FIELD_DEFINITION
+
 directive @date(
   defaultFormat: String = "mmmm d, yyyy"
 ) on FIELD_DEFINITION
@@ -22,7 +26,8 @@ type RootQueryType {
     starship (id: Int!) : StarshipType 
     example (id: Int!) : ExampleType
     exampleMock: ExampleType
-    examplesMock: [ExampleType] 
+    examplesMock: [ExampleType]
+    examplesWithAuth: [ExampleType] @auth(requires: ADMIN)
     examples: [ExampleType]
     movie: MovieType
     blogs: [Blog]    # "[]" means this is a list of blogs

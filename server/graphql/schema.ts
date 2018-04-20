@@ -16,6 +16,7 @@ import {
 } from './resolvers';
 import { makeExecutableSchema, addMockFunctionsToSchema } from 'graphql-tools';
 import FormattableDateDirective from './directives/formattableDate';
+import AuthDirective from './directives/authDirective';
 import mocks from './mocks';
 import SubscriptionTypes from './subscriptions';
 import QueryTypes from './queries';
@@ -55,7 +56,8 @@ export const setupSchema = (): GraphQLSchema => {
     ],
     resolvers: resolvers,
     schemaDirectives: {
-      date: FormattableDateDirective
+      date: FormattableDateDirective,
+      auth: AuthDirective
     }
   });
 
