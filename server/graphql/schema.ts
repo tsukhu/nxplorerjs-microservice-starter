@@ -1,4 +1,5 @@
 import { merge } from 'lodash';
+import { GraphQLSchema } from 'graphql/type/schema';
 import {
   StarwarsTypes,
   ExampleTypes,
@@ -15,8 +16,6 @@ import {
 } from './resolvers';
 import { makeExecutableSchema, addMockFunctionsToSchema } from 'graphql-tools';
 import FormattableDateDirective from './directives/formattableDate';
-import { GraphQLSchema } from 'graphql/type/schema';
-
 import mocks from './mocks';
 import SubscriptionTypes from './subscriptions';
 import QueryTypes from './queries';
