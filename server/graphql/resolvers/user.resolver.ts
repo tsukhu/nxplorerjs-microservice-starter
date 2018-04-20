@@ -17,6 +17,7 @@ export default {
     login: async (parent, args, context, info) => {
       const email = args.email;
       const password = args.password;
+      const role = args.role ? args.role : 'USER';
       const userId = UserService.findUserIdForEmail(email);
       const RSA_PRIVATE_KEY = await SecurityService.getKey(JWT_KeyType.Private);
       const expiryTime =
@@ -24,7 +25,7 @@ export default {
           ? process.env.TOKEN_EXPIRY_TIME
           : '1h';
       const jwtBearerToken = await jwt.sign(
-        { role: 'admin', email: email },
+        { role: role, email: email },
         RSA_PRIVATE_KEY,
         {
           algorithm: 'RS256',
@@ -35,7 +36,7 @@ export default {
       const user: User = {
         email: email,
         id: userId,
-        role: 'admin',
+        role: role,
         jwt: jwtBearerToken
       };
       context.user = Promise.resolve(user);

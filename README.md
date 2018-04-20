@@ -487,12 +487,6 @@ npm itest:run
 {"pid":13492,"hostname":"LP-507B9DA1D355","level":30,"time":1515859200496,"uuid":"xxxx-dddd-ssss-wwww-ssss","fullUrl":"http://localhost:3000/api/v1/shop/products","statusCode":200,"responseTime":"1.187","v":1}
 ```
 
-### GraphQL Directives
-
-* This is work in progress.
-* Currently added a sample for using the @date directive (as explained in the graphql-tools documentation)
-* Query (`{ today }`)
-
 ### GraphQL Mocks
 
 * As part of TDD we may need to mock the graphql responses till we are able to implement the resolvers
@@ -581,14 +575,33 @@ npm run dash
 
 * A demo implementation of JWT based security has enabled for one query "examples". Given below are the steps to test it out.
 * If the JWT Security is enabled (environment variable JWT_AUTH is true) , we need to use the login mutation API to get the sample JWT Token (currently set at an expiry of 1 hour)
-* Step 1 - use the login mutation to get the jwt token for a valid user. For demo purposes any email and password string can be provided.
+* Step 1 - use the login mutation to get the jwt token for a valid user. For demo purposes any email and password string can be provided. The role is optional. If not provided is defaults to the role 'USER'
+
+```
+mutation {
+  login(email: "tsukhu@nxplorer.com",
+  password:"admin",role:"ADMIN") {
+    id
+    role
+    email
+    jwt
+  }
+}
+```
 
 ![Login Mutation](screenshots/jwt_login_mutation.PNG) 
 
 * Step 2 - Verify if "examples" works without Authentication. It will give an error (Note: error handling needs to be improved but here we are only looking at the concept)
 
 ![UnSecure Query](screenshots/jwt_unauthenticated.PNG)
+
 * Step 3 - Set the Authorization Header with the Bearer Token before executiong the "examples" query.
+
+```
+{
+  "Authorization": "Bearer xxx.xxx.xxx"
+}
+```
 
 ![Secure Query](screenshots/jwt_authenticated.PNG)
 
@@ -634,6 +647,14 @@ curl -X POST "http://localhost:3000/api/v1/login" -H "accept: application/json" 
 * On setting the Bearer token in the ‘Authorization’ header for subsequent calls to any of the /examples APIs will result in a role based authorization failure
 
 ![RBAC](screenshots/rbac1.PNG)
+
+### GraphQL Directives
+
+* This is work in progress.
+* Currently added a sample for using the @date directive (as explained in the graphql-tools documentation)
+* Query (`{ today(format: "mmm-dd-yy") }`) - Here the format is based on the `@date` scheme Directive , that takes the output of the resolver and formats the date before sending it out to the client
+* Query ( `{ examplesWithAuth { id  name } }` - This is a variation to the `examples` query mentioned in the section [JWT GraphQL APIs](#jwt-security-graphql). The difference here is that we use a `@auth` directive to handle the authentication based on the role instead of hardcoding the implementation in the resolver. This is a much cleaner and decoupled from the resolver. 
+* The query schema `examplesWithAuth: [ExampleType] @auth(requires: ADMIN)` uses the `@auth` directive which will intercept the call check for an authenticated user with appropriate role. (Note: You need to run the `login` mutation before and then set the HTTP Header with the Authorization token )
 
 #### CSRF Security
 

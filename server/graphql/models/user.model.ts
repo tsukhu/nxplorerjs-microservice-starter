@@ -1,4 +1,12 @@
 const UserType = `
+
+enum Role {
+    ADMIN
+    REVIEWER
+    USER
+    UNKNOWN
+  }
+
 """
 User credentials for login
 """ 
@@ -7,7 +15,7 @@ type UserType {
     """
     User Role
     """
-    role: String
+    role: Role
     """
     Email
     """
