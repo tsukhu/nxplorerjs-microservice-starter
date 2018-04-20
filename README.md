@@ -656,6 +656,8 @@ curl -X POST "http://localhost:3000/api/v1/login" -H "accept: application/json" 
 * Query ( `{ examplesWithAuth { id  name } }` - This is a variation to the `examples` query mentioned in the section [JWT GraphQL APIs](#jwt-security-graphql). The difference here is that we use a `@auth` directive to handle the authentication based on the role instead of hardcoding the implementation in the resolver. This is a much cleaner and decoupled from the resolver. 
 * The query schema `examplesWithAuth: [ExampleType] @auth(requires: ADMIN)` uses the `@auth` directive which will intercept the call check for an authenticated user with appropriate role. (Note: You need to run the `login` mutation before and then set the HTTP Header with the Authorization token )
 
+![schema directive](screenshots/schemaDirectives.PNG)
+
 #### CSRF Security
 
 * CSRF Security has been enabled in the **production** mode
