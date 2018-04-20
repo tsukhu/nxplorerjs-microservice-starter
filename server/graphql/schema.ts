@@ -1,9 +1,11 @@
 import { merge } from 'lodash';
-import StarwarsTypes from './models/starwars.model';
-import ExampleTypes from './models/example.model';
-import UserTypes from './models/user.model';
-import MovieTypes from './models/movie.model';
-import BlogTypes from './models/blog.model';
+import {
+  StarwarsTypes,
+  ExampleTypes,
+  UserTypes,
+  MovieTypes,
+  BlogTypes
+} from './models';
 import {
   ExampleResolver,
   StarwarsResolver,
