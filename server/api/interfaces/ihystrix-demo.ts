@@ -1,5 +1,5 @@
 import { Request, Response } from 'express';
-import { Observable } from 'rxjs/Observable';
+import { Observable } from 'rxjs';
 
 /**
  * Hystrix Service Interface

@@ -5,7 +5,7 @@ import * as fs from 'fs';
 import IUser from '../../api/interfaces/iuser';
 import { ISecurity, JWT_KeyType } from '../../common/interfaces/isecurity';
 import { User } from '../../common/models/security.model';
-import { isEmpty } from 'rxjs/operator/isEmpty';
+
 
 const UserService = container.get<IUser>(SERVICE_IDENTIFIER.USER);
 const SecurityService = container.get<ISecurity>(SERVICE_IDENTIFIER.SECURITY);

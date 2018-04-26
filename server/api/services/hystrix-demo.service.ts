@@ -1,6 +1,5 @@
 import * as Promise from 'bluebird';
-import { Observable } from 'rxjs/Observable';
-import { AsyncSubject } from 'rxjs/AsyncSubject';
+import { Observable ,  AsyncSubject, of } from 'rxjs';
 import * as _ from 'lodash';
 import { Post } from '../models/example.model';
 import { inject, injectable } from 'inversify';
@@ -154,7 +153,7 @@ class HystrixDemoService implements IHystrixDemo {
                 });
         }, 100);
 
-        return Observable.of(new Boolean(true));
+        return of(new Boolean(true));
     }
 }
 export default HystrixDemoService;
