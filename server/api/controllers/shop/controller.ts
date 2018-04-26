@@ -1,16 +1,4 @@
-import ProductService from '../../services/product.service';
 import { Request, Response } from 'express';
-import { Observable } from 'rxjs';
-import { ErrorResponseBuilder } from '../../services/response-builder';
-import { HttpError } from '../../models/error.model';
-import { HttpStatus } from '../../services/http-status-codes';
-import container from '../../../common/config/ioc_config';
-import SERVICE_IDENTIFIER from '../../../common/constants/identifiers';
-import { inject, injectable } from 'inversify';
-
-import ILogger from '../../../common/interfaces/ilogger';
-import IMetrics from '../../../common/interfaces/imetrics';
-import IProduct from '../../interfaces/iproduct';
 import {
   interfaces,
   controller,
@@ -22,6 +10,15 @@ import {
   response,
   requestParam
 } from 'inversify-express-utils';
+import { inject, injectable } from 'inversify';
+import { ErrorResponseBuilder } from '../../services';
+import { HttpError } from '../../models';
+import { HttpStatus } from '../../services';
+import { ILogger, IMetrics } from '../../../common/interfaces';
+import { IProduct } from '../../interfaces';
+import container from '../../../common/config/ioc_config';
+import SERVICE_IDENTIFIER from '../../../common/constants/identifiers';
+import ProductService from '../../services/product.service';
 
 /**
  * Shop API Controller
