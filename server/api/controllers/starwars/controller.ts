@@ -1,18 +1,4 @@
-import StarwarsService from '../../services/starwars.service';
 import { Request, Response } from 'express';
-import { Observable } from 'rxjs';
-import { timeout } from 'rxjs/operators';
-import { ErrorResponseBuilder } from '../../services/response-builder';
-import { HttpError } from '../../models/error.model';
-import { HttpStatus } from '../../services/http-status-codes';
-import container from '../../../common/config/ioc_config';
-import SERVICE_IDENTIFIER from '../../../common/constants/identifiers';
-import { inject, injectable } from 'inversify';
-import { APIResponse } from '../../models/api-response.model';
-import ILogger from '../../../common/interfaces/ilogger';
-import IMetrics from '../../../common/interfaces/imetrics';
-import IStarwars from '../../interfaces/istarwars';
-
 import {
   interfaces,
   controller,
@@ -24,6 +10,20 @@ import {
   response,
   requestParam
 } from 'inversify-express-utils';
+import { timeout } from 'rxjs/operators';
+
+import { HttpError } from '../../models';
+import {
+  HttpStatus,
+  ErrorResponseBuilder,
+  StarwarsService
+} from '../../services';
+import container from '../../../common/config/ioc_config';
+import SERVICE_IDENTIFIER from '../../../common/constants/identifiers';
+import { inject, injectable } from 'inversify';
+import { APIResponse } from '../../models';
+import { ILogger, IMetrics } from '../../../common/interfaces';
+import { IStarwars } from '../../interfaces';
 
 /**
  * Controller for StarWars APIs

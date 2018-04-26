@@ -1,20 +1,4 @@
-import StarwarsService from '../../services/starwars.service';
 import { Request, Response } from 'express';
-import { Observable } from 'rxjs';
-import { ErrorResponseBuilder } from '../../services/response-builder';
-import { HttpError } from '../../models/error.model';
-import { HttpStatus } from '../../services/http-status-codes';
-import container from '../../../common/config/ioc_config';
-import { ISecurity, JWT_KeyType } from '../../../common/interfaces/isecurity';
-import SERVICE_IDENTIFIER from '../../../common/constants/identifiers';
-import SecurityService from '../../../common/services/security.service';
-import { inject, injectable } from 'inversify';
-import IDGenerator from '../../../common/config/utils';
-import * as jwt from 'jsonwebtoken';
-import * as fs from 'fs';
-
-import ILogger from '../../../common/interfaces/ilogger';
-
 import {
   interfaces,
   controller,
@@ -26,6 +10,17 @@ import {
   response,
   requestParam
 } from 'inversify-express-utils';
+import * as jwt from 'jsonwebtoken';
+import * as fs from 'fs';
+import { ErrorResponseBuilder, HttpStatus } from '../../services';
+import { HttpError } from '../../models';
+import container from '../../../common/config/ioc_config';
+import { ISecurity, JWT_KeyType, ILogger } from '../../../common/interfaces';
+import SERVICE_IDENTIFIER from '../../../common/constants/identifiers';
+import SecurityService from '../../../common/services/security.service';
+import { inject, injectable } from 'inversify';
+import IDGenerator from '../../../common/config/utils';
+import { StarwarsService } from '../../services';
 
 /**
  * Controller for Security Token

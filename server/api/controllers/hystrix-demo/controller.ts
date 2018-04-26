@@ -1,16 +1,5 @@
-import HystrixService from '../../services/hystrix-demo.service';
 import { Request, Response } from 'express';
-import { Observable } from 'rxjs';
-import { ErrorResponseBuilder } from '../../services/response-builder';
-import { HttpError } from '../../models/error.model';
-import { HttpStatus } from '../../services/http-status-codes';
-import container from '../../../common/config/ioc_config';
-import SERVICE_IDENTIFIER from '../../../common/constants/identifiers';
 import { inject, injectable } from 'inversify';
-
-import ILogger from '../../../common/interfaces/ilogger';
-import IMetrics from '../../../common/interfaces/imetrics';
-import IHystrixDemo from '../../interfaces/ihystrix-demo';
 import {
   interfaces,
   controller,
@@ -22,6 +11,16 @@ import {
   response,
   requestParam
 } from 'inversify-express-utils';
+
+import { HttpError } from '../../models';
+import container from '../../../common/config/ioc_config';
+import SERVICE_IDENTIFIER from '../../../common/constants/identifiers';
+import {
+  HttpStatus,
+  ErrorResponseBuilder
+} from '../../services';
+import { ILogger, IMetrics } from '../../../common/interfaces';
+import { IHystrixDemo } from '../../interfaces';
 
 /**
  * Hystrix Demo Controller

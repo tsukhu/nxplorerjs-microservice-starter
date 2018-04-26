@@ -1,11 +1,5 @@
-import ExamplesService from '../../services/examples.service';
 import { Request, Response } from 'express';
-import { Quote } from '../../models/quote.model';
-import { ErrorResponseBuilder } from '../../services/response-builder';
-import { HttpError } from '../../models/error.model';
-import { HttpStatus } from '../../services/http-status-codes';
 import {
-  interfaces,
   controller,
   BaseHttpController,
   httpGet,
@@ -16,16 +10,21 @@ import {
   response,
   requestParam
 } from 'inversify-express-utils';
+import { timeout } from 'rxjs/operators';
+import { inject, injectable } from 'inversify';
+import {
+  ExamplesService,
+  HttpStatus,
+  ErrorResponseBuilder
+} from '../../services';
+import { Quote, HttpError } from '../../models';
 import container from '../../../common/config/ioc_config';
 import SERVICE_IDENTIFIER from '../../../common/constants/identifiers';
-import { inject, injectable } from 'inversify';
-
-import ILogger from '../../../common/interfaces/ilogger';
-import IMetrics from '../../../common/interfaces/imetrics';
-import IExample from '../../interfaces/iexample';
+import { IMetrics, ILogger } from '../../../common/interfaces';
+import { IExample } from '../../interfaces';
 import { authMiddleware } from '../../../common/middleware/auth-middleware';
 import { User } from '../../../common/models/security.model';
-import { timeout } from 'rxjs/operators';
+
 /**
  * Examples Controller
  * JWT Auth middleware as well as logging middleware added
