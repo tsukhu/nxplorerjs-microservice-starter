@@ -4,6 +4,7 @@ services:
   - docker
 node_js:
   - "lts/carbon"
+  - "10"
 jobs:
   include:
     - stage: unit
