@@ -1,6 +1,6 @@
 import HystrixService from '../../services/hystrix-demo.service';
 import { Request, Response } from 'express';
-import { Observable } from 'rxjs/Observable';
+import { Observable } from 'rxjs';
 import { ErrorResponseBuilder } from '../../services/response-builder';
 import { HttpError } from '../../models/error.model';
 import { HttpStatus } from '../../services/http-status-codes';

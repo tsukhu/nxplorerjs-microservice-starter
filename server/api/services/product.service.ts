@@ -1,12 +1,12 @@
 import * as Promise from 'bluebird';
-import { Observable } from 'rxjs/Observable';
-import { AsyncSubject } from 'rxjs/AsyncSubject';
+import { Observable, AsyncSubject, from, of, pipe } from 'rxjs';
+import { flatMap } from 'rxjs/operators';
 import * as _ from 'lodash';
 import {
-    BaseProduct,
-    BaseProductPrice,
-    BaseProductInventory,
-    BaseProductOption
+  BaseProduct,
+  BaseProductPrice,
+  BaseProductInventory,
+  BaseProductOption
 } from '../models/product.model';
 import { inject, injectable } from 'inversify';
 import IProduct from '../interfaces/iproduct';
@@ -14,7 +14,6 @@ import container from '../../common/config/ioc_config';
 import SERVICE_IDENTIFIER from '../../common/constants/identifiers';
 
 import ILogger from '../../common/interfaces/ilogger';
-
 
 const rp: any = require('request-promise');
 
@@ -28,101 +27,106 @@ let baseInventory = 1;
 let prId = 0;
 
 const baseProductPrice: BaseProductPrice[] = [
-    {
-        id: prId++,
-        baseProductOptionId: bpoId++,
-        price: basePrice++
-    },
-    {
-        id: prId++,
-        baseProductOptionId: bpoId++,
-        price: basePrice++
-    },
-    {
-        id: prId++,
-        baseProductOptionId: bpoId++,
-        price: basePrice++
-    },
-    {
-        id: prId++,
-        baseProductOptionId: bpoId++,
-        price: basePrice++
-    },
-    {
-        id: prId++,
-        baseProductOptionId: bpoId++,
-        price: basePrice++
-    },
-    {
-        id: prId++,
-        baseProductOptionId: bpoId++,
-        price: basePrice++
-    }
+  {
+    id: prId++,
+    baseProductOptionId: bpoId++,
+    price: basePrice++
+  },
+  {
+    id: prId++,
+    baseProductOptionId: bpoId++,
+    price: basePrice++
+  },
+  {
+    id: prId++,
+    baseProductOptionId: bpoId++,
+    price: basePrice++
+  },
+  {
+    id: prId++,
+    baseProductOptionId: bpoId++,
+    price: basePrice++
+  },
+  {
+    id: prId++,
+    baseProductOptionId: bpoId++,
+    price: basePrice++
+  },
+  {
+    id: prId++,
+    baseProductOptionId: bpoId++,
+    price: basePrice++
+  }
 ];
 
 bpoId = 0;
 
 const baseProductInventory: BaseProductInventory[] = [
-
-    {
-        id: invId++,
-        baseProductOptionId: bpoId++,
-        inventory: baseInventory++
-    },
-    {
-        id: invId++,
-        baseProductOptionId: bpoId++,
-        inventory: baseInventory++
-    },
-    {
-        id: invId++,
-        baseProductOptionId: bpoId++,
-        inventory: baseInventory++
-    }
-
+  {
+    id: invId++,
+    baseProductOptionId: bpoId++,
+    inventory: baseInventory++
+  },
+  {
+    id: invId++,
+    baseProductOptionId: bpoId++,
+    inventory: baseInventory++
+  },
+  {
+    id: invId++,
+    baseProductOptionId: bpoId++,
+    inventory: baseInventory++
+  }
 ];
 
 bpoId = 0;
 const baseProductOptions1: BaseProductOption[] = [
-    {
-        baseProductOptionId: bpoId++,
-        description: 'Base product option 0'
-    },
-    {
-        baseProductOptionId: bpoId++,
-        description: 'Base product option 1'
-    },
-    {
-        baseProductOptionId: bpoId++,
-        description: 'Base product option 2'
-    }];
+  {
+    baseProductOptionId: bpoId++,
+    description: 'Base product option 0'
+  },
+  {
+    baseProductOptionId: bpoId++,
+    description: 'Base product option 1'
+  },
+  {
+    baseProductOptionId: bpoId++,
+    description: 'Base product option 2'
+  }
+];
 const baseProductOptions2: BaseProductOption[] = [
-    {
-        baseProductOptionId: bpoId++,
-        description: 'Base product option 3'
-    },
-    {
-        baseProductOptionId: bpoId++,
-        description: 'Base product option 4'
-    },
-    {
-        baseProductOptionId: bpoId,
-        description: 'Base product option 5'
-    }
+  {
+    baseProductOptionId: bpoId++,
+    description: 'Base product option 3'
+  },
+  {
+    baseProductOptionId: bpoId++,
+    description: 'Base product option 4'
+  },
+  {
+    baseProductOptionId: bpoId,
+    description: 'Base product option 5'
+  }
 ];
 
-const baseProductOptions: BaseProductOption[] = Array.prototype.concat(baseProductOptions1, baseProductOptions2);
-
+const baseProductOptions: BaseProductOption[] = Array.prototype.concat(
+  baseProductOptions1,
+  baseProductOptions2
+);
 
 const baseProducts: BaseProduct[] = [
-    {
-        id: bpId++, name: 'product 0', description: 'product 0',
-        baseProductOptions: baseProductOptions1
-    },
-    {
-        id: bpId++, name: 'product 1', description: 'product 1',
-        baseProductOptions: baseProductOptions2
-    }
+  {
+    id: bpId++,
+    name: 'product 0',
+    description: 'product 0',
+    baseProductOptions: baseProductOptions1
+  },
+  {
+    id: bpId++,
+    name: 'product 1',
+    description: 'product 1',
+    baseProductOptions: baseProductOptions2
+  }
 ];
 
 /**
@@ -130,98 +134,104 @@ const baseProducts: BaseProduct[] = [
  */
 @injectable()
 class ProductService implements IProduct {
+  public loggerService: ILogger;
+  public constructor(
+    @inject(SERVICE_IDENTIFIER.LOGGER) loggerService: ILogger
+  ) {
+    this.loggerService = loggerService;
+  }
+  public allBaseProducts(): Observable<BaseProduct[]> {
+    return of(baseProducts);
+  }
 
-    public loggerService: ILogger;
-    public constructor(
-        @inject(SERVICE_IDENTIFIER.LOGGER) loggerService: ILogger
-    ) {
-        this.loggerService = loggerService;
-    }
-    public allBaseProducts(): Observable<BaseProduct[]> {
-        return Observable.from(baseProducts).toArray();
-    }
+  public baseProductbyId(id: number): Observable<BaseProduct> {
+    const results: BaseProduct[] = _.filter(baseProducts, product => {
+      // tslint:disable-next-line:triple-equals
+      return product.id == id;
+    });
+    return of(results[0]);
+  }
 
-    public baseProductbyId(id: number): Observable<BaseProduct> {
+  public allBaseProductOptions(): Observable<BaseProductOption[]> {
+    return of(baseProductOptions);
+  }
 
-        const results: BaseProduct[] = _.filter(baseProducts, product => {
-            // tslint:disable-next-line:triple-equals
-            return product.id == id;
-        });
-        return Observable.of(results[0]);
-    }
+  public baseProductOptionsbyId(id: number): Observable<BaseProductOption> {
+    const results: BaseProductOption[] = _.filter(
+      baseProductOptions,
+      options => {
+        // tslint:disable-next-line:triple-equals
+        return options.baseProductOptionId == id;
+      }
+    );
+    return of(results[0]);
+  }
 
-    public allBaseProductOptions(): Observable<BaseProductOption[]> {
-        return Observable.from(baseProductOptions).toArray();
-    }
+  public allBaseProductPrice(): Observable<BaseProductPrice[]> {
+    return of(baseProductPrice);
+  }
 
-    public baseProductOptionsbyId(id: number): Observable<BaseProductOption> {
-        const results: BaseProductOption[] = _.filter(baseProductOptions, options => {
-            // tslint:disable-next-line:triple-equals
-            return options.baseProductOptionId == id;
-        });
-        return Observable.of(results[0]);
-    }
+  public baseProductPricebyId(id: number): Observable<BaseProductPrice> {
+    const results: BaseProductPrice[] = _.filter(baseProductPrice, price => {
+      // tslint:disable-next-line:triple-equals
+      return price.baseProductOptionId == id;
+    });
+    return of(results[0]);
+  }
 
-    public allBaseProductPrice(): Observable<BaseProductPrice[]> {
-        return Observable.from(baseProductPrice).toArray();
-    }
+  public allBaseProductInventory(): Observable<BaseProductInventory[]> {
+    return of(baseProductInventory);
+  }
 
-    public baseProductPricebyId(id: number): Observable<BaseProductPrice> {
-        const results: BaseProductPrice[] = _.filter(baseProductPrice, price => {
-            // tslint:disable-next-line:triple-equals
-            return price.baseProductOptionId == id;
-        });
-        return Observable.of(results[0]);
-    }
+  public baseProductInventorybyId(
+    id: number
+  ): Observable<BaseProductInventory> {
+    const results: BaseProductInventory[] = _.filter(
+      baseProductInventory,
+      inv => {
+        // tslint:disable-next-line:triple-equals
+        return inv.baseProductOptionId == id;
+      }
+    );
+    return of(results[0]);
+  }
 
-    public allBaseProductInventory(): Observable<BaseProductInventory[]> {
-        return Observable.from(baseProductInventory).toArray();
-    }
-
-    public baseProductInventorybyId(id: number): Observable<BaseProductInventory> {
-        const results: BaseProductInventory[] = _.filter(baseProductInventory, inv => {
-            // tslint:disable-next-line:triple-equals
-            return inv.baseProductOptionId == id;
-        });
-        return Observable.of(results[0]);
-    }
-
-    /**
-     * Get Product Option Price
-     * FlatMap example : Get the base product option first
-     * and then get the price for the same
-     * @param id Product Option ID
-     */
-    public getProductOptionPricebyId(id: number): Observable<BaseProductPrice[]> {
-        const loadedCharacter: AsyncSubject<BaseProductPrice[]> = new AsyncSubject<BaseProductPrice[]>();
-        const prices: BaseProductPrice[] = [];
-        this.baseProductbyId(id).flatMap(
-            (prod) => {
-                if (prod !== undefined && prod.baseProductOptions !== undefined) {
-                    for (const product of prod.baseProductOptions) {
-                        this.baseProductOptionsbyId(product.baseProductOptionId)
-                            .flatMap(
-                            (p) => {
-                                return this.baseProductPricebyId(p.baseProductOptionId);
-                            }
-                            ).subscribe(
-                            result => {
-                                prices.push(result);
-                            }
-                            );
-                    }
-                }
-                return Observable.from(prices).toArray();
+  /**
+   * Get Product Option Price
+   * FlatMap example : Get the base product option first
+   * and then get the price for the same
+   * @param id Product Option ID
+   */
+  public getProductOptionPricebyId(id: number): Observable<BaseProductPrice[]> {
+    const loadedCharacter: AsyncSubject<BaseProductPrice[]> = new AsyncSubject<
+      BaseProductPrice[]
+    >();
+    const prices: BaseProductPrice[] = [];
+    this.baseProductbyId(id)
+      .pipe(
+        flatMap(prod => {
+          if (prod !== undefined && prod.baseProductOptions !== undefined) {
+            for (const product of prod.baseProductOptions) {
+              this.baseProductOptionsbyId(product.baseProductOptionId)
+                .pipe(
+                  flatMap(p => {
+                    return this.baseProductPricebyId(p.baseProductOptionId);
+                  })
+                )
+                .subscribe(result => {
+                  prices.push(result);
+                });
             }
-        ).subscribe(
-            (result) => {
-                loadedCharacter.next(result);
-                loadedCharacter.complete();
-            }
-            );
-        return loadedCharacter;
-    }
+          }
+          return of(prices);
+        })
+      )
+      .subscribe(result => {
+        loadedCharacter.next(result);
+        loadedCharacter.complete();
+      });
+    return loadedCharacter;
+  }
 }
-
 
 export default ProductService;

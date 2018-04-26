@@ -1,5 +1,5 @@
 import * as Promise from 'bluebird';
-import { Observable } from 'rxjs';
+import { Observable, from, of } from 'rxjs';
 import { Example } from '../models/example.model';
 import { inject, injectable } from 'inversify';
 
@@ -58,7 +58,7 @@ class ExamplesService implements IExample {
     };
     const api = { uri: url_options.uri, method: url_options.method };
     this.logService.info(api);
-    return Observable.fromPromise(rp(url_options));
+    return from(rp(url_options));
   }
 
   public create(name: string): Promise<Example> {
@@ -72,7 +72,7 @@ class ExamplesService implements IExample {
   }
 
   public sampleAPI(): Observable<Example[]> {
-    return Observable.of(examples);
+    return of(examples);
   }
 }
 

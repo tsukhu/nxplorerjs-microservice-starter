@@ -1,7 +1,7 @@
 import * as fetch from 'node-fetch';
 import container from '../../common/config/ioc_config';
 import SERVICE_IDENTIFIER from '../../common/constants/identifiers';
-
+import { timeout } from 'rxjs/operators';
 import IStarwars from '../../api/interfaces/istarwars';
 
 const StarwarsService = container.get<IStarwars>(SERVICE_IDENTIFIER.STARWARS);
@@ -13,7 +13,7 @@ const StarwarsService = container.get<IStarwars>(SERVICE_IDENTIFIER.STARWARS);
 export const fetchPeopleWithPlanet = id => {
   return new Promise((resolve, reject) => {
     StarwarsService.getPeopleById(id)
-      .timeout(+process.env.API_TIME_OUT)
+      .pipe(timeout(+process.env.API_TIME_OUT))
       .subscribe(
         (r: any) => {
           resolve(r);
