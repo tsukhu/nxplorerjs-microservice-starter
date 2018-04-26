@@ -84,7 +84,7 @@ Table of contents
 * Helm Chart based deployment support
 * Prometheus integration
 * API Response Logging , Express Server Logging , UUID propogation - Pino
-* Reactive Extensions support - RxJS
+* Reactive Extensions support - RxJS6
 * CORS, JSONObject Limit , Helmet , CSRF - Express Security
 * IOC / Dependency Injection / Express Annotation based APIs - Inversify
 * Documentation - TypeDocs
