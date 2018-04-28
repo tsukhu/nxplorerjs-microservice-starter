@@ -2,6 +2,7 @@ import * as Promise from 'bluebird';
 import { Observable, AsyncSubject, from, of, pipe } from 'rxjs';
 import { flatMap } from 'rxjs/operators';
 import * as _ from 'lodash';
+
 import {
   BaseProduct,
   BaseProductPrice,
@@ -12,12 +13,8 @@ import { inject, injectable } from 'inversify';
 import IProduct from '../interfaces/iproduct';
 import container from '../../common/config/ioc_config';
 import SERVICE_IDENTIFIER from '../../common/constants/identifiers';
-
 import ILogger from '../../common/interfaces/ilogger';
 
-const rp: any = require('request-promise');
-
-const rxHttp: any = require('node-rx-http');
 
 let bpId = 0;
 let bpoId = 0;
