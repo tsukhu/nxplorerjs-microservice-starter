@@ -9,8 +9,6 @@ import IExample from '../interfaces/iexample';
 
 const rp: any = require('request-promise');
 
-const rxHttp: any = require('node-rx-http');
-
 let id = 0;
 
 const examples: Example[] = [
