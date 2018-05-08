@@ -1,6 +1,6 @@
 {
   "name": "nxplorerjs-microservice",
-  "version": "1.7.1",
+  "version": "1.7.2",
   "description": "Express Microservice Starter Project",
   "main": "index.js",
   "scripts": {
@@ -57,7 +57,7 @@
     "jsonwebtoken": "^8.2.0",
     "lodash": "^4.17.5",
     "node-fetch": "^2.1.1",
-    "pino": "^4.13.0",
+    "pino": "^4.16.1",
     "prom-client": "^11.0.0",
     "randexp": "^0.5.0",
     "reflect-metadata": "^0.1.12",
