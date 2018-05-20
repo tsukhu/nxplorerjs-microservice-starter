@@ -1,21 +1,16 @@
 // Need to include the next line for Visual Studio Code
 // intellisense to work for jest types
 import {} from 'jest';
-
-import * as request from 'supertest';
 import { graphql } from 'graphql';
-import { setupSchema } from './schema';
-const DataLoader = require('dataloader');
-import {
-  fetchPeopleWithPlanet,
-  fetchPeople,
-  fetchPlanet,
-  fetchStarship
-} from './dataloader/starwars';
+
 import '../common/env';
+import { fetchPeople } from './dataloader/starwars';
+import { setupSchema } from './setupSchema';
+
+const DataLoader = require('dataloader');
 
 describe('Example Service Tests', () => {
-  let testTimeOut = +process.env.TEST_TIMEOUT;
+  const testTimeOut = +process.env.TEST_TIMEOUT;
   it('should be returning a quote ', async () => {
     const query = `
         query Q {

@@ -2,7 +2,7 @@
  * Starwars GraphQL resolver
  */
 export default {
-  RootQueryType: {
+  Query: {
     peopleWithPlanet(parent, args, context, info) {
       return context.peopleWithPlanetLoader.load(args.id);
     },

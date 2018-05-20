@@ -49,7 +49,7 @@ addBlog('blog2');
 const pubsub = new PubSub();
 
 export default {
-  RootQueryType: {
+  Query: {
     blogs: () => {
       return blogs;
     },
@@ -126,7 +126,7 @@ export default {
       return commentFeed;
     }
   },
-  RootMutationType: {
+  Mutation: {
     addBlog: (root, args) => {
       const name = args.name;
       const id = addBlog(name);
@@ -151,7 +151,7 @@ export default {
       return newComment;
     }
   },
-  SubscriptionType: {
+  Subscription: {
     commentAdded: {
       subscribe: withFilter(
         () => pubsub.asyncIterator('commentAdded'),

@@ -1,5 +1,3 @@
-const UserType = `
-
 enum Role {
     ADMIN
     REVIEWER
@@ -25,6 +23,3 @@ type UserType {
     """
     jwt: String
 }
-`;
-
-export default [UserType];

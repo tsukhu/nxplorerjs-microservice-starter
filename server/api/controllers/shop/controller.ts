@@ -1,24 +1,11 @@
 import { Request, Response } from 'express';
-import {
-  interfaces,
-  controller,
-  httpGet,
-  httpPost,
-  httpDelete,
-  request,
-  queryParam,
-  response,
-  requestParam
-} from 'inversify-express-utils';
-import { inject, injectable } from 'inversify';
-import { ErrorResponseBuilder } from '../../services';
-import { HttpError } from '../../models';
-import { HttpStatus } from '../../services';
+import { inject } from 'inversify';
+import { controller, httpGet, interfaces, request, requestParam, response } from 'inversify-express-utils';
+import SERVICE_IDENTIFIER from '../../../common/constants/identifiers';
 import { ILogger, IMetrics } from '../../../common/interfaces';
 import { IProduct } from '../../interfaces';
-import container from '../../../common/config/ioc_config';
-import SERVICE_IDENTIFIER from '../../../common/constants/identifiers';
-import ProductService from '../../services/product.service';
+import { HttpError } from '../../models';
+import { ErrorResponseBuilder, HttpStatus } from '../../services';
 
 /**
  * Shop API Controller

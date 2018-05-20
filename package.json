@@ -1,6 +1,6 @@
 {
   "name": "nxplorerjs-microservice",
-  "version": "1.7.2",
+  "version": "1.8.0",
   "description": "Express Microservice Starter Project",
   "main": "index.js",
   "scripts": {
@@ -46,6 +46,7 @@
     "express-physical": "^0.5.2",
     "faker": "^4.1.0",
     "graphql": "^0.13.1",
+    "graphql-import": "^0.5.2",
     "graphql-playground-middleware-express": "^1.5.7",
     "graphql-request": "^1.5.1",
     "graphql-server-express": "^1.3.2",
@@ -83,6 +84,7 @@
     "backpack-core": "^0.7.0",
     "concurrently": "^3.5.1",
     "cross-env": "^5.1.4",
+    "graphql-import-loader": "^0.2.1",
     "graphql-tester": "0.0.5",
     "jest": "^22.4.2",
     "jest-sonar-reporter": "^2.0.0",
