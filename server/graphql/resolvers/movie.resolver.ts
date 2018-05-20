@@ -20,7 +20,7 @@ const query = `{
  * Movie GraphQL resolver
  */
 export default {
-  RootQueryType: {
+  Query: {
     movie: (parent, args, context, info) => {
       return Promise.resolve(
         request(`${process.env.GRAPH_COOL_API_BASE_URL}/movies`, query).then(

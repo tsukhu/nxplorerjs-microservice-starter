@@ -1,5 +1,3 @@
-// GraphQL Query Definitions
-const RootQueryType = `
 directive @auth(
   requires: Role = ADMIN,
 ) on OBJECT | FIELD_DEFINITION
@@ -10,7 +8,7 @@ directive @date(
 
 scalar Date
 
-type RootQueryType { 
+type Query { 
     quoteOfTheDay: String 
     random: Float 
     rollThreeDice: [Int] 
@@ -32,6 +30,4 @@ type RootQueryType {
     movie: MovieType
     blogs: [Blog]    # "[]" means this is a list of blogs
     blog(id: ID!): Blog
-}`;
-
-export default [RootQueryType];
+}

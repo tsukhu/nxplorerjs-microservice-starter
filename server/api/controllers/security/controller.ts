@@ -1,26 +1,11 @@
 import { Request, Response } from 'express';
-import {
-  interfaces,
-  controller,
-  httpGet,
-  httpPost,
-  httpDelete,
-  request,
-  queryParam,
-  response,
-  requestParam
-} from 'inversify-express-utils';
+import { inject } from 'inversify';
+import { controller, httpPost, interfaces, request, response } from 'inversify-express-utils';
 import * as jwt from 'jsonwebtoken';
-import * as fs from 'fs';
-import { ErrorResponseBuilder, HttpStatus } from '../../services';
-import { HttpError } from '../../models';
-import container from '../../../common/config/ioc_config';
-import { ISecurity, JWT_KeyType, ILogger } from '../../../common/interfaces';
-import SERVICE_IDENTIFIER from '../../../common/constants/identifiers';
-import SecurityService from '../../../common/services/security.service';
-import { inject, injectable } from 'inversify';
 import IDGenerator from '../../../common/config/utils';
-import { StarwarsService } from '../../services';
+import SERVICE_IDENTIFIER from '../../../common/constants/identifiers';
+import { ILogger, ISecurity, JWT_KeyType } from '../../../common/interfaces';
+import { HttpStatus } from '../../services';
 
 /**
  * Controller for Security Token

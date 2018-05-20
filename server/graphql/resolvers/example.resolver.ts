@@ -15,13 +15,13 @@ const EXAMPLE_ADDED = 'EXAMPLE_ADDED';
  * Examples GraphQL resolver
  */
 export default {
-  SubscriptionType: {
+  Subscription: {
     exampleAdded: {
       subscribe: () => pubsub.asyncIterator(EXAMPLE_ADDED)
     }
   },
 
-  RootQueryType: {
+  Query: {
     today(parent, args, context, info) {
       return new Date(2000, 11, 12);
     },
@@ -57,7 +57,7 @@ export default {
       );
     }
   },
-  RootMutationType: {
+  Mutation: {
     addExample: async (parent, args, context, info) => {
       const exampleAdded = await ExampleService.create(args.name);
       pubsub.publish(EXAMPLE_ADDED, { exampleAdded: exampleAdded });

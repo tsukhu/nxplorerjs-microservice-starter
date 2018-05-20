@@ -1,29 +1,14 @@
 import { Request, Response } from 'express';
-import {
-  controller,
-  BaseHttpController,
-  httpGet,
-  httpPost,
-  httpDelete,
-  request,
-  queryParam,
-  response,
-  requestParam
-} from 'inversify-express-utils';
+import { inject } from 'inversify';
+import { BaseHttpController, controller, httpGet, httpPost, request, requestParam, response } from 'inversify-express-utils';
 import { timeout } from 'rxjs/operators';
-import { inject, injectable } from 'inversify';
-import {
-  ExamplesService,
-  HttpStatus,
-  ErrorResponseBuilder
-} from '../../services';
-import { Quote, HttpError } from '../../models';
-import container from '../../../common/config/ioc_config';
 import SERVICE_IDENTIFIER from '../../../common/constants/identifiers';
-import { IMetrics, ILogger } from '../../../common/interfaces';
-import { IExample } from '../../interfaces';
+import { ILogger, IMetrics } from '../../../common/interfaces';
 import { authMiddleware } from '../../../common/middleware/auth-middleware';
 import { User } from '../../../common/models/security.model';
+import { IExample } from '../../interfaces';
+import { HttpError, Quote } from '../../models';
+import { ErrorResponseBuilder, HttpStatus } from '../../services';
 
 /**
  * Examples Controller

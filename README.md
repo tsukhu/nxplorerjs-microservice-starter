@@ -74,6 +74,7 @@ Table of contents
 * Backpack (webpack) based - build , development , packaging
 * Swagger Enabled - Express swagger middleware / Swagger UI integration
 * GraphQL based on Apollo with JWT security and data loader
+* Support for GraphQL SDL via graphql-import
 * GraphQL mock resolvers (optional) during development - graphql-tools
 * GraphQL based client wrapper APIs - graphql-request
 * REST APIs - using Inversify Controller
@@ -454,10 +455,10 @@ npm itest:run
 |   └───graphql                 * GraphQL APIs defined on the server
 |   |   ├───dataloader          * GraphQL data loader functions
 |   |   ├───errors              * GraphQL error handler
-|   |   ├───models              * GraphQL Schema Types
+|   |   ├───schema              * GraphQL Schema Types
 |   |   ├───mocks               * GraphQL Mock Resolvers
 |   |   └───resolvers           * GraphQL resolvers
-|   |   └───schema.ts           * GraphQL schema configuration
+|   |   └───setupSchema.ts      * GraphQL schema configuration
 |   └───index.ts                * Main Server entry point
 ├───helm                        * Helm chart deployment scripts
 │   ├───charts                  *

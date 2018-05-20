@@ -1,6 +1,6 @@
 import * as http from 'http';
 import { graphqlExpress, graphiqlExpress } from 'apollo-server-express';
-import { setupSchema } from '../../graphql/schema';
+import { setupSchema } from '../../graphql/setupSchema';
 import { execute } from 'graphql';
 import { subscribe } from 'graphql/subscription';
 import { SubscriptionServer } from 'subscriptions-transport-ws';

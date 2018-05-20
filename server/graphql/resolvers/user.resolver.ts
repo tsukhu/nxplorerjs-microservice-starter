@@ -13,7 +13,7 @@ const SecurityService = container.get<ISecurity>(SERVICE_IDENTIFIER.SECURITY);
  * User GraphQL resolver
  */
 export default {
-  RootMutationType: {
+  Mutation: {
     login: async (parent, args, context, info) => {
       const email = args.email;
       const password = args.password;

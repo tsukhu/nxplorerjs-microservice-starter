@@ -1,26 +1,12 @@
 import { Request, Response } from 'express';
-import { inject, injectable } from 'inversify';
-import {
-  interfaces,
-  controller,
-  httpGet,
-  httpPost,
-  httpDelete,
-  request,
-  queryParam,
-  response,
-  requestParam
-} from 'inversify-express-utils';
-
-import { HttpError } from '../../models';
-import container from '../../../common/config/ioc_config';
+import { inject } from 'inversify';
+import { controller, httpGet, interfaces, request, response } from 'inversify-express-utils';
 import SERVICE_IDENTIFIER from '../../../common/constants/identifiers';
-import {
-  HttpStatus,
-  ErrorResponseBuilder
-} from '../../services';
 import { ILogger, IMetrics } from '../../../common/interfaces';
 import { IHystrixDemo } from '../../interfaces';
+import { HttpError } from '../../models';
+import { ErrorResponseBuilder, HttpStatus } from '../../services';
+
 
 /**
  * Hystrix Demo Controller

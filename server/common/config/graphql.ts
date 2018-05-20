@@ -1,7 +1,7 @@
 import { Application } from 'express';
 import { GraphQLOptions } from 'apollo-server-core';
 import { graphqlExpress, graphiqlExpress } from 'apollo-server-express';
-import { setupSchema } from '../../graphql/schema';
+import { setupSchema } from '../../graphql/setupSchema';
 import Register from 'graphql-playground-middleware-express';
 import { MiddlewareOptions } from 'graphql-playground-html';
 import configJWT from './jwt';

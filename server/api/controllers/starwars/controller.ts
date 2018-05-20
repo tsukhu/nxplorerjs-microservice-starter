@@ -1,29 +1,13 @@
 import { Request, Response } from 'express';
-import {
-  interfaces,
-  controller,
-  httpGet,
-  httpPost,
-  httpDelete,
-  request,
-  queryParam,
-  response,
-  requestParam
-} from 'inversify-express-utils';
+import { inject } from 'inversify';
+import { controller, httpGet, interfaces, request, requestParam, response } from 'inversify-express-utils';
 import { timeout } from 'rxjs/operators';
-
-import { HttpError } from '../../models';
-import {
-  HttpStatus,
-  ErrorResponseBuilder,
-  StarwarsService
-} from '../../services';
-import container from '../../../common/config/ioc_config';
 import SERVICE_IDENTIFIER from '../../../common/constants/identifiers';
-import { inject, injectable } from 'inversify';
-import { APIResponse } from '../../models';
 import { ILogger, IMetrics } from '../../../common/interfaces';
 import { IStarwars } from '../../interfaces';
+import { APIResponse, HttpError } from '../../models';
+import { ErrorResponseBuilder, HttpStatus } from '../../services';
+
 
 /**
  * Controller for StarWars APIs

@@ -1,4 +1,3 @@
-const PeopleWithPlanetType = `
 type PeopleWithPlanetType {
     name: String
     height: String
@@ -16,9 +15,8 @@ type PeopleWithPlanetType {
     created: String
     edited: String
     url: String
-}`;
+}
 
-const PeopleType = `
 type PeopleType {
     name: String 
     height: String 
@@ -36,9 +34,8 @@ type PeopleType {
     created: String 
     edited: String 
     url: String
-}`;
+}
 
-const PlanetType = `
 type PlanetType { 
     name: String 
     rotation_period: String 
@@ -54,9 +51,8 @@ type PlanetType {
     created: String 
     edited: String 
     url: String
-}`;
+}
 
-const StarshipType = `
 type StarshipType { 
     name: String
 	model: String
@@ -76,6 +72,4 @@ type StarshipType {
 	created: String
 	edited: String
 	url: String
-}`;
-
-export default [PlanetType, PeopleType, PeopleWithPlanetType, StarshipType];
+}
