@@ -28,7 +28,7 @@
     "sonar56x": true
   },
   "dependencies": {
-    "@akanass/rx-http-request": "^2.7.1",
+    "@akanass/rx-http-request": "^3.0.0",
     "apollo-errors": "^1.7.1",
     "bluebird": "^3.5.1",
     "body-parser": "^1.18.2",
