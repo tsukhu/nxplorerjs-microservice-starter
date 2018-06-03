@@ -46,7 +46,7 @@ const getGraphQLConfig = (req: any): GraphQLOptions => {
   return {
     schema: setupSchema(),
     formatError,    // Error Handler
-    tracing: tracing,
+    tracing,
     context: { // Setup the user context as well as the dataload context
       user,
       peopleLoader,
@@ -88,7 +88,7 @@ export const configGraphQL = async (app: Application) => {
     // GraphQL playground currently explects both the endpoints to be same
     const graphQLPlaygroundOptions: MiddlewareOptions = {
       endpoint: '/graphql',
-      subscriptionsEndpoint: '/graphql'
+      subscriptionEndpoint: '/graphql'
     };
     app.get('/playground', Register(graphQLPlaygroundOptions));
   }
