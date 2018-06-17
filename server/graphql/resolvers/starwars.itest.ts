@@ -1,7 +1,3 @@
-// Need to include the next line for Visual Studio Code
-// intellisense to work for jest types
-import {} from 'jest';
-
 import { tester } from 'graphql-tester';
 import * as _ from 'lodash';
 import '../../common/env';
