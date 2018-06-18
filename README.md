@@ -191,19 +191,21 @@ See REST API /examples/{id}
 ---
 
 ```bash
-    curl http://localhost:3000/api/v1/starwars/people/1?fields=name,gender,homeworld(gravity,population)
+    curl http://localhost:3000/api/v1/starwars/people/1?data(name,gender,homeworld(gravity,population))
 ```
 
 * Response
 
 ```bash
     {
-        name: "Luke Skywalker",
-        gender: "male",
-        homeworld: {
-        gravity: "1 standard",
-        population: "200000"
+      "data": {
+        "name": "Luke Skywalker",
+        "gender": "male",
+        "homeworld": {
+          "gravity": "1 standard",
+          "population": "200000"
         }
+      }
     }
 ```
 
