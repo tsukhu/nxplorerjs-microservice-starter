@@ -6,7 +6,6 @@ const faker = require('faker');
 const blogs = [];
 let lastBlogId = 0;
 let lastCommentId = 0;
-let commentCreatedAt = 123456789;
 
 const addBlog = name => {
   lastBlogId++;
@@ -25,10 +24,9 @@ const getBlog = id => {
 
 const addFakeComment = (blog, commentText) => {
   lastCommentId++;
-  commentCreatedAt++;
   const newComment = {
     id: lastCommentId,
-    createdAt: commentCreatedAt,
+    createdAt: Date(),
     text: commentText
   };
   blog.comments.push(newComment);
@@ -138,7 +136,7 @@ export default {
       const newComment = {
         id: String(lastCommentId++),
         text: comment.text,
-        createdAt: +new Date()
+        createdAt: Date()
       };
       blog.comments.push(newComment);
 

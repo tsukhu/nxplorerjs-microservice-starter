@@ -19,7 +19,7 @@ input CommentInput {
 type Comment {
   id: ID!
   text: String
-  createdAt: Int
+  createdAt: Date
 }
 
 type CommentFeed {
