@@ -1,7 +1,6 @@
 import { gql } from 'apollo-server-express';
-import { PubSub } from 'apollo-server';
+import { PubSub, addMockFunctionsToSchema, makeExecutableSchema } from 'apollo-server';
 import { importSchema } from 'graphql-import';
-import { addMockFunctionsToSchema, makeExecutableSchema } from 'graphql-tools';
 import { GraphQLSchema } from 'graphql/type/schema';
 import { merge } from 'lodash';
 import AuthDirective from './directives/authDirective';
