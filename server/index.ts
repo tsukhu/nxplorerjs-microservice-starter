@@ -1,8 +1,8 @@
 import './common/env';
 import Server from './common/server';
-import { Container } from 'inversify';
-import { configHystrix } from '../server/common/config/hystrix';
-import { configGraphQLSubscription } from '../server/common/config/graphql-subscription';
+import { PubSub } from 'apollo-server';
+import { ApolloServer } from 'apollo-server-express';
+import { configHystrix, configGraphQL } from '../server/common/config';
 import * as cluster from 'cluster';
 import * as os from 'os';
 import * as http from 'http';
@@ -17,19 +17,18 @@ const welcome = port =>
 const setupServer = () => {
   // create server
   const app = new Server().getServer().build();
-
+  const apolloServer: ApolloServer = configGraphQL(app);
   // Create Server so that it can be reused for the
   // configuring the SubscriptionServer
   const ws = http.createServer(app);
 
+  if (process.env.GRAPHQL_SUBSCRIPTIONS === 'true') {
+    apolloServer.installSubscriptionHandlers(ws);
+  }
+  // console.log(apolloServer.subscriptionsPath);
   ws.listen(process.env.PORT, err => {
     if (err) {
       throw new Error(err);
-    }
-
-    if (process.env.GRAPHQL_SUBSCRIPTIONS === 'true') {
-      // configure Subscription
-      configGraphQLSubscription(ws);
     }
 
     if (process.env.STREAM_HYSTRIX === 'true') {

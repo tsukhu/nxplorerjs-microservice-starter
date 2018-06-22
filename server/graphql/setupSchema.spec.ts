@@ -1,10 +1,10 @@
 // Need to include the next line for Visual Studio Code
 // intellisense to work for jest types
-import {} from 'jest';
 import { graphql } from 'graphql';
 
 import '../common/env';
 import { fetchPeople } from './dataloader/starwars';
+import { importSchema } from 'graphql-import';
 import { setupSchema } from './setupSchema';
 
 const DataLoader = require('dataloader');
@@ -53,7 +53,12 @@ describe('Example Service Tests', () => {
       const contextValue = {
         peopleLoader
       };
-      const result = await graphql(setupSchema(), query, rootValue, contextValue);
+      const result = await graphql(
+        setupSchema(),
+        query,
+        rootValue,
+        contextValue
+      );
       const { people } = result.data;
       expect(people.name).toEqual(expectedValue);
     },

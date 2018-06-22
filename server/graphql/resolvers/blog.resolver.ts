@@ -1,11 +1,11 @@
-import { PubSub } from 'graphql-subscriptions';
-import { withFilter } from 'graphql-subscriptions';
+import { withFilter } from 'apollo-server';
+import { pubsub } from '../setupSchema';
+
 const faker = require('faker');
 
 const blogs = [];
 let lastBlogId = 0;
 let lastCommentId = 0;
-let commentCreatedAt = 123456789;
 
 const addBlog = name => {
   lastBlogId++;
@@ -24,10 +24,9 @@ const getBlog = id => {
 
 const addFakeComment = (blog, commentText) => {
   lastCommentId++;
-  commentCreatedAt++;
   const newComment = {
     id: lastCommentId,
-    createdAt: commentCreatedAt,
+    createdAt: Date(),
     text: commentText
   };
   blog.comments.push(newComment);
@@ -46,8 +45,6 @@ for (let i = 0; i < 50; i++) {
 // generate second blog for initial blog list view
 addBlog('blog2');
 
-const pubsub = new PubSub();
-
 export default {
   Query: {
     blogs: () => {
@@ -59,7 +56,7 @@ export default {
     }
   },
   // The new resolvers are under the Blog type
-  // Note: The paging logic is a bit flaky but the idea is 
+  // Note: The paging logic is a bit flaky but the idea is
   // list the building blocks to create pagination
   Blog: {
     commentFeed: (blog, { cursor, limit }) => {
@@ -139,7 +136,7 @@ export default {
       const newComment = {
         id: String(lastCommentId++),
         text: comment.text,
-        createdAt: +new Date()
+        createdAt: Date()
       };
       blog.comments.push(newComment);
 

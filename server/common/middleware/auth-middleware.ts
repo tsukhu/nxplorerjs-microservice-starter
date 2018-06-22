@@ -76,7 +76,9 @@ export const checkUser = async (user: any): Promise<any> => {
 
 export const getUserRole = ctx => {
   if (process.env.JWT_AUTH === 'true') {
-    return Promise.resolve(ctx.user && ctx.user.role ? ctx.user.role : 'UNKNOWN');
+    return Promise.resolve(
+      ctx.user && ctx.user.role ? ctx.user.role : 'UNKNOWN'
+    );
   } else {
     return Promise.resolve('UNKNOWN');
   }

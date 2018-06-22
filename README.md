@@ -364,7 +364,6 @@ npm install
 | SWAGGER_API_DOCS_ROOT | Serves your Swagger API file(s) so they can be used with front-end tools like like Swagger UI, PostMan. | /api/api-docs |
 | GRAPHQL_SUBSCRIPTIONS | Enable/Disable GraphQL subscriptions (true or false) | true |
 | GRAPHQL_PLAYGROUND | Enable/Disable GraphQL Playground (true or false) | true |
-| GRAPHQL_IQL | Enable/Disable GraphQL IQL Explorer (true or false) | true |
 | GRAPHQL_TRACING | Enable/Disable GraphQL tracing (true or false) | true |
 | GRAPHQL_MOCK | Enable/Disable GraphQL Mock for unimplemented Interfaces(true or false) | true |
 | API_MOCK | Enable/Disable REST API Mock unimplemented routes(true or false) | true |
