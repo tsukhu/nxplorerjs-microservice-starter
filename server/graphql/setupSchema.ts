@@ -1,3 +1,5 @@
+import { gql } from 'apollo-server-express';
+import { PubSub } from 'apollo-server';
 import { importSchema } from 'graphql-import';
 import { addMockFunctionsToSchema, makeExecutableSchema } from 'graphql-tools';
 import { GraphQLSchema } from 'graphql/type/schema';
@@ -5,10 +7,17 @@ import { merge } from 'lodash';
 import AuthDirective from './directives/authDirective';
 import FormattableDateDirective from './directives/formattableDate';
 import mocks from './mocks';
-import { BlogResolver, ExampleResolver, MovieResolver, StarwarsResolver, UserResolver } from './resolvers';
+import {
+  BlogResolver,
+  ExampleResolver,
+  MovieResolver,
+  StarwarsResolver,
+  UserResolver
+} from './resolvers';
 
-const typeDefs = importSchema('server/graphql/schema/main.graphql');
+export const pubsub = new PubSub();
 
+const typeDefs = gql(importSchema('server/graphql/schema/main.graphql'));
 
 // Merge all the resolvers
 const resolvers = merge(
@@ -19,10 +28,18 @@ const resolvers = merge(
   BlogResolver
 );
 
-// Create GraphQL Schema with all the pieces in place 
+const schemaDirectives = {
+  date: FormattableDateDirective,
+  auth: AuthDirective
+};
+
+export { mocks, schemaDirectives, resolvers, typeDefs };
+
+// Create GraphQL Schema with all the pieces in place
 export const setupSchema = (): GraphQLSchema => {
+  const myTypeDefs = importSchema('server/graphql/schema/main.graphql');
   const schema = makeExecutableSchema({
-    typeDefs,
+    typeDefs: myTypeDefs,
     resolvers: resolvers,
     schemaDirectives: {
       date: FormattableDateDirective,

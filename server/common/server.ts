@@ -6,18 +6,11 @@ import {
   secureApp,
   configLogging,
   configMetrics,
-  configGraphQL,
   configHealthChecks,
   addCompression
 } from './config';
 import container from './config/ioc_config';
-import SERVICE_IDENTIFIER from '../common/constants/identifiers';
-import {
-  interfaces,
-  InversifyExpressServer,
-  TYPE
-} from 'inversify-express-utils';
-
+import { InversifyExpressServer } from 'inversify-express-utils';
 
 const responseTime = require('response-time');
 
@@ -26,6 +19,7 @@ const responseTime = require('response-time');
  */
 export default class ExpressServer {
   public server: InversifyExpressServer;
+
   constructor() {
     let root: string;
 
@@ -58,9 +52,6 @@ export default class ExpressServer {
 
       // Add metrics configuration
       configMetrics(app);
-
-      // Graphql
-      configGraphQL(app);
 
       // Configure Healthchecks
       configHealthChecks(app);

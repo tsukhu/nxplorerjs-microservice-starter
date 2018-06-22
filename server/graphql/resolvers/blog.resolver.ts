@@ -1,5 +1,6 @@
-import { PubSub } from 'graphql-subscriptions';
-import { withFilter } from 'graphql-subscriptions';
+import { withFilter } from 'apollo-server';
+import { pubsub } from '../setupSchema';
+
 const faker = require('faker');
 
 const blogs = [];
@@ -46,8 +47,6 @@ for (let i = 0; i < 50; i++) {
 // generate second blog for initial blog list view
 addBlog('blog2');
 
-const pubsub = new PubSub();
-
 export default {
   Query: {
     blogs: () => {
@@ -59,7 +58,7 @@ export default {
     }
   },
   // The new resolvers are under the Blog type
-  // Note: The paging logic is a bit flaky but the idea is 
+  // Note: The paging logic is a bit flaky but the idea is
   // list the building blocks to create pagination
   Blog: {
     commentFeed: (blog, { cursor, limit }) => {
