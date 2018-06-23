@@ -58,6 +58,7 @@ const getGraphQLConfig = (): Config => {
     mocks: serverMocks,
     formatError, // Error Handler
     tracing,
+    introspection: true,
     context: async ({ req, connection }) => {
       if (connection) {
         // check connection for metadata

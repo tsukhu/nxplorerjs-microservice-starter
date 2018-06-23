@@ -30,8 +30,8 @@
   "dependencies": {
     "@akanass/rx-http-request": "^3.0.0",
     "apollo-errors": "^1.9.0",
-    "apollo-server": "^2.0.0-rc.1",
-    "apollo-server-express": "^2.0.0-rc.1",
+    "apollo-server": "^2.0.0-rc.2",
+    "apollo-server-express": "^2.0.0-rc.2",
     "bluebird": "^3.5.1",
     "body-parser": "^1.18.3",
     "brakes": "^2.6.0",
