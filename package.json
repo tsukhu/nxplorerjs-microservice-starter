@@ -8,6 +8,7 @@
     "start:docker": "node main",
     "heroku-postbuild": "npm run compile",
     "compile": "cross-env NODE_ENV=production node build.js && backpack build",
+    "compile:dev": "cross-env NODE_ENV=development node build.js && backpack build",
     "dev": "cross-env NODE_ENV=development node build.js && backpack dev",
     "dev:debug": "cross-env NODE_ENV=development node build.js && cross-env DEBUG=express:* backpack dev",
     "dash": "nodejs-dashboard -- node -r nodejs-dashboard build/main",
