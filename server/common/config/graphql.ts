@@ -99,7 +99,7 @@ export const configGraphQL = (app: Application): ApolloServer => {
 
   const server = new ApolloServer(getGraphQLConfig());
   const path = '/graphql';
-  server.applyMiddleware({ app, path });
+  server.applyMiddleware({ app, path, gui: true });
 
   return server;
 };
