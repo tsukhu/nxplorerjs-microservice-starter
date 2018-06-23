@@ -1,5 +1,9 @@
 import { gql } from 'apollo-server-express';
-import { PubSub, addMockFunctionsToSchema, makeExecutableSchema } from 'apollo-server';
+import {
+  PubSub,
+  addMockFunctionsToSchema,
+  makeExecutableSchema
+} from 'apollo-server';
 import { importSchema } from 'graphql-import';
 import { GraphQLSchema } from 'graphql/type/schema';
 import { merge } from 'lodash';
