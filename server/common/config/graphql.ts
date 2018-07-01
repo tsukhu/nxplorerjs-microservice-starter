@@ -19,6 +19,8 @@ import {
   fetchStarship
 } from '../../graphql/dataloader/starwars';
 
+import StarwarsAPI from '../../graphql/datasource/starwars-api';
+
 // Tracing Configuration
 const tracing =
   process.env.GRAPHQL_TRACING !== undefined &&
@@ -51,9 +53,17 @@ const getGraphQLConfig = (): Config => {
       ? mocks
       : false;
 
+  const myStarwarsAPI: any = new StarwarsAPI();
+
   return {
     typeDefs,
     resolvers,
+    dataSources: () => {
+      return {
+        starwarsAPI: myStarwarsAPI
+      };
+    },
+    cacheControl: true,
     schemaDirectives,
     mocks: serverMocks,
     formatError, // Error Handler
