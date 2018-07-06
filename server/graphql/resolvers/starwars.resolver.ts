@@ -10,7 +10,7 @@ export default {
       return context.peopleLoader.load(args.id);
     },
     peopleDS: async (_source, { id }, { dataSources }) => {
-      return dataSources.starwarsAPI.getPlanet(id);
+      return dataSources.starwarsAPI.getPeople(id);
     },
     peopleList(parent, args, context, info) {
         return context.peopleLoader.loadMany(args.keys);

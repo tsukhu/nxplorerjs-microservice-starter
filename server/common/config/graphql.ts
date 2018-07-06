@@ -1,6 +1,7 @@
 import { Application } from 'express';
 import { Config } from 'apollo-server-core';
 import { ApolloServer } from 'apollo-server-express';
+import { InMemoryLRUCache } from 'apollo-server-caching';
 import {
   mocks,
   schemaDirectives,
@@ -63,7 +64,7 @@ const getGraphQLConfig = (): Config => {
         starwarsAPI: myStarwarsAPI
       };
     },
-    cacheControl: true,
+    cache: new InMemoryLRUCache({ maxSize: 100 }),
     schemaDirectives,
     mocks: serverMocks,
     formatError, // Error Handler
