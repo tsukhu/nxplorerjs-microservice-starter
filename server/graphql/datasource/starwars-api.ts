@@ -7,7 +7,7 @@ class StarwarsAPI extends RESTDataSource {
     // console.log(this.baseURL);
   }
 
-  async getPlanet(id) {
+  async getPeople(id) {
     return this.get(`people/${id}`);
   }
 }
