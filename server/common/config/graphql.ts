@@ -48,6 +48,13 @@ const getGraphQLConfig = (): Config => {
       return req.user ? req.user : Promise.resolve('');
     }
   };
+
+  const playground =
+    process.env.GRAPHQL_PLAYGROUND !== undefined &&
+    process.env.GRAPHQL_PLAYGROUND === 'true'
+      ? true
+      : false;
+
   const serverMocks =
     process.env.GRAPHQL_MOCK !== undefined &&
     process.env.GRAPHQL_MOCK === 'true'
@@ -69,6 +76,7 @@ const getGraphQLConfig = (): Config => {
     mocks: serverMocks,
     formatError, // Error Handler
     tracing,
+    playground,
     introspection: true,
     context: async ({ req, connection }) => {
       if (connection) {
@@ -110,7 +118,7 @@ export const configGraphQL = (app: Application): ApolloServer => {
 
   const server = new ApolloServer(getGraphQLConfig());
   const path = '/graphql';
-  server.applyMiddleware({ app, path, gui: true });
+  server.applyMiddleware({ app, path });
 
   return server;
 };
