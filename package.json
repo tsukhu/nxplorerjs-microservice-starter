@@ -1,6 +1,6 @@
 {
   "name": "nxplorerjs-microservice",
-  "version": "1.9.5",
+  "version": "1.9.6",
   "description": "Express Microservice Starter Project",
   "main": "index.js",
   "scripts": {
@@ -32,8 +32,8 @@
     "@akanass/rx-http-request": "^3.0.0",
     "apollo-datasource-rest": "^2.0.0-rc.8",
     "apollo-errors": "^1.9.0",
-    "apollo-server": "^2.0.0-rc.8",
-    "apollo-server-express": "^2.0.0-rc.8",
+    "apollo-server": "^2.0.0",
+    "apollo-server-express": "^2.0.0",
     "bluebird": "^3.5.1",
     "body-parser": "^1.18.3",
     "brakes": "^2.6.0",
