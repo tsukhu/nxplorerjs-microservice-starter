@@ -15,9 +15,9 @@ const heap = () => {
   const name = 'Heap size';
   const type = physical.type.SELF;
   const space = v8.getHeapSpaceStatistics();
-  const old_space_total = space[1].space_size;
-  const old_space_used = space[1].space_used_size;
-  const used = 100 / old_space_total * old_space_used;
+  const oldSpaceTotal = space[1].space_size;
+  const oldSpaceUsed = space[1].space_used_size;
+  const used = (100 / oldSpaceTotal) * oldSpaceUsed;
 
   return used > limit
     ? physical.response({

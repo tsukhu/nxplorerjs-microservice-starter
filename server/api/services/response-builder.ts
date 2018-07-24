@@ -8,7 +8,7 @@ export class ErrorResponseBuilder {
   private message: string;
   private detail: string;
 
-  setTitle(title: string) {
+  public setTitle(title: string) {
     this.title = title;
     return this;
   }
@@ -17,7 +17,7 @@ export class ErrorResponseBuilder {
     return this.title;
   }
 
-  setSource(source: string) {
+  public setSource(source: string) {
     this.source = source;
     return this;
   }
@@ -30,7 +30,7 @@ export class ErrorResponseBuilder {
     return this.status;
   }
 
-  setStatus(status: number) {
+  public setStatus(status: number) {
     this.status = status;
     return this;
   }
@@ -48,16 +48,17 @@ export class ErrorResponseBuilder {
     return this.detail;
   }
 
-  setDetail(detail: string) {
+  public setDetail(detail: string) {
     this.detail = detail;
     return this;
   }
 
-  build(): ErrorResponse {
+  public build(): ErrorResponse {
     return new ErrorResponse(this);
   }
 }
 
+// tslint:disable-next-line:max-classes-per-file
 export class ErrorResponse {
   private status: number;
   private source: string;

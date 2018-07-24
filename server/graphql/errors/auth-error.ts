@@ -5,5 +5,5 @@ import { createError } from 'apollo-errors';
  * @param authCode Authorization Code
  */
 export const UnAuthorizedError = createError('UnAuthorizedError', {
-    message: 'Authorization User Error'
-  });
+  message: 'Authorization User Error'
+});

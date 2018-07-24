@@ -1,6 +1,13 @@
 import { Request, Response } from 'express';
 import { inject } from 'inversify';
-import { controller, httpGet, interfaces, request, requestParam, response } from 'inversify-express-utils';
+import {
+  controller,
+  httpGet,
+  interfaces,
+  request,
+  requestParam,
+  response
+} from 'inversify-express-utils';
 import SERVICE_IDENTIFIER from '../../../common/constants/identifiers';
 import { ILogger, IMetrics } from '../../../common/interfaces';
 import { IProduct } from '../../interfaces';
@@ -43,7 +50,7 @@ class ShopController implements interfaces.Controller {
         this.metricsService.logAPIMetrics(req, res, HttpStatus.OK);
       },
       err => {
-        const error: HttpError = <HttpError>err;
+        const error: HttpError = err as HttpError;
         const resp = new ErrorResponseBuilder()
           .setTitle(error.name)
           .setStatus(HttpStatus.NOT_FOUND)
@@ -75,7 +82,7 @@ class ShopController implements interfaces.Controller {
         this.metricsService.logAPIMetrics(req, res, HttpStatus.OK);
       },
       err => {
-        const error: HttpError = <HttpError>err;
+        const error: HttpError = err as HttpError;
         const resp = new ErrorResponseBuilder()
           .setTitle(error.name)
           .setStatus(HttpStatus.NOT_FOUND)
@@ -107,7 +114,7 @@ class ShopController implements interfaces.Controller {
         this.metricsService.logAPIMetrics(req, res, HttpStatus.OK);
       },
       err => {
-        const error: HttpError = <HttpError>err;
+        const error: HttpError = err as HttpError;
         const resp = new ErrorResponseBuilder()
           .setTitle(error.name)
           .setStatus(HttpStatus.NOT_FOUND)
@@ -139,7 +146,7 @@ class ShopController implements interfaces.Controller {
         this.metricsService.logAPIMetrics(req, res, HttpStatus.OK);
       },
       err => {
-        const error: HttpError = <HttpError>err;
+        const error: HttpError = err as HttpError;
         const resp = new ErrorResponseBuilder()
           .setTitle(error.name)
           .setStatus(HttpStatus.NOT_FOUND)
@@ -263,7 +270,7 @@ class ShopController implements interfaces.Controller {
         }
       },
       err => {
-        const error: HttpError = <HttpError>err;
+        const error: HttpError = err as HttpError;
         const resp = new ErrorResponseBuilder()
           .setTitle(error.name)
           .setStatus(HttpStatus.NOT_FOUND)

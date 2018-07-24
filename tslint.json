@@ -1,32 +1,32 @@
 {
   // "rulesDirectory": "built/local/tslint",
   "rules": {
-    "boolean-trivia": true,
+    "interface-name": false,
     "class-name": true,
     "comment-format": [true, "check-space"],
     "curly": [true, "ignore-same-line"],
     "indent": [true, "spaces"],
     "jsdoc-format": true,
+    "ordered-imports": false,
     "linebreak-style": [true, "LF"],
-    "next-line": [true, "check-catch", "check-else"],
     "no-unused-expression": true,
-    "no-bom": true,
-    "no-in-operator": true,
-    "no-increment-decrement": true,
+    "no-var-requires": false,
+    "object-literal-shorthand": false,
+    "object-literal-sort-keys": false,
     "no-inferrable-types": true,
     "no-internal-module": true,
+    "no-implicit-dependencies": false,
     "no-null-keyword": true,
+    "no-submodule-imports": false,
     "no-switch-case-fall-through": true,
+    "one-variable-per-declaration": [true, "ignore-for-loop"],
     "no-trailing-whitespace": [true, "ignore-template-strings"],
-    "no-type-assertion-whitespace": true,
     "no-var-keyword": true,
-    "object-literal-surrounding-space": true,
     "one-line": [true, "check-open-brace", "check-whitespace"],
     "prefer-const": true,
     "quotemark": [true, "single", "avoid-escape"],
     "semicolon": [true, "always", "ignore-bound-class-methods"],
     "triple-equals": true,
-    "type-operator-spacing": true,
     "typedef-whitespace": [
       true,
       {
@@ -53,5 +53,6 @@
       "check-separator",
       "check-type"
     ]
-  }
+  },
+  "extends": ["tslint:latest", "tslint-config-prettier"]
 }

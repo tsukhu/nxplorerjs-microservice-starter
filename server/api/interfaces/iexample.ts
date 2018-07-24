@@ -6,7 +6,6 @@ import { Example } from '../models/example.model';
  * Example Service Interface
  */
 interface IExample {
-
   all(): Promise<Example[]>;
 
   byId(id: number): Promise<Example>;

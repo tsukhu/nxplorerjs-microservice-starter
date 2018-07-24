@@ -1,12 +1,12 @@
 import * as casual from 'casual';
 import { MockList } from 'graphql-tools';
-const num_format = '########';
+const numFormat = '########';
 
 export default {
   Int: () => casual.integer(0),
   PeopleType: () => ({
     name: casual.first_name + ' ' + casual.last_name,
-    mass: casual.numerify(num_format),
+    mass: casual.numerify(numFormat),
     hair_color: casual.safe_color_name,
     skin_color: casual.safe_color_name,
     eye_color: casual.safe_color_name,

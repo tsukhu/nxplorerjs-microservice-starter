@@ -1,3 +1,4 @@
+// tslint:disable:no-console
 import * as Promise from 'bluebird';
 import { Observable, AsyncSubject, of } from 'rxjs';
 import { Post } from '../models/example.model';
@@ -61,50 +62,6 @@ class HystrixDemoService implements IHystrixDemo {
     this.loggerService = loggerService;
   }
 
-  private fallbackCall(foo) {
-    return new Promise((resolve, reject) => {
-      resolve('I always succeed');
-    });
-  }
-
-  private unreliableServiceCall() {
-    return new Promise((resolve, reject) => {
-      setTimeout(() => {
-        iterations++;
-        if (iterations === 10) {
-          successRate = 0.6;
-        } else if (iterations === 100) {
-          successRate = 0.1;
-        } else if (iterations === 200) {
-          successRate = 1;
-          iterations = 0;
-        }
-        if (Math.random() <= successRate) {
-          resolve();
-        } else {
-          reject();
-        }
-      }, timer);
-    });
-  }
-
-  private getPostsAPI() {
-    const postTimeOut = 500;
-    const url_options = {
-      method: 'GET',
-      uri: `${process.env.JSON_PLACEHOLDER_BASE_URL}/posts/`,
-      resolveWithFullResponse: true,
-      json: true,
-      time: true,
-      timeout: postTimeOut
-    };
-    return rp(url_options);
-  }
-
-  private getPostsFallback() {
-    return Promise.resolve(posts);
-  }
-
   public getPosts(timeOut: number): Observable<any> {
     let brakeTimeOut = 2000;
     if (timeOut !== undefined) {
@@ -134,7 +91,7 @@ class HystrixDemoService implements IHystrixDemo {
     return loadedPosts;
   }
 
-  public start(): Observable<Boolean> {
+  public start(): Observable<boolean> {
     const brake = new Brakes(this.unreliableServiceCall, {
       name: 'Demo API',
       statInterval: 2500,
@@ -172,7 +129,51 @@ class HystrixDemoService implements IHystrixDemo {
         });
     }, 100);
 
-    return of(new Boolean(true));
+    return of(true);
+  }
+
+  private fallbackCall(foo) {
+    return new Promise((resolve, reject) => {
+      resolve('I always succeed');
+    });
+  }
+
+  private unreliableServiceCall() {
+    return new Promise((resolve, reject) => {
+      setTimeout(() => {
+        iterations++;
+        if (iterations === 10) {
+          successRate = 0.6;
+        } else if (iterations === 100) {
+          successRate = 0.1;
+        } else if (iterations === 200) {
+          successRate = 1;
+          iterations = 0;
+        }
+        if (Math.random() <= successRate) {
+          resolve();
+        } else {
+          reject();
+        }
+      }, timer);
+    });
+  }
+
+  private getPostsAPI() {
+    const postTimeOut = 500;
+    const urlOptions = {
+      method: 'GET',
+      uri: `${process.env.JSON_PLACEHOLDER_BASE_URL}/posts/`,
+      resolveWithFullResponse: true,
+      json: true,
+      time: true,
+      timeout: postTimeOut
+    };
+    return rp(urlOptions);
+  }
+
+  private getPostsFallback() {
+    return Promise.resolve(posts);
   }
 }
 export default HystrixDemoService;

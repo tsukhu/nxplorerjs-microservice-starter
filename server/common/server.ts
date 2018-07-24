@@ -24,11 +24,10 @@ export default class ExpressServer {
     let root: string;
 
     // Setup application root
-    if (process.env.NODE_ENV === 'development') {
-      root = path.normalize(__dirname + '/../..');
-    } else {
-      root = path.normalize('.');
-    }
+    root =
+      process.env.NODE_ENV === 'development'
+        ? path.normalize(__dirname + '/../..')
+        : (root = path.normalize('.'));
 
     this.server = new InversifyExpressServer(container, undefined, {
       rootPath: '/api/v1'

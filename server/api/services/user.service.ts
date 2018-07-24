@@ -8,7 +8,6 @@ import { injectable } from 'inversify';
  */
 @injectable()
 class UserService implements IUser {
-
   /**
    * Validated email and password
    * @param email Email
@@ -26,7 +25,6 @@ class UserService implements IUser {
   public findUserIdForEmail(email): string {
     return IDGenerator();
   }
-
 }
 
 export default UserService;

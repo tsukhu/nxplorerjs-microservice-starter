@@ -4,6 +4,7 @@ import * as http from 'http';
 /**
  * Add Hystrix configuration to the app server
  */
+// tslint:disable:no-console
 export const configHystrix = () => {
   if (process.env.STREAM_HYSTRIX === 'true') {
     const globalStats = Brakes.getGlobalStats();

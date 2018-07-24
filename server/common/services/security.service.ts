@@ -9,17 +9,17 @@ import * as fs from 'fs';
  */
 @injectable()
 class SecurityService implements ISecurity {
+  public loggerService: ILogger;
   // Generated using https://gist.github.com/ygotthilf/baa58da5c3dd1f69fae9
   private RSA_PRIVATE_KEY: any;
   private RSA_PUBLIC_KEY: any;
-  public loggerService: ILogger;
 
   public constructor(
     @inject(SERVICE_IDENTIFIER.LOGGER) loggerService: ILogger
   ) {
     this.loggerService = loggerService;
   }
-  async getKey(keyType: JWT_KeyType) {
+  public async getKey(keyType: JWT_KeyType) {
     let result: any;
     switch (keyType) {
       case JWT_KeyType.Public:

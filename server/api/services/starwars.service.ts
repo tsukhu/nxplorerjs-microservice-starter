@@ -21,7 +21,7 @@ class StarwarsService implements IStarwars {
 
   public getPeopleById(id: number): Observable<People> {
     const loadedCharacter: AsyncSubject<People> = new AsyncSubject<People>();
-    const url1_options = {
+    const url1Options = {
       method: 'GET',
       uri: `${process.env.SWAPI_BASE_URL}/people/` + id,
       resolveWithFullResponse: true,
@@ -29,7 +29,7 @@ class StarwarsService implements IStarwars {
       time: true,
       timeout: process.env.API_TIME_OUT
     };
-    const url2_options = {
+    const url2Options = {
       method: 'GET',
       uri: `${process.env.SWAPI_BASE_URL}/planets/` + id,
       resolveWithFullResponse: true,
@@ -37,24 +37,22 @@ class StarwarsService implements IStarwars {
       time: true,
       timeout: process.env.API_TIME_OUT
     };
-    const character: Observable<any> = from(rp(url1_options));
-    const characterHomeworld: Observable<any> = from(rp(url2_options));
+    const character: Observable<any> = from(rp(url1Options));
+    const characterHomeworld: Observable<any> = from(rp(url2Options));
 
     forkJoin([character, characterHomeworld]).subscribe(
       results => {
-        //     const result_0: People = JSON.parse(results[0]);
-        //     const result_1: Planet = JSON.parse(results[1]);
-        this.loggerService.info(url1_options.uri, results[0].timings);
-        this.loggerService.info(url2_options.uri, results[1].timings);
-        const result_0: People = results[0].body;
-        const result_1: Planet = results[1].body;
-        result_0.homeworld = result_1;
-        loadedCharacter.next(result_0);
+        this.loggerService.info(url1Options.uri, results[0].timings);
+        this.loggerService.info(url2Options.uri, results[1].timings);
+        const result0: People = results[0].body;
+        const result1: Planet = results[1].body;
+        result0.homeworld = result1;
+        loadedCharacter.next(result0);
         loadedCharacter.complete();
       },
       error => {
-        this.loggerService.info(url1_options.uri, error);
-        this.loggerService.info(url2_options.uri, error);
+        this.loggerService.info(url1Options.uri, error);
+        this.loggerService.info(url2Options.uri, error);
         loadedCharacter.next(undefined);
         loadedCharacter.complete();
       }

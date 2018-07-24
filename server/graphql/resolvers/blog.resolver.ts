@@ -76,7 +76,7 @@ export default {
       if (!cursor) {
         cursor = blog.comments[blog.comments.length - 1].createdAt;
       } else {
-        cursor = parseInt(cursor);
+        cursor = parseInt(cursor, 10);
 
         // find the location of the cursor
         // based on the of creation of the comment
@@ -113,7 +113,7 @@ export default {
         hasNextPage = false;
         newCursor = '';
       }
-      console.log(startIndex, newestCommentIndex);
+      // console.log(startIndex, newestCommentIndex);
       const commentFeed = {
         comments: blog.comments.slice(startIndex, newestCommentIndex),
         cursor: newCursor,
@@ -130,7 +130,7 @@ export default {
       return addBlog(id);
     },
     addComment: (root, { comment }) => {
-      const blog = blogs.find(blog => blog.id === comment.blogId);
+      const blog = blogs.find(item => item.id === comment.blogId);
       if (!blog) throw new Error('Blog does not exist');
 
       const newComment = {

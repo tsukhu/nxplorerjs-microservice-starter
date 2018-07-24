@@ -11,9 +11,9 @@ import { inject, injectable } from 'inversify';
  */
 @injectable()
 class LoggerMiddleware extends BaseMiddleware {
-  @inject(SERVICE_IDENTIFIER.LOGGER) _logger: ILogger;
+  @inject(SERVICE_IDENTIFIER.LOGGER) private logger: ILogger;
   public handler(req: Request, res: Response, next: NextFunction) {
-    this._logger.info(
+    this.logger.info(
       '[Logger Middleware]',
       { url: req.url },
       { cookies: req.headers.cookie }
