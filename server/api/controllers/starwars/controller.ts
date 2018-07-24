@@ -1,13 +1,19 @@
 import { Request, Response } from 'express';
 import { inject } from 'inversify';
-import { controller, httpGet, interfaces, request, requestParam, response } from 'inversify-express-utils';
+import {
+  controller,
+  httpGet,
+  interfaces,
+  request,
+  requestParam,
+  response
+} from 'inversify-express-utils';
 import { timeout } from 'rxjs/operators';
 import SERVICE_IDENTIFIER from '../../../common/constants/identifiers';
 import { ILogger, IMetrics } from '../../../common/interfaces';
 import { IStarwars } from '../../interfaces';
 import { APIResponse, HttpError } from '../../models';
 import { ErrorResponseBuilder, HttpStatus } from '../../services';
-
 
 /**
  * Controller for StarWars APIs
@@ -65,7 +71,7 @@ class StarwarsController implements interfaces.Controller {
             }
           },
           err => {
-            const error: HttpError = <HttpError>err;
+            const error: HttpError = err as HttpError;
             const resp = new ErrorResponseBuilder()
               .setTitle(error.name)
               .setStatus(HttpStatus.NOT_FOUND)

@@ -21,12 +21,9 @@ const examples: Example[] = [
  */
 @injectable()
 class ExamplesService implements IExample {
-
   public logService: ILogger;
 
-  public constructor(
-    @inject(SERVICE_IDENTIFIER.LOGGER) logger: ILogger
-  ) {
+  public constructor(@inject(SERVICE_IDENTIFIER.LOGGER) logger: ILogger) {
     this.logService = logger;
   }
 
@@ -34,29 +31,28 @@ class ExamplesService implements IExample {
     return Promise.resolve(examples);
   }
 
-  public byId(id: number): Promise<Example> {
-    return this.all().then(r => r[id]);
+  public byId(exampleId: number): Promise<Example> {
+    return this.all().then(r => r[exampleId]);
   }
 
-  public byPostsByID(id: number): Observable<any> {
-
+  public byPostsByID(exampleId: number): Observable<any> {
     // Request perfroamcne interceptor
-    const _include_headers = (body, response, resolveWithFullResponse) => {
-      return { 'timings': response.timings, 'data': body };
+    const includeHeaders = (body, response, resolveWithFullResponse) => {
+      return { timings: response.timings, data: body };
     };
 
-    const url_options = {
+    const urlOptions = {
       method: 'GET',
-      uri: `${process.env.JSON_PLACEHOLDER_BASE_URL}/posts/` + id,
+      uri: `${process.env.JSON_PLACEHOLDER_BASE_URL}/posts/` + exampleId,
       resolveWithFullResponse: true,
       json: true,
       time: true,
       timeout: process.env.API_TIME_OUT,
-      transform: _include_headers
+      transform: includeHeaders
     };
-    const api = { uri: url_options.uri, method: url_options.method };
+    const api = { uri: urlOptions.uri, method: urlOptions.method };
     this.logService.info(api);
-    return from(rp(url_options));
+    return from(rp(urlOptions));
   }
 
   public create(name: string): Promise<Example> {

@@ -7,6 +7,7 @@ import * as os from 'os';
 import * as http from 'http';
 
 // Single Node execution
+// tslint:disable:no-console
 const welcome = port =>
   console.log(
     `up and running in ${process.env.NODE_ENV ||

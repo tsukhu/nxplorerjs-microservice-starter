@@ -17,10 +17,6 @@ class LogService implements ILogger {
     this.initLogger();
   }
 
-  private initLogger() {
-    this.logger = pino;
-  }
-
   public getLogger(): any {
     return this.logger;
   }
@@ -82,6 +78,10 @@ class LogService implements ILogger {
 
   public getUUID() {
     return this.uuid;
+  }
+
+  private initLogger() {
+    this.logger = pino;
   }
 }
 

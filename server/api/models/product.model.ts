@@ -3,10 +3,10 @@
  * Each Product Option has a price and inventory
  */
 export interface BaseProductOption {
-    baseProductOptionId: number;
-    description: string;
-    price?: number;
-    inventory?: number;
+  baseProductOptionId: number;
+  description: string;
+  price?: number;
+  inventory?: number;
 }
 
 /**
@@ -14,10 +14,10 @@ export interface BaseProductOption {
  * Each Base Product has multiple Product Options
  */
 export interface BaseProduct {
-    id: number;
-    name: string;
-    description: string;
-    baseProductOptions: BaseProductOption[];
+  id: number;
+  name: string;
+  description: string;
+  baseProductOptions: BaseProductOption[];
 }
 
 /**
@@ -25,9 +25,9 @@ export interface BaseProduct {
  * Each Base Product Option has a price
  */
 export interface BaseProductPrice {
-    id?: number;
-    baseProductOptionId: number;
-    price: number;
+  id?: number;
+  baseProductOptionId: number;
+  price: number;
 }
 
 /**
@@ -35,7 +35,7 @@ export interface BaseProductPrice {
  * Each Base Product Option has an inventory number
  */
 export interface BaseProductInventory {
-    id: number;
-    baseProductOptionId: number;
-    inventory: number;
+  id: number;
+  baseProductOptionId: number;
+  inventory: number;
 }

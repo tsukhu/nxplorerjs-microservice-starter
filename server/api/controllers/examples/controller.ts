@@ -13,7 +13,6 @@ import { timeout } from 'rxjs/operators';
 import SERVICE_IDENTIFIER from '../../../common/constants/identifiers';
 import { ILogger, IMetrics } from '../../../common/interfaces';
 import { authMiddleware } from '../../../common/middleware/auth-middleware';
-import { User } from '../../../common/models/security.model';
 import { IExample } from '../../interfaces';
 import { HttpError, Quote } from '../../models';
 import { ErrorResponseBuilder, HttpStatus } from '../../services';
@@ -24,7 +23,7 @@ import { ErrorResponseBuilder, HttpStatus } from '../../services';
  */
 @controller(
   '/examples',
-  authMiddleware(<User>{ role: 'admin' }),
+  authMiddleware({ role: 'admin' } as any),
   SERVICE_IDENTIFIER.LOGGER_MIDDLEWARE
 )
 class ExampleController extends BaseHttpController {
@@ -50,7 +49,7 @@ class ExampleController extends BaseHttpController {
    */
   @httpGet('/')
   public async all(@request() req: Request, @response() res: Response) {
-    return await this.exampleService.all();
+    return this.exampleService.all();
   }
 
   /**
@@ -66,20 +65,20 @@ class ExampleController extends BaseHttpController {
     @response() res: Response
   ) {
     this.loggerService.info(req.originalUrl);
-    return await new Promise((resolve, reject) => {
+    return new Promise((resolve, reject) => {
       this.exampleService
         .byPostsByID(id)
         .pipe(timeout(+process.env.API_TIME_OUT))
         .subscribe(
           result => {
-            this.loggerService.info(<Quote>result.data);
+            this.loggerService.info(result.data as Quote);
             this.loggerService.info(result.timings);
             this.loggerService.logAPITrace(req, res, HttpStatus.OK);
             this.metricsService.logAPIMetrics(req, res, HttpStatus.OK);
             resolve(result.data);
           },
           err => {
-            const error: HttpError = <HttpError>err;
+            const error: HttpError = err as HttpError;
             const resp = new ErrorResponseBuilder()
               .setTitle(error.name)
               .setStatus(HttpStatus.NOT_FOUND)
@@ -136,7 +135,7 @@ class ExampleController extends BaseHttpController {
    */
   @httpPost('/')
   public async create(@request() req: Request, @response() res: Response) {
-    return await this.exampleService.create(req.body.name);
+    return this.exampleService.create(req.body.name);
   }
 }
 export default ExampleController;

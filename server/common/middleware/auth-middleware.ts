@@ -52,7 +52,7 @@ const authMiddlewareFactory = () => {
  */
 const authGraphQLMiddlewareFactory = () => {
   return (req, res, next) => {
-    console.log('Middleware called');
+    // console.log('Middleware called');
 
     // If the token is valid, req.user will be set with the JSON object decoded
     const obj: any = req;

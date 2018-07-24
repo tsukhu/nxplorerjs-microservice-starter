@@ -1,6 +1,12 @@
 import { Request, Response } from 'express';
 import { inject } from 'inversify';
-import { controller, httpPost, interfaces, request, response } from 'inversify-express-utils';
+import {
+  controller,
+  httpPost,
+  interfaces,
+  request,
+  response
+} from 'inversify-express-utils';
 import * as jwt from 'jsonwebtoken';
 import IDGenerator from '../../../common/config/utils';
 import SERVICE_IDENTIFIER from '../../../common/constants/identifiers';
@@ -30,9 +36,9 @@ class SecurityController implements interfaces.Controller {
    */
   @httpPost('/')
   public async login(@request() req: Request, @response() res: Response) {
-    const email = req.body.email,
-      password = req.body.password,
-      role = req.body.role;
+    const email = req.body.email;
+    const password = req.body.password;
+    const role = req.body.role;
     const privateKey = await this.securityService.getKey(JWT_KeyType.Private);
 
     if (this.validateEmailAndPassword(email, password)) {

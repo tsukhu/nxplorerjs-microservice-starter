@@ -2,20 +2,19 @@ import { Request, Response } from 'express';
 
 /** Logging Service Interface */
 interface ILogger {
+  info(...message);
 
-    info(...message);
+  debug(...message);
 
-    debug(...message);
+  error(...message);
 
-    error(...message);
+  logAPITraceOut(req: Request, res: Response, message?: any);
 
-    logAPITraceOut(req: Request, res: Response, message?: any);
+  logAPITrace(req: Request, res: Response, statusCode: number, message?: any);
 
-    logAPITrace(req: Request, res: Response, statusCode: number, message?: any);
+  setUUID(uuid: string);
 
-    setUUID(uuid: string);
-
-    getUUID();
+  getUUID();
 }
 
 export default ILogger;
