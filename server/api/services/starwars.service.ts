@@ -1,9 +1,6 @@
-import * as Promise from 'bluebird';
 import { Observable, AsyncSubject, from, forkJoin } from 'rxjs';
-import * as _ from 'lodash';
 import { Planet, People } from '../models/starwars.model';
 import { inject, injectable } from 'inversify';
-import container from '../../common/config/ioc_config';
 import SERVICE_IDENTIFIER from '../../common/constants/identifiers';
 import ILogger from '../../common/interfaces/ilogger';
 import IStarwars from '../interfaces/istarwars';

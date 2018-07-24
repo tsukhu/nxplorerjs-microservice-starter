@@ -1,4 +1,4 @@
-import { ErrorResponseBuilder, ErrorResponse } from './response-builder';
+import { ErrorResponseBuilder } from './response-builder';
 import { HttpStatus } from './http-status-codes';
 import '../../common/env';
 

@@ -1,9 +1,6 @@
 import * as casual from 'casual';
-import * as RandExp from 'randexp';
 import { MockList } from 'graphql-tools';
-import { startCase } from 'lodash';
 const num_format = '########';
-const randomID = new RandExp(/EX-\d{3}/).gen();
 
 export default {
   Int: () => casual.integer(0),
@@ -25,10 +22,10 @@ export default {
     url: casual.url
   }),
   ExampleType: () => ({
-    id:  casual.integer(0),
+    id: casual.integer(0),
     name: casual.title
   }),
   RootQueryType: () => ({
-    examplesMock: () => new MockList(4),
+    examplesMock: () => new MockList(4)
   })
 };

@@ -1,4 +1,3 @@
-import { Request, Response } from 'express';
 import * as Promise from 'bluebird';
 import { Observable } from 'rxjs';
 import { Example } from '../models/example.model';

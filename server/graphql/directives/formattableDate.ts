@@ -1,5 +1,3 @@
-import formatDate from 'dateformat';
-
 import { GraphQLString, defaultFieldResolver } from 'graphql';
 import { SchemaDirectiveVisitor } from 'graphql-tools';
 

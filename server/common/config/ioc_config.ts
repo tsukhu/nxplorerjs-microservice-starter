@@ -1,9 +1,4 @@
 import 'reflect-metadata';
-import {
-  interfaces,
-  InversifyExpressServer,
-  TYPE
-} from 'inversify-express-utils';
 import { Container } from 'inversify';
 
 import { LogService, MetricsService, SecurityService } from '../services';
@@ -29,7 +24,6 @@ import '../../api/controllers/shop/controller';
 import '../../api/controllers/starwars/controller';
 import '../../api/controllers/security/controller';
 import SERVICE_IDENTIFIER from '../constants/identifiers';
-import TAG from '../constants/tags';
 
 // Initialize the container
 const container = new Container();
