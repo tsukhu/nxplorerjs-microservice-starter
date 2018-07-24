@@ -1,6 +1,5 @@
 import IUser from '../../api/interfaces/iuser';
 import SERVICE_IDENTIFIER from '../../common/constants/identifiers';
-import { User } from '../../common/models/security.model';
 import container from '../../common/config/ioc_config';
 
 describe('User Service Tests', () => {
