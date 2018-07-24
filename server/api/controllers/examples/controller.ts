@@ -13,7 +13,6 @@ import { timeout } from 'rxjs/operators';
 import SERVICE_IDENTIFIER from '../../../common/constants/identifiers';
 import { ILogger, IMetrics } from '../../../common/interfaces';
 import { authMiddleware } from '../../../common/middleware/auth-middleware';
-import { User } from '../../../common/models/security.model';
 import { IExample } from '../../interfaces';
 import { HttpError, Quote } from '../../models';
 import { ErrorResponseBuilder, HttpStatus } from '../../services';
