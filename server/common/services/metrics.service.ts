@@ -1,5 +1,5 @@
 import { Request, Response } from 'express';
-import { inject, injectable } from 'inversify';
+import { injectable } from 'inversify';
 import IMetrics from '../interfaces/imetrics';
 
 const Prometheus = require('prom-client');
