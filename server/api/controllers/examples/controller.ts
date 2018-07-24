@@ -1,6 +1,14 @@
 import { Request, Response } from 'express';
 import { inject } from 'inversify';
-import { BaseHttpController, controller, httpGet, httpPost, request, requestParam, response } from 'inversify-express-utils';
+import {
+  BaseHttpController,
+  controller,
+  httpGet,
+  httpPost,
+  request,
+  requestParam,
+  response
+} from 'inversify-express-utils';
 import { timeout } from 'rxjs/operators';
 import SERVICE_IDENTIFIER from '../../../common/constants/identifiers';
 import { ILogger, IMetrics } from '../../../common/interfaces';
@@ -113,7 +121,7 @@ class ExampleController extends BaseHttpController {
           .setMessage(error.message)
           .setSource(req.url)
           .build();
-        res.status(HttpStatus.NOT_FOUND).json(error);
+        res.status(HttpStatus.NOT_FOUND).json(resp);
         this.loggerService.logAPITrace(req, res, HttpStatus.NOT_FOUND);
         this.metricsService.logAPIMetrics(req, res, HttpStatus.NOT_FOUND);
       }

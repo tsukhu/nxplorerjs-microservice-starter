@@ -1,4 +1,3 @@
-import { Request, Response } from 'express';
 import { inject, injectable } from 'inversify';
 import { ISecurity, JWT_KeyType } from '../interfaces/isecurity';
 import ILogger from '../interfaces/ilogger';

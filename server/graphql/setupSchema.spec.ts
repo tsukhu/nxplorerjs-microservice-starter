@@ -4,7 +4,6 @@ import { graphql } from 'graphql';
 
 import '../common/env';
 import { fetchPeople } from './dataloader/starwars';
-import { importSchema } from 'graphql-import';
 import { setupSchema } from './setupSchema';
 
 const DataLoader = require('dataloader');

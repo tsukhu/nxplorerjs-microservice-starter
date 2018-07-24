@@ -1,8 +1,7 @@
 import container from '../../common/config/ioc_config';
 import SERVICE_IDENTIFIER from '../../common/constants/identifiers';
 import '../../common/env';
-import { Planet, People } from '../models/starwars.model';
-import ILogger from '../../common/interfaces/ilogger';
+import { People } from '../models/starwars.model';
 import IStarwars from '../interfaces/istarwars';
 
 describe('Starwars Service Tests', () => {

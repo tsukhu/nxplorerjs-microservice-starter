@@ -1,5 +1,4 @@
-import * as Promise from 'bluebird';
-import { Observable, AsyncSubject, from, of, pipe } from 'rxjs';
+import { Observable, AsyncSubject, of } from 'rxjs';
 import { flatMap } from 'rxjs/operators';
 import * as _ from 'lodash';
 
@@ -11,10 +10,8 @@ import {
 } from '../models/product.model';
 import { inject, injectable } from 'inversify';
 import IProduct from '../interfaces/iproduct';
-import container from '../../common/config/ioc_config';
 import SERVICE_IDENTIFIER from '../../common/constants/identifiers';
 import ILogger from '../../common/interfaces/ilogger';
-
 
 let bpId = 0;
 let bpoId = 0;

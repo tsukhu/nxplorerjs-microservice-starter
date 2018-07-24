@@ -1,5 +1,4 @@
 import { Application } from 'express';
-const responseTime = require('response-time');
 
 // Init
 const Prometheus = require('prom-client');

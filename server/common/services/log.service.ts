@@ -1,5 +1,5 @@
 import { Request, Response } from 'express';
-import { inject, injectable } from 'inversify';
+import { injectable } from 'inversify';
 
 import ILogger from '../interfaces/ilogger';
 const pino = require('pino')();

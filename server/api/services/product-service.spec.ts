@@ -15,10 +15,10 @@ describe('Product/Shop Service Tests', () => {
     productService = container.get<IProduct>(SERVICE_IDENTIFIER.PRODUCT);
   });
 
-  it('has all base products count as two', done => {
+  it('has all base products count as 3', done => {
     productService.allBaseProducts().subscribe((results: BaseProduct[]) => {
       expect(results.length).toEqual(2);
-      results.map(result => {
+      results.forEach(result => {
         productService.baseProductbyId(result.id).subscribe(data => {
           expect(data.baseProductOptions.length).toEqual(3);
         });
@@ -32,7 +32,7 @@ describe('Product/Shop Service Tests', () => {
       .allBaseProductOptions()
       .subscribe((results: BaseProductOption[]) => {
         expect(results.length).toEqual(6);
-        results.map(result => {
+        results.forEach(result => {
           productService
             .baseProductOptionsbyId(result.baseProductOptionId)
             .subscribe(data => {
@@ -50,7 +50,7 @@ describe('Product/Shop Service Tests', () => {
       .allBaseProductPrice()
       .subscribe((results: BaseProductPrice[]) => {
         expect(results.length).toEqual(6);
-        results.map(result => {
+        results.forEach(result => {
           productService.baseProductPricebyId(result.id).subscribe(data => {
             expect(data.baseProductOptionId).toEqual(result.id);
           });
@@ -59,12 +59,12 @@ describe('Product/Shop Service Tests', () => {
       });
   });
 
-  it('has base product option inventory item count are six', done => {
+  it('has base product option inventory item count are 3', done => {
     productService
       .allBaseProductInventory()
       .subscribe((results: BaseProductInventory[]) => {
         expect(results.length).toEqual(3);
-        results.map(result => {
+        results.forEach(result => {
           productService.baseProductInventorybyId(result.id).subscribe(data => {
             expect(data.baseProductOptionId).toEqual(result.id);
           });

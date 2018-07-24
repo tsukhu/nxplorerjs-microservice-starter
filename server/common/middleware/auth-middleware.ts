@@ -1,8 +1,6 @@
 import * as express from 'express';
-import { Container } from 'inversify';
 import * as fs from 'fs';
 const expressJwt = require('express-jwt');
-import container from '../../common/config/ioc_config';
 import { User } from '../../common/models/security.model';
 
 /**

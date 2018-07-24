@@ -1,5 +1,4 @@
 import { tester } from 'graphql-tester';
-import * as _ from 'lodash';
 import '../../common/env';
 
 describe('StarWars API Test', () => {

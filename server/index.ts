@@ -1,6 +1,5 @@
 import './common/env';
 import Server from './common/server';
-import { PubSub } from 'apollo-server';
 import { ApolloServer } from 'apollo-server-express';
 import { configHystrix, configGraphQL } from '../server/common/config';
 import * as cluster from 'cluster';
