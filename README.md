@@ -68,6 +68,11 @@ This project provides complete Node JS / Typescript based microservices template
 
 - nXplorer demo server is deployed on Heroku and can be accessed [here](https://nxplorer.herokuapp.com)
 
+## Mono Repo version
+
+- If you are interested in looking at the mono repo version of the project, it is currently being worked on and can be accessed [here](https://github.com/ERS-HCL/nxplorerjs-mono-starter).
+- Since either of the versions are perfectly good solutions, we will be maintaining and enhancing both.
+
 ## Features
 
 - Node JS, Express, Typescript , Dependency Injection base
