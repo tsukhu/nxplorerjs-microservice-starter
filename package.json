@@ -16,9 +16,9 @@
       "cross-env NODE_ENV=development node build.js && cross-env DEBUG=express:* backpack dev",
     "dash": "nodejs-dashboard -- node -r nodejs-dashboard build/main",
     "test":
-      "cross-env NODE_ENV=test node build.js && npm run lint && jest --forceExit --config unit.config.json",
+      "cross-env NODE_ENV=test node build.js && npm run lint && jest --forceExit --config unit.config.json --detectOpenHandles",
     "test:dev":
-      "cross-env NODE_ENV=test node build.js && jest --forceExit --config unit.config.json",
+      "cross-env NODE_ENV=test node build.js && jest --forceExit --config unit.config.json --detectOpenHandles",
     "lint":
       "npm run tslint -- -o reports/lint_issues.json -t json --force \"server/**/*.ts\" ",
     "lint:console": "npm run tslint -- --force \"server/**/*.ts\" ",

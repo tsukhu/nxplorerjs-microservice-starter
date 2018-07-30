@@ -10,33 +10,37 @@ const DataLoader = require('dataloader');
 
 describe('Example Service Tests', () => {
   const testTimeOut = +process.env.TEST_TIMEOUT;
-  it('should be returning a quote ', async () => {
+  it('should be returning a quote ', done => {
     const query = `
         query Q {
             quoteOfTheDay
         }
       `;
     const rootValue = {};
-    const result = await graphql(setupSchema(), query, rootValue);
-    const { data } = result;
-    expect(data.quoteOfTheDay).not.toHaveLength(0);
+    graphql(setupSchema(), query, rootValue).then(result => {
+      const { data } = result;
+      expect(data.quoteOfTheDay).not.toHaveLength(0);
+      done();
+    });
   });
 
-  it('should be returning a random number > 0 ', async () => {
+  it('should be returning a random number > 0 ', done => {
     const query = `
         query Q {
             random
         }
       `;
     const rootValue = {};
-    const result = await graphql(setupSchema(), query, rootValue);
-    const { data } = result;
-    expect(data.random).toBeGreaterThan(0);
+    graphql(setupSchema(), query, rootValue).then(result => {
+      const { data } = result;
+      expect(data.random).toBeGreaterThan(0);
+      done();
+    });
   });
 
   it(
     'should be returning a starwars people result for "Luke Skywalker" ',
-    async () => {
+    done => {
       const query = `
         query Q {
             people(id: 1) {
@@ -52,14 +56,16 @@ describe('Example Service Tests', () => {
       const contextValue = {
         peopleLoader
       };
-      const result = await graphql(
-        setupSchema(),
-        query,
-        rootValue,
-        contextValue
+      graphql(setupSchema(), query, rootValue, contextValue).then(
+        result => {
+          const { people } = result.data;
+          expect(people.name).toEqual(expectedValue);
+          done();
+        },
+        error => {
+          fail(error);
+        }
       );
-      const { people } = result.data;
-      expect(people.name).toEqual(expectedValue);
     },
     testTimeOut
   );

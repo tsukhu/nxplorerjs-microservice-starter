@@ -15,11 +15,17 @@ describe('Starwars Service Tests', () => {
   it(
     'can get person of id 1 with homeworld as Tatooine ',
     done => {
-      starWarsService.getPeopleById(1).subscribe((results: People) => {
-        expect(results.name).toEqual('Luke Skywalker');
-        expect(results.homeworld.name).toEqual('Tatooine');
-        done();
-      });
+      starWarsService.getPeopleById(1).subscribe(
+        (results: People) => {
+          expect(results.name).toEqual('Luke Skywalker');
+          expect(results.homeworld.name).toEqual('Tatooine');
+          done();
+        },
+        error => {
+          fail(error);
+          done();
+        }
+      );
     },
     testTimeOut
   );
