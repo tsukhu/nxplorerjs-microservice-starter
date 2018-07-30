@@ -9,7 +9,7 @@ import {
   configHealthChecks,
   addCompression
 } from './config';
-import container from './config/ioc_config';
+import { IOCContainer } from '../common/config/ioc_config';
 import { InversifyExpressServer } from 'inversify-express-utils';
 
 const responseTime = require('response-time');
@@ -28,7 +28,7 @@ export default class ExpressServer {
       process.env.NODE_ENV === 'development'
         ? path.normalize(__dirname + '/../..')
         : path.normalize('.');
-
+    const container = IOCContainer.getInstance().getContainer();
     this.server = new InversifyExpressServer(container, undefined, {
       rootPath: '/api/v1'
     });

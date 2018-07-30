@@ -1,29 +1,39 @@
 {
   "name": "nxplorerjs-microservice",
-  "version": "1.9.8",
+  "version": "1.9.9",
   "description": "Express Microservice Starter Project",
   "main": "index.js",
   "scripts": {
-    "start": "cross-env RSA_PRIVATE_KEY_FILE=./jwtRS256.key RSA_PUBLIC_KEY_FILE=./jwtRS256.key.pub node build/main",
+    "start":
+      "cross-env RSA_PRIVATE_KEY_FILE=./jwtRS256.key RSA_PUBLIC_KEY_FILE=./jwtRS256.key.pub node build/main",
     "start:docker": "node main",
     "heroku-postbuild": "npm run compile",
     "compile": "cross-env NODE_ENV=production node build.js && backpack build",
-    "compile:dev": "cross-env NODE_ENV=development node build.js && backpack build",
+    "compile:dev":
+      "cross-env NODE_ENV=development node build.js && backpack build",
     "dev": "cross-env NODE_ENV=development node build.js && backpack dev",
-    "dev:debug": "cross-env NODE_ENV=development node build.js && cross-env DEBUG=express:* backpack dev",
+    "dev:debug":
+      "cross-env NODE_ENV=development node build.js && cross-env DEBUG=express:* backpack dev",
     "dash": "nodejs-dashboard -- node -r nodejs-dashboard build/main",
-    "test": "cross-env NODE_ENV=test node build.js && npm run lint && jest --forceExit --config unit.config.json",
-    "test:dev": "cross-env NODE_ENV=test node build.js && jest --forceExit --config unit.config.json",
-    "lint": "npm run tslint -- -o reports/lint_issues.json -t json --force \"server/**/*.ts\" ",
+    "test":
+      "cross-env NODE_ENV=test node build.js && npm run lint && jest --forceExit --config unit.config.json --detectOpenHandles",
+    "test:dev":
+      "cross-env NODE_ENV=test node build.js && jest --forceExit --config unit.config.json --detectOpenHandles",
+    "lint":
+      "npm run tslint -- -o reports/lint_issues.json -t json --force \"server/**/*.ts\" ",
     "lint:console": "npm run tslint -- --force \"server/**/*.ts\" ",
     "tslint": "tslint",
     "wait-port": "wait-port",
     "sonar-scanner": "sonar-scanner",
-    "itest:build": "cross-env NODE_ENV=test node build.js && cross-env NODE_ENV=test backpack build",
-    "itest:run": "concurrent --kill-others --success first \"cd build && node main\" \"wait-port localhost:3000 && jest --forceExit --config itest.config.json\"",
+    "itest:build":
+      "cross-env NODE_ENV=test node build.js && cross-env NODE_ENV=test backpack build",
+    "itest:run":
+      "concurrent --kill-others --success first \"cd build && node main\" \"wait-port localhost:3000 && jest --forceExit --config itest.config.json\"",
     "prettier:base": "prettier --parser typescript --single-quote",
-    "prettier:check": "npm run prettier:base -- --list-different \"server/**/*.{ts,tsx}\"",
-    "prettier:write": "npm run prettier:base -- --write \"server/**/*.{ts,tsx}\""
+    "prettier:check":
+      "npm run prettier:base -- --list-different \"server/**/*.{ts,tsx}\"",
+    "prettier:write":
+      "npm run prettier:base -- --write \"server/**/*.{ts,tsx}\""
   },
   "jestSonar": {
     "reportPath": "reports",
@@ -126,5 +136,6 @@
   "bugs": {
     "url": "https://github.com/ERS-HCL/nxplorerjs-microservice-starter/issues"
   },
-  "homepage": "https://github.com/ERS-HCL/nxplorerjs-microservice-starter#readme"
+  "homepage":
+    "https://github.com/ERS-HCL/nxplorerjs-microservice-starter#readme"
 }

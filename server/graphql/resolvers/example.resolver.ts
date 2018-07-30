@@ -1,4 +1,4 @@
-import container from '../../common/config/ioc_config';
+import { IOCContainer } from '../../common/config/ioc_config';
 import SERVICE_IDENTIFIER from '../../common/constants/identifiers';
 import { getAuthenticatedUser } from '../../common/middleware/auth-middleware';
 import { UnAuthorizedError } from '../errors';
@@ -6,6 +6,7 @@ import { pubsub } from '../setupSchema';
 
 import IExample from '../../api/interfaces/iexample';
 
+const container = IOCContainer.getInstance().getContainer();
 const ExampleService = container.get<IExample>(SERVICE_IDENTIFIER.EXAMPLE);
 
 const EXAMPLE_ADDED = 'EXAMPLE_ADDED';

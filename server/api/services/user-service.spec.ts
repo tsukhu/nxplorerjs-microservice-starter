@@ -1,11 +1,12 @@
 import IUser from '../../api/interfaces/iuser';
 import SERVICE_IDENTIFIER from '../../common/constants/identifiers';
-import container from '../../common/config/ioc_config';
+import { IOCContainer } from '../../common/config/ioc_config';
 
 describe('User Service Tests', () => {
   let userService: IUser;
 
-  beforeEach(() => {
+  beforeAll(() => {
+    const container = IOCContainer.getInstance().getContainer();
     userService = container.get<IUser>(SERVICE_IDENTIFIER.USER);
   });
 

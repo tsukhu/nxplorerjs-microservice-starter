@@ -1,9 +1,9 @@
 import { Application } from 'express';
-import container from './ioc_config';
+import { IOCContainer } from '../../common/config/ioc_config';
 import SERVICE_IDENTIFIER from '../constants/identifiers';
 
 import ILogger from '../interfaces/ilogger';
-
+const container = IOCContainer.getInstance().getContainer();
 const LOG = container.get<ILogger>(SERVICE_IDENTIFIER.LOGGER);
 const UUID = 'UUID';
 /**

@@ -1,11 +1,12 @@
-import container from '../../common/config/ioc_config';
+import { IOCContainer } from '../../common/config/ioc_config';
 import SERVICE_IDENTIFIER from '../../common/constants/identifiers';
 import IExample from '../../api/interfaces/iexample';
 import '../../common/env';
 
 describe('Example Service Tests', () => {
   let exampleService: IExample;
-  beforeEach(() => {
+  beforeAll(() => {
+    const container = IOCContainer.getInstance().getContainer();
     exampleService = container.get<IExample>(SERVICE_IDENTIFIER.EXAMPLE);
   });
 
@@ -16,10 +17,15 @@ describe('Example Service Tests', () => {
   });
 
   it('should return userId of 1 for byPostsByID call', done => {
-    exampleService.byPostsByID(1).subscribe(result => {
-      expect(result.data.userId).toEqual(1);
-      done();
-    });
+    exampleService.byPostsByID(1).subscribe(
+      result => {
+        expect(result.data.userId).toEqual(1);
+        done();
+      },
+      error => {
+        fail(error);
+      }
+    );
   });
 
   it('POST Test', () => {
