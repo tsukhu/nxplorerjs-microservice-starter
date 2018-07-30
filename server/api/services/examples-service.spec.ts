@@ -1,11 +1,12 @@
-import container from '../../common/config/ioc_config';
+import { IOCContainer } from '../../common/config/ioc_config';
 import SERVICE_IDENTIFIER from '../../common/constants/identifiers';
 import IExample from '../../api/interfaces/iexample';
 import '../../common/env';
 
 describe('Example Service Tests', () => {
   let exampleService: IExample;
-  beforeEach(() => {
+  beforeAll(() => {
+    const container = IOCContainer.getInstance().getContainer();
     exampleService = container.get<IExample>(SERVICE_IDENTIFIER.EXAMPLE);
   });
 

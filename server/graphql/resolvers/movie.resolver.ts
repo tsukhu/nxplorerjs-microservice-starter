@@ -1,9 +1,10 @@
 import { request } from 'graphql-request';
-import container from '../../common/config/ioc_config';
+import { IOCContainer } from '../../common/config/ioc_config';
 import SERVICE_IDENTIFIER from '../../common/constants/identifiers';
 
 import ILogger from '../../common/interfaces/ilogger';
 
+const container = IOCContainer.getInstance().getContainer();
 const LOG = container.get<ILogger>(SERVICE_IDENTIFIER.LOGGER);
 
 const query = `{

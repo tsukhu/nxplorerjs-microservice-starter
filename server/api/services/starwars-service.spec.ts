@@ -1,4 +1,4 @@
-import container from '../../common/config/ioc_config';
+import { IOCContainer } from '../../common/config/ioc_config';
 import SERVICE_IDENTIFIER from '../../common/constants/identifiers';
 import '../../common/env';
 import { People } from '../models/starwars.model';
@@ -7,7 +7,8 @@ import IStarwars from '../interfaces/istarwars';
 describe('Starwars Service Tests', () => {
   let starWarsService: IStarwars;
   const testTimeOut = +process.env.TEST_TIME_OUT;
-  beforeEach(() => {
+  beforeAll(() => {
+    const container = IOCContainer.getInstance().getContainer();
     starWarsService = container.get<IStarwars>(SERVICE_IDENTIFIER.STARWARS);
   });
 

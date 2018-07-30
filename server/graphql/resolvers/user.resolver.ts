@@ -1,10 +1,11 @@
-import container from '../../common/config/ioc_config';
+import { IOCContainer } from '../../common/config/ioc_config';
 import SERVICE_IDENTIFIER from '../../common/constants/identifiers';
 import * as jwt from 'jsonwebtoken';
 import IUser from '../../api/interfaces/iuser';
 import { ISecurity, JWT_KeyType } from '../../common/interfaces/isecurity';
 import { User } from '../../common/models/security.model';
 
+const container = IOCContainer.getInstance().getContainer();
 const UserService = container.get<IUser>(SERVICE_IDENTIFIER.USER);
 const SecurityService = container.get<ISecurity>(SERVICE_IDENTIFIER.SECURITY);
 /**

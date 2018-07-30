@@ -1,9 +1,10 @@
 import * as fetch from 'node-fetch';
-import container from '../../common/config/ioc_config';
+import { IOCContainer } from '../../common/config/ioc_config';
 import SERVICE_IDENTIFIER from '../../common/constants/identifiers';
 import { timeout } from 'rxjs/operators';
 import IStarwars from '../../api/interfaces/istarwars';
 
+const container = IOCContainer.getInstance().getContainer();
 const StarwarsService = container.get<IStarwars>(SERVICE_IDENTIFIER.STARWARS);
 
 /**
