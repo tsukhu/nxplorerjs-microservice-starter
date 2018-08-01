@@ -1,6 +1,6 @@
 {
   "name": "nxplorerjs-microservice",
-  "version": "1.9.9",
+  "version": "1.9.10",
   "description": "Express Microservice Starter Project",
   "main": "index.js",
   "scripts": {
@@ -73,6 +73,7 @@
     "lodash": "^4.17.10",
     "node-fetch": "^2.2.0",
     "pino": "^4.17.5",
+    "progress": "^2.0.0",
     "prom-client": "^11.1.1",
     "randexp": "^0.5.0",
     "reflect-metadata": "^0.1.12",
