@@ -5,6 +5,7 @@ import { configHystrix, configGraphQL } from '../server/common/config';
 import * as cluster from 'cluster';
 import * as os from 'os';
 import * as http from 'http';
+import * as ProgressBar from 'progress';
 
 // Single Node execution
 // tslint:disable:no-console
@@ -16,15 +17,20 @@ const welcome = port =>
 
 const setupServer = () => {
   // create server
+  const bar = new ProgressBar('[:bar] :percent :elapseds', { total: 6 });
+  bar.tick();
   const app = new Server().getServer().build();
+  bar.tick();
   const apolloServer: ApolloServer = configGraphQL(app);
+  bar.tick();
   // Create Server so that it can be reused for the
   // configuring the SubscriptionServer
   const ws = http.createServer(app);
-
+  bar.tick();
   if (process.env.GRAPHQL_SUBSCRIPTIONS === 'true') {
     apolloServer.installSubscriptionHandlers(ws);
   }
+  bar.tick();
   // console.log(apolloServer.subscriptionsPath);
   ws.listen(process.env.PORT, err => {
     if (err) {
@@ -35,7 +41,7 @@ const setupServer = () => {
       // configure Hystrix Support
       configHystrix();
     }
-
+    bar.tick();
     welcome(process.env.PORT);
   });
 };
