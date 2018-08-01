@@ -17,7 +17,9 @@ const welcome = port =>
 
 const setupServer = () => {
   // create server
-  const bar = new ProgressBar('[:bar] :percent :elapseds', { total: 6 });
+  const bar = new ProgressBar('Server Startup [:bar] :percent :elapseds', {
+    total: 6
+  });
   bar.tick();
   const app = new Server().getServer().build();
   bar.tick();

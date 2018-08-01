@@ -1,58 +1,13 @@
 {
-  // "rulesDirectory": "built/local/tslint",
   "rules": {
     "interface-name": false,
-    "class-name": true,
-    "comment-format": [true, "check-space"],
-    "curly": [true, "ignore-same-line"],
-    "indent": [true, "spaces"],
-    "jsdoc-format": true,
     "ordered-imports": false,
-    "linebreak-style": [true, "LF"],
-    "no-unused-expression": true,
+    "no-console": false,
     "no-var-requires": false,
     "object-literal-shorthand": false,
     "object-literal-sort-keys": false,
-    "no-inferrable-types": true,
-    "no-internal-module": true,
     "no-implicit-dependencies": false,
-    "no-null-keyword": true,
-    "no-submodule-imports": false,
-    "no-switch-case-fall-through": true,
-    "one-variable-per-declaration": [true, "ignore-for-loop"],
-    "no-trailing-whitespace": [true, "ignore-template-strings"],
-    "no-var-keyword": true,
-    "one-line": [true, "check-open-brace", "check-whitespace"],
-    "prefer-const": true,
-    "quotemark": [true, "single", "avoid-escape"],
-    "semicolon": [true, "always", "ignore-bound-class-methods"],
-    "triple-equals": true,
-    "typedef-whitespace": [
-      true,
-      {
-        "call-signature": "nospace",
-        "index-signature": "nospace",
-        "parameter": "nospace",
-        "property-declaration": "nospace",
-        "variable-declaration": "nospace"
-      },
-      {
-        "call-signature": "onespace",
-        "index-signature": "onespace",
-        "parameter": "onespace",
-        "property-declaration": "onespace",
-        "variable-declaration": "onespace"
-      }
-    ],
-    "whitespace": [
-      true,
-      "check-branch",
-      "check-decl",
-      "check-operator",
-      "check-module",
-      "check-separator",
-      "check-type"
-    ]
+    "no-submodule-imports": false
   },
   "extends": ["tslint:latest", "tslint-config-prettier"]
 }

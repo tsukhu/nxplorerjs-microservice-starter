@@ -131,7 +131,7 @@ export default {
     },
     addComment: (root, { comment }) => {
       const blog = blogs.find(item => item.id === comment.blogId);
-      if (!blog) throw new Error('Blog does not exist');
+      if (!blog) { throw new Error('Blog does not exist'); }
 
       const newComment = {
         id: String(lastCommentId++),
