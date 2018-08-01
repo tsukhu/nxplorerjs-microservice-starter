@@ -18,7 +18,7 @@ class AuthDirective extends SchemaDirectiveVisitor {
 
   public ensureFieldsWrapped(objectType) {
     // Mark the GraphQLObjectType object to avoid re-wrapping:
-    if (objectType._authFieldsWrapped) return;
+    if (objectType._authFieldsWrapped) { return; }
     objectType._authFieldsWrapped = true;
 
     const fields = objectType.getFields();
