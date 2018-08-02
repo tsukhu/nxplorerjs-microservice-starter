@@ -23,17 +23,17 @@ class LogService implements ILogger {
 
   public info(...message) {
     const UUID = this.getUUID();
-    this.logger.info({ UUID, ...message });
+    this.logger.info({ UUID, data: { ...message } });
   }
 
   public debug(...message) {
     const UUID = this.getUUID();
-    this.logger.debug({ UUID, ...message });
+    this.logger.debug({ UUID, data: { ...message } });
   }
 
   public error(...message) {
     const UUID = this.getUUID();
-    this.logger.error({ UUID, ...message });
+    this.logger.error({ UUID, data: { ...message } });
   }
 
   /**
