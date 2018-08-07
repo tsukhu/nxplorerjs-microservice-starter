@@ -62,7 +62,7 @@
     "jsonwebtoken": "^8.3.0",
     "lodash": "^4.17.10",
     "node-fetch": "^2.2.0",
-    "pino": "^4.17.6",
+    "pino": "^5.0.0",
     "progress": "^2.0.0",
     "prom-client": "^11.1.1",
     "randexp": "^0.5.3",
