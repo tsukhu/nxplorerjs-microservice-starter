@@ -11,7 +11,8 @@ import { inject, injectable } from 'inversify';
  */
 @injectable()
 class LoggerMiddleware extends BaseMiddleware {
-  @inject(SERVICE_IDENTIFIER.LOGGER) private logger: ILogger;
+  @inject(SERVICE_IDENTIFIER.LOGGER)
+  private logger: ILogger;
   public handler(req: Request, res: Response, next: NextFunction) {
     this.logger.info(
       '[Logger Middleware]',
