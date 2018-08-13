@@ -1,6 +1,6 @@
 {
   "name": "nxplorerjs-microservice",
-  "version": "1.9.16",
+  "version": "1.9.17",
   "description": "Express Microservice Starter Project",
   "main": "index.js",
   "scripts": {
@@ -71,7 +71,6 @@
     "request-promise": "^4.2.2",
     "response-time": "^2.3.2",
     "rxjs": "^6.2.2",
-    "source-map-support": "^0.5.8",
     "swagger-express-middleware": "^1.0.0-alpha.12",
     "swagger-ui-express": "^3.0.10",
     "yamljs": "^0.3.0"
@@ -86,6 +85,7 @@
     "@types/lodash": "^4.14.116",
     "@types/request": "^2.47.1",
     "@types/supertest": "^2.0.5",
+    "source-map-support": "^0.5.8",
     "awesome-typescript-loader": "^4.0.1",
     "backpack-core": "^0.7.0",
     "concurrently": "^3.6.1",
