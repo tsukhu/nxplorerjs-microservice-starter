@@ -1,6 +1,8 @@
+import { of } from 'rxjs/internal/observable/of';
+import { catchError } from 'rxjs/operators';
+import IExample from '../../api/interfaces/iexample';
 import { IOCContainer } from '../../common/config/ioc_config';
 import SERVICE_IDENTIFIER from '../../common/constants/identifiers';
-import IExample from '../../api/interfaces/iexample';
 import '../../common/env';
 
 describe('Example Service Tests', () => {
@@ -17,9 +19,16 @@ describe('Example Service Tests', () => {
   });
 
   it('should return userId of 1 for byPostsByID call', done => {
-    exampleService.byPostsByID(1).subscribe(
+    const source = exampleService
+      .byPostsByID(1)
+      .pipe(catchError(err => of(err)));
+    source.subscribe(
       result => {
-        expect(result.data.userId).toEqual(1);
+        if (result.data && result.data.userId) {
+          expect(result.data.userId).toEqual(1);
+        } else {
+          fail('unexpected result' + result);
+        }
         done();
       },
       error => {
