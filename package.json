@@ -88,7 +88,7 @@
     "source-map-support": "^0.5.9",
     "awesome-typescript-loader": "^4.0.1",
     "backpack-core": "^0.7.0",
-    "concurrently": "^3.6.1",
+    "concurrently": "^4.0.0",
     "cross-env": "^5.2.0",
     "graphql-import-loader": "^0.2.1",
     "graphql-tester": "0.0.5",
