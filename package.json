@@ -72,7 +72,7 @@
     "response-time": "^2.3.2",
     "rxjs": "^6.2.2",
     "swagger-express-middleware": "^1.0.0-alpha.12",
-    "swagger-ui-express": "^3.0.10",
+    "swagger-ui-express": "^4.0.0",
     "yamljs": "^0.3.0"
   },
   "peerDependencies": {
