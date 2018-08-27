@@ -1,6 +1,6 @@
 {
   "name": "nxplorerjs-microservice",
-  "version": "1.9.21",
+  "version": "1.9.22",
   "description": "Express Microservice Starter Project",
   "main": "index.js",
   "scripts": {
@@ -20,7 +20,7 @@
     "wait-port": "wait-port",
     "sonar-scanner": "sonar-scanner",
     "itest:build": "cross-env NODE_ENV=test node build.js && cross-env NODE_ENV=test backpack build",
-    "itest:run": "concurrent --kill-others --success first \"cd build && node main\" \"wait-port localhost:3000 && jest --forceExit --config itest.config.json\"",
+    "itest:run": "concurrently --kill-others --success first \"cd build && node main\" \"wait-port localhost:3000 && jest --forceExit --config itest.config.json\"",
     "prettier:base": "prettier --parser typescript --single-quote",
     "prettier:check": "npm run prettier:base -- --list-different \"server/**/*.{ts,tsx}\"",
     "prettier:write": "npm run prettier:base -- --write \"server/**/*.{ts,tsx}\""
@@ -72,7 +72,7 @@
     "response-time": "^2.3.2",
     "rxjs": "^6.2.2",
     "swagger-express-middleware": "^1.0.0-alpha.12",
-    "swagger-ui-express": "^3.0.10",
+    "swagger-ui-express": "^4.0.0",
     "yamljs": "^0.3.0"
   },
   "peerDependencies": {
@@ -88,7 +88,7 @@
     "source-map-support": "^0.5.9",
     "awesome-typescript-loader": "^4.0.1",
     "backpack-core": "^0.7.0",
-    "concurrently": "^3.6.1",
+    "concurrently": "^4.0.1",
     "cross-env": "^5.2.0",
     "graphql-import-loader": "^0.2.1",
     "graphql-tester": "0.0.5",
