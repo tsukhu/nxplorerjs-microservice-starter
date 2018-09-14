@@ -3,7 +3,7 @@
 [![Greenkeeper badge](https://badges.greenkeeper.io/ERS-HCL/nxplorerjs-microservice-starter.svg)](https://greenkeeper.io/)
 [![FOSSA Status](https://app.fossa.io/api/projects/git%2Bgithub.com%2FERS-HCL%2Fnxplorerjs-microservice-starter.svg?type=shield)](https://app.fossa.io/projects/git%2Bgithub.com%2FERS-HCL%2Fnxplorerjs-microservice-starter?ref=badge_shield)
 
-[![Build Status](https://travis-ci.org/ERS-HCL/nxplorerjs-microservice-starter.svg?branch=master)](https://travis-ci.org/ERS-HCL/nxplorerjs-microservice-starter) [![tested with jest](https://img.shields.io/badge/tested_with-jest-99424f.svg)](https://github.com/facebook/jest) [![GitHub version](https://badge.fury.io/gh/ERS-HCL%2Fnxplorerjs-microservice-starter.svg)](https://badge.fury.io/gh/ERS-HCL%2Fnxplorerjs-microservice-starter) [![Dependency Status](https://david-dm.org/ERS-HCL/nxplorerjs-microservice-starter.svg)](https://david-dm.org/ERS-HCL/nxplorerjs-microservice-starter)
+[![Build Status](https://travis-ci.org/ERS-HCL/nxplorerjs-microservice-starter.svg?branch=master)](https://travis-ci.org/ERS-HCL/nxplorerjs-microservice-starter) [![tested with jest](https://img.shields.io/badge/tested_with-jest-99424f.svg)](https://github.com/facebook/jest) [![GitHub version](https://badge.fury.io/gh/ERS-HCL%2Fnxplorerjs-microservice-starter.svg)](https://badge.fury.io/gh/ERS-HCL%2Fnxplorerjs-microservice-starter) [![Dependency Status](https://david-dm.org/ERS-HCL/nxplorerjs-microservice-starter.svg)](https://david-dm.org/ERS-HCL/nxplorerjs-microservice-starter) [![DeepScan grade](https://deepscan.io/api/projects/2880/branches/21484/badge/grade.svg)](https://deepscan.io/dashboard#view=project&pid=2880&bid=21484)
 
 ---
 
@@ -67,6 +67,11 @@ This project provides complete Node JS / Typescript based microservices template
 ## Demo
 
 - nXplorer demo server is deployed on Heroku and can be accessed [here](https://nxplorer.herokuapp.com)
+
+## Mono Repo version
+
+- If you are interested in looking at the mono repo version of the project, it is currently being worked on and can be accessed [here](https://github.com/ERS-HCL/nxplorerjs-mono-starter).
+- Since either of the versions are perfectly good solutions, we will be maintaining and enhancing both.
 
 ## Features
 
