@@ -35,8 +35,8 @@
     "@akanass/rx-http-request": "^3.0.0",
     "apollo-datasource-rest": "^2.0.0-rc.8",
     "apollo-errors": "^1.9.0",
-    "apollo-server": "^2.1.0-alpha.10",
-    "apollo-server-express": "^2.1.0-alpha.10",
+    "apollo-server": "^2.0.8",
+    "apollo-server-express": "^2.0.7",
     "bluebird": "^3.5.2",
     "body-parser": "^1.18.3",
     "brakes": "^2.6.0",
@@ -90,7 +90,6 @@
     "awesome-typescript-loader": "^4.0.1",
     "backpack-core": "^0.7.0",
     "concurrently": "^4.0.1",
-
     "graphql-import-loader": "^0.2.1",
     "graphql-tester": "0.0.5",
     "jest": "^23.6.0",
