@@ -1,6 +1,6 @@
 import * as Promise from 'bluebird';
 import { Observable, from, of } from 'rxjs';
-import { Example } from '../models/example.model';
+import { Example } from '../models';
 import { inject, injectable } from 'inversify';
 
 import SERVICE_IDENTIFIER from '../../common/constants/identifiers';

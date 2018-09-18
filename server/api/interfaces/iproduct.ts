@@ -4,7 +4,7 @@ import {
   BaseProductPrice,
   BaseProductInventory,
   BaseProductOption
-} from '../models/product.model';
+} from '../models';
 
 /**
  * Product Service Interface

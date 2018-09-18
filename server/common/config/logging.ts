@@ -1,5 +1,5 @@
 import { Application } from 'express';
-import { IOCContainer } from '../../common/config/ioc_config';
+import { IOCContainer } from './ioc_config';
 import SERVICE_IDENTIFIER from '../constants/identifiers';
 
 import ILogger from '../interfaces/ilogger';

@@ -1,7 +1,7 @@
 // tslint:disable:no-console
 import * as Promise from 'bluebird';
 import { Observable, AsyncSubject, of } from 'rxjs';
-import { Post } from '../models/example.model';
+import { Post } from '../models';
 import { inject, injectable } from 'inversify';
 import * as Brakes from 'brakes';
 import SERVICE_IDENTIFIER from '../../common/constants/identifiers';

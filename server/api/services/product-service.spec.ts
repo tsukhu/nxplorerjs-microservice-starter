@@ -6,7 +6,7 @@ import {
   BaseProductPrice,
   BaseProductInventory,
   BaseProductOption
-} from '../models/product.model';
+} from '../models';
 import '../../common/env';
 
 describe('Product/Shop Service Tests', () => {

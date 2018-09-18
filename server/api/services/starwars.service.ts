@@ -1,5 +1,5 @@
 import { Observable, AsyncSubject, from, forkJoin } from 'rxjs';
-import { Planet, People } from '../models/starwars.model';
+import { Planet, People } from '../models';
 import { inject, injectable } from 'inversify';
 import SERVICE_IDENTIFIER from '../../common/constants/identifiers';
 import ILogger from '../../common/interfaces/ilogger';

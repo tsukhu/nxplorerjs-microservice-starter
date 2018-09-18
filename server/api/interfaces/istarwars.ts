@@ -1,5 +1,5 @@
 import { Observable } from 'rxjs';
-import { People } from '../models/starwars.model';
+import { People } from '../models';
 
 /**
  * StarWars Service Interface

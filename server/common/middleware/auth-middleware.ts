@@ -1,7 +1,7 @@
 import * as express from 'express';
 import * as fs from 'fs';
 const expressJwt = require('express-jwt');
-import { User } from '../../common/models/security.model';
+import { User } from '../models/security.model';
 
 /**
  * JWT Authentication middleware from the REST APIs

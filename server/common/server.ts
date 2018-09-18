@@ -9,7 +9,7 @@ import {
   configHealthChecks,
   addCompression
 } from './config';
-import { IOCContainer } from '../common/config/ioc_config';
+import { IOCContainer } from './config/ioc_config';
 import { InversifyExpressServer } from 'inversify-express-utils';
 
 const responseTime = require('response-time');

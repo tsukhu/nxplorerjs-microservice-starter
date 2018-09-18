@@ -61,10 +61,10 @@ export class ErrorResponseBuilder {
 // tslint:disable-next-line:max-classes-per-file
 export class ErrorResponse {
   private readonly status: number;
-  private source: string;
-  private title: string;
-  private message: string;
-  private detail: string;
+  private readonly source: string;
+  private readonly title: string;
+  private readonly message: string;
+  private readonly detail: string;
 
   constructor(builder: ErrorResponseBuilder) {
     this.status = builder.Status;

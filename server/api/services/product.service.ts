@@ -7,7 +7,7 @@ import {
   BaseProductPrice,
   BaseProductInventory,
   BaseProductOption
-} from '../models/product.model';
+} from '../models';
 import { inject, injectable } from 'inversify';
 import IProduct from '../interfaces/iproduct';
 import SERVICE_IDENTIFIER from '../../common/constants/identifiers';

@@ -1,5 +1,5 @@
 import { inject, injectable } from 'inversify';
-import { ISecurity, JWT_KeyType } from '../interfaces/isecurity';
+import { ISecurity, JWT_KeyType } from '../interfaces';
 import ILogger from '../interfaces/ilogger';
 import SERVICE_IDENTIFIER from '../constants/identifiers';
 import * as fs from 'fs';

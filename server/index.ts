@@ -1,7 +1,7 @@
 import './common/env';
 import Server from './common/server';
 import { ApolloServer } from 'apollo-server-express';
-import { configHystrix, configGraphQL } from '../server/common/config';
+import { configHystrix, configGraphQL } from './common/config';
 import * as cluster from 'cluster';
 import * as os from 'os';
 import * as http from 'http';
