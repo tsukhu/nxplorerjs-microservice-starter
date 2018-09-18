@@ -60,7 +60,7 @@ export class ErrorResponseBuilder {
 
 // tslint:disable-next-line:max-classes-per-file
 export class ErrorResponse {
-  private status: number;
+  private readonly status: number;
   private source: string;
   private title: string;
   private message: string;
