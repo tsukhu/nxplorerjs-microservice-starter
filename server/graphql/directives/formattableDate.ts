@@ -1,5 +1,5 @@
 import { GraphQLString, defaultFieldResolver } from 'graphql';
-import { SchemaDirectiveVisitor } from 'graphql-tools';
+import { SchemaDirectiveVisitor } from 'apollo-server';
 
 /**
  * GraphQL Schema directive sample for formatting the date

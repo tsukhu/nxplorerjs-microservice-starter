@@ -1,5 +1,5 @@
 import * as casual from 'casual';
-import { MockList } from 'graphql-tools';
+import { MockList } from 'apollo-server';
 const numFormat = '########';
 
 export default {
