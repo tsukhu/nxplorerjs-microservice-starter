@@ -1,6 +1,6 @@
 {
   "name": "nxplorerjs-microservice",
-  "version": "1.10.1",
+  "version": "1.11.0",
   "description": "Express Microservice Starter Project",
   "main": "index.js",
   "scripts": {
@@ -85,8 +85,8 @@
     "@types/lodash": "^4.14.117",
     "@types/request": "^2.47.1",
     "@types/supertest": "^2.0.6",
-    "awesome-typescript-loader": "^4.0.1",
-    "backpack-core": "^0.7.0",
+    "awesome-typescript-loader": "^5.2.1",
+    "backpack-core": "^0.8.0",
     "concurrently": "^4.0.1",
     "graphql-import-loader": "^0.2.1",
     "graphql-tester": "0.0.5",
