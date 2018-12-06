@@ -10,6 +10,8 @@ lib-cov
 npm-debug.*
 *.bak
 
+package-lock.json
+
 pids
 *.log*
 results
