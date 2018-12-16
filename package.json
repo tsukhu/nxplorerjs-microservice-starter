@@ -1,6 +1,6 @@
 {
   "name": "nxplorerjs-microservice",
-  "version": "1.11.5",
+  "version": "1.11.6",
   "description": "Express Microservice Starter Project",
   "main": "index.js",
   "scripts": {
@@ -70,7 +70,7 @@
     "request-promise": "^4.2.2",
     "response-time": "^2.3.2",
     "rxjs": "^6.3.3",
-    "swagger-express-middleware": "^1.2.0",
+    "swagger-express-middleware": "^2.0.0",
     "swagger-ui-express": "^4.0.2",
     "source-map-support": "^0.5.9",
     "yamljs": "^0.3.0"
