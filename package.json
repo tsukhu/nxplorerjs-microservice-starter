@@ -1,6 +1,6 @@
 {
   "name": "nxplorerjs-microservice",
-  "version": "1.11.4",
+  "version": "1.11.5",
   "description": "Express Microservice Starter Project",
   "main": "index.js",
   "scripts": {
@@ -34,8 +34,8 @@
   "dependencies": {
     "apollo-datasource-rest": "^0.2.1",
     "apollo-errors": "^1.9.0",
-    "apollo-server": "^2.2.6",
-    "apollo-server-express": "^2.2.6",
+    "apollo-server": "^2.2.7",
+    "apollo-server-express": "^2.2.7",
     "bluebird": "^3.5.3",
     "body-parser": "^1.18.3",
     "brakes": "^2.6.0",
@@ -61,7 +61,7 @@
     "jsonwebtoken": "^8.3.0",
     "lodash": "^4.17.11",
     "node-fetch": "^2.3.0",
-    "pino": "^5.9.0",
+    "pino": "^5.10.1",
     "progress": "^2.0.3",
     "prom-client": "^11.2.0",
     "randexp": "^0.5.3",
@@ -71,7 +71,7 @@
     "response-time": "^2.3.2",
     "rxjs": "^6.3.3",
     "swagger-express-middleware": "^1.2.0",
-    "swagger-ui-express": "^4.0.1",
+    "swagger-ui-express": "^4.0.2",
     "source-map-support": "^0.5.9",
     "yamljs": "^0.3.0"
   },
