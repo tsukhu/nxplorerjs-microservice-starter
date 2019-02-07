@@ -32,7 +32,7 @@
     "sonar56x": true
   },
   "dependencies": {
-    "apollo-datasource-rest": "^0.2.1",
+    "apollo-datasource-rest": "^0.3.0",
     "apollo-errors": "^1.9.0",
     "apollo-server": "^2.3.1",
     "apollo-server-express": "^2.3.1",
