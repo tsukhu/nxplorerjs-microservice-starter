@@ -7,7 +7,6 @@ import IScraper from '../interfaces/iscraper';
 
 const amazonConfig = {
   title: '#productTitle',
-  desc: '.header h2',
   salePrice: 'tr#priceblock_ourprice_row span#priceblock_ourprice',
   salePriceDesc: 'tr#priceblock_ourprice_row span.a-size-small.a-color-price',
   mrpPrice: 'div#price span.a-text-strike',
