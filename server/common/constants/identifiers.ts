@@ -7,6 +7,7 @@ const SERVICE_IDENTIFIER = {
   STARWARS: Symbol.for('Starwars'),
   PRODUCT: Symbol.for('Product'),
   USER: Symbol.for('User'),
+  SCRAPER: Symbol.for('Scraper'),
   LOGGER_MIDDLEWARE: Symbol.for('LoggerMiddleware')
 };
 

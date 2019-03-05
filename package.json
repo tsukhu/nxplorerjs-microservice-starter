@@ -42,8 +42,8 @@
     "casual": "^1.6.0",
     "compression": "^1.7.3",
     "cookie-parser": "^1.4.4",
-    "csurf": "^1.9.0",
     "cross-env": "^5.2.0",
+    "csurf": "^1.9.0",
     "dataloader": "^1.4.0",
     "dateformat": "^3.0.3",
     "dotenv": "^6.2.0",
@@ -70,9 +70,10 @@
     "request-promise": "^4.2.3",
     "response-time": "^2.3.2",
     "rxjs": "^6.4.0",
+    "scrape-it": "^5.1.4",
+    "source-map-support": "^0.5.10",
     "swagger-express-middleware": "^2.0.1",
     "swagger-ui-express": "^4.0.2",
-    "source-map-support": "^0.5.10",
     "yamljs": "^0.3.0"
   },
   "peerDependencies": {
