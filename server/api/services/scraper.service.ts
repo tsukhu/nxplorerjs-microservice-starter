@@ -7,15 +7,17 @@ import IScraper from '../interfaces/iscraper';
 
 const amazonConfig = {
   title: '#productTitle',
-  salePrice: 'tr#priceblock_ourprice_row span#priceblock_ourprice',
+  salePrice: 'tr#priceblock_ourprice_row td.a-span12 span#priceblock_ourprice',
   salePriceDesc: 'tr#priceblock_ourprice_row span.a-size-small.a-color-price',
   mrpPrice: 'div#price span.a-text-strike',
   savings: 'tr#regularprice_savings td.a-span12.a-color-price.a-size-base',
   brand: 'div#bylineInfo_feature_div a#bylineInfo',
+  vat: 'tr#vatMessage',
   brandUrl: {
     selector: 'div#bylineInfo_feature_div a#bylineInfo',
     attr: 'href'
   },
+
   image: {
     selector: 'img#landingImage',
     attr: 'src'
