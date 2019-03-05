@@ -13,6 +13,7 @@ const amazonConfig = {
   savings: 'tr#regularprice_savings td.a-span12.a-color-price.a-size-base',
   brand: 'div#bylineInfo_feature_div a#bylineInfo',
   vat: 'tr#vatMessage',
+  availiability: 'div#availability',
   brandUrl: {
     selector: 'div#bylineInfo_feature_div a#bylineInfo',
     attr: 'href'
