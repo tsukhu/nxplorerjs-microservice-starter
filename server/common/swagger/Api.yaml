@@ -623,7 +623,7 @@ paths:
       tags:
         - Scrape URL
       parameters:
-        - name: skus
+        - name: url
           in: query
           required: true
           description: URL to scrape
