@@ -6,7 +6,7 @@ node_js:
   - lts/carbon
 jobs:
   include:
-    if: branch = master
+    # if: branch = master
     - stage: unit
       script:
         - npm install
