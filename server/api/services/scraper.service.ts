@@ -22,6 +22,17 @@ const amazonConfig = {
       feature: 'span.a-list-item'
     }
   },
+  images: {
+    listItem: 'div#imageBlock div#altImages ul li',
+    name: 'altImages',
+    data: {
+      url: {
+        selector: 'img',
+        attr: 'src',
+        convert: x => x.replace(/_[S][A-Z][0-9][0-9]_./g,'')
+      }
+    }
+  },
   brandUrl: {
     selector: 'div#bylineInfo_feature_div a#bylineInfo',
     attr: 'href'
