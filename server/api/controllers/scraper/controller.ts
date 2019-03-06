@@ -8,7 +8,6 @@ import {
   queryParam,
   response
 } from 'inversify-express-utils';
-import { timeout } from 'rxjs/operators';
 import SERVICE_IDENTIFIER from '../../../common/constants/identifiers';
 import { ILogger, IMetrics } from '../../../common/interfaces';
 import { IScraper } from '../../interfaces';

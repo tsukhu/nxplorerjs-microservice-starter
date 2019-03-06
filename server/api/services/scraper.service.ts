@@ -1,4 +1,4 @@
-import { Observable, AsyncSubject, from, forkJoin } from 'rxjs';
+import { Observable, from } from 'rxjs';
 import * as scrapeIt from 'scrape-it';
 import { inject, injectable } from 'inversify';
 import SERVICE_IDENTIFIER from '../../common/constants/identifiers';
@@ -33,6 +33,7 @@ const amazonConfig = {
   }
 };
 
+const defaultConfig = amazonConfig;
 /**
  * Starwars Service Implementation
  */
@@ -64,7 +65,7 @@ class ScraperService implements IScraper {
     if (url.toUpperCase().includes('AMAZON')) {
       return amazonConfig;
     } else {
-      return amazonConfig;
+      return defaultConfig;
     }
   };
 }
