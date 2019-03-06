@@ -618,3 +618,16 @@ paths:
       responses:
         200:
           description: Posts API Timeout Failure with Fallback
+  /scraper:
+    get:
+      tags:
+        - Scrape URL
+      parameters:
+        - name: url
+          in: query
+          required: true
+          description: URL to scrape
+          type: string
+      responses:
+        200:
+          description: Gets website data that is scraped

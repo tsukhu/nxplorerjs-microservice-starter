@@ -49,7 +49,7 @@ class ExampleController extends BaseHttpController {
    */
   @httpGet('/')
   public async all(@request() req: Request, @response() res: Response) {
-    return this.exampleService.all();
+     return this.exampleService.all();
   }
 
   /**
