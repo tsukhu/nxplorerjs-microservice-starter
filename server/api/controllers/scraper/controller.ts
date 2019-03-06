@@ -16,7 +16,7 @@ import { APIResponse, HttpError } from '../../models';
 import { ErrorResponseBuilder, HttpStatus } from '../../services';
 
 /**
- * Controller for StarWars APIs
+ * Controller for Scraper APIs
  */
 @controller('/scraper')
 class ScraperController implements interfaces.Controller {
