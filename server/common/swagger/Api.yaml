@@ -622,12 +622,13 @@ paths:
     get:
       tags:
         - Scrape URL
+      description: Returns the product scraped from Amazon
       parameters:
         - name: url
           in: query
           required: true
-          description: URL to scrape
+          description: URL to scrape for example (https://www.amazon.in/dp/B074ZJY1JD)
           type: string
       responses:
         200:
-          description: Gets website data that is scraped
+          description: Gets product data that is scraped from Amazon

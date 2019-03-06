@@ -129,6 +129,7 @@ See REST API /examples/{id}
 - shop - Example of how to use Reactive Extensions for API orchestration (FlatMap) (/shop/priceByOptionId/:id)
 - starwars - Example of how to use Reactive Extensions for API orchestration (ForkJoin) (/starwars/people/:id)
 - hystrix - Example of how to use the circuit break pattern for APIs (/hystrix)
+- scraper - Example of how to use scrape-it to scrape data from a website (/scraper)
 - Use swagger UI for the complete list of sample APIs
 - metrics - Prometheus based metrics added for all APIs (/metrics)
 - API Partial JSON response support
