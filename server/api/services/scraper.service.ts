@@ -14,6 +14,14 @@ const amazonConfig = {
   brand: 'div#bylineInfo_feature_div a#bylineInfo',
   vat: 'tr#vatMessage',
   availiability: 'div#availability',
+  vnv: 'div#vnv-container',
+  features: {
+    listItem: 'div#feature-bullets ul li',
+    name: 'features',
+    data: {
+      feature: 'span.a-list-item'
+    }
+  },
   brandUrl: {
     selector: 'div#bylineInfo_feature_div a#bylineInfo',
     attr: 'href'
