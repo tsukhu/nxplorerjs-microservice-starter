@@ -351,12 +351,6 @@ Install npm and nodeJS
 npm version >= 3.x
 node version >= 6.x
 
-- To use the node dashboard view , install node dashboard at the global level
-
-```bash
-npm install -g nodejs-dashboard
-```
-
 ## Install It
 
 ```bash
