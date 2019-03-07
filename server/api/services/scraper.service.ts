@@ -103,9 +103,7 @@ class ScraperService implements IScraper {
   };
 
   public push(name: string, data: string): Observable<any> {
-    if (this.db === undefined) {
-      this.db = new JsonDB('productsDB', true, false);
-    }
+    this.initDb();
     return from(
       new Promise((resolve, reject) => {
         try {
@@ -122,6 +120,7 @@ class ScraperService implements IScraper {
   }
 
   public byMicrositeByID(name: string): Observable<any> {
+    this.initDb();
     return from(
       new Promise((resolve, reject) => {
         try {
@@ -138,6 +137,11 @@ class ScraperService implements IScraper {
     );
   }
 
+  private initDb = () => {
+    if (this.db === undefined) {
+      this.db = new JsonDB('productsDB', true, false);
+    }
+  }
   private getConfiguration = (url: string) => {
     if (url.toUpperCase().includes('AMAZON')) {
       return amazonConfig;
