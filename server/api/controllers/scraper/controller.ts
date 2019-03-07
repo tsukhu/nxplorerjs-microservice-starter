@@ -48,7 +48,6 @@ class ScraperController implements interfaces.Controller {
     @response() res: Response
   ) {
     const result: APIResponse = await new Promise((resolve, reject) => {
-      this.loggerService.info('Called');
       this.scraperService.getScrapedData(url).subscribe(
         r => {
           if (r === undefined) {
@@ -117,6 +116,47 @@ class ScraperController implements interfaces.Controller {
               this.scraperService.push(name, data);
             }
             resolve({ data: { name, data }, status: HttpStatus.OK });
+          }
+        },
+        err => {
+          const error: HttpError = err as HttpError;
+          const resp = new ErrorResponseBuilder()
+            .setTitle(error.name)
+            .setStatus(HttpStatus.NOT_FOUND)
+            .setDetail(error.stack)
+            .setMessage(error.message)
+            .setSource(req.url)
+            .build();
+          this.loggerService.logAPITrace(req, res, HttpStatus.NOT_FOUND, error);
+          this.metricsService.logAPIMetrics(req, res, HttpStatus.NOT_FOUND);
+          reject({ errors: [resp], status: HttpStatus.NOT_FOUND });
+        }
+      );
+    });
+    res.status(result.status).json(result);
+  }
+
+  @httpGet('/products')
+  public async getProducts(@request() req: Request, @response() res: Response) {
+    const result: APIResponse = await new Promise((resolve, reject) => {
+      this.scraperService.getAll().subscribe(
+        r => {
+          if (r === undefined) {
+            this.loggerService.logAPITrace(
+              req,
+              res,
+              HttpStatus.INTERNAL_SERVER_ERROR
+            );
+            this.metricsService.logAPIMetrics(
+              req,
+              res,
+              HttpStatus.INTERNAL_SERVER_ERROR
+            );
+            reject({ data: r, status: HttpStatus.INTERNAL_SERVER_ERROR });
+          } else {
+            this.loggerService.logAPITrace(req, res, HttpStatus.OK);
+            this.metricsService.logAPIMetrics(req, res, HttpStatus.OK);
+            resolve({ data: r, status: HttpStatus.OK });
           }
         },
         err => {

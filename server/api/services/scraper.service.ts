@@ -137,6 +137,23 @@ class ScraperService implements IScraper {
     );
   }
 
+  public getAll(): Observable<any> {
+    this.initDb();
+    return from(
+      new Promise((resolve, reject) => {
+        try {
+          const data = this.db.getData(`/`);
+          this.loggerService.info(data);
+          resolve(data);
+        } catch (error) {
+          // The error will tell you where the DataPath stopped. In this case test1
+          // Since /test1/test does't exist.
+          reject(error);
+        }
+      })
+    );
+  }
+
   private initDb = () => {
     if (this.db === undefined) {
       this.db = new JsonDB('productsDB', true, false);

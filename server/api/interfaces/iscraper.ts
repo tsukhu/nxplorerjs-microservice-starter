@@ -4,6 +4,7 @@ import { Observable } from 'rxjs';
  * StarWars Service Interface
  */
 interface IScraper {
+  getAll(): Observable<any>;
   getScrapedData(url: string): Observable<any>;
 
   getScrapedListData(asinList: string): Observable<any>;

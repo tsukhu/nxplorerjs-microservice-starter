@@ -730,6 +730,14 @@ paths:
         200:
           description: Gets product data that is scraped from Amazon
   /scraper/products:
+    get:
+      tags:
+        - Get all products
+      responses:
+        200:
+          description: Return the products with the specified name
+        404:
+          description: Products not available   
     post:
       tags:
         - Save products
