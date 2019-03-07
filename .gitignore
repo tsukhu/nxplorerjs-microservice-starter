@@ -12,6 +12,8 @@ npm-debug.*
 
 # package-lock.json
 
+productsDB.json
+
 pids
 *.log*
 results
