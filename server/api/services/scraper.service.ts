@@ -83,7 +83,12 @@ class ScraperService implements IScraper {
           const asinUrl = `${amazonUrl}${asin}`;
           scrapeIt(asinUrl, this.getConfiguration(asinUrl)).then(
             ({ data, response }) => {
-              resolve(data);
+              const updatedData = {
+                ...data,
+                id: asin,
+                marketplace: 'Amazon'
+              }
+              resolve(updatedData);
             },
             error => {
               reject(error);
