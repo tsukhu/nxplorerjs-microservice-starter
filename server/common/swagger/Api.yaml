@@ -106,6 +106,79 @@ definitions:
       name:
         type: string
         description: The example name
+  ProductsBody:
+    type: object
+    title: products
+    required:
+      - name
+      - data
+    properties:
+      name:
+        type: string
+        description: Product List Name
+      data:
+        type: array
+        items:
+          $ref: '#/definitions/product'
+  product:
+    type: object
+    title: scraped product
+    required:
+      - title
+      - salePrice
+      - brand
+      - availability
+      - vnv
+      - brandUrl
+      - image
+    properties:
+      title:
+        type: string
+        description: product name
+      salePrice:
+        type: string
+        description: sale price        
+      brand:
+        type: string
+        description: brand name
+      availability:
+        type: string
+        description: availability
+      vnv:
+        type: string
+        description: veg / non veg
+      brandUrl:
+        type: string
+        description: brand url
+      image:
+        type: string
+        description: base64 Image string
+      features:
+        type: array
+        items:
+          $ref: '#/definitions/productFeature'
+      images:
+        type: array
+        items:
+          $ref: '#/definitions/productImage'
+  productFeature:
+    type: object
+    title: feature line
+    required:
+      - feature
+    properties:
+      feature:
+        type: string
+        description: feature line
+  productImage:
+    type: object
+    title: image details
+    required:
+      - url
+    properties:
+      url:
+        type: string
+        description: image url                     
   LoginBody:
     type: object
     title: user login
@@ -618,7 +691,7 @@ paths:
       responses:
         200:
           description: Posts API Timeout Failure with Fallback
-  /scraper:
+  /scraper/scrape:
     get:
       tags:
         - Scrape URL
@@ -632,3 +705,63 @@ paths:
       responses:
         200:
           description: Gets product data that is scraped from Amazon
+  /scraper/scrapeList:
+    get:
+      tags:
+        - Scrape Amazon ASIN LIST
+      description: Returns the list products scraped from Amazon
+      parameters:
+        - name: name
+          in: query
+          required: true
+          description: Name of the List
+          type: string
+        - name: asinList
+          in: query
+          required: true
+          description: Comma separated ASIN List to scrape for example "B074ZJY1JD,B01GCEF7R8"
+          type: string
+        - name: save
+          in: query
+          required: true
+          description: Persist the list
+          type: boolean
+      responses:
+        200:
+          description: Gets product data that is scraped from Amazon
+  /scraper/products:
+    post:
+      tags:
+        - Save products
+      description: Save Scrapped Products Data JSON
+      consumes:
+        - application/json
+      produces:
+        - application/json
+      parameters:
+        - name: body
+          in: body
+          description: product JSON
+          required: true
+          schema:
+            $ref: '#/definitions/ProductsBody'
+      responses:
+        201:
+          description: Products List posted
+        403:
+          description: Forbidden Request
+  /scraper/products/{name}:
+    get:
+      tags:
+        - Get products
+      parameters:
+        - name: name
+          in: path
+          required: true
+          description: The name of the entity to retrieve
+          type: string
+      responses:
+        200:
+          description: Return the products with the specified name
+        404:
+          description: Products not available          

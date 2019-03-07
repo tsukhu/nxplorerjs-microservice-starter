@@ -1,5 +1,5 @@
 {
-    "window.zoomLevel": 0,
+    "window.zoomLevel": -1,
     "prettier.singleQuote": true,
     "prettier.semi": true,
     "git.enableSmartCommit": true,
