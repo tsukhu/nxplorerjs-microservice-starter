@@ -41,7 +41,8 @@ export const swaggerify = (app: express.Application) => {
         process.env.NODE_ENV === 'production' &&
         process.env.CORS === 'true'
       ) {
-        app.use('/api/*', middleware.metadata(), middleware.CORS());
+        app.use(middleware.metadata());
+        app.use(middleware.CORS());    
       }
 
       app.use(middleware.validateRequest());
