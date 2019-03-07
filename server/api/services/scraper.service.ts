@@ -57,7 +57,6 @@ class ScraperService implements IScraper {
     @inject(SERVICE_IDENTIFIER.LOGGER) loggerService: ILogger
   ) {
     this.loggerService = loggerService;
-    this.db = new JsonDB('productsDB', true, false);
   }
 
   public getScrapedData = (url: string): Observable<any> => {
@@ -104,6 +103,9 @@ class ScraperService implements IScraper {
   };
 
   public push(name: string, data: string): Observable<any> {
+    if (this.db === undefined) {
+      this.db = new JsonDB('productsDB', true, false);
+    }
     return from(
       new Promise((resolve, reject) => {
         try {
