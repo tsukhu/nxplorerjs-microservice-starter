@@ -136,10 +136,94 @@ class ScraperController implements interfaces.Controller {
     res.status(result.status).json(result);
   }
 
+  @httpGet('/publish')
+  public async getPublishedSite(@request() req: Request, @response() res: Response) {
+    const result: APIResponse = await new Promise((resolve, reject) => {
+      this.scraperService.getAllSites().subscribe(
+        r => {
+          if (r === undefined) {
+            this.loggerService.logAPITrace(
+              req,
+              res,
+              HttpStatus.INTERNAL_SERVER_ERROR
+            );
+            this.metricsService.logAPIMetrics(
+              req,
+              res,
+              HttpStatus.INTERNAL_SERVER_ERROR
+            );
+            reject({ data: r, status: HttpStatus.INTERNAL_SERVER_ERROR });
+          } else {
+            this.loggerService.logAPITrace(req, res, HttpStatus.OK);
+            this.metricsService.logAPIMetrics(req, res, HttpStatus.OK);
+            resolve({ data: r, status: HttpStatus.OK });
+          }
+        },
+        err => {
+          const error: HttpError = err as HttpError;
+          const resp = new ErrorResponseBuilder()
+            .setTitle(error.name)
+            .setStatus(HttpStatus.NOT_FOUND)
+            .setDetail(error.stack)
+            .setMessage(error.message)
+            .setSource(req.url)
+            .build();
+          this.loggerService.logAPITrace(req, res, HttpStatus.NOT_FOUND, error);
+          this.metricsService.logAPIMetrics(req, res, HttpStatus.NOT_FOUND);
+          reject({ errors: [resp], status: HttpStatus.NOT_FOUND });
+        }
+      );
+    });
+    res.status(result.status).json(result);
+  }
+
   @httpGet('/products')
   public async getProducts(@request() req: Request, @response() res: Response) {
     const result: APIResponse = await new Promise((resolve, reject) => {
       this.scraperService.getAll().subscribe(
+        r => {
+          if (r === undefined) {
+            this.loggerService.logAPITrace(
+              req,
+              res,
+              HttpStatus.INTERNAL_SERVER_ERROR
+            );
+            this.metricsService.logAPIMetrics(
+              req,
+              res,
+              HttpStatus.INTERNAL_SERVER_ERROR
+            );
+            reject({ data: r, status: HttpStatus.INTERNAL_SERVER_ERROR });
+          } else {
+            this.loggerService.logAPITrace(req, res, HttpStatus.OK);
+            this.metricsService.logAPIMetrics(req, res, HttpStatus.OK);
+            resolve({ data: r, status: HttpStatus.OK });
+          }
+        },
+        err => {
+          const error: HttpError = err as HttpError;
+          const resp = new ErrorResponseBuilder()
+            .setTitle(error.name)
+            .setStatus(HttpStatus.NOT_FOUND)
+            .setDetail(error.stack)
+            .setMessage(error.message)
+            .setSource(req.url)
+            .build();
+          this.loggerService.logAPITrace(req, res, HttpStatus.NOT_FOUND, error);
+          this.metricsService.logAPIMetrics(req, res, HttpStatus.NOT_FOUND);
+          reject({ errors: [resp], status: HttpStatus.NOT_FOUND });
+        }
+      );
+    });
+    res.status(result.status).json(result);
+  }
+
+  @httpPost('/publish')
+  public async pushSite(@request() req: Request, @response() res: Response) {
+    const result: APIResponse = await new Promise((resolve, reject) => {
+      const { name, data } = req.body;
+      this.loggerService.info(name);
+      this.scraperService.pushSite(name, data).subscribe(
         r => {
           if (r === undefined) {
             this.loggerService.logAPITrace(
@@ -219,6 +303,38 @@ class ScraperController implements interfaces.Controller {
     });
     res.status(result.status).json(result);
   }
+
+  @httpGet('/publish/:name')
+  public async byPublishedMicrositeByName(
+    @requestParam('name') name: string,
+    @request() req: Request,
+    @response() res: Response
+  ) {
+    return new Promise((resolve, reject) => {
+      this.scraperService.byPublishedMicrositeByID(name).subscribe(
+        result => {
+          this.loggerService.info(result.timings);
+          this.loggerService.logAPITrace(req, res, HttpStatus.OK);
+          this.metricsService.logAPIMetrics(req, res, HttpStatus.OK);
+          resolve(result);
+        },
+        err => {
+          const error: HttpError = err as HttpError;
+          const resp = new ErrorResponseBuilder()
+            .setTitle(error.name)
+            .setStatus(HttpStatus.NOT_FOUND)
+            .setDetail(error.stack)
+            .setMessage(error.message)
+            .setSource(req.url)
+            .build();
+          this.loggerService.logAPITrace(req, res, HttpStatus.NOT_FOUND);
+          this.metricsService.logAPIMetrics(req, res, HttpStatus.NOT_FOUND);
+          reject(resp);
+        }
+      );
+    });
+  }
+
 
   @httpGet('/products/:name')
   public async byMicrositeByName(

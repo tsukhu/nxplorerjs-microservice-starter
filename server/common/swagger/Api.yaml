@@ -106,6 +106,45 @@ definitions:
       name:
         type: string
         description: The example name
+  PublishedProductsBody:
+    type: object
+    title: published products
+    required:
+      - name
+      - data
+    properties:
+      name:
+        type: string
+        description: Product List Name
+      data:
+        type: array
+        items:
+          $ref: '#/definitions/publish'
+  publish:
+    type: object
+    title: published products
+    required:
+      - id
+      - url
+      - status
+      - buildId
+      - productList
+    properties:
+      id:
+        type: string
+        description: publish name
+      url:
+        type: string
+        description: build url
+      status:
+        type: string
+        description: build status
+      buildId:
+        type: string
+        description: build id
+      productList:
+        type: string
+        description: comma separated product list
   ProductsBody:
     type: object
     title: products
@@ -758,6 +797,50 @@ paths:
           description: Products List posted
         403:
           description: Forbidden Request
+  /scraper/publish:
+    get:
+      tags:
+        - Get all published products
+      responses:
+        200:
+          description: Return the products with the specified name
+        404:
+          description: Products not available   
+    post:
+      tags:
+        - Save publish details
+      description: Save Published Products Data JSON
+      consumes:
+        - application/json
+      produces:
+        - application/json
+      parameters:
+        - name: body
+          in: body
+          description: product JSON
+          required: true
+          schema:
+            $ref: '#/definitions/PublishedProductsBody'
+      responses:
+        201:
+          description: Published Products List posted
+        403:
+          description: Forbidden Request
+  /scraper/publish/{name}:
+    get:
+      tags:
+        - Get publish details
+      parameters:
+        - name: name
+          in: path
+          required: true
+          description: The name of the published site
+          type: string
+      responses:
+        200:
+          description: Return the published site with the specified name
+        404:
+          description: Publish site not available  
   /scraper/products/{name}:
     get:
       tags:

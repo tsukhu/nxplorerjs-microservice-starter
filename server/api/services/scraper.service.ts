@@ -53,6 +53,7 @@ const defaultConfig = amazonConfig;
 class ScraperService implements IScraper {
   public loggerService: ILogger;
   public db: JsonDB;
+  public dbPublish: JsonDB;
   public constructor(
     @inject(SERVICE_IDENTIFIER.LOGGER) loggerService: ILogger
   ) {
@@ -87,7 +88,7 @@ class ScraperService implements IScraper {
                 ...data,
                 id: asin,
                 marketplace: 'Amazon'
-              }
+              };
               resolve(updatedData);
             },
             error => {
@@ -159,11 +160,69 @@ class ScraperService implements IScraper {
     );
   }
 
+  public getAllSites(): Observable<any> {
+    this.initPublishDb();
+    return from(
+      new Promise((resolve, reject) => {
+        try {
+          const data = this.dbPublish.getData(`/`);
+          this.loggerService.info(data);
+          resolve(data);
+        } catch (error) {
+          // The error will tell you where the DataPath stopped. In this case test1
+          // Since /test1/test does't exist.
+          reject(error);
+        }
+      })
+    );
+  }
+
+  public pushSite(name: string, data: string): Observable<any> {
+    this.initPublishDb();
+    return from(
+      new Promise((resolve, reject) => {
+        try {
+          this.loggerService.info(name);
+          this.dbPublish.push(`/${name}`, data);
+          resolve(data);
+        } catch (error) {
+          // The error will tell you where the DataPath stopped. In this case test1
+          // Since /test1/test does't exist.
+          reject(error);
+        }
+      })
+    );
+  }
+
+  public byPublishedMicrositeByID(name: string): Observable<any> {
+    this.initPublishDb();
+    return from(
+      new Promise((resolve, reject) => {
+        try {
+          this.loggerService.info(name);
+          const data = this.dbPublish.getData(`/${name}`);
+          this.loggerService.info(data);
+          resolve(data);
+        } catch (error) {
+          // The error will tell you where the DataPath stopped. In this case test1
+          // Since /test1/test does't exist.
+          reject(error);
+        }
+      })
+    );
+  }
+
   private initDb = () => {
     if (this.db === undefined) {
       this.db = new JsonDB('productsDB', true, false);
     }
-  }
+  };
+
+  private initPublishDb = () => {
+    if (this.dbPublish === undefined) {
+      this.dbPublish = new JsonDB('publishDB', true, false);
+    }
+  };
   private getConfiguration = (url: string) => {
     if (url.toUpperCase().includes('AMAZON')) {
       return amazonConfig;
