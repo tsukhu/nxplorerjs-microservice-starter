@@ -13,6 +13,7 @@ npm-debug.*
 # package-lock.json
 
 productsDB.json
+publishDB.json
 
 pids
 *.log*
