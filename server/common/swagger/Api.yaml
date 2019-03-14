@@ -126,9 +126,9 @@ definitions:
     required:
       - id
       - url
-      - status
       - buildId
-      - productList
+      - buildStatus
+      - scrapeDate   
     properties:
       id:
         type: string
@@ -136,15 +136,25 @@ definitions:
       url:
         type: string
         description: build url
-      status:
+      buildStatus:
         type: string
         description: build status
+        enum: [inprogress, successful, failure, notstarted]
       buildId:
         type: string
         description: build id
-      productList:
+      scrapeDate:
         type: string
-        description: comma separated product list
+        description: date scraped
+        format: date-time
+      publishStartDate:
+        type: string
+        description: publish start date 
+        format: date-time
+      publishEndDate:
+        type: string
+        description: publish end date
+        format: date-time
   ProductsBody:
     type: object
     title: products
