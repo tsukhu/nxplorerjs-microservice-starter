@@ -10,7 +10,14 @@ import * as csrf from 'csurf';
  * @param app Express App
  */
 export const secureApp = (app: express.Application) => {
-  app.use(bodyParser.json());
+  app.use(bodyParser.json({ limit: '50mb' }));
+  app.use(
+    bodyParser.urlencoded({
+      limit: '50mb',
+      extended: true,
+      parameterLimit: 50000
+    })
+  );
   app.use(helmet());
   app.use(cookieParser(process.env.SESSION_SECRET));
   //   app.use(logger(bunyanOpts));
