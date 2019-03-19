@@ -169,6 +169,21 @@ definitions:
         type: array
         items:
           $ref: '#/definitions/product'
+      theme:
+        type: object
+        title: Page Theme
+        properties:
+          page:
+            type: object
+            title: page theme
+            properties:
+              backgroundImage: 
+                type: string
+                description: background Image
+              background:
+                type: string
+                description: background color
+
   product:
     type: object
     title: scraped product

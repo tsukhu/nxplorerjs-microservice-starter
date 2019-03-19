@@ -10,7 +10,7 @@ interface IScraper {
 
   getScrapedListData(asinList: string): Observable<any>;
 
-  push(name: string, data: string): Observable<any>;
+  push(name: string, data: string, theme: string): Observable<any>;
   pushSite(name: string, data: string): Observable<any>;
 
   byMicrositeByID(name: string): Observable<any>;

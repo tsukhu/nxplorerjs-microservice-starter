@@ -108,13 +108,13 @@ class ScraperService implements IScraper {
     );
   };
 
-  public push(name: string, data: string): Observable<any> {
+  public push(name: string, data: string, theme: string): Observable<any> {
     this.initDb();
     return from(
       new Promise((resolve, reject) => {
         try {
           this.loggerService.info(name);
-          this.db.push(`/${name}`, data);
+          this.db.push(`/${name}`, { data, theme });
           resolve(data);
         } catch (error) {
           // The error will tell you where the DataPath stopped. In this case test1

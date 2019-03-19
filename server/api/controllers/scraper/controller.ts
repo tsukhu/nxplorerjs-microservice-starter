@@ -113,7 +113,7 @@ class ScraperController implements interfaces.Controller {
             this.loggerService.logAPITrace(req, res, HttpStatus.OK);
             this.metricsService.logAPIMetrics(req, res, HttpStatus.OK);
             if (save) {
-              this.scraperService.push(name, data);
+              this.scraperService.push(name, data, '{}');
             }
             resolve({ data: { name, data }, status: HttpStatus.OK });
           }
@@ -137,7 +137,10 @@ class ScraperController implements interfaces.Controller {
   }
 
   @httpGet('/publish')
-  public async getPublishedSite(@request() req: Request, @response() res: Response) {
+  public async getPublishedSite(
+    @request() req: Request,
+    @response() res: Response
+  ) {
     const result: APIResponse = await new Promise((resolve, reject) => {
       this.scraperService.getAllSites().subscribe(
         r => {
@@ -264,9 +267,9 @@ class ScraperController implements interfaces.Controller {
   @httpPost('/products')
   public async push(@request() req: Request, @response() res: Response) {
     const result: APIResponse = await new Promise((resolve, reject) => {
-      const { name, data } = req.body;
+      const { name, data, theme } = req.body;
       this.loggerService.info(name);
-      this.scraperService.push(name, data).subscribe(
+      this.scraperService.push(name, data, theme).subscribe(
         r => {
           if (r === undefined) {
             this.loggerService.logAPITrace(
@@ -334,7 +337,6 @@ class ScraperController implements interfaces.Controller {
       );
     });
   }
-
 
   @httpGet('/products/:name')
   public async byMicrositeByName(
