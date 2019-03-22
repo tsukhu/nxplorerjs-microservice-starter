@@ -1,6 +1,6 @@
 {
   "name": "nxplorerjs-microservice",
-  "version": "1.11.12",
+  "version": "1.11.14",
   "description": "Express Microservice Starter Project",
   "main": "index.js",
   "scripts": {
@@ -52,7 +52,7 @@
     "csurf": "^1.9.0",
     "dataloader": "^1.4.0",
     "dateformat": "^3.0.3",
-    "dotenv": "^6.2.0",
+    "dotenv": "^7.0.0",
     "express": "^4.16.4",
     "express-jwt": "^5.3.1",
     "express-partial-response": "^0.3.4",
@@ -67,7 +67,7 @@
     "jsonwebtoken": "^8.4.0",
     "lodash": "^4.17.11",
     "node-fetch": "^2.3.0",
-    "node-json-db": "^0.10.0",
+    "node-json-db": "^0.11.0",
     "pino": "^5.11.1",
     "progress": "^2.0.3",
     "prom-client": "^11.2.1",

@@ -4,7 +4,23 @@ import JsonDB from 'node-json-db';
 import { inject, injectable } from 'inversify';
 import SERVICE_IDENTIFIER from '../../common/constants/identifiers';
 import ILogger from '../../common/interfaces/ilogger';
-import IScraper from '../interfaces/iscraper';
+import { IScraper, ScrapeData } from '../interfaces';
+
+const supportedCountries = ['US', 'IN'];
+const supportedMarketPlaces = ['AMAZON'];
+
+const marketplaceConfig = [
+  {
+    marketplace: 'AMAZON',
+    country: 'IN',
+    url: 'https://www.amazon.in/dp/'
+  },
+  {
+    marketplace: 'AMAZON',
+    country: 'US',
+    url: 'https://www.amazon.com/dp/'
+  }
+];
 
 const amazonConfig = {
   title: '#productTitle',
@@ -75,19 +91,29 @@ class ScraperService implements IScraper {
     );
   };
 
-  public getScrapedListData = (asinList: string): Observable<any> => {
+  public getScrapedListData = ({
+    country,
+    marketplace,
+    baseUrl,
+    asinList
+  }): Observable<any> => {
     const res = asinList.split(',');
-    const amazonUrl = 'https://www.amazon.in/dp/';
+    const defaultUrl = this.getBaseURLFor(country, marketplace);
+
+    // override country,market place if the url is provided
+    const scrapeBaseUrl = typeof baseUrl !== 'undefined' ? baseUrl : defaultUrl;
     const scrappedList = res.map(
       asin =>
         new Promise((resolve, reject) => {
-          const asinUrl = `${amazonUrl}${asin}`;
+          const asinUrl = `${scrapeBaseUrl}${asin}`;
           scrapeIt(asinUrl, this.getConfiguration(asinUrl)).then(
             ({ data, response }) => {
               const updatedData = {
                 ...data,
                 id: asin,
-                marketplace: 'Amazon'
+                scrapedUrl: asinUrl,
+                marketplace: 'Amazon',
+                scrapeDate: new Date()
               };
               resolve(updatedData);
             },
@@ -108,13 +134,13 @@ class ScraperService implements IScraper {
     );
   };
 
-  public push(name: string, data: string, theme: string): Observable<any> {
+  public push(name: string, data: string, theme: string, country: string): Observable<any> {
     this.initDb();
     return from(
       new Promise((resolve, reject) => {
         try {
           this.loggerService.info(name);
-          this.db.push(`/${name}`, { data, theme });
+          this.db.push(`/${name}`, { data, theme, country });
           resolve(data);
         } catch (error) {
           // The error will tell you where the DataPath stopped. In this case test1
@@ -223,12 +249,48 @@ class ScraperService implements IScraper {
       this.dbPublish = new JsonDB('publishDB', true, false);
     }
   };
+
   private getConfiguration = (url: string) => {
     if (url.toUpperCase().includes('AMAZON')) {
       return amazonConfig;
     } else {
       return defaultConfig;
     }
+  };
+
+  /**
+   * Get the base URL based on the country and marketplace
+   * In the country or marketplace are not supported return the default
+   * url based on amazon india
+   */
+  private getBaseURLFor = (country: string, marketplace: string) => {
+    let currentMarketPlace = 'AMAZON';
+    let currentCountry = 'IN';
+    const defaultURL = 'https://www.amazon.in/dp/';
+
+    if (
+      typeof marketplace !== 'undefined' &&
+      typeof supportedMarketPlaces[marketplace.toUpperCase()] !== undefined
+    ) {
+      currentMarketPlace = marketplace.toUpperCase();
+    }
+
+    if (
+      typeof country !== 'undefined' &&
+      typeof supportedCountries[country.toUpperCase()] !== undefined
+    ) {
+      currentCountry = country.toUpperCase();
+    }
+
+    const marketplaceInfo = marketplaceConfig.find(
+      item =>
+        item.country === currentCountry &&
+        item.marketplace === currentMarketPlace
+    );
+
+    return typeof marketplaceInfo !== 'undefined'
+      ? marketplaceInfo.url
+      : defaultURL;
   };
 }
 

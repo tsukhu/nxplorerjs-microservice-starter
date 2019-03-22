@@ -780,6 +780,16 @@ paths:
           required: true
           description: Name of the List
           type: string
+        - name: country
+          in: query
+          required: false
+          type: string
+        - name: marketplace
+          required: false
+          type: string
+        - name: baseUrl
+          required: false
+          type: string
         - name: asinList
           in: query
           required: true
