@@ -12,7 +12,7 @@ import {
 } from 'inversify-express-utils';
 import SERVICE_IDENTIFIER from '../../../common/constants/identifiers';
 import { ILogger, IMetrics } from '../../../common/interfaces';
-import { IScraper, ScrapeData } from '../../interfaces';
+import { IScraper } from '../../interfaces';
 import { APIResponse, HttpError } from '../../models';
 import { ErrorResponseBuilder, HttpStatus } from '../../services';
 

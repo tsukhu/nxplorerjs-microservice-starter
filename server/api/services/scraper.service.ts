@@ -270,14 +270,14 @@ class ScraperService implements IScraper {
 
     if (
       typeof marketplace !== 'undefined' &&
-      typeof supportedMarketPlaces[marketplace.toUpperCase()] !== undefined
+      typeof supportedMarketPlaces[marketplace.toUpperCase()] !== 'undefined'
     ) {
       currentMarketPlace = marketplace.toUpperCase();
     }
 
     if (
       typeof country !== 'undefined' &&
-      typeof supportedCountries[country.toUpperCase()] !== undefined
+      typeof supportedCountries[country.toUpperCase()] !== 'undefined'
     ) {
       currentCountry = country.toUpperCase();
     }
