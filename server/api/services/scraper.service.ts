@@ -27,7 +27,15 @@ const amazonConfig = {
   salePrice: 'tr#priceblock_ourprice_row td.a-span12 span#priceblock_ourprice',
   salePriceDesc: 'tr#priceblock_ourprice_row span.a-size-small.a-color-price',
   dealPrice: 'span#priceblock_dealprice',
-  sellerPrice: 'div#toggleBuyBox span.a-color-price',
+  sellerPrice: {
+    selector: 'div#toggleBuyBox span.a-color-price',
+    convert: x => {
+      if (x.charAt(0) === '$') {
+        return x.slice(1);
+      }
+      return x;
+    }
+  },
   mrpPrice: 'div#price span.a-text-strike',
   savings: 'tr#regularprice_savings td.a-span12.a-color-price.a-size-base',
   brand: 'div#bylineInfo_feature_div a#bylineInfo',
@@ -83,7 +91,23 @@ class ScraperService implements IScraper {
       new Promise((resolve, reject) =>
         scrapeIt(url, this.getConfiguration(url)).then(
           ({ data, response }) => {
-            resolve(data);
+            const scrapedData: any = data;
+            const { dealPrice, salePrice, sellerPrice } = scrapedData;
+            // if there is a deal then show that
+            if (dealPrice.length > 0) {
+              scrapedData.salePrice = dealPrice;
+            } else if (
+              // if sale price and deal price
+              // are not available then fall back
+              // on seller price
+              salePrice.length === 0 &&
+              dealPrice.length === 0 &&
+              sellerPrice.length > 0
+            ) {
+              scrapedData.salePrice = sellerPrice;
+            }
+
+            resolve(scrapedData);
           },
           error => {
             this.loggerService.error(error);
@@ -110,8 +134,24 @@ class ScraperService implements IScraper {
           const asinUrl = `${scrapeBaseUrl}${asin}`;
           scrapeIt(asinUrl, this.getConfiguration(asinUrl)).then(
             ({ data, response }) => {
+              const scrapedData: any = data;
+              const { dealPrice, salePrice, sellerPrice } = scrapedData;
+              // if there is a deal then show that
+              if (dealPrice.length > 0) {
+                scrapedData.salePrice = dealPrice;
+              } else if (
+                // if sale price and deal price
+                // are not available then fall back
+                // on seller price
+                salePrice.length === 0 &&
+                dealPrice.length === 0 &&
+                sellerPrice.length > 0
+              ) {
+                scrapedData.salePrice = sellerPrice;
+              }
+
               const updatedData = {
-                ...data,
+                ...scrapedData,
                 id: asin,
                 scrapedUrl: asinUrl,
                 marketplace: 'Amazon',
