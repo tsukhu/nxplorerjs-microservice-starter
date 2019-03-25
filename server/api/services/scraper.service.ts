@@ -26,6 +26,8 @@ const amazonConfig = {
   title: '#productTitle',
   salePrice: 'tr#priceblock_ourprice_row td.a-span12 span#priceblock_ourprice',
   salePriceDesc: 'tr#priceblock_ourprice_row span.a-size-small.a-color-price',
+  dealPrice: 'span#priceblock_dealprice',
+  sellerPrice: 'div#toggleBuyBox span.a-color-price',
   mrpPrice: 'div#price span.a-text-strike',
   savings: 'tr#regularprice_savings td.a-span12.a-color-price.a-size-base',
   brand: 'div#bylineInfo_feature_div a#bylineInfo',
@@ -99,7 +101,7 @@ class ScraperService implements IScraper {
   }): Observable<any> => {
     const res = asinList.split(',');
     const defaultUrl = this.getBaseURLFor(country, marketplace);
-
+    // this.loggerService.info(defaultUrl);
     // override country,market place if the url is provided
     const scrapeBaseUrl = typeof baseUrl !== 'undefined' ? baseUrl : defaultUrl;
     const scrappedList = res.map(
@@ -134,7 +136,12 @@ class ScraperService implements IScraper {
     );
   };
 
-  public push(name: string, data: string, theme: string, country: string): Observable<any> {
+  public push(
+    name: string,
+    data: string,
+    theme: string,
+    country: string
+  ): Observable<any> {
     this.initDb();
     return from(
       new Promise((resolve, reject) => {
@@ -270,18 +277,17 @@ class ScraperService implements IScraper {
 
     if (
       typeof marketplace !== 'undefined' &&
-      typeof supportedMarketPlaces[marketplace.toUpperCase()] !== 'undefined'
+      supportedMarketPlaces.indexOf(marketplace.toUpperCase()) > -1
     ) {
       currentMarketPlace = marketplace.toUpperCase();
     }
 
     if (
       typeof country !== 'undefined' &&
-      typeof supportedCountries[country.toUpperCase()] !== 'undefined'
+      supportedCountries.indexOf(country.toUpperCase()) > -1
     ) {
       currentCountry = country.toUpperCase();
     }
-
     const marketplaceInfo = marketplaceConfig.find(
       item =>
         item.country === currentCountry &&
