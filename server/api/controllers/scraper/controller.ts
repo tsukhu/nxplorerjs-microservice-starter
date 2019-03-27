@@ -119,7 +119,7 @@ class ScraperController implements interfaces.Controller {
               this.loggerService.logAPITrace(req, res, HttpStatus.OK);
               this.metricsService.logAPIMetrics(req, res, HttpStatus.OK);
               if (save) {
-                this.scraperService.push(name, data, '{}', currentCountry);
+                this.scraperService.push(name, {data, theme: '{}', country: currentCountry});
               }
               resolve({
                 data: { name, data, country: currentCountry },
@@ -281,9 +281,9 @@ class ScraperController implements interfaces.Controller {
   @httpPost('/products')
   public async push(@request() req: Request, @response() res: Response) {
     const result: APIResponse = await new Promise((resolve, reject) => {
-      const { name, data, theme, country } = req.body;
+      const { name, data, theme, country, visibility } = req.body;
       this.loggerService.info(name);
-      this.scraperService.push(name, data, theme, country).subscribe(
+      this.scraperService.push(name, {data, theme, country, visibility}).subscribe(
         r => {
           if (r === undefined) {
             this.loggerService.logAPITrace(

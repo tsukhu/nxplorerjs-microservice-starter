@@ -169,6 +169,9 @@ definitions:
         type: array
         items:
           $ref: '#/definitions/product'
+      country:
+        type: string
+        description: campaign country
       theme:
         type: object
         title: Page Theme
@@ -183,7 +186,18 @@ definitions:
               background:
                 type: string
                 description: background color
-
+      visibility:
+        type: object
+        title: page visibility details
+        properties:
+          startDate:
+            type: string
+            description: page start date
+            format: date-time
+          endDate:
+            type: string
+            description: page end date
+            format: date-time
   product:
     type: object
     title: scraped product
