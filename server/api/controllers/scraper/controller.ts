@@ -94,6 +94,8 @@ class ScraperController implements interfaces.Controller {
     @queryParam('baseUrl') baseUrl: string,
     @queryParam('save') save: boolean,
     @queryParam('asinList') asinList: string,
+    @queryParam('startDate') startDate: string,
+    @queryParam('endDate') endDate: string,
     @request() req: Request,
     @response() res: Response
   ) {
@@ -119,7 +121,15 @@ class ScraperController implements interfaces.Controller {
               this.loggerService.logAPITrace(req, res, HttpStatus.OK);
               this.metricsService.logAPIMetrics(req, res, HttpStatus.OK);
               if (save) {
-                this.scraperService.push(name, {data, theme: '{}', country: currentCountry});
+                this.scraperService.push(name, {
+                  data,
+                  theme: '{}',
+                  country: currentCountry,
+                  visibility: {
+                    startDate,
+                    endDate
+                  }
+                });
               }
               resolve({
                 data: { name, data, country: currentCountry },
@@ -283,40 +293,47 @@ class ScraperController implements interfaces.Controller {
     const result: APIResponse = await new Promise((resolve, reject) => {
       const { name, data, theme, country, visibility } = req.body;
       this.loggerService.info(name);
-      this.scraperService.push(name, {data, theme, country, visibility}).subscribe(
-        r => {
-          if (r === undefined) {
+      this.scraperService
+        .push(name, { data, theme, country, visibility })
+        .subscribe(
+          r => {
+            if (r === undefined) {
+              this.loggerService.logAPITrace(
+                req,
+                res,
+                HttpStatus.INTERNAL_SERVER_ERROR
+              );
+              this.metricsService.logAPIMetrics(
+                req,
+                res,
+                HttpStatus.INTERNAL_SERVER_ERROR
+              );
+              reject({ data: r, status: HttpStatus.INTERNAL_SERVER_ERROR });
+            } else {
+              this.loggerService.logAPITrace(req, res, HttpStatus.OK);
+              this.metricsService.logAPIMetrics(req, res, HttpStatus.OK);
+              resolve({ data: r, status: HttpStatus.OK });
+            }
+          },
+          err => {
+            const error: HttpError = err as HttpError;
+            const resp = new ErrorResponseBuilder()
+              .setTitle(error.name)
+              .setStatus(HttpStatus.NOT_FOUND)
+              .setDetail(error.stack)
+              .setMessage(error.message)
+              .setSource(req.url)
+              .build();
             this.loggerService.logAPITrace(
               req,
               res,
-              HttpStatus.INTERNAL_SERVER_ERROR
+              HttpStatus.NOT_FOUND,
+              error
             );
-            this.metricsService.logAPIMetrics(
-              req,
-              res,
-              HttpStatus.INTERNAL_SERVER_ERROR
-            );
-            reject({ data: r, status: HttpStatus.INTERNAL_SERVER_ERROR });
-          } else {
-            this.loggerService.logAPITrace(req, res, HttpStatus.OK);
-            this.metricsService.logAPIMetrics(req, res, HttpStatus.OK);
-            resolve({ data: r, status: HttpStatus.OK });
+            this.metricsService.logAPIMetrics(req, res, HttpStatus.NOT_FOUND);
+            reject({ errors: [resp], status: HttpStatus.NOT_FOUND });
           }
-        },
-        err => {
-          const error: HttpError = err as HttpError;
-          const resp = new ErrorResponseBuilder()
-            .setTitle(error.name)
-            .setStatus(HttpStatus.NOT_FOUND)
-            .setDetail(error.stack)
-            .setMessage(error.message)
-            .setSource(req.url)
-            .build();
-          this.loggerService.logAPITrace(req, res, HttpStatus.NOT_FOUND, error);
-          this.metricsService.logAPIMetrics(req, res, HttpStatus.NOT_FOUND);
-          reject({ errors: [resp], status: HttpStatus.NOT_FOUND });
-        }
-      );
+        );
     });
     res.status(result.status).json(result);
   }

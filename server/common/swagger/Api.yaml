@@ -809,6 +809,18 @@ paths:
           required: true
           description: Comma separated ASIN List to scrape for example "B074ZJY1JD,B01GCEF7R8"
           type: string
+        - name: startDate
+          required: false
+          in: query
+          type: string
+          description: publish start date
+          format: date-time
+        - name: endDate
+          required: false
+          in: query
+          type: string
+          description: publish end date
+          format: date-time
         - name: save
           in: query
           required: true

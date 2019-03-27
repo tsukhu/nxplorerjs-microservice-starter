@@ -176,7 +176,7 @@ class ScraperService implements IScraper {
     );
   };
 
-  public push(name: string, data: object): Observable<any> {
+  public push(name: string, data: any): Observable<any> {
     this.initDb();
     return from(
       new Promise((resolve, reject) => {
