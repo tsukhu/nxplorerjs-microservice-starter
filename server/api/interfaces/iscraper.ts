@@ -11,6 +11,7 @@ interface IScraper {
   getScrapedListData(scrapeInfo: ScrapeData): Observable<any>;
 
   push(name: string, data: object): Observable<any>;
+  pushProduct(name: string, data: object): Observable<any>;
   pushSite(name: string, data: string): Observable<any>;
 
   byMicrositeByID(name: string): Observable<any>;

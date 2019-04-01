@@ -43,7 +43,9 @@ class ScraperController implements interfaces.Controller {
    */
   @httpGet('/scrape')
   public async getScraper(
+    @queryParam('name') name: string,
     @queryParam('url') url: string,
+    @queryParam('save') save: boolean,
     @request() req: Request,
     @response() res: Response
   ) {
@@ -65,6 +67,15 @@ class ScraperController implements interfaces.Controller {
           } else {
             this.loggerService.logAPITrace(req, res, HttpStatus.OK);
             this.metricsService.logAPIMetrics(req, res, HttpStatus.OK);
+            if (save) {
+              this.scraperService.pushProduct(name, {
+                data: r
+              });
+            }
+            resolve({
+              data: { name, data: r },
+              status: HttpStatus.OK
+            });
             resolve({ data: r, status: HttpStatus.OK });
           }
         },

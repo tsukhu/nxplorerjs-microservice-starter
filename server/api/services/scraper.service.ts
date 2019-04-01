@@ -88,7 +88,8 @@ class ScraperService implements IScraper {
 
   public getScrapedData = (url: string): Observable<any> => {
     return from(
-      new Promise((resolve, reject) =>
+      new Promise((resolve, reject) => {
+        const scrapeMarketplace = this.getMarketPlace(url);
         scrapeIt(url, this.getConfiguration(url)).then(
           ({ data, response }) => {
             const scrapedData: any = data;
@@ -107,13 +108,19 @@ class ScraperService implements IScraper {
               scrapedData.salePrice = sellerPrice;
             }
 
-            resolve(scrapedData);
+            const updatedData = {
+              ...scrapedData,
+              scrapedUrl: url,
+              marketplace: scrapeMarketplace,
+              scrapeDate: new Date()
+            };
+            resolve(updatedData);
           },
           error => {
             this.loggerService.error(error);
           }
-        )
-      )
+        );
+      })
     );
   };
 
@@ -125,9 +132,12 @@ class ScraperService implements IScraper {
   }): Observable<any> => {
     const res = asinList.split(',');
     const defaultUrl = this.getBaseURLFor(country, marketplace);
-    // this.loggerService.info(defaultUrl);
     // override country,market place if the url is provided
     const scrapeBaseUrl = typeof baseUrl !== 'undefined' ? baseUrl : defaultUrl;
+    const scrapeMarketplace =
+      typeof marketplace !== 'undefined'
+        ? marketplace
+        : this.getMarketPlace(scrapeBaseUrl);
     const scrappedList = res.map(
       asin =>
         new Promise((resolve, reject) => {
@@ -154,7 +164,7 @@ class ScraperService implements IScraper {
                 ...scrapedData,
                 id: asin,
                 scrapedUrl: asinUrl,
-                marketplace: 'Amazon',
+                marketplace: scrapeMarketplace,
                 scrapeDate: new Date()
               };
               resolve(updatedData);
@@ -182,11 +192,79 @@ class ScraperService implements IScraper {
       new Promise((resolve, reject) => {
         try {
           this.loggerService.info(name);
-          this.db.push(`/${name}`, { ...data });
+          // current scraped data
+          let currentData = null;
+          // New updates
+          const newData = data.data;
+          try {
+            // Check if an entry exists
+            currentData = this.db.getData(`/${name}/`);
+          } catch (error) {}
+
+          // If exists
+          if (currentData !== null && currentData.data !== null) {
+            newData.map(elem => {
+              const index = currentData.data.findIndex(
+                item =>
+                  item.title === elem.title &&
+                  item.marketplace === elem.marketplace
+              );
+              // Update existing entries
+              if (index > -1) {
+                currentData.data[index] = elem;
+              } else {
+                // Add new entry
+                currentData.data.push(elem);
+              }
+            });
+          } else {
+            // No previous entry to use as is
+            currentData = data
+          }
+          
+          this.db.push(`/${name}`, { ...currentData });
+          resolve(newData);
+        } catch (error) {
+          // The error will tell you where the DataPath stopped. In this case test1
+          // Since /test1/test does't exist.
+          reject(error);
+        }
+      })
+    );
+  }
+
+  public pushProduct(name: string, data: any): Observable<any> {
+    this.initDb();
+    return from(
+      new Promise((resolve, reject) => {
+        try {
+          this.loggerService.info(name);
+          let currentData = null;
+          // Check if preview values exist
+          try {
+            currentData = this.db.getData(`/${name}/data/`);
+          } catch (error) {}
+          const { title, marketplace } = data.data;
+          const index =
+            currentData === null
+              ? -1
+              : currentData.findIndex(
+                  item =>
+                    item.title === title && item.marketplace === marketplace
+                );
+          // If exist overwrite value
+          if (index > -1) {
+            this.db.push(`/${name}/data[${index}]/`, { ...data.data });
+          } else {
+          // Create new entry / append
+            this.db.push(`/${name}/data[]/`, { ...data.data });
+          }
+
           resolve(data);
         } catch (error) {
           // The error will tell you where the DataPath stopped. In this case test1
           // Since /test1/test does't exist.
+          // console.log('Got an Error');
           reject(error);
         }
       })
@@ -298,6 +376,22 @@ class ScraperService implements IScraper {
     } else {
       return defaultConfig;
     }
+  };
+
+  private getMarketPlace = (url: string) => {
+    let defaultMarketPlace = 'Amazone';
+    switch (url.toUpperCase()) {
+      case 'AMAZON':
+        defaultMarketPlace = 'Amazon';
+        break;
+      case 'FLIPKART':
+        defaultMarketPlace = 'Flipkart';
+        break;
+      default:
+        defaultMarketPlace = 'Amazon';
+        break;
+    }
+    return defaultMarketPlace;
   };
 
   /**

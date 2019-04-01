@@ -775,11 +775,21 @@ paths:
         - Scrape URL
       description: Returns the product scraped from Amazon
       parameters:
+        - name: name
+          in: query
+          required: true
+          description: Name of the List
+          type: string
         - name: url
           in: query
           required: true
           description: URL to scrape for example (https://www.amazon.in/dp/B074ZJY1JD)
           type: string
+        - name: save
+          in: query
+          required: true
+          description: Persist the list
+          type: boolean
       responses:
         200:
           description: Gets product data that is scraped from Amazon
@@ -799,9 +809,11 @@ paths:
           required: false
           type: string
         - name: marketplace
+          in: query
           required: false
           type: string
         - name: baseUrl
+          in: query
           required: false
           type: string
         - name: asinList
