@@ -305,7 +305,7 @@ class ScraperController implements interfaces.Controller {
       const { name, data, theme, country, visibility } = req.body;
       this.loggerService.info(name);
       this.scraperService
-        .push(name, { data, theme, country, visibility })
+        .push(name, { data, theme, country, visibility },true)
         .subscribe(
           r => {
             if (r === undefined) {

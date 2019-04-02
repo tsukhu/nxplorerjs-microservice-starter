@@ -186,12 +186,19 @@ class ScraperService implements IScraper {
     );
   };
 
-  public push(name: string, data: any): Observable<any> {
+  public push(name: string, data: any , replace?:boolean): Observable<any> {
     this.initDb();
     return from(
       new Promise((resolve, reject) => {
         try {
           this.loggerService.info(name);
+
+          if (replace){
+            this.db.push(`/${name}`, { ...data });
+            resolve(data);
+            return;
+          }
+          
           // current scraped data
           let currentData = null;
           // New updates
@@ -222,6 +229,14 @@ class ScraperService implements IScraper {
             currentData = data
           }
           
+/*           if (allData) {
+            currentData = {
+              ...currentData,
+              ...data,
+              data: currentData.data
+            }
+          } */
+
           this.db.push(`/${name}`, { ...currentData });
           resolve(newData);
         } catch (error) {
