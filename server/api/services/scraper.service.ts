@@ -1,5 +1,6 @@
 import { Observable, from } from 'rxjs';
 import * as scrapeIt from 'scrape-it';
+import * as puppeteer from 'puppeteer';
 import JsonDB from 'node-json-db';
 import { inject, injectable } from 'inversify';
 import SERVICE_IDENTIFIER from '../../common/constants/identifiers';
@@ -19,6 +20,11 @@ const marketplaceConfig = [
     marketplace: 'AMAZON',
     country: 'US',
     url: 'https://www.amazon.com/dp/'
+  },
+  {
+    marketplace: 'FLIPKART',
+    country: 'IN',
+    url: 'https://www.flipkart.com/'
   }
 ];
 
@@ -71,6 +77,95 @@ const amazonConfig = {
   }
 };
 
+const flipkartConfig = {
+  title: '._35KyD6',
+  salePrice: {
+    selector: '._1vC4OE._3qQ9m1',
+    convert: x => {
+      if (x) {
+        return x.replace(/\D/g, '');
+      }
+      return x;
+    }
+  },
+  mrpPrice: {
+    selector: '._3auQ3N._1POkHg',
+    convert: x => {
+      if (x) {
+        return x.replace(/\D/g, '');
+      }
+      return x;
+    }
+  },
+  savings: {
+    selector: '.VGWI6T._1iCvwn span',
+    convert: x => {
+      if (x) {
+        return x.replace(/\D/g, '');
+      }
+      return x;
+    }
+  },
+  brand:
+    '._3Rrcbo > ._2RngUh:nth-child(2) table tbody > tr:nth-child(1) ul> li._3YhLQA',
+
+  salePriceDesc: 'tr#priceblock_ourprice_row span.a-size-small.a-color-price',
+  dealPrice: 'span#priceblock_dealprice',
+  sellerPrice: {
+    selector: 'div#toggleBuyBox span.a-color-price',
+    convert: x => {
+      if (x.charAt(0) === '$') {
+        return x.slice(1);
+      }
+      return x;
+    }
+  },
+
+  vat: 'tr#vatMessage',
+  availiability: 'div.mBwvBe',
+  availiability2: 'div._37bjSl',
+  // vnv: 'div#vnv-container',
+  // features: {
+  //   listItem: 'div#feature-bullets ul li',
+  //   name: 'features',
+  //   data: {
+  //     feature: 'span.a-list-item'
+  //   }
+  // },
+  //._2rDnao ._3BTv9X._3iN4zu > img
+  // listItem: 'div#imageBlock div#altImages ul li',
+  images: {
+    listItem: '._1HmYoV ._2rDnao ._3BTv9X',
+    name: 'altImages',
+    data: {
+      url: {
+        selector: 'img',
+        attr: 'src',
+        convert: x => x.replace(/_[S][A-Z][0-9][0-9]_./g, '')
+      }
+    }
+  },
+  images2: {
+    listItem: 'ul.LzhdeS li._4f8Q22._2y_FdK',
+    name: 'altImages',
+    data: {
+      url: {
+        selector: 'div',
+        attr: 'style="background-image"',
+        convert: x => x.replace(/_[S][A-Z][0-9][0-9]_./g, '')
+      }
+    }
+  },
+  brandUrl: {
+    selector: '._1joEet > ._1HEvv0:nth-last-child(2) a',
+    attr: 'href'
+  },
+  image: {
+    selector: 'img._1Nyybr',
+    attr: 'src'
+  }
+};
+
 const defaultConfig = amazonConfig;
 /**
  * Starwars Service Implementation
@@ -90,8 +185,19 @@ class ScraperService implements IScraper {
     return from(
       new Promise((resolve, reject) => {
         const scrapeMarketplace = this.getMarketPlace(url);
-        scrapeIt(url, this.getConfiguration(url)).then(
-          ({ data, response }) => {
+        puppeteer
+          .launch()
+          .then(browser => {
+            return browser.newPage();
+          })
+          .then(page => {
+            return page.goto(url).then(() => {
+              return page.content();
+            });
+          })
+          .then(html => {
+            // console.log(html);
+            const data = scrapeIt.scrapeHTML(html, this.getConfiguration(url));
             const scrapedData: any = data;
             const { dealPrice, salePrice, sellerPrice } = scrapedData;
             // if there is a deal then show that
@@ -115,11 +221,10 @@ class ScraperService implements IScraper {
               scrapeDate: new Date()
             };
             resolve(updatedData);
-          },
-          error => {
-            this.loggerService.error(error);
-          }
-        );
+          })
+          .catch(err => {
+            this.loggerService.error(err);
+          });
       })
     );
   };
@@ -186,19 +291,19 @@ class ScraperService implements IScraper {
     );
   };
 
-  public push(name: string, data: any , replace?:boolean): Observable<any> {
+  public push(name: string, data: any, replace?: boolean): Observable<any> {
     this.initDb();
     return from(
       new Promise((resolve, reject) => {
         try {
           this.loggerService.info(name);
 
-          if (replace){
+          if (replace) {
             this.db.push(`/${name}`, { ...data });
             resolve(data);
             return;
           }
-          
+
           // current scraped data
           let currentData = null;
           // New updates
@@ -226,10 +331,10 @@ class ScraperService implements IScraper {
             });
           } else {
             // No previous entry to use as is
-            currentData = data
+            currentData = data;
           }
-          
-/*           if (allData) {
+
+          /*           if (allData) {
             currentData = {
               ...currentData,
               ...data,
@@ -271,7 +376,7 @@ class ScraperService implements IScraper {
           if (index > -1) {
             this.db.push(`/${name}/data[${index}]/`, { ...data.data });
           } else {
-          // Create new entry / append
+            // Create new entry / append
             this.db.push(`/${name}/data[]/`, { ...data.data });
           }
 
@@ -388,6 +493,8 @@ class ScraperService implements IScraper {
   private getConfiguration = (url: string) => {
     if (url.toUpperCase().includes('AMAZON')) {
       return amazonConfig;
+    } else if (url.toUpperCase().includes('FLIPKART')) {
+      return flipkartConfig;
     } else {
       return defaultConfig;
     }
