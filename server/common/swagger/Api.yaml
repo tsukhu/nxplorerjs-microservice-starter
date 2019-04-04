@@ -874,6 +874,7 @@ paths:
           description: Products List posted
         403:
           description: Forbidden Request
+
   /scraper/publish:
     get:
       tags:
@@ -932,4 +933,18 @@ paths:
         200:
           description: Return the products with the specified name
         404:
-          description: Products not available          
+          description: Products not available
+    delete:
+      description: deletes a single can campaign based on the name supplied
+      operationId: deleteCampaign
+      parameters:
+        - name: name
+          in: path
+          description: Name of campaign to delete
+          required: true
+          type: string
+      responses:
+        204:
+          description: campaign deleted
+        404:
+          description: Campaign not available           
