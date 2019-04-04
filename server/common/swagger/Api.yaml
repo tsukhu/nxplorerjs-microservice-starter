@@ -780,6 +780,10 @@ paths:
           required: true
           description: Name of the List
           type: string
+        - name: headless
+          in: query
+          required: false
+          type: boolean
         - name: url
           in: query
           required: true

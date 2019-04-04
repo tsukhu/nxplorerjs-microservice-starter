@@ -6,7 +6,7 @@ import ScrapeData from './scrape-data';
 interface IScraper {
   getAll(): Observable<any>;
   getAllSites(): Observable<any>;
-  getScrapedData(url: string): Observable<any>;
+  getScrapedData(url: string,headless: string): Observable<any>;
 
   getScrapedListData(scrapeInfo: ScrapeData): Observable<any>;
 

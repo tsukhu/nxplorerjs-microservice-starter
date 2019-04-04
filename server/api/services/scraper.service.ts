@@ -166,51 +166,58 @@ class ScraperService implements IScraper {
     this.loggerService = loggerService;
   }
 
-  public getScrapedData = (url: string): Observable<any> => {
+  public getScrapedData = (
+    url: string,
+    headless?: string
+  ): Observable<any> => {
     return from(
       new Promise((resolve, reject) => {
-        const scrapeMarketplace = this.getMarketPlace(url);
-        puppeteer
-          .launch()
-          .then(browser => {
-            return browser.newPage();
-          })
-          .then(page => {
-            return page.goto(url).then(() => {
-              return page.content();
+        if (typeof headless !== 'undefined' && headless === 'true') {
+          // console.log('using Puppeteer');
+          puppeteer
+            .launch()
+            .then(browser => {
+              return browser.newPage();
+            })
+            .then(page => {
+              return page.goto(url).then(() => {
+                return page.content();
+              });
+            })
+            .then(html => {
+              const data = scrapeIt.scrapeHTML(
+                html,
+                this.getConfiguration(url)
+              );
+              const updatedData = this.transformScrapedData(
+                data,
+                url,
+                null,
+                url
+              );
+              resolve(updatedData);
+            })
+            .catch(err => {
+              this.loggerService.error(err);
+              reject(err);
             });
-          })
-          .then(html => {
-            // console.log(html);
-            const data = scrapeIt.scrapeHTML(html, this.getConfiguration(url));
-            const scrapedData: any = data;
-            const { dealPrice, salePrice, sellerPrice } = scrapedData;
-            // if there is a deal then show that
-            if (dealPrice.length > 0) {
-              scrapedData.salePrice = dealPrice;
-            } else if (
-              // if sale price and deal price
-              // are not available then fall back
-              // on seller price
-              salePrice.length === 0 &&
-              dealPrice.length === 0 &&
-              sellerPrice.length > 0
-            ) {
-              scrapedData.salePrice = sellerPrice;
+        } else {
+          // console.log('using Ajax');
+          scrapeIt(url, this.getConfiguration(url)).then(
+            ({ data, response }) => {
+              const updatedData = this.transformScrapedData(
+                data,
+                url,
+                null,
+                url
+              );
+              resolve(updatedData);
+            },
+            error => {
+              this.loggerService.error(error);
             }
-
-            const updatedData = {
-              ...scrapedData,
-              scrapedUrl: url,
-              marketplace: scrapeMarketplace,
-              scrapeDate: new Date()
-            };
-            resolve(updatedData);
-          })
-          .catch(err => {
-            this.loggerService.error(err);
-            reject(err);
-          });
+          );
+        }
       })
     );
   };
@@ -235,29 +242,12 @@ class ScraperService implements IScraper {
           const asinUrl = `${scrapeBaseUrl}${asin}`;
           scrapeIt(asinUrl, this.getConfiguration(asinUrl)).then(
             ({ data, response }) => {
-              const scrapedData: any = data;
-              const { dealPrice, salePrice, sellerPrice } = scrapedData;
-              // if there is a deal then show that
-              if (dealPrice.length > 0) {
-                scrapedData.salePrice = dealPrice;
-              } else if (
-                // if sale price and deal price
-                // are not available then fall back
-                // on seller price
-                salePrice.length === 0 &&
-                dealPrice.length === 0 &&
-                sellerPrice.length > 0
-              ) {
-                scrapedData.salePrice = sellerPrice;
-              }
-
-              const updatedData = {
-                ...scrapedData,
-                id: asin,
-                scrapedUrl: asinUrl,
-                marketplace: scrapeMarketplace,
-                scrapeDate: new Date()
-              };
+              const updatedData = this.transformScrapedData(
+                data,
+                asinUrl,
+                scrapeMarketplace,
+                asin
+              );
               resolve(updatedData);
             },
             error => {
@@ -463,6 +453,36 @@ class ScraperService implements IScraper {
       })
     );
   }
+
+  private transformScrapedData = (data, url, marketPlace?, id?): any => {
+    const scrapeMarketplace = marketPlace
+      ? marketPlace
+      : this.getMarketPlace(url);
+    const scrapedData: any = data;
+    const { dealPrice, salePrice, sellerPrice } = scrapedData;
+    // if there is a deal then show that
+    if (dealPrice.length > 0) {
+      scrapedData.salePrice = dealPrice;
+    } else if (
+      // if sale price and deal price
+      // are not available then fall back
+      // on seller price
+      salePrice.length === 0 &&
+      dealPrice.length === 0 &&
+      sellerPrice.length > 0
+    ) {
+      scrapedData.salePrice = sellerPrice;
+    }
+
+    const updatedData = {
+      ...scrapedData,
+      id,
+      scrapedUrl: url,
+      marketplace: scrapeMarketplace,
+      scrapeDate: new Date()
+    };
+    return updatedData;
+  };
 
   private initDb = () => {
     if (this.db === undefined) {

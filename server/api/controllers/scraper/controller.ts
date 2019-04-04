@@ -46,11 +46,12 @@ class ScraperController implements interfaces.Controller {
     @queryParam('name') name: string,
     @queryParam('url') url: string,
     @queryParam('save') save: boolean,
+    @queryParam('headless') headless: string,
     @request() req: Request,
     @response() res: Response
   ) {
     const result: APIResponse = await new Promise((resolve, reject) => {
-      this.scraperService.getScrapedData(url).subscribe(
+      this.scraperService.getScrapedData(url, headless).subscribe(
         r => {
           if (r === undefined) {
             this.loggerService.logAPITrace(
@@ -305,7 +306,7 @@ class ScraperController implements interfaces.Controller {
       const { name, data, theme, country, visibility } = req.body;
       this.loggerService.info(name);
       this.scraperService
-        .push(name, { data, theme, country, visibility },true)
+        .push(name, { data, theme, country, visibility }, true)
         .subscribe(
           r => {
             if (r === undefined) {
