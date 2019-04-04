@@ -88,6 +88,17 @@ const flipkartConfig = {
       return x;
     }
   },
+  salePriceDesc: '#tobedone',
+  dealPrice: '#tobedone',
+  sellerPrice: {
+    selector: '#tobedone',
+    convert: x => {
+      if (x.charAt(0) === '$') {
+        return x.slice(1);
+      }
+      return x;
+    }
+  },
   mrpPrice: {
     selector: '._3auQ3N._1POkHg',
     convert: x => {
@@ -108,32 +119,17 @@ const flipkartConfig = {
   },
   brand:
     '._3Rrcbo > ._2RngUh:nth-child(2) table tbody > tr:nth-child(1) ul> li._3YhLQA',
-
-  salePriceDesc: 'tr#priceblock_ourprice_row span.a-size-small.a-color-price',
-  dealPrice: 'span#priceblock_dealprice',
-  sellerPrice: {
-    selector: 'div#toggleBuyBox span.a-color-price',
-    convert: x => {
-      if (x.charAt(0) === '$') {
-        return x.slice(1);
-      }
-      return x;
+  vat: '#tobedone',
+  availiability: 'div.mBwvBe',
+  availiabilityMessage: 'div._37bjSl', //For Flipkart
+  vnv: '#tobedone',
+  features: {
+    listItem: '#tobedone',
+    name: 'features',
+    data: {
+      feature: '#tobedone'
     }
   },
-
-  vat: 'tr#vatMessage',
-  availiability: 'div.mBwvBe',
-  availiability2: 'div._37bjSl',
-  // vnv: 'div#vnv-container',
-  // features: {
-  //   listItem: 'div#feature-bullets ul li',
-  //   name: 'features',
-  //   data: {
-  //     feature: 'span.a-list-item'
-  //   }
-  // },
-  //._2rDnao ._3BTv9X._3iN4zu > img
-  // listItem: 'div#imageBlock div#altImages ul li',
   images: {
     listItem: '._1HmYoV ._2rDnao ._3BTv9X',
     name: 'altImages',
@@ -141,17 +137,6 @@ const flipkartConfig = {
       url: {
         selector: 'img',
         attr: 'src',
-        convert: x => x.replace(/_[S][A-Z][0-9][0-9]_./g, '')
-      }
-    }
-  },
-  images2: {
-    listItem: 'ul.LzhdeS li._4f8Q22._2y_FdK',
-    name: 'altImages',
-    data: {
-      url: {
-        selector: 'div',
-        attr: 'style="background-image"',
         convert: x => x.replace(/_[S][A-Z][0-9][0-9]_./g, '')
       }
     }
@@ -224,6 +209,7 @@ class ScraperService implements IScraper {
           })
           .catch(err => {
             this.loggerService.error(err);
+            reject(err);
           });
       })
     );
@@ -501,18 +487,11 @@ class ScraperService implements IScraper {
   };
 
   private getMarketPlace = (url: string) => {
-    let defaultMarketPlace = 'Amazone';
-    switch (url.toUpperCase()) {
-      case 'AMAZON':
-        defaultMarketPlace = 'Amazon';
-        break;
-      case 'FLIPKART':
-        defaultMarketPlace = 'Flipkart';
-        break;
-      default:
-        defaultMarketPlace = 'Amazon';
-        break;
+    let defaultMarketPlace = 'Amazon';
+    if (url.toUpperCase().includes('FLIPKART')) {
+      defaultMarketPlace = 'Flipkart';
     }
+
     return defaultMarketPlace;
   };
 
