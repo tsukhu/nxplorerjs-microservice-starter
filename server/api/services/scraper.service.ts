@@ -385,6 +385,24 @@ class ScraperService implements IScraper {
     );
   }
 
+  public deleteMicrositePublishByID(name: string): Observable<any> {
+    this.initPublishDb();
+    return from(
+      new Promise((resolve, reject) => {
+        try {
+          this.loggerService.info(name);
+          this.dbPublish.getData(`/${name}`);
+          this.dbPublish.delete(`/${name}`);
+          resolve({ message: `Campaign Publish record: ${name} deleted`});
+        } catch (error) {
+          // The error will tell you where the DataPath stopped. In this case test1
+          // Since /test1/test does't exist.
+          reject(error);
+        }
+      })
+    );
+  }
+
   public byMicrositeByID(name: string): Observable<any> {
     this.initDb();
     return from(

@@ -382,6 +382,38 @@ class ScraperController implements interfaces.Controller {
     });
   }
 
+  @httpDelete('/publish/:name')
+  public async deleteCampaignPublishByName(
+    @requestParam('name') name: string,
+    @request() req: Request,
+    @response() res: Response
+  ) {
+    return new Promise((resolve, reject) => {
+      this.scraperService.deleteMicrositePublishByID(name).subscribe(
+        result => {
+          this.loggerService.info(result.timings);
+          this.loggerService.logAPITrace(req, res, HttpStatus.OK);
+          this.metricsService.logAPIMetrics(req, res, HttpStatus.OK);
+          resolve(result);
+        },
+        err => {
+          const error: HttpError = err as HttpError;
+          const resp = new ErrorResponseBuilder()
+            .setTitle(error.name)
+            .setStatus(HttpStatus.NOT_FOUND)
+            .setDetail(error.stack)
+            .setMessage(error.message)
+            .setSource(req.url)
+            .build();
+          this.loggerService.logAPITrace(req, res, HttpStatus.NOT_FOUND);
+          this.metricsService.logAPIMetrics(req, res, HttpStatus.NOT_FOUND);
+          reject(resp);
+        }
+      );
+    });
+  }
+
+
   @httpDelete('/products/:name')
   public async deleteCampaignByName(
     @requestParam('name') name: string,

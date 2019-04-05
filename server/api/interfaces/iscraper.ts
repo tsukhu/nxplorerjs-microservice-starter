@@ -16,6 +16,7 @@ interface IScraper {
 
   byMicrositeByID(name: string): Observable<any>;
   deleteMicrositeByID(name: string): Observable<any>;
+  deleteMicrositePublishByID(name: string): Observable<any>;
 
   byPublishedMicrositeByID(name: string): Observable<any>;
 }

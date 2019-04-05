@@ -918,7 +918,21 @@ paths:
         200:
           description: Return the published site with the specified name
         404:
-          description: Publish site not available  
+          description: Publish site not available
+    delete:
+      description: deletes a single campaign publish record based on the name supplied
+      operationId: deleteCampaign
+      parameters:
+        - name: name
+          in: path
+          description: Name of campaign publish record to delete
+          required: true
+          type: string
+      responses:
+        204:
+          description: campaign publish record deleted
+        404:
+          description: campaign publish record not available      
   /scraper/products/{name}:
     get:
       tags:
