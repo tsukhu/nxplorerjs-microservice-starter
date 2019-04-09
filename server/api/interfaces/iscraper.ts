@@ -8,7 +8,7 @@ interface IScraper {
   getAllSites(): Observable<any>;
   getScrapedData(url: string,headless: string): Observable<any>;
 
-  getScrapedListData(scrapeInfo: ScrapeData): Observable<any>;
+  getScrapedListData(scrapeInfo: ScrapeData, withURL: boolean): Observable<any>;
 
   push(name: string, data: object, replace?:boolean): Observable<any>;
   pushProduct(name: string, data: object): Observable<any>;

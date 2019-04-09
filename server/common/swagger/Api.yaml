@@ -842,6 +842,11 @@ paths:
           required: true
           description: Persist the list
           type: boolean
+        - name: withURL
+          in: query
+          required: false
+          description: If full URL is provided
+          type: boolean
       responses:
         200:
           description: Gets product data that is scraped from Amazon

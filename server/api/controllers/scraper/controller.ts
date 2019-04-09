@@ -109,13 +109,14 @@ class ScraperController implements interfaces.Controller {
     @queryParam('asinList') asinList: string,
     @queryParam('startDate') startDate: string,
     @queryParam('endDate') endDate: string,
+    @queryParam('withURL') withURL: boolean,
     @request() req: Request,
     @response() res: Response
   ) {
     const currentCountry = typeof country !== 'undefined' ? country : 'IN';
     const result: APIResponse = await new Promise((resolve, reject) => {
       this.scraperService
-        .getScrapedListData({ country, marketplace, baseUrl, asinList })
+        .getScrapedListData({ country, marketplace, baseUrl, asinList }, withURL)
         .subscribe(
           data => {
             if (data === undefined) {

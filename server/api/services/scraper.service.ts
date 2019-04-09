@@ -227,7 +227,7 @@ class ScraperService implements IScraper {
     marketplace,
     baseUrl,
     asinList
-  }): Observable<any> => {
+  }, withURL: boolean): Observable<any> => {
     const res = asinList.split(',');
     const defaultUrl = this.getBaseURLFor(country, marketplace);
     // override country,market place if the url is provided
@@ -239,7 +239,7 @@ class ScraperService implements IScraper {
     const scrappedList = res.map(
       asin =>
         new Promise((resolve, reject) => {
-          const asinUrl = `${scrapeBaseUrl}${asin}`;
+          const asinUrl = (withURL)?asin:`${scrapeBaseUrl}${asin}`;
           scrapeIt(asinUrl, this.getConfiguration(asinUrl)).then(
             ({ data, response }) => {
               const updatedData = this.transformScrapedData(
