@@ -305,10 +305,10 @@ class ScraperController implements interfaces.Controller {
   @httpPost('/products')
   public async push(@request() req: Request, @response() res: Response) {
     const result: APIResponse = await new Promise((resolve, reject) => {
-      const { name, data, theme, country, visibility } = req.body;
+      const { name, data, theme, country, visibility, status, ctaLinks } = req.body;
       this.loggerService.info(name);
       this.scraperService
-        .push(name, { data, theme, country, visibility }, true)
+        .push(name, { data, theme, country, visibility, status, ctaLinks }, true)
         .subscribe(
           r => {
             if (r === undefined) {
