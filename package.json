@@ -49,7 +49,7 @@
     "compression": "^1.7.3",
     "cookie-parser": "^1.4.4",
     "cross-env": "^5.2.0",
-    "csurf": "^1.9.0",
+    "csurf": "1.9.0",
     "dataloader": "^1.4.0",
     "dateformat": "^3.0.3",
     "dotenv": "^7.0.0",
