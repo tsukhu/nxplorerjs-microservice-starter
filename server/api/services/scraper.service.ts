@@ -170,15 +170,12 @@ class ScraperService implements IScraper {
     url: string,
     headless?: string
   ): Observable<any> => {
-    const executablePath = process.env.NODE_ENV === 'production'?'/usr/bin/chromium-browser':null;
-    return from(
+   return from(
       new Promise((resolve, reject) => {
         if (typeof headless !== 'undefined' && headless === 'true') {
           // console.log('using Puppeteer');
           puppeteer
-            .launch({
-              executablePath
-            })
+            .launch()
             .then(browser => {
               return browser.newPage();
             })
