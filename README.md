@@ -126,10 +126,10 @@ See REST API /examples/{id}
 ### REST APIs
 - The API Spec can be downloaded using the following URLS
 ```
-http://localhost:3000/scraper/api-docs/Api.yaml
+http://localhost:3000/api-docs/Api.yaml
 ```
 ```
-http://localhost:3000/scraper/api-docs/
+http://localhost:3000/api-docs/
 ```
 - examples - Basic examples with a search by ID example from the jsonplaceholder API (/examples/:id)
 - shop - Example of how to use Reactive Extensions for API orchestration (FlatMap) (/shop/priceByOptionId/:id)
