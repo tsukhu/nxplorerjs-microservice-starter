@@ -19,7 +19,8 @@ export const swaggerify = (app: express.Application) => {
       app.use(middleware.metadata());
       app.use(
         middleware.files(app, {
-          apiPath: process.env.SWAGGER_API_DOCS_ROOT
+          apiPath: process.env.SWAGGER_API_DOCS_ROOT,
+          rawFilesPath: process.env.SWAGGER_API_DOCS_ROOT,
         })
       );
 

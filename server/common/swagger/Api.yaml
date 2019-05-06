@@ -926,7 +926,7 @@ paths:
           description: Publish site not available
     delete:
       description: deletes a single campaign publish record based on the name supplied
-      operationId: deleteCampaign
+      operationId: deleteCampaignPublish
       parameters:
         - name: name
           in: path
@@ -955,7 +955,7 @@ paths:
           description: Products not available
     delete:
       description: deletes a single can campaign based on the name supplied
-      operationId: deleteCampaign
+      operationId: deleteCampaignProducts
       parameters:
         - name: name
           in: path
