@@ -382,7 +382,7 @@ npm install
 | STREAM_HYSTRIX        | Enable/Disable Hystrix streaming server (true or false)                                                 | false         |
 | CORS                  | Enable/Disable CORS on the server (true or false). Will work only in production build                   | false         |
 | CLUSTER_MODE          | Enable/Disable Node Clustering on the server (true or false)                                            | false         |
-| SWAGGER_API_DOCS_ROOT | Serves your Swagger API file(s) so they can be used with front-end tools like like Swagger UI, PostMan. | /api/api-docs |
+| SWAGGER_API_DOCS_ROOT | Serves your Swagger API file(s) so they can be used with front-end tools like like Swagger UI, PostMan. | /api-docs/ |
 | GRAPHQL_SUBSCRIPTIONS | Enable/Disable GraphQL subscriptions (true or false)                                                    | true          |
 | GRAPHQL_PLAYGROUND    | Enable/Disable GraphQL Playground (true or false)                                                       | true          |
 | GRAPHQL_TRACING       | Enable/Disable GraphQL tracing (true or false)                                                          | true          |
