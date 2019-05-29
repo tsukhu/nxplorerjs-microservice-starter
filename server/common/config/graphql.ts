@@ -9,7 +9,7 @@ import {
   typeDefs
 } from '../../graphql/setupSchema';
 import * as bodyParser from 'body-parser';
-import { formatError } from 'apollo-errors';
+// import { formatError } from 'apollo-errors';
 const expressJwt = require('express-jwt');
 import * as fs from 'fs';
 const DataLoader = require('dataloader');
@@ -74,7 +74,7 @@ const getGraphQLConfig = (): Config => {
     cache: new InMemoryLRUCache({ maxSize: 100 }),
     schemaDirectives,
     mocks: serverMocks,
-    formatError, // Error Handler
+   // formatError, // Error Handler
     tracing,
     playground,
     introspection: true,
