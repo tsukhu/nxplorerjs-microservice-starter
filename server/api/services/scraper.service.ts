@@ -1,7 +1,7 @@
 import { Observable, from } from 'rxjs';
 import * as scrapeIt from 'scrape-it';
 import * as puppeteer from 'puppeteer';
-import JsonDB from 'node-json-db';
+import { JsonDB } from 'node-json-db';
 import { inject, injectable } from 'inversify';
 import SERVICE_IDENTIFIER from '../../common/constants/identifiers';
 import ILogger from '../../common/interfaces/ilogger';
@@ -166,11 +166,8 @@ class ScraperService implements IScraper {
     this.loggerService = loggerService;
   }
 
-  public getScrapedData = (
-    url: string,
-    headless?: string
-  ): Observable<any> => {
-   return from(
+  public getScrapedData = (url: string, headless?: string): Observable<any> => {
+    return from(
       new Promise((resolve, reject) => {
         if (typeof headless !== 'undefined' && headless === 'true') {
           // console.log('using Puppeteer');
@@ -222,12 +219,10 @@ class ScraperService implements IScraper {
     );
   };
 
-  public getScrapedListData = ({
-    country,
-    marketplace,
-    baseUrl,
-    asinList
-  }, withURL: boolean): Observable<any> => {
+  public getScrapedListData = (
+    { country, marketplace, baseUrl, asinList },
+    withURL: boolean
+  ): Observable<any> => {
     const res = asinList.split(',');
     const defaultUrl = this.getBaseURLFor(country, marketplace);
     // override country,market place if the url is provided
@@ -239,7 +234,7 @@ class ScraperService implements IScraper {
     const scrappedList = res.map(
       asin =>
         new Promise((resolve, reject) => {
-          const asinUrl = (withURL)?asin:`${scrapeBaseUrl}${asin}`;
+          const asinUrl = withURL ? asin : `${scrapeBaseUrl}${asin}`;
           scrapeIt(asinUrl, this.getConfiguration(asinUrl)).then(
             ({ data, response }) => {
               const updatedData = this.transformScrapedData(
@@ -375,7 +370,7 @@ class ScraperService implements IScraper {
           this.loggerService.info(name);
           this.db.getData(`/${name}`);
           this.db.delete(`/${name}`);
-          resolve({ message: `Campaign ${name} deleted`});
+          resolve({ message: `Campaign ${name} deleted` });
         } catch (error) {
           // The error will tell you where the DataPath stopped. In this case test1
           // Since /test1/test does't exist.
@@ -393,7 +388,7 @@ class ScraperService implements IScraper {
           this.loggerService.info(name);
           this.dbPublish.getData(`/${name}`);
           this.dbPublish.delete(`/${name}`);
-          resolve({ message: `Campaign Publish record: ${name} deleted`});
+          resolve({ message: `Campaign Publish record: ${name} deleted` });
         } catch (error) {
           // The error will tell you where the DataPath stopped. In this case test1
           // Since /test1/test does't exist.
