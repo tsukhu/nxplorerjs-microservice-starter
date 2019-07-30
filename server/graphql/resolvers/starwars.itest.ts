@@ -4,14 +4,14 @@ import '../../common/env';
 
 describe('StarWars API Test', () => {
   beforeAll(() => {
-    this.test = tester({
+    this.tester = tester({
       url: `http://127.0.0.1:3000/graphql`,
       contentType: 'application/json'
     });
   });
 
   it('should return list of people by id', done => {
-    this.test(
+    this.tester(
       JSON.stringify({
         query: `query {
             people(id: 1) {
@@ -39,7 +39,7 @@ describe('StarWars API Test', () => {
   });
 
   it('should return list of planet by id', done => {
-    this.test(
+    this.tester(
       JSON.stringify({
         query: `query {
             planet(id: 1) {

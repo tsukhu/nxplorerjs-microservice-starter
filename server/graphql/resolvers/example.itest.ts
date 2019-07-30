@@ -5,14 +5,14 @@ import '../../common/env';
 
 describe('Example Resolver Tests', () => {
   beforeAll(() => {
-    this.test = tester({
+    this.tester = tester({
       url: `http://127.0.0.1:3000/graphql`,
       contentType: 'application/json'
     });
   });
 
   it('should return list of examples', done => {
-    this.test(
+    this.tester(
       JSON.stringify({
         query: `query {
       examples {
@@ -42,7 +42,7 @@ describe('Example Resolver Tests', () => {
   });
 
   it('should return example based on id', done => {
-    this.test(
+    this.tester(
       JSON.stringify({
         query: `query {
       example(id: 1) {
@@ -67,7 +67,7 @@ describe('Example Resolver Tests', () => {
   });
 
   it('should return error based on invalid id', done => {
-    this.test(
+    this.tester(
       JSON.stringify({
         query: `query {
       example(id: 11) {
