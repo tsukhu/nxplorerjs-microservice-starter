@@ -3,7 +3,7 @@ sudo: required
 services:
   - docker
 node_js:
-  - lts/alpine
+  - dubnium
 jobs:
   include:
     # if: branch = master
