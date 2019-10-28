@@ -71,7 +71,7 @@
     "pino": "^5.12.6",
     "progress": "^2.0.3",
     "prom-client": "^11.3.0",
-    "puppeteer": "^1.14.0",
+    "puppeteer": "^2.0.0",
     "randexp": "^0.5.3",
     "reflect-metadata": "^0.1.13",
     "request": "^2.88.0",
