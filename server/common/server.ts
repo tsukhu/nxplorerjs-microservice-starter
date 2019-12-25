@@ -2,7 +2,6 @@ import * as express from 'express';
 import * as partialResponse from 'express-partial-response';
 import * as path from 'path';
 import {
-  swaggerify,
   secureApp,
   configLogging,
   configMetrics,
