@@ -1,8 +1,11 @@
 import * as request from 'supertest';
 import './common/env';
 import Server from './common/server';
+import * as express from 'express';
 
-const app = new Server().getServer().build();
+
+const exApp = express();
+const app = new Server(exApp).getServer().build();
 
 app.listen(process.env.PORT);
 
