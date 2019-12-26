@@ -2,7 +2,6 @@ import * as express from 'express';
 import * as partialResponse from 'express-partial-response';
 import * as path from 'path';
 import {
-  swaggerify,
   secureApp,
   configLogging,
   configMetrics,
@@ -20,7 +19,7 @@ const responseTime = require('response-time');
 export default class ExpressServer {
   public server: InversifyExpressServer;
 
-  constructor() {
+  constructor(exApp) {
     let root: string;
 
     // Setup application root
@@ -31,7 +30,7 @@ export default class ExpressServer {
     const container = IOCContainer.getInstance().getContainer();
     this.server = new InversifyExpressServer(container, undefined, {
       rootPath: '/api/v1'
-    });
+    },exApp);
     this.server.setConfig(app => {
       // Add security configuration
       secureApp(app);
@@ -68,8 +67,6 @@ export default class ExpressServer {
       // Add Compression support
       addCompression(app);
 
-      // Add swagger support
-      swaggerify(app);
     });
   }
 
