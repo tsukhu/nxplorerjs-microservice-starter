@@ -1,6 +1,5 @@
 This file contains a list of people who have made large contributions to the open source project.
 
 Original design and implementation:
-Tarun Kumar Sukhu <tsukhu@hcl.com>
-
-kovaz01 https://github.com/kovaz01 (PR#235)
+- Tarun Kumar Sukhu <tsukhu@hcl.com>
+- Shay Kovach https://github.com/kovaz01 (PR#235)
