@@ -100,7 +100,7 @@ class ExampleController extends BaseHttpController {
    * @param res response
    */
   public byId(req: Request, res: Response): void {
-    this.exampleService.byId(req.params.id).then(
+    this.exampleService.byId(+req.params.id).then(
       r => {
         if (r) {
           res.json(r);

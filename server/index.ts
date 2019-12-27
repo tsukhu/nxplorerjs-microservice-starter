@@ -42,9 +42,9 @@ const setupServer = () => {
       }
       bar.tick();
       // console.log(apolloServer.subscriptionsPath);
-      ws.listen(process.env.PORT, err => {
+      ws.listen(process.env.PORT, (err?: Error) => {
         if (err) {
-          throw new Error(err);
+          throw err;
         }
 
         if (process.env.STREAM_HYSTRIX === 'true') {
