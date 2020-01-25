@@ -48,7 +48,7 @@
     "casual": "^1.6.0",
     "compression": "^1.7.3",
     "cookie-parser": "^1.4.4",
-    "cross-env": "^6.0.0",
+    "cross-env": "^7.0.0",
     "csurf": "^1.9.0",
     "dataloader": "^2.0.0",
     "dateformat": "^3.0.3",
