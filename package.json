@@ -109,7 +109,7 @@
     "tslint": "^5.20.1",
     "tslint-config-prettier": "^1.18.0",
     "tslint-config-standard": "^9.0.0",
-    "typedoc": "^0.15.6",
+    "typedoc": "^0.16.0",
     "typedoc-webpack-plugin": "^1.1.4",
     "typescript": "^3.7.4",
     "wait-port": "^0.2.7"
