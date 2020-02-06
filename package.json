@@ -38,10 +38,10 @@
     }
   },
   "dependencies": {
-    "apollo-datasource-rest": "^0.6.1",
+    "apollo-datasource-rest": "^0.7.0",
     "apollo-errors": "^1.9.0",
-    "apollo-server": "^2.9.14",
-    "apollo-server-express": "^2.9.14",
+    "apollo-server": "^2.10.0",
+    "apollo-server-express": "^2.10.0",
     "bluebird": "^3.7.2",
     "body-parser": "^1.19.0",
     "brakes": "^2.8.0",
