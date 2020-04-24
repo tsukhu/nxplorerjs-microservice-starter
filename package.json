@@ -79,7 +79,7 @@
     "response-time": "^2.3.2",
     "rxjs": "^6.5.3",
     "scrape-it": "^5.2.0",
-    "source-map-support": "^0.5.16",
+    "source-map-support": "^0.5.19",
     "swagger-express-middleware": "^2.0.4",
     "swagger-ui-express": "^4.1.2",
     "yamljs": "^0.3.0"
