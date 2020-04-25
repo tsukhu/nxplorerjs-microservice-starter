@@ -96,7 +96,7 @@
     "@types/supertest": "^2.0.8",
     "awesome-typescript-loader": "^5.2.1",
     "backpack-core": "^0.8.4",
-    "concurrently": "^5.0.2",
+    "concurrently": "^5.2.0",
     "graphql-import-loader": "^0.2.1",
     "graphql-tester": "0.0.5",
     "jest": "^24.9.0",
